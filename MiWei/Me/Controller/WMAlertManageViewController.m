@@ -7,6 +7,8 @@
 //
 
 #import "WMAlertManageViewController.h"
+#import "WMUIUtility.h"
+#import "WMCommonDefine.h"
 
 @interface WMAlertManageViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView *tableView;
@@ -20,37 +22,59 @@
     [self.view addSubview:self.tableView];
 }
 
-//#pragma mark - UITableViewDataSource
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    return 3;
-//}
-//
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
-//    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//    cell.textLabel.textColor = [WMUIUtility color:@"0x444444"];
-//    cell.textLabel.font = [UIFont systemFontOfSize:15];
-//    if(indexPath.row == 0) {
-//        cell.textLabel.text = @"头像";
-//        //        cell.imageView.image = [UIImage imageNamed:@"person_portrait"];
-//    }else if(indexPath.row == 1) {
-//        cell.textLabel.text = @"昵称";
-//        cell.detailTextLabel.text= @"Megeid";
-//    }else {
-//        cell.textLabel.text = @"地址";
-//        cell.detailTextLabel.text= @"北京市海淀区";
-//    }
-//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//    return cell;
-//}
-//
-//#pragma mark - UITableViewDelegate
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if(indexPath.row == 0) {
-//        return 80;
-//    }else {
-//        return 50;
-//    }
-//}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tableView.contentInset = UIEdgeInsetsMake(-35,0,0,0);
+}
+
+#pragma mark - UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
+    UISwitch *sw = [[UISwitch alloc] init];
+    sw.onTintColor = [WMUIUtility color:@"0x2b928a"];
+    [sw addTarget:self action:@selector(onClickSwitch:) forControlEvents:UIControlEventValueChanged];
+    cell.accessoryView = sw;
+    
+    cell.textLabel.textColor = [WMUIUtility color:@"0x444444"];
+    cell.textLabel.font = [UIFont systemFontOfSize:16];
+    if(indexPath.section == 0) {
+        cell.textLabel.text = @"Amy的设备报警";
+        //        cell.imageView.image = [UIImage imageNamed:@"person_portrait"];
+    }else if(indexPath.section == 1) {
+        cell.textLabel.text = @"momo的设备报警";
+    }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
+}
+
+#pragma mark - UITableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 50;
+}
+
+#pragma mark - Target action
+- (void)onClickSwitch:(UISwitch *)switchButton {
+    
+}
+
+#pragma mark - Getters & setters
+- (UITableView *)tableView {
+    if(!_tableView) {
+        _tableView  = [[UITableView alloc] initWithFrame:WM_CGRectMake(0, 0, Screen_Width, Screen_Height) style:UITableViewStyleGrouped];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.sectionHeaderHeight = 0;
+        _tableView.sectionFooterHeight = 5;
+    }
+    return _tableView;
+}
 
 @end

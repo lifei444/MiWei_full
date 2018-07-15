@@ -112,7 +112,7 @@
         if(indexPath.row == 0) {
             NSLog(@"修改密码");
         } else if(indexPath.row == 1) {
-            NSLog(@"订单中心");
+            NSLog(@"订单中心"); 
         } else if(indexPath.row == 2) {
             WMAlertManageViewController *vc = [[WMAlertManageViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
@@ -121,7 +121,7 @@
             [self.navigationController pushViewController:vc animated:YES];
         }
     } else if(indexPath.section == 1) {
-        NSLog(@"关于微米");
+        NSLog(@"关于米微");
     } else {
         NSLog(@"退出");
     }

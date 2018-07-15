@@ -22,9 +22,9 @@
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"register_return"] style:UIBarButtonItemStyleDone target:self action:@selector(leftBarButtonItemPressed:)];
     [backButton setTintColor:[UIColor grayColor]];
     self.navigationItem.leftBarButtonItem = backButton;
-    
+     
     //title
-    UIFont *font = [UIFont fontWithName:@"Heiti SC" size:15];
+    UIFont *font = [UIFont fontWithName:@"Heiti SC" size:16];
     NSDictionary *dic = @{NSFontAttributeName:font,
                           NSForegroundColorAttributeName: [UIColor blackColor]};
     self.navigationController.navigationBar.titleTextAttributes = dic;
