@@ -69,6 +69,7 @@ static NSString *deviceCellIdentifier = @"WMDeviceCell";
     [self.view addSubview:self.searchController.searchBar];
     
     self.collectionView.frame = WM_CGRectMake(CollectionX, CollectionY, CollectionWidth, CollectionHeight);
+    self.collectionView.backgroundColor = [WMUIUtility color:@"0xf6f6f6"];
     [self.collectionView registerClass:[WMDeviceCell class] forCellWithReuseIdentifier:deviceCellIdentifier];
 }
 
