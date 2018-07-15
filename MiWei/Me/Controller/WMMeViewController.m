@@ -15,6 +15,7 @@
 #import "WMCommonDefine.h"
 #import "WMAlertManageViewController.h"
 #import "WMUIUtility.h"
+#import "WMOrderListViewController.h"
 
 #define kheight 269
 
@@ -112,7 +113,8 @@
         if(indexPath.row == 0) {
             NSLog(@"修改密码");
         } else if(indexPath.row == 1) {
-            NSLog(@"订单中心"); 
+            WMOrderListViewController *vc =[[WMOrderListViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
         } else if(indexPath.row == 2) {
             WMAlertManageViewController *vc = [[WMAlertManageViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
