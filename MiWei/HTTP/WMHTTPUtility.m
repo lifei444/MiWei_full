@@ -14,7 +14,7 @@ static AFHTTPSessionManager *manager;
 static dispatch_queue_t wm_http_response_queue;
 static WMProfile *myProfile;
 
-+ (AFHTTPSessionManager *)sharedHTTPSession {
++ (AFHTTPSessionManager *)sharedHTTPSessionManager {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         manager = [AFHTTPSessionManager manager];
@@ -34,7 +34,7 @@ static WMProfile *myProfile;
                     URLString:(NSString *)URLString
                    parameters:(NSDictionary *)parameters
                      response:(void (^)(WMHTTPResult *))responseBlock {
-    AFHTTPSessionManager *session = [WMHTTPUtility sharedHTTPSession];
+    AFHTTPSessionManager *session = [WMHTTPUtility sharedHTTPSessionManager];
     
     NSString *absoluteURLString = [BASE_URL stringByAppendingPathComponent:URLString];
     switch (method) {
@@ -188,7 +188,7 @@ static WMProfile *myProfile;
 
 + (void)setToken:(NSString *)token {
     NSString *str = [NSString stringWithFormat:@"Bearer %@", token];
-    [[WMHTTPUtility sharedHTTPSession].requestSerializer setValue:str forHTTPHeaderField:@"Authorization"];
+    [[WMHTTPUtility sharedHTTPSessionManager].requestSerializer setValue:str forHTTPHeaderField:@"Authorization"];
 }
 
 + (WMProfile *)currentProfile {
