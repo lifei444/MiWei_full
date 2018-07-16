@@ -18,7 +18,7 @@ typedef NS_ENUM(NSInteger, WMHTTPErrorCode) {
 //     * result code for common usage
 //     */
     //TODO
-    WMHTTPCodeSuccess = 10000,
+    WMHTTPCodeSuccess = 0,
 //    RCEHTTPCodeNotPermitted = 10001,
 //    RCEHTTPCodeNotSupport = 10002,
 //    RCEHTTPCodefailure = 10003,

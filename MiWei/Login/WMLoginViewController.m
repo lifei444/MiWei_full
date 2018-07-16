@@ -14,6 +14,7 @@
 #import "WMMainTabbarViewController.h"
 #import "AppDelegate.h"
 #import "WMUIUtility.h"
+#import "WMHTTPUtility.h"
 
 #define TitleViewHeight 64
 #define GapBetweenTitleAndLogo 38
@@ -91,9 +92,22 @@
 }
 
 - (void)doLogin {
-    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    WMMainTabbarViewController *tabVC = [[WMMainTabbarViewController alloc] init];
-    app.window.rootViewController = tabVC;
+    NSString *phone = self.phoneView.textField.text;
+    NSString *psw = self.passwordView.textField.text;
+    
+    [WMHTTPUtility loginWithPhone:phone
+                              psw:psw
+                         complete:^(BOOL result) {
+                             if (result) {
+                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                                     WMMainTabbarViewController *tabVC = [[WMMainTabbarViewController alloc] init];
+                                     app.window.rootViewController = tabVC;
+                                 });
+                             } else {
+                                 NSLog(@"doLogin failed");
+                             }
+                         }];
 }
 
 - (void)doRegister {

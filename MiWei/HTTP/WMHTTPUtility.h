@@ -6,6 +6,7 @@
 #import "WMHTTPResult.h"
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "WMProfile.h"
 
 typedef NS_ENUM(NSUInteger, WMHTTPRequestMethod) {
     WMHTTPRequestMethodGet = 1,
@@ -21,4 +22,10 @@ typedef NS_ENUM(NSUInteger, WMHTTPRequestMethod) {
                     URLString:(NSString *)URLString
                    parameters:(NSDictionary *)parameters
                      response:(void (^)(WMHTTPResult *result))responseBlock;
+
++ (void)loginWithPhone:(NSString *)phone
+                   psw:(NSString *)psw
+              complete:(void (^)(BOOL))completeBlock;
+
++ (WMProfile *)currentProfile;
 @end
