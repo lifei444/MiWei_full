@@ -12,10 +12,11 @@
 #import "WMDeviceConfigViewController.h"
 #import "WMScanViewController.h"
 #import "WMDeviceInfoViewController.h"
-#import "WMDeviceModel.h"
+#import "WMDevice.h"
 #import "WMDeviceCell.h"
 #import "WMUIUtility.h"
 #import "WMCommonDefine.h"
+#import "WMHTTPUtility.h"
 
 static NSString *deviceCellIdentifier = @"WMDeviceCell";
 
@@ -38,7 +39,7 @@ static NSString *deviceCellIdentifier = @"WMDeviceCell";
 
 @interface WMDeviceViewController () <UISearchResultsUpdating>
 @property (nonatomic, strong) UISearchController *searchController;
-@property (nonatomic, strong) NSMutableArray <WMDeviceModel *> *modelArray;
+@property (nonatomic, strong) NSMutableArray <WMDevice *> *modelArray;
 @end
 
 @implementation WMDeviceViewController
@@ -58,19 +59,13 @@ static NSString *deviceCellIdentifier = @"WMDeviceCell";
     [super viewDidLoad];
     
     [self setRightNavBar];
-    //TODO
-    
-    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
-    self.searchController.searchResultsUpdater = self;
-//    self.searchController.dimsBackgroundDuringPresentation = false;
-    self.searchController.searchBar.frame = WM_CGRectMake(SearchBarX, SearchBarY, SearchBarWidth, SearchBarHeight);
-    
-    
     [self.view addSubview:self.searchController.searchBar];
     
     self.collectionView.frame = WM_CGRectMake(CollectionX, CollectionY, CollectionWidth, CollectionHeight);
     self.collectionView.backgroundColor = [WMUIUtility color:@"0xf6f6f6"];
     [self.collectionView registerClass:[WMDeviceCell class] forCellWithReuseIdentifier:deviceCellIdentifier];
+    
+    [self loadDeviceList];
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout
@@ -120,18 +115,73 @@ static NSString *deviceCellIdentifier = @"WMDeviceCell";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
 }
 
+- (void)loadDeviceList {
+    [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodGet
+                               URLString:@"mobile/device/list"
+                              parameters:nil
+                                response:^(WMHTTPResult *result) {
+                                    if (result.success) {
+                                        [self.modelArray removeAllObjects];
+                                        
+                                        NSDictionary *content = result.content;
+                                        NSArray *devices = content[@"devices"];
+                                        for (NSDictionary *dic in devices) {
+                                            WMDevice *device = [[WMDevice alloc] init];
+                                            device.deviceId = dic[@"deviceID"];
+                                            device.name = dic[@"deviceName"];
+                                            device.online = [dic[@"online"] boolValue];
+                                            device.permission = [dic[@"permission"] longValue];
+                                            NSDictionary *modelDic = dic[@"modelInfo"];
+                                            WMDeviceModel *model = [[WMDeviceModel alloc] init];
+                                            model.connWay = [modelDic[@"connWay"] longValue];
+                                            model.modelId = modelDic[@"id"];
+                                            model.name = modelDic[@"name"];
+                                            device.model = model;
+                                            NSDictionary *prodDic = dic[@"prodInfo"];
+                                            WMDeviceProdInfo *prod = [[WMDeviceProdInfo alloc] init];
+                                            prod.prodId = prodDic[@"id"];
+                                            prod.name = prodDic[@"name"];
+                                            device.prod = prod;
+                                            NSDictionary *rentDic = dic[@"rentInfo"];
+                                            WMDeviceRentInfo *rent = [[WMDeviceRentInfo alloc] init];
+                                            rent.price = rentDic[@"price"];
+                                            rent.remainingTime = rentDic[@"rentRemainingTime"];
+                                            rent.startTime = rentDic[@"rentStartTime"];
+                                            rent.rentTime = rentDic[@"rentTime"];
+                                            device.rentInfo = rent;
+                                            [self.modelArray addObject:device];
+                                        }
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            [self.collectionView reloadData];
+                                        });
+                                    } else {
+                                        NSLog(@"");
+                                    }
+                                }];
+}
+
 #pragma mark - Getters & setters
-- (NSMutableArray<WMDeviceModel *> *)modelArray {
+- (NSMutableArray<WMDevice *> *)modelArray {
     if (!_modelArray) {
         _modelArray = [[NSMutableArray alloc] init];
         
-        //TODO delete
-        for (int i=0; i<10; i++) {
-            WMDeviceModel *model = [[WMDeviceModel alloc] init];
-            [_modelArray addObject:model];
-        }
+//        //TODO delete
+//        for (int i=0; i<10; i++) {
+//            WMDevice *model = [[WMDevice alloc] init];
+//            [_modelArray addObject:model];
+//        }
     }
     return _modelArray;
+}
+
+- (UISearchController *)searchController {
+    if (!_searchController) {
+        _searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+        _searchController.searchResultsUpdater = self;
+        //    self.searchController.dimsBackgroundDuringPresentation = false;
+        _searchController.searchBar.frame = WM_CGRectMake(SearchBarX, SearchBarY, SearchBarWidth, SearchBarHeight);
+    }
+    return _searchController;
 }
 
 @end

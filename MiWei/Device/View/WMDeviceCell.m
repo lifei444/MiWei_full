@@ -83,7 +83,7 @@
     return self;
 }
 
-- (void)setDataModel:(WMDeviceModel *)model {
+- (void)setDataModel:(WMDevice *)model {
     self.nameLabel.text = @"小明的设备";
     self.typeLabel.text = @"租赁设备";
     self.timeLabel.text = @"01:20:09";

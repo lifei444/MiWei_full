@@ -11,10 +11,10 @@
 @interface WMProfile : NSObject
 
 @property(nonatomic, strong) NSNumber *profileId;
-@property(nonatomic, strong) NSString *phone;
-@property(nonatomic, strong) NSString *name;
-@property(nonatomic, strong) NSString *nickname;
-@property(nonatomic, strong) NSString *portrait;
-@property(nonatomic, strong) NSString *addrDetail;
+@property(nonatomic, copy) NSString *phone;
+@property(nonatomic, copy) NSString *name;
+@property(nonatomic, copy) NSString *nickname;
+@property(nonatomic, copy) NSString *portrait;
+@property(nonatomic, copy) NSString *addrDetail;
 
 @end

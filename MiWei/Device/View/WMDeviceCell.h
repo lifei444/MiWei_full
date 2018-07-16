@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WMDeviceModel.h"
+#import "WMDevice.h"
 
 @interface WMDeviceCell : UICollectionViewCell
-- (void)setDataModel:(WMDeviceModel *)model;
+- (void)setDataModel:(WMDevice *)model;
 @end
