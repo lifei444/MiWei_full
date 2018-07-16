@@ -6,7 +6,6 @@
 #import "WMHTTPUtility.h"
 #import "WMHTTPResult.h"
 #import <AFNetworking/AFNetworking.h>
-#import "WMMyProfile.h"
 
 NSString *const BASE_URL = @"http://60.205.205.82:9998/api/v1/";
 
