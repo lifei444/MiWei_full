@@ -38,7 +38,7 @@
 @interface WMDeviceCell()
 @property (nonatomic, strong) UIImageView *iconView;
 @property (nonatomic, strong) UILabel *nameLabel;
-@property (nonatomic, strong) UILabel *typeLabel;//租赁设备/在线
+@property (nonatomic, strong) UILabel *typeLabel;//租赁设备/在线/离线
 
 //timeLable 和 resultLabel 在同一个地方出现，它们互斥，用同一个接口控制
 @property (nonatomic, strong) UILabel *timeLabel;
@@ -51,7 +51,8 @@
 @end
 
 @implementation WMDeviceCell
-   
+
+#pragma mark - Life cycle
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
@@ -60,36 +61,36 @@
         [self.contentView addSubview:self.typeLabel];
         [self.contentView addSubview:self.timeLabel];
         [self.contentView addSubview:self.resultLabel];
+        [self.contentView addSubview:self.priceLabel];
+        [self.contentView addSubview:self.authorityLabel];
         self.contentView.backgroundColor = [UIColor whiteColor];
-        //TODO
-        //        [self.contentView addSubview:self.priceLabel];
-        //        [self.contentView addSubview:self.authorityLabel];
-    }
-    return self;
-}
-
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        [self.contentView addSubview:self.iconView];
-        [self.contentView addSubview:self.nameLabel];
-        [self.contentView addSubview:self.typeLabel];
-        [self.contentView addSubview:self.timeLabel];
-        [self.contentView addSubview:self.resultLabel];
-        //TODO
-//        [self.contentView addSubview:self.priceLabel];
-//        [self.contentView addSubview:self.authorityLabel];
     }
     return self;
 }
 
 - (void)setDataModel:(WMDevice *)model {
-    self.nameLabel.text = @"小明的设备";
-    self.typeLabel.text = @"租赁设备";
-    self.timeLabel.text = @"01:20:09";
-    self.resultLabel.text = @"已结束";
-    self.priceLabel.text = @"2元/3小时";
-    self.authorityLabel.text = @"已有权限";
+    self.nameLabel.text = model.name;
+    
+    if (model.rentInfo) {
+        self.typeLabel.text = @"租赁设备";
+        self.authorityLabel.hidden = YES;
+//        if (model.rentInfo)
+    } else {
+        self.timeLabel.hidden = YES;
+        self.resultLabel.hidden = YES;
+        self.priceLabel.hidden = YES;
+        self.authorityLabel.hidden = NO;
+        if (model.online) {
+            self.typeLabel.text = @"在线";
+        } else {
+            self.typeLabel.text = @"离线";
+        }
+        if (model.permission == WMDevicePermissionTypeView) {
+            self.authorityLabel.text = @"申请控制权限";
+        } else {
+            self.authorityLabel.text = @"已有权限";
+        }
+    }
 }
 
 #pragma mark - Getters & setters
