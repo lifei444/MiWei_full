@@ -10,6 +10,8 @@
 #import "WMCommonDefine.h"
 #import "WMUIUtility.h"
 
+#define Cell_width                  176
+
 #define IconGap                     5
 #define IconWidth                   166
 #define IconHeight                  135
@@ -33,7 +35,13 @@
 #define ResultY                     TimeY
 #define ResultHeight                TimeHeight
 
-#define PriceX
+#define PriceY                      TimeY
+#define PriceRightGap               8
+#define PriceHeight                 TimeHeight
+
+#define AuthorityY                  TimeY
+#define AuthorityRightGap           PriceRightGap
+#define AuthorityHeight             TimeHeight
 
 @interface WMDeviceCell()
 @property (nonatomic, strong) UIImageView *iconView;
@@ -74,7 +82,24 @@
     if (model.rentInfo) {
         self.typeLabel.text = @"租赁设备";
         self.authorityLabel.hidden = YES;
-//        if (model.rentInfo)
+        
+        if (model.rentInfo.remainingTime == 0) {
+            self.timeLabel.hidden = YES;
+            self.resultLabel.hidden = NO;
+            self.resultLabel.text = @"已结束";
+        } else {
+            self.resultLabel.hidden = YES;
+            self.timeLabel.hidden = NO;
+            int intRemaining = [model.rentInfo.remainingTime intValue];
+            int hour = intRemaining / 3600;
+            int minute = ( intRemaining % 3600 ) / 60;
+            int second = ( intRemaining % 60) % 60;
+            NSString *timeString = [NSString stringWithFormat:@"%02d:%02d:%02d", hour, minute, second];
+            self.timeLabel.text = timeString;
+        }
+        self.priceLabel.hidden = NO;
+        NSString *priceString = [NSString stringWithFormat:@"%@元/%@小时", model.rentInfo.price, model.rentInfo.rentTime];
+        self.priceLabel.text = priceString;
     } else {
         self.timeLabel.hidden = YES;
         self.resultLabel.hidden = YES;
@@ -136,6 +161,26 @@
                                   textColor:[WMUIUtility color:@"0xc8c8c8"]];
     }
     return _resultLabel;
+}
+
+- (UILabel *)priceLabel {
+    if (!_priceLabel) {
+        _priceLabel = [self labelWithFrame:WM_CGRectMake(0, PriceY, Cell_width - PriceRightGap, PriceHeight)
+                                      font:[UIFont systemFontOfSize:14]
+                                 textColor:[WMUIUtility color:@"0x24938c"]];
+        _priceLabel.textAlignment = NSTextAlignmentRight;
+    }
+    return _priceLabel;
+}
+
+- (UILabel *)authorityLabel {
+    if (!_authorityLabel) {
+        _authorityLabel = [self labelWithFrame:WM_CGRectMake(0, AuthorityY, Cell_width - AuthorityRightGap, AuthorityHeight)
+                                          font:[UIFont systemFontOfSize:14]
+                                     textColor:[WMUIUtility color:@"0xc8c8c8"]];
+        _authorityLabel.textAlignment = NSTextAlignmentRight;
+    }
+    return _authorityLabel;
 }
 
 #pragma mark - private

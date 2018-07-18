@@ -129,23 +129,29 @@ static NSString *deviceCellIdentifier = @"WMDeviceCell";
                                             device.online = [dic[@"online"] boolValue];
                                             device.permission = [dic[@"permission"] longValue];
                                             NSDictionary *modelDic = dic[@"modelInfo"];
-                                            WMDeviceModel *model = [[WMDeviceModel alloc] init];
-                                            model.connWay = [modelDic[@"connWay"] longValue];
-                                            model.modelId = modelDic[@"id"];
-                                            model.name = modelDic[@"name"];
-                                            device.model = model;
+                                            if (modelDic) {
+                                                WMDeviceModel *model = [[WMDeviceModel alloc] init];
+                                                model.connWay = [modelDic[@"connWay"] longValue];
+                                                model.modelId = modelDic[@"id"];
+                                                model.name = modelDic[@"name"];
+                                                device.model = model;
+                                            }
                                             NSDictionary *prodDic = dic[@"prodInfo"];
-                                            WMDeviceProdInfo *prod = [[WMDeviceProdInfo alloc] init];
-                                            prod.prodId = prodDic[@"id"];
-                                            prod.name = prodDic[@"name"];
-                                            device.prod = prod;
+                                            if (prodDic) {
+                                                WMDeviceProdInfo *prod = [[WMDeviceProdInfo alloc] init];
+                                                prod.prodId = prodDic[@"id"];
+                                                prod.name = prodDic[@"name"];
+                                                device.prod = prod;
+                                            }
                                             NSDictionary *rentDic = dic[@"rentInfo"];
-                                            WMDeviceRentInfo *rent = [[WMDeviceRentInfo alloc] init];
-                                            rent.price = rentDic[@"price"];
-                                            rent.remainingTime = rentDic[@"rentRemainingTime"];
-                                            rent.startTime = rentDic[@"rentStartTime"];
-                                            rent.rentTime = rentDic[@"rentTime"];
-                                            device.rentInfo = rent;
+                                            if (rentDic) {
+                                                WMDeviceRentInfo *rent = [[WMDeviceRentInfo alloc] init];
+                                                rent.price = rentDic[@"price"];
+                                                rent.remainingTime = rentDic[@"rentRemainingTime"];
+                                                rent.startTime = rentDic[@"rentStartTime"];
+                                                rent.rentTime = rentDic[@"rentTime"];
+                                                device.rentInfo = rent;
+                                            }
                                             [self.modelArray addObject:device];
                                         }
                                         dispatch_async(dispatch_get_main_queue(), ^{
