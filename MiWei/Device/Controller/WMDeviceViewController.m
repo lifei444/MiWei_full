@@ -167,12 +167,6 @@ static NSString *deviceCellIdentifier = @"WMDeviceCell";
 - (NSMutableArray<WMDevice *> *)modelArray {
     if (!_modelArray) {
         _modelArray = [[NSMutableArray alloc] init];
-        
-//        //TODO delete
-//        for (int i=0; i<10; i++) {
-//            WMDevice *model = [[WMDevice alloc] init];
-//            [_modelArray addObject:model];
-//        }
     }
     return _modelArray;
 }
@@ -183,6 +177,7 @@ static NSString *deviceCellIdentifier = @"WMDeviceCell";
         _searchController.searchResultsUpdater = self;
         //    self.searchController.dimsBackgroundDuringPresentation = false;
         _searchController.searchBar.frame = WM_CGRectMake(SearchBarX, SearchBarY, SearchBarWidth, SearchBarHeight);
+//        _searchController.searchBar.barTintColor = [WMUIUtility color:@"0xffffff"];
     }
     return _searchController;
 }
