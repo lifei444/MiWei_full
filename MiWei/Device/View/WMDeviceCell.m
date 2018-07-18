@@ -43,6 +43,12 @@
 #define AuthorityRightGap           PriceRightGap
 #define AuthorityHeight             TimeHeight
 
+#define ApplyAuthorityWidth         99
+#define ApplyAuthorityHeight        22
+#define ApplyAuthorityRightGap      PriceRightGap
+#define ApplyAuthorityX             (Cell_width - ApplyAuthorityRightGap - ApplyAuthorityWidth)
+#define ApplyAuthorityY             (AuthorityY - 4)
+
 @interface WMDeviceCell()
 @property (nonatomic, strong) UIImageView *iconView;
 @property (nonatomic, strong) UILabel *nameLabel;
@@ -52,10 +58,10 @@
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) UILabel *resultLabel;//已结束
 
-//TODO 右对齐，还要加一个“申请控制权限按钮”
-//priceLabel 和 authorityLabel 在同一个地方出现，它们互斥，用同一个接口控制
+//priceLabel，authorityLabel 和 applyAuthorityLable 在同一个地方出现，它们互斥，用同一个接口控制
 @property (nonatomic, strong) UILabel *priceLabel;
 @property (nonatomic, strong) UILabel *authorityLabel;//权限
+@property (nonatomic, strong) UILabel *applyAuthorityLable;//申请权限
 @end
 
 @implementation WMDeviceCell
@@ -71,6 +77,7 @@
         [self.contentView addSubview:self.resultLabel];
         [self.contentView addSubview:self.priceLabel];
         [self.contentView addSubview:self.authorityLabel];
+        [self.contentView addSubview:self.applyAuthorityLable];
         self.contentView.backgroundColor = [UIColor whiteColor];
     }
     return self;
@@ -82,6 +89,7 @@
     if (model.rentInfo) {
         self.typeLabel.text = @"租赁设备";
         self.authorityLabel.hidden = YES;
+        self.applyAuthorityLable.hidden = YES;
         
         if (model.rentInfo.remainingTime == 0) {
             self.timeLabel.hidden = YES;
@@ -104,15 +112,18 @@
         self.timeLabel.hidden = YES;
         self.resultLabel.hidden = YES;
         self.priceLabel.hidden = YES;
-        self.authorityLabel.hidden = NO;
         if (model.online) {
             self.typeLabel.text = @"在线";
         } else {
             self.typeLabel.text = @"离线";
         }
         if (model.permission == WMDevicePermissionTypeView) {
-            self.authorityLabel.text = @"申请控制权限";
+            self.authorityLabel.hidden = YES;
+            self.applyAuthorityLable.hidden = NO;
+            self.applyAuthorityLable.text = @"申请控制权限";
         } else {
+            self.applyAuthorityLable.hidden = YES;
+            self.authorityLabel.hidden = NO;
             self.authorityLabel.text = @"已有权限";
         }
     }
@@ -181,6 +192,19 @@
         _authorityLabel.textAlignment = NSTextAlignmentRight;
     }
     return _authorityLabel;
+}
+
+- (UILabel *)applyAuthorityLable {
+    if (!_applyAuthorityLable) {
+        _applyAuthorityLable = [self labelWithFrame:WM_CGRectMake(ApplyAuthorityX, ApplyAuthorityY, ApplyAuthorityWidth, ApplyAuthorityHeight)
+                                         font:[UIFont systemFontOfSize:14]
+                                    textColor:[WMUIUtility color:@"0xffffff"]];
+        _applyAuthorityLable.backgroundColor = [WMUIUtility color:@"0x32aea5"];
+        _applyAuthorityLable.layer.cornerRadius = 11;
+        _applyAuthorityLable.layer.masksToBounds = YES;
+        _applyAuthorityLable.textAlignment = NSTextAlignmentCenter;
+    }
+    return _applyAuthorityLable;
 }
 
 #pragma mark - private
