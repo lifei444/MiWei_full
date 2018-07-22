@@ -1,19 +1,38 @@
 //
-//  WMDeviceInfoViewController.m
-//  WeiMi
+//  WMSellDeviceDetailViewController.m
+//  MiWei
 //
-//  Created by Sin on 2018/4/15.
+//  Created by LiFei on 2018/7/22.
 //  Copyright © 2018年 Sin. All rights reserved.
 //
 
-#import "WMDeviceInfoViewController.h"
+#import "WMSellDeviceDetailViewController.h"
 #import "WMDeviceInfoHeadView.h"
-#import "WMCommonDefine.h"
 #import "WMDeviceInfoPMView.h"
 #import "WMDeviceInfoControlView.h"
+#import "WMCommonDefine.h"
 #import "WMUIUtility.h"
+#import "WMDeviceAddressView.h"
 
-@interface WMDeviceInfoViewController ()
+#define Address_Y                       19
+#define Address_Height                  18
+
+#define GapBetweenAddressAndName        11
+
+#define Name_Y                          Address_Y + Address_Height + GapBetweenAddressAndName
+#define Name_Height                     13
+
+#define GapBetweenNameAndPM             23
+
+#define PM_Y                            Name_Y + Name_Height + GapBetweenNameAndPM
+#define PM_Height                       201
+
+@interface WMSellDeviceDetailViewController ()
+
+@property (nonatomic, strong) WMDeviceAddressView *addressView;
+
+
+
 @property (nonatomic,strong) WMDeviceInfoHeadView *headView;
 @property (nonatomic,strong) UIScrollView *scrollView;
 @property (nonatomic,strong) WKEchartsView *chartView;
@@ -22,13 +41,15 @@
 @property (nonatomic,strong) UIButton *upgradeButton;
 @end
 
-@implementation WMDeviceInfoViewController
+@implementation WMSellDeviceDetailViewController
 
+#pragma mark - Life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.title = @"销售设备详情";
+    
+    self.title = @"设备详情";
     [self.view addSubview:self.scrollView];
+    [self.scrollView addSubview:self.addressView];
     [self.scrollView addSubview:self.headView];
     [self.scrollView addSubview:self.pmView];
     [self.scrollView addSubview:self.controlView];
@@ -39,6 +60,8 @@
     
     [self loadChart];
 }
+
+#pragma mark -
 
 - (void)loadChart {
     [self.chartView setOption:[self getOption]];
@@ -108,6 +131,20 @@
 }
 
 
+#pragma mark - Getters & setters
+
+- (WMDeviceAddressView *)addressView {
+    if (!_addressView) {
+        _addressView = [[[NSBundle mainBundle] loadNibNamed:@"WMDeviceAddressView" owner:nil options:nil] lastObject];
+    }
+    return _addressView;
+}
+
+
+
+
+#pragma mark -
+
 - (WKEchartsView *)chartView {
     if(!_chartView) {
         _chartView = [[WKEchartsView alloc] initWithFrame:WM_CGRectMake(0, CGRectGetMaxY(self.controlView.frame)+20, self.view.frame.size.width, 300)];
@@ -150,19 +187,6 @@
     return _scrollView;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

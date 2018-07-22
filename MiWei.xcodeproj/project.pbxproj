@@ -72,7 +72,6 @@
 		2708B8F72084F86600A760E7 /* theme in Resources */ = {isa = PBXBuildFile; fileRef = 2708B8F42084F86600A760E7 /* theme */; };
 		2708B8F82084F86600A760E7 /* echarts.html in Resources */ = {isa = PBXBuildFile; fileRef = 2708B8F52084F86600A760E7 /* echarts.html */; };
 		2708B8FB2084F8B500A760E7 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2708B8FA2084F8B500A760E7 /* WebKit.framework */; };
-		270ECE9F2082F740008D60CF /* WMDeviceInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 270ECE9E2082F740008D60CF /* WMDeviceInfoViewController.m */; };
 		270ECEA22082F985008D60CF /* WMDeviceInfoHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 270ECEA12082F985008D60CF /* WMDeviceInfoHeadView.m */; };
 		270ECEA92082FDD4008D60CF /* WMDeviceInfoHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 270ECEA82082FDD4008D60CF /* WMDeviceInfoHeadView.xib */; };
 		270ECEAC208306E5008D60CF /* WMDeviceInfoPMView.m in Sources */ = {isa = PBXBuildFile; fileRef = 270ECEAB208306E5008D60CF /* WMDeviceInfoPMView.m */; };
@@ -123,6 +122,8 @@
 		9CB8063C20FC9E47001A5C5E /* WMDeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB8063B20FC9E47001A5C5E /* WMDeviceModel.m */; };
 		9CB8063F20FC9F81001A5C5E /* WMDeviceProdInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB8063E20FC9F81001A5C5E /* WMDeviceProdInfo.m */; };
 		9CB8064220FC9FFE001A5C5E /* WMDeviceRentInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB8064120FC9FFE001A5C5E /* WMDeviceRentInfo.m */; };
+		9CDDA69621042BD30079E328 /* WMSellDeviceDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CDDA69521042BD30079E328 /* WMSellDeviceDetailViewController.m */; };
+		9CDDA699210437150079E328 /* WMDeviceAddressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CDDA698210437150079E328 /* WMDeviceAddressView.m */; };
 		9CF0872020D67BAE0089BB97 /* WMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CF0871F20D67BAE0089BB97 /* WMViewController.m */; };
 		9CF0872320D67E410089BB97 /* WMAlertManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CF0872220D67E410089BB97 /* WMAlertManageViewController.m */; };
 		A00A21DF20E8DF2F004B79B0 /* WMDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = A00A21DE20E8DF2F004B79B0 /* WMDevice.m */; };
@@ -272,8 +273,6 @@
 		2708B8F42084F86600A760E7 /* theme */ = {isa = PBXFileReference; lastKnownFileType = folder; name = theme; path = Resources/theme; sourceTree = "<group>"; };
 		2708B8F52084F86600A760E7 /* echarts.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = echarts.html; path = Resources/echarts.html; sourceTree = "<group>"; };
 		2708B8FA2084F8B500A760E7 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		270ECE9D2082F740008D60CF /* WMDeviceInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceInfoViewController.h; sourceTree = "<group>"; };
-		270ECE9E2082F740008D60CF /* WMDeviceInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceInfoViewController.m; sourceTree = "<group>"; };
 		270ECEA02082F985008D60CF /* WMDeviceInfoHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceInfoHeadView.h; sourceTree = "<group>"; };
 		270ECEA12082F985008D60CF /* WMDeviceInfoHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceInfoHeadView.m; sourceTree = "<group>"; };
 		270ECEA82082FDD4008D60CF /* WMDeviceInfoHeadView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WMDeviceInfoHeadView.xib; sourceTree = "<group>"; };
@@ -365,6 +364,10 @@
 		9CB8063E20FC9F81001A5C5E /* WMDeviceProdInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceProdInfo.m; sourceTree = "<group>"; };
 		9CB8064020FC9FFE001A5C5E /* WMDeviceRentInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceRentInfo.h; sourceTree = "<group>"; };
 		9CB8064120FC9FFE001A5C5E /* WMDeviceRentInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceRentInfo.m; sourceTree = "<group>"; };
+		9CDDA69421042BD30079E328 /* WMSellDeviceDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMSellDeviceDetailViewController.h; sourceTree = "<group>"; };
+		9CDDA69521042BD30079E328 /* WMSellDeviceDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMSellDeviceDetailViewController.m; sourceTree = "<group>"; };
+		9CDDA697210437150079E328 /* WMDeviceAddressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceAddressView.h; sourceTree = "<group>"; };
+		9CDDA698210437150079E328 /* WMDeviceAddressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceAddressView.m; sourceTree = "<group>"; };
 		9CF0871E20D67BAE0089BB97 /* WMViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMViewController.h; sourceTree = "<group>"; };
 		9CF0871F20D67BAE0089BB97 /* WMViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMViewController.m; sourceTree = "<group>"; };
 		9CF0872120D67E410089BB97 /* WMAlertManageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMAlertManageViewController.h; sourceTree = "<group>"; };
@@ -795,10 +798,10 @@
 				27A7D227207D0BB5006C6AF6 /* WMDeviceViewController.m */,
 				271A9CD42081AA5E0028D20D /* WMDeviceConfigViewController.h */,
 				271A9CD52081AA5E0028D20D /* WMDeviceConfigViewController.m */,
-				270ECE9D2082F740008D60CF /* WMDeviceInfoViewController.h */,
-				270ECE9E2082F740008D60CF /* WMDeviceInfoViewController.m */,
 				2729691A208A2DCB00391D63 /* WMDeviceAddViewController.h */,
 				2729691B208A2DCB00391D63 /* WMDeviceAddViewController.m */,
+				9CDDA69421042BD30079E328 /* WMSellDeviceDetailViewController.h */,
+				9CDDA69521042BD30079E328 /* WMSellDeviceDetailViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -832,6 +835,8 @@
 				270ECEAF20830983008D60CF /* WMDeviceInfoControlView.h */,
 				270ECEB020830983008D60CF /* WMDeviceInfoControlView.m */,
 				270ECEB22083098E008D60CF /* WMDeviceInfoControlView.xib */,
+				9CDDA697210437150079E328 /* WMDeviceAddressView.h */,
+				9CDDA698210437150079E328 /* WMDeviceAddressView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1000,6 +1005,7 @@
 				2708B8E82084F85500A760E7 /* PYAxisSplitLine.m in Sources */,
 				2708B8C52084F85500A760E7 /* PYMapSeries.m in Sources */,
 				2708B8CA2084F85500A760E7 /* PYTreeMapSeries.m in Sources */,
+				9CDDA699210437150079E328 /* WMDeviceAddressView.m in Sources */,
 				A00A21DF20E8DF2F004B79B0 /* WMDevice.m in Sources */,
 				2708B8D82084F85500A760E7 /* PYTextStyle.m in Sources */,
 				271A9CDB2081AC520028D20D /* WMScanViewController.m in Sources */,
@@ -1029,7 +1035,7 @@
 				2708B8C22084F85500A760E7 /* PYSeries.m in Sources */,
 				2708B8E52084F85500A760E7 /* PYTimeline.m in Sources */,
 				2708B8C32084F85500A760E7 /* PYVennSeries.m in Sources */,
-				270ECE9F2082F740008D60CF /* WMDeviceInfoViewController.m in Sources */,
+				9CDDA69621042BD30079E328 /* WMSellDeviceDetailViewController.m in Sources */,
 				2702A2EE207E370900FE7577 /* WMPersonViewController.m in Sources */,
 				2708B8CF2084F85500A760E7 /* PYColor.m in Sources */,
 				2708B8DC2084F85500A760E7 /* PYAxisPointer.m in Sources */,

@@ -9,6 +9,7 @@
 #import "WMMeHeaderView.h"
 #import "WMCommonDefine.h"
 #import "WMUIUtility.h"
+#import "WMHTTPUtility.h"
 
 #define kheight 269
 
@@ -75,7 +76,7 @@
         _nameLabel.textAlignment = NSTextAlignmentCenter;
         _nameLabel.textColor = [WMUIUtility color:@"0xffffff"];
         _nameLabel.font = [UIFont systemFontOfSize:16];
-        _nameLabel.text = @"Mageidd";
+        _nameLabel.text = [WMHTTPUtility currentProfile].name;
     }
     return _nameLabel;
 }
@@ -87,7 +88,7 @@
         _addressLabel.textAlignment = NSTextAlignmentCenter;
         _addressLabel.textColor = [WMUIUtility color:@"0xffffff"];
         _addressLabel.font = [UIFont systemFontOfSize:15];
-        _addressLabel.text = @"北京市海淀区知春路翎行大厦2号楼9层";
+        _addressLabel.text = [WMHTTPUtility currentProfile].addrDetail;
     }
     return _addressLabel;
 }

@@ -59,8 +59,8 @@
         _tableView  = [[UITableView alloc] initWithFrame:WM_CGRectMake(0, 0, Screen_Width, Screen_Height) style:UITableViewStyleGrouped];
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        _tableView.sectionHeaderHeight = 0;
-        _tableView.sectionFooterHeight = 5;
+//        _tableView.sectionHeaderHeight = 0;
+//        _tableView.sectionFooterHeight = 5;
     }
     return _tableView;
 }

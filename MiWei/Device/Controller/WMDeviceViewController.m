@@ -11,7 +11,7 @@
 #import "WMPayRecordViewController.h"
 #import "WMDeviceConfigViewController.h"
 #import "WMScanViewController.h"
-#import "WMDeviceInfoViewController.h"
+#import "WMSellDeviceDetailViewController.h"
 #import "WMDevice.h"
 #import "WMDeviceCell.h"
 #import "WMUIUtility.h"
@@ -96,6 +96,15 @@ static NSString *deviceCellIdentifier = @"WMDeviceCell";
     WMDeviceCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:deviceCellIdentifier forIndexPath:indexPath];
     [cell setDataModel:self.modelArray[indexPath.item]];
     return (UICollectionViewCell *)cell;
+}
+
+#pragma mark - UICollectionViewDelegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    WMDevice *device = self.modelArray[indexPath.item];
+    
+    WMSellDeviceDetailViewController *vc = [[WMSellDeviceDetailViewController alloc] init];
+    vc.deviceId = device.deviceId;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - Target action
