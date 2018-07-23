@@ -7,14 +7,12 @@
 //
 
 #import "WMSellDeviceDetailViewController.h"
-#import "WMDeviceInfoHeadView.h"
-#import "WMDeviceInfoPMView.h"
-#import "WMDeviceInfoControlView.h"
 #import "WMCommonDefine.h"
 #import "WMUIUtility.h"
 #import "WMDeviceAddressView.h"
 #import "WMHTTPUtility.h"
 #import "WMDeviceDetail.h"
+#import "WMDevicePMView.h"
 
 #define Address_Y                       19
 #define Address_Height                  18
@@ -29,6 +27,7 @@
 #define PM_Y                            Name_Y + Name_Height + GapBetweenNameAndPM
 #define PM_Height                       201
 
+
 @interface WMSellDeviceDetailViewController ()
 
 @property (nonatomic, strong) WMDeviceDetail *deviceDetail;
@@ -37,13 +36,11 @@
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) WMDeviceAddressView *addressView;
 @property (nonatomic, strong) UILabel *nameLabel;
+@property (nonatomic, strong) WMDevicePMView *pmView;
 
 
 
-@property (nonatomic,strong) WMDeviceInfoHeadView *headView;
 @property (nonatomic,strong) WKEchartsView *chartView;
-@property (nonatomic,strong) WMDeviceInfoPMView *pmView;
-@property (nonatomic,strong) WMDeviceInfoControlView *controlView;
 @property (nonatomic,strong) UIButton *upgradeButton;
 @end
 
@@ -57,6 +54,7 @@
     [self.view addSubview:self.scrollView];
     [self.scrollView addSubview:self.addressView];
     [self.scrollView addSubview:self.nameLabel];
+    [self.scrollView addSubview:self.pmView];
     
     [self loadDeviceDetail];
     
@@ -124,6 +122,11 @@
             dateString = [self.formatter stringFromDate:date];
         }
         self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", detail.name, dateString];
+        
+        //pmView
+        detail.pm25 = [NSNumber numberWithInt:100];
+        self.pmView.innerPMValueLabel.text = [NSString stringWithFormat:@"%@", detail.pm25];
+        self.pmView.outPMVauleLabel.text = [NSString stringWithFormat:@"%@", detail.outdoorPM25];
     });
 }
 
@@ -229,6 +232,13 @@
         }
     }
     return _nameLabel;
+}
+
+- (WMDevicePMView *)pmView {
+    if (!_pmView) {
+        _pmView = [[WMDevicePMView alloc] initWithFrame:WM_CGRectMake(0, PM_Y, Screen_Width, PM_Height)];
+    }
+    return _pmView;
 }
 
 
