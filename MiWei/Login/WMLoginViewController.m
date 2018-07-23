@@ -15,6 +15,7 @@
 #import "AppDelegate.h"
 #import "WMUIUtility.h"
 #import "WMHTTPUtility.h"
+#import "WMKeychainUtility.h"
 
 #define TitleViewHeight 64
 #define GapBetweenTitleAndLogo 38
@@ -45,6 +46,9 @@
 #define RegisterLabelX (Screen_Width - RegisterLabelWidth)/2
 #define ForgetLabelWidth 100
 #define ForgetLabelX (Screen_Width - ForgetLabelWidth)/2
+
+static NSString *phoneKey = @"WMPhoneKey";
+static NSString *pswKey = @"WMPswKey";
 
 @interface WMLoginViewController ()
 @property (nonatomic,strong) UILabel *titleLable;
@@ -100,6 +104,8 @@
                          complete:^(BOOL result) {
                              if (result) {
                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                     [WMKeychainUtility setWMData:phone forKey:phoneKey];
+                                     [WMKeychainUtility setWMData:psw forKey:pswKey];
                                      AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
                                      WMMainTabbarViewController *tabVC = [[WMMainTabbarViewController alloc] init];
                                      app.window.rootViewController = tabVC;
@@ -148,6 +154,7 @@
         _phoneView.textField.placeholder = @"输入手机号";
         _phoneView.textField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _phoneView.textField.adjustsFontSizeToFitWidth = YES;
+        _phoneView.textField.text = [WMKeychainUtility WMDataForKey:phoneKey];
     }
     return _phoneView;
 }
@@ -162,6 +169,7 @@
         _passwordView.textField.secureTextEntry = YES;
         _passwordView.textField.clearButtonMode = UITextFieldViewModeNever;
         _passwordView.textField.adjustsFontSizeToFitWidth = YES;
+        _passwordView.textField.text = [WMKeychainUtility WMDataForKey:pswKey];
     }
     return _passwordView;
 }

@@ -124,6 +124,7 @@
 		9CB8064220FC9FFE001A5C5E /* WMDeviceRentInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB8064120FC9FFE001A5C5E /* WMDeviceRentInfo.m */; };
 		9CDDA69621042BD30079E328 /* WMSellDeviceDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CDDA69521042BD30079E328 /* WMSellDeviceDetailViewController.m */; };
 		9CDDA699210437150079E328 /* WMDeviceAddressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CDDA698210437150079E328 /* WMDeviceAddressView.m */; };
+		9CDDA6C42105941B0079E328 /* WMKeychainUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CDDA6C32105941B0079E328 /* WMKeychainUtility.m */; };
 		9CF0872020D67BAE0089BB97 /* WMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CF0871F20D67BAE0089BB97 /* WMViewController.m */; };
 		9CF0872320D67E410089BB97 /* WMAlertManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CF0872220D67E410089BB97 /* WMAlertManageViewController.m */; };
 		A00A21DF20E8DF2F004B79B0 /* WMDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = A00A21DE20E8DF2F004B79B0 /* WMDevice.m */; };
@@ -368,6 +369,9 @@
 		9CDDA69521042BD30079E328 /* WMSellDeviceDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMSellDeviceDetailViewController.m; sourceTree = "<group>"; };
 		9CDDA697210437150079E328 /* WMDeviceAddressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceAddressView.h; sourceTree = "<group>"; };
 		9CDDA698210437150079E328 /* WMDeviceAddressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceAddressView.m; sourceTree = "<group>"; };
+		9CDDA6C22105941B0079E328 /* WMKeychainUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMKeychainUtility.h; sourceTree = "<group>"; };
+		9CDDA6C32105941B0079E328 /* WMKeychainUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMKeychainUtility.m; sourceTree = "<group>"; };
+		9CDDA6C5210595F50079E328 /* MiWei.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MiWei.entitlements; sourceTree = "<group>"; };
 		9CF0871E20D67BAE0089BB97 /* WMViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMViewController.h; sourceTree = "<group>"; };
 		9CF0871F20D67BAE0089BB97 /* WMViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMViewController.m; sourceTree = "<group>"; };
 		9CF0872120D67E410089BB97 /* WMAlertManageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMAlertManageViewController.h; sourceTree = "<group>"; };
@@ -849,6 +853,8 @@
 				2702A2F1207E38EC00FE7577 /* UIColor+WM.m */,
 				9C9F113A20A85B95001D02FC /* WMUIUtility.h */,
 				9C9F113B20A85B95001D02FC /* WMUIUtility.m */,
+				9CDDA6C22105941B0079E328 /* WMKeychainUtility.h */,
+				9CDDA6C32105941B0079E328 /* WMKeychainUtility.m */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -873,6 +879,7 @@
 		27B3823B207CFB77006036A0 /* MiWei */ = {
 			isa = PBXGroup;
 			children = (
+				9CDDA6C5210595F50079E328 /* MiWei.entitlements */,
 				27B3823C207CFB77006036A0 /* AppDelegate.h */,
 				27B3823D207CFB77006036A0 /* AppDelegate.m */,
 				27B3823F207CFB77006036A0 /* ViewController.h */,
@@ -954,6 +961,11 @@
 					27B38238207CFB77006036A0 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -1056,6 +1068,7 @@
 				2708B8C02084F85500A760E7 /* PYRadarSeries.m in Sources */,
 				9CB8064220FC9FFE001A5C5E /* WMDeviceRentInfo.m in Sources */,
 				274A553E208E2F50004FC461 /* WMWeatherListViewController.m in Sources */,
+				9CDDA6C42105941B0079E328 /* WMKeychainUtility.m in Sources */,
 				27A7D22B207D0C53006C6AF6 /* WMDeviceCell.m in Sources */,
 				2708B8EE2084F85500A760E7 /* PYNodes.m in Sources */,
 				27A7D1F8207D04FD006C6AF6 /* WMNavigationViewController.m in Sources */,
@@ -1243,6 +1256,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MiWei/MiWei.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9CVMN4UZK4;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1264,6 +1278,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MiWei/MiWei.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9CVMN4UZK4;
 				FRAMEWORK_SEARCH_PATHS = (
