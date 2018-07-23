@@ -19,14 +19,18 @@
 
 #define GapBetweenAddressAndName        11
 
-#define Name_Y                          Address_Y + Address_Height + GapBetweenAddressAndName
+#define Name_Y                          (Address_Y + Address_Height + GapBetweenAddressAndName)
 #define Name_Height                     13
 
 #define GapBetweenNameAndPM             23
 
-#define PM_Y                            Name_Y + Name_Height + GapBetweenNameAndPM
+#define PM_Y                            (Name_Y + Name_Height + GapBetweenNameAndPM)
 #define PM_Height                       201
 
+#define GapBetweenPMAndAir              44
+
+#define Air_Y                           (PM_Y + PM_Height + GapBetweenPMAndAir)
+#define Air_Height                      15
 
 @interface WMSellDeviceDetailViewController ()
 
@@ -37,6 +41,8 @@
 @property (nonatomic, strong) WMDeviceAddressView *addressView;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) WMDevicePMView *pmView;
+@property (nonatomic, strong) UILabel *airLabel;
+
 
 
 
@@ -55,6 +61,7 @@
     [self.scrollView addSubview:self.addressView];
     [self.scrollView addSubview:self.nameLabel];
     [self.scrollView addSubview:self.pmView];
+    [self.scrollView addSubview:self.airLabel];
     
     [self loadDeviceDetail];
     
@@ -124,9 +131,13 @@
         self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", detail.name, dateString];
         
         //pmView
-        detail.pm25 = [NSNumber numberWithInt:100];
+//        detail.pm25 = [NSNumber numberWithInt:100];
         self.pmView.innerPMValueLabel.text = [NSString stringWithFormat:@"%@", detail.pm25];
         self.pmView.outPMVauleLabel.text = [NSString stringWithFormat:@"%@", detail.outdoorPM25];
+        
+        //airLabel
+        detail.pm25AirText = @"哇！幸福哭了！室内空气堪比马尔代夫！";
+        self.airLabel.text = detail.pm25AirText;
     });
 }
 
@@ -239,6 +250,16 @@
         _pmView = [[WMDevicePMView alloc] initWithFrame:WM_CGRectMake(0, PM_Y, Screen_Width, PM_Height)];
     }
     return _pmView;
+}
+
+- (UILabel *)airLabel {
+    if (!_airLabel) {
+        _airLabel = [[UILabel alloc] initWithFrame:WM_CGRectMake(0, Air_Y, Screen_Width, Air_Height)];
+        _airLabel.font = [UIFont systemFontOfSize:15];
+        _airLabel.textColor = [WMUIUtility color:@"0xffffff"];
+        _airLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _airLabel;
 }
 
 
