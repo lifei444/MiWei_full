@@ -18,5 +18,7 @@
 @property(nonatomic, strong) NSNumber *startTime;
 //租赁总时长，单位（分）
 @property(nonatomic, strong) NSNumber *rentTime;
+//租赁用户ID
+@property(nonatomic, strong) NSNumber *rentOwner;
 
 @end

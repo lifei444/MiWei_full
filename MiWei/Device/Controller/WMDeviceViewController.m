@@ -103,7 +103,7 @@ static NSString *deviceCellIdentifier = @"WMDeviceCell";
     WMDevice *device = self.modelArray[indexPath.item];
     
     WMSellDeviceDetailViewController *vc = [[WMSellDeviceDetailViewController alloc] init];
-    vc.deviceId = device.deviceId;
+    vc.device = device;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

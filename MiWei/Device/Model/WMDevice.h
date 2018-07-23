@@ -10,12 +10,7 @@
 #import "WMDeviceModel.h"
 #import "WMDeviceProdInfo.h"
 #import "WMDeviceRentInfo.h"
-
-typedef NS_ENUM(NSUInteger, WMDevicePermissionType) {
-    WMDevicePermissionTypeView = 0x01,
-    WMDevicePermissionTypeViewAndControl = 0x03,
-    WMDevicePermissionTypeOwner = 0x07,
-};
+#import "WMDeviceDefine.h"
 
 @interface WMDevice : NSObject
 

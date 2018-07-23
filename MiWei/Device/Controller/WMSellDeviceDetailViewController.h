@@ -7,9 +7,10 @@
 //
 
 #import "WMViewController.h"
+#import "WMDevice.h"
 
 @interface WMSellDeviceDetailViewController : WMViewController
 
-@property(nonatomic, copy) NSString *deviceId;
+@property(nonatomic, strong) WMDevice *device;
 
 @end
