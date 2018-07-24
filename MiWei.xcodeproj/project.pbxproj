@@ -125,6 +125,8 @@
 		9CDDA6C42105941B0079E328 /* WMKeychainUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CDDA6C32105941B0079E328 /* WMKeychainUtility.m */; };
 		9CDDA6C82105BFA70079E328 /* WMDeviceDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CDDA6C72105BFA70079E328 /* WMDeviceDetail.m */; };
 		9CDDA6CC2105F96F0079E328 /* WMDevicePMView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CDDA6CB2105F96F0079E328 /* WMDevicePMView.m */; };
+		9CDDA6CF2106D7A60079E328 /* WMDeviceSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CDDA6CE2106D7A60079E328 /* WMDeviceSwitchView.m */; };
+		9CDDA6D22106D95F0079E328 /* WMDeviceSwitchContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CDDA6D12106D95F0079E328 /* WMDeviceSwitchContainerView.m */; };
 		9CF0872020D67BAE0089BB97 /* WMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CF0871F20D67BAE0089BB97 /* WMViewController.m */; };
 		9CF0872320D67E410089BB97 /* WMAlertManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CF0872220D67E410089BB97 /* WMAlertManageViewController.m */; };
 		A00A21DF20E8DF2F004B79B0 /* WMDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = A00A21DE20E8DF2F004B79B0 /* WMDevice.m */; };
@@ -374,6 +376,10 @@
 		9CDDA6C92105C4B40079E328 /* WMDeviceDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceDefine.h; sourceTree = "<group>"; };
 		9CDDA6CA2105F96F0079E328 /* WMDevicePMView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDevicePMView.h; sourceTree = "<group>"; };
 		9CDDA6CB2105F96F0079E328 /* WMDevicePMView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDevicePMView.m; sourceTree = "<group>"; };
+		9CDDA6CD2106D7A60079E328 /* WMDeviceSwitchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceSwitchView.h; sourceTree = "<group>"; };
+		9CDDA6CE2106D7A60079E328 /* WMDeviceSwitchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceSwitchView.m; sourceTree = "<group>"; };
+		9CDDA6D02106D95F0079E328 /* WMDeviceSwitchContainerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceSwitchContainerView.h; sourceTree = "<group>"; };
+		9CDDA6D12106D95F0079E328 /* WMDeviceSwitchContainerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceSwitchContainerView.m; sourceTree = "<group>"; };
 		9CF0871E20D67BAE0089BB97 /* WMViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMViewController.h; sourceTree = "<group>"; };
 		9CF0871F20D67BAE0089BB97 /* WMViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMViewController.m; sourceTree = "<group>"; };
 		9CF0872120D67E410089BB97 /* WMAlertManageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMAlertManageViewController.h; sourceTree = "<group>"; };
@@ -845,6 +851,10 @@
 				9CDDA698210437150079E328 /* WMDeviceAddressView.m */,
 				9CDDA6CA2105F96F0079E328 /* WMDevicePMView.h */,
 				9CDDA6CB2105F96F0079E328 /* WMDevicePMView.m */,
+				9CDDA6D02106D95F0079E328 /* WMDeviceSwitchContainerView.h */,
+				9CDDA6D12106D95F0079E328 /* WMDeviceSwitchContainerView.m */,
+				9CDDA6CD2106D7A60079E328 /* WMDeviceSwitchView.h */,
+				9CDDA6CE2106D7A60079E328 /* WMDeviceSwitchView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1032,6 +1042,7 @@
 				2760C697207F8A20003CC126 /* WMUnderLineView.m in Sources */,
 				27B3824C207CFB77006036A0 /* main.m in Sources */,
 				2708B8CD2084F85500A760E7 /* PYMarkLine.m in Sources */,
+				9CDDA6CF2106D7A60079E328 /* WMDeviceSwitchView.m in Sources */,
 				2708B8EC2084F85500A760E7 /* PYAxisLabel.m in Sources */,
 				2708B8DD2084F85500A760E7 /* PYAreaStyle.m in Sources */,
 				270ECEA22082F985008D60CF /* WMDeviceInfoHeadView.m in Sources */,
@@ -1042,6 +1053,7 @@
 				274A5542208E36A5004FC461 /* WMFeedbackViewController.m in Sources */,
 				2708B8E32084F85500A760E7 /* PYToolboxFeature.m in Sources */,
 				2708B8D72084F85500A760E7 /* PYLinks.m in Sources */,
+				9CDDA6D22106D95F0079E328 /* WMDeviceSwitchContainerView.m in Sources */,
 				2708B8F02084F85500A760E7 /* PYZoomEchartsView.m in Sources */,
 				27A7D1F9207D04FD006C6AF6 /* WMLoginViewController.m in Sources */,
 				27A7D22E207D0CCF006C6AF6 /* WMMeCell.m in Sources */,

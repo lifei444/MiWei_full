@@ -13,6 +13,7 @@
 #import "WMHTTPUtility.h"
 #import "WMDeviceDetail.h"
 #import "WMDevicePMView.h"
+#import "WMDeviceSwitchContainerView.h"
 
 #define Address_Y                       19
 #define Address_Height                  18
@@ -32,6 +33,13 @@
 #define Air_Y                           (PM_Y + PM_Height + GapBetweenPMAndAir)
 #define Air_Height                      15
 
+#define GapBetweenAirAndSwitch          30
+
+#define Switch_X                        15
+#define Switch_Y                        (Air_Y + Air_Height + GapBetweenAirAndSwitch)
+#define Switch_Width                    345
+#define Switch_Height                   205
+
 @interface WMSellDeviceDetailViewController ()
 
 @property (nonatomic, strong) WMDeviceDetail *deviceDetail;
@@ -42,6 +50,7 @@
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) WMDevicePMView *pmView;
 @property (nonatomic, strong) UILabel *airLabel;
+@property (nonatomic, strong) WMDeviceSwitchContainerView *switchContainerView;
 
 
 
@@ -62,6 +71,7 @@
     [self.scrollView addSubview:self.nameLabel];
     [self.scrollView addSubview:self.pmView];
     [self.scrollView addSubview:self.airLabel];
+    [self.scrollView addSubview:self.switchContainerView];
     
     [self loadDeviceDetail];
     
@@ -136,8 +146,14 @@
         self.pmView.outPMVauleLabel.text = [NSString stringWithFormat:@"%@", detail.outdoorPM25];
         
         //airLabel
-        detail.pm25AirText = @"哇！幸福哭了！室内空气堪比马尔代夫！";
+        if (detail.pm25AirText.length == 0) {
+            detail.pm25AirText = @"哇！幸福哭了！室内空气堪比马尔代夫！";
+        }
         self.airLabel.text = detail.pm25AirText;
+        
+        //switchContainerView
+        self.switchContainerView.powerOnView.isOn = detail.powerOn;
+        [self.switchContainerView.powerOnView setNeedsDisplay];
     });
 }
 
@@ -212,7 +228,6 @@
     return _formatter;
 }
 
-
 - (UIScrollView *)scrollView {
     if(!_scrollView) {
         _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
@@ -260,6 +275,13 @@
         _airLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _airLabel;
+}
+
+- (WMDeviceSwitchContainerView *)switchContainerView {
+    if (!_switchContainerView) {
+        _switchContainerView = [[WMDeviceSwitchContainerView alloc] initWithFrame:WM_CGRectMake(Switch_X, Switch_Y, Switch_Width, Switch_Height)];
+    }
+    return _switchContainerView;
 }
 
 
