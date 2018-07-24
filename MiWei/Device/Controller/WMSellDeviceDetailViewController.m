@@ -14,6 +14,8 @@
 #import "WMDeviceDetail.h"
 #import "WMDevicePMView.h"
 #import "WMDeviceSwitchContainerView.h"
+#import "WMDeviceDataView.h"
+#import "WMDeviceRankView.h"
 
 #define Address_Y                       19
 #define Address_Height                  18
@@ -40,6 +42,20 @@
 #define Switch_Width                    345
 #define Switch_Height                   205
 
+#define GapBetweenSwitchAndData         12
+
+#define Data_X                          Switch_X
+#define Data_Y                          (Switch_Y + Switch_Height + GapBetweenSwitchAndData)
+#define Data_Width                      Switch_Width
+#define Data_Height                     100
+
+#define Rank_X                          Switch_X
+#define Rank_Y                          (Data_Y + Data_Height + GapBetweenSwitchAndData)
+#define Rank_Width                      Switch_Width
+#define Rank_Height                     68
+
+#define Remove_Y                        2000
+
 @interface WMSellDeviceDetailViewController ()
 
 @property (nonatomic, strong) WMDeviceDetail *deviceDetail;
@@ -51,7 +67,8 @@
 @property (nonatomic, strong) WMDevicePMView *pmView;
 @property (nonatomic, strong) UILabel *airLabel;
 @property (nonatomic, strong) WMDeviceSwitchContainerView *switchContainerView;
-
+@property (nonatomic, strong) WMDeviceDataView *dataView;
+@property (nonatomic, strong) WMDeviceRankView *rankView;
 
 
 
@@ -72,10 +89,12 @@
     [self.scrollView addSubview:self.pmView];
     [self.scrollView addSubview:self.airLabel];
     [self.scrollView addSubview:self.switchContainerView];
+    [self.scrollView addSubview:self.dataView];
+    [self.scrollView addSubview:self.rankView];
     
     [self loadDeviceDetail];
     
-    
+    self.scrollView.contentSize = WM_CGSizeMake(Screen_Width, Remove_Y);
 //    
 //    
 //    [self.scrollView addSubview:self.headView];
@@ -84,7 +103,6 @@
 //    [self.scrollView addSubview:self.chartView];
 //    [self.scrollView addSubview:self.upgradeButton];
     
-    self.scrollView.contentSize = WM_CGSizeMake(Screen_Width, CGRectGetMaxY(self.upgradeButton.frame)+20);
     
 //    [self loadChart];
 }
@@ -152,8 +170,45 @@
         self.airLabel.text = detail.pm25AirText;
         
         //switchContainerView
-        self.switchContainerView.powerOnView.isOn = detail.powerOn;
-        [self.switchContainerView.powerOnView setNeedsDisplay];
+        if (detail.powerOn) {
+            self.switchContainerView.powerOnView.isOn = YES;
+            [self.switchContainerView.powerOnView setNeedsDisplay];
+            self.switchContainerView.ventilationView.isOn = YES;
+            [self.switchContainerView.powerOnView setNeedsDisplay];
+            self.switchContainerView.auxiliaryHeatView.isOn = YES;
+            [self.switchContainerView.auxiliaryHeatView setNeedsDisplay];
+            self.switchContainerView.airSpeedView.isOn = YES;
+            [self.switchContainerView.airSpeedView setNeedsDisplay];
+            self.switchContainerView.settingView.isOn = YES;
+            [self.switchContainerView.settingView setNeedsDisplay];
+        }
+        
+        //dataView
+        NSString *str = self.dataView.PMLabel.text;
+        str = [str stringByAppendingFormat:@"%@", detail.pm25];
+        self.dataView.PMLabel.text = str;
+        str = self.dataView.co2Label.text;
+        str = [str stringByAppendingFormat:@"%@", detail.co2];
+        self.dataView.co2Label.text = str;
+        str = self.dataView.ch2oLabel.text;
+        str = [str stringByAppendingFormat:@"%@", detail.ch2o];
+        self.dataView.ch2oLabel.text = str;
+        str = self.dataView.tvocLabel.text;
+        str = [str stringByAppendingFormat:@"%@", detail.tvoc];
+        self.dataView.tvocLabel.text = str;
+        str = self.dataView.tempLabel.text;
+        str = [str stringByAppendingFormat:@"%@", detail.temp];
+        self.dataView.tempLabel.text = str;
+        str = self.dataView.humidityLabel.text;
+        str = [str stringByAppendingFormat:@"%@", detail.humidity];
+        self.dataView.humidityLabel.text = str;
+        
+        //rankView
+        str = detail.pm25RankText;
+        if (str.length == 0) {
+            str = @"太幸福了，您的室内空气优于全国80%的空气，比其他人少吸了80%雾霾。";
+        }
+        self.rankView.textView.text = str;
     });
 }
 
@@ -284,6 +339,19 @@
     return _switchContainerView;
 }
 
+- (WMDeviceDataView *)dataView {
+    if (!_dataView) {
+        _dataView = [[WMDeviceDataView alloc] initWithFrame:WM_CGRectMake(Data_X, Data_Y, Data_Width, Data_Height)];
+    }
+    return _dataView;
+}
+
+- (WMDeviceRankView *)rankView {
+    if (!_rankView) {
+        _rankView = [[WMDeviceRankView alloc] initWithFrame:WM_CGRectMake(Rank_X, Rank_Y, Rank_Width, Rank_Height)];
+    }
+    return _rankView;
+}
 
 #pragma mark -
 

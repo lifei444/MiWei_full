@@ -17,7 +17,6 @@
         self.opaque = NO;
         [self addSubview:self.name];
     }
-    
     return self;
 }
 

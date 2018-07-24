@@ -84,6 +84,7 @@
     if (!_timingView) {
         _timingView = [[WMDeviceSwitchView alloc] initWithFrame:WM_CGRectMake(Timing_X, Timing_Y, Radius, Radius)];
         _timingView.name.text = @"定时";
+        _timingView.isOn = YES;
     }
     return _timingView;
 }

@@ -9,7 +9,7 @@
 #import "WMViewController.h"
 #import "WMDevice.h"
 
-@interface WMSellDeviceDetailViewCont roller : WMViewController
+@interface WMSellDeviceDetailViewController : WMViewController
 
 @property(nonatomic, strong) WMDevice *device;
 

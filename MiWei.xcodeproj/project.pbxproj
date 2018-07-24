@@ -109,6 +109,8 @@
 		27B38246207CFB77006036A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27B38245207CFB77006036A0 /* Assets.xcassets */; };
 		27B38249207CFB77006036A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27B38247207CFB77006036A0 /* LaunchScreen.storyboard */; };
 		27B3824C207CFB77006036A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B3824B207CFB77006036A0 /* main.m */; };
+		9C484672210737D6005F2883 /* WMDeviceDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C484671210737D6005F2883 /* WMDeviceDataView.m */; };
+		9C48467521074680005F2883 /* WMDeviceRankView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C48467421074680005F2883 /* WMDeviceRankView.m */; };
 		9C4FBE4E20EA152D00D36D8D /* WMHTTPResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4FBE4A20EA152D00D36D8D /* WMHTTPResult.m */; };
 		9C4FBE4F20EA152D00D36D8D /* WMHTTPUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4FBE4B20EA152D00D36D8D /* WMHTTPUtility.m */; };
 		9C9F113C20A85B95001D02FC /* WMUIUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9F113B20A85B95001D02FC /* WMUIUtility.m */; };
@@ -346,6 +348,10 @@
 		27B38248207CFB77006036A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		27B3824A207CFB77006036A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		27B3824B207CFB77006036A0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9C484670210737D6005F2883 /* WMDeviceDataView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceDataView.h; sourceTree = "<group>"; };
+		9C484671210737D6005F2883 /* WMDeviceDataView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceDataView.m; sourceTree = "<group>"; };
+		9C48467321074680005F2883 /* WMDeviceRankView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceRankView.h; sourceTree = "<group>"; };
+		9C48467421074680005F2883 /* WMDeviceRankView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceRankView.m; sourceTree = "<group>"; };
 		9C4FBE4720EA142800D36D8D /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = MiWei/Frameworks/AFNetworking.framework; sourceTree = "<group>"; };
 		9C4FBE4A20EA152D00D36D8D /* WMHTTPResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMHTTPResult.m; sourceTree = "<group>"; };
 		9C4FBE4B20EA152D00D36D8D /* WMHTTPUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMHTTPUtility.m; sourceTree = "<group>"; };
@@ -855,6 +861,10 @@
 				9CDDA6D12106D95F0079E328 /* WMDeviceSwitchContainerView.m */,
 				9CDDA6CD2106D7A60079E328 /* WMDeviceSwitchView.h */,
 				9CDDA6CE2106D7A60079E328 /* WMDeviceSwitchView.m */,
+				9C484670210737D6005F2883 /* WMDeviceDataView.h */,
+				9C484671210737D6005F2883 /* WMDeviceDataView.m */,
+				9C48467321074680005F2883 /* WMDeviceRankView.h */,
+				9C48467421074680005F2883 /* WMDeviceRankView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1056,6 +1066,7 @@
 				9CDDA6D22106D95F0079E328 /* WMDeviceSwitchContainerView.m in Sources */,
 				2708B8F02084F85500A760E7 /* PYZoomEchartsView.m in Sources */,
 				27A7D1F9207D04FD006C6AF6 /* WMLoginViewController.m in Sources */,
+				9C484672210737D6005F2883 /* WMDeviceDataView.m in Sources */,
 				27A7D22E207D0CCF006C6AF6 /* WMMeCell.m in Sources */,
 				2708B8C12084F85500A760E7 /* PYPieSeries.m in Sources */,
 				2708B8C22084F85500A760E7 /* PYSeries.m in Sources */,
@@ -1096,6 +1107,7 @@
 				2708B8E12084F85500A760E7 /* PYLegend.m in Sources */,
 				27A7D236207D1107006C6AF6 /* WMBaseTableCell.m in Sources */,
 				2708B8C92084F85500A760E7 /* PYEventRiverSeries.m in Sources */,
+				9C48467521074680005F2883 /* WMDeviceRankView.m in Sources */,
 				2708B8D02084F85500A760E7 /* PYCategories.m in Sources */,
 				9CDDA6C82105BFA70079E328 /* WMDeviceDetail.m in Sources */,
 				2708B8C62084F85500A760E7 /* PYChordSeries.m in Sources */,
