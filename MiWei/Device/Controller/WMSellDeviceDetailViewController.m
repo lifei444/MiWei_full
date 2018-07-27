@@ -422,12 +422,12 @@
     return _upgradeButton;
 }
 
-//- (WKEchartsView *)chartView {
-//    if(!_chartView) {
-//        _chartView = [[WKEchartsView alloc] initWithFrame:WM_CGRectMake(0, CGRectGetMaxY(self.controlView.frame)+20, self.view.frame.size.width, 300)];
-//    }
-//    return _chartView;
-//}
+- (WKEchartsView *)chartView {
+    if(!_chartView) {
+        _chartView = [[WKEchartsView alloc] initWithFrame:WM_CGRectMake(0, 1200, self.view.frame.size.width, 300)];
+    }
+    return _chartView;
+}
 //
 //- (WMDeviceInfoHeadView *)headView {
 //    if(!_headView) {

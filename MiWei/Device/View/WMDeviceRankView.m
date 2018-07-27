@@ -39,7 +39,7 @@
 
 - (UITextView *)textView {
     if (!_textView) {
-        _textView = [[UITextView alloc] initWithFrame:WM_CGRectMake(Text_X, 0, Text_Width, 68)];
+        _textView = [[UITextView alloc] initWithFrame:WM_CGRectMake(Text_X, 10, Text_Width, 48)];
         _textView.font = [UIFont systemFontOfSize:15];
         _textView.textColor = [WMUIUtility color:@"0x444444"];
         _textView.textAlignment = NSTextAlignmentCenter;
