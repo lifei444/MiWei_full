@@ -114,6 +114,8 @@
 		9C48467921097E31005F2883 /* WMDevicePollutionChangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C48467821097E31005F2883 /* WMDevicePollutionChangeView.m */; };
 		9C4FBE4E20EA152D00D36D8D /* WMHTTPResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4FBE4A20EA152D00D36D8D /* WMHTTPResult.m */; };
 		9C4FBE4F20EA152D00D36D8D /* WMHTTPUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4FBE4B20EA152D00D36D8D /* WMHTTPUtility.m */; };
+		9C608D6D210DE245001F1E11 /* WMDeviceEchartHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C608D6C210DE245001F1E11 /* WMDeviceEchartHeadView.m */; };
+		9C608D70210E06CD001F1E11 /* WMDevicePollutionSumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C608D6F210E06CD001F1E11 /* WMDevicePollutionSumView.m */; };
 		9C9F113C20A85B95001D02FC /* WMUIUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9F113B20A85B95001D02FC /* WMUIUtility.m */; };
 		9CB8062420FAF6C3001A5C5E /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C4FBE4720EA142800D36D8D /* AFNetworking.framework */; };
 		9CB8062720FAFA04001A5C5E /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C4FBE4720EA142800D36D8D /* AFNetworking.framework */; };
@@ -360,6 +362,10 @@
 		9C4FBE4B20EA152D00D36D8D /* WMHTTPUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMHTTPUtility.m; sourceTree = "<group>"; };
 		9C4FBE4C20EA152D00D36D8D /* WMHTTPResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMHTTPResult.h; sourceTree = "<group>"; };
 		9C4FBE4D20EA152D00D36D8D /* WMHTTPUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMHTTPUtility.h; sourceTree = "<group>"; };
+		9C608D6B210DE245001F1E11 /* WMDeviceEchartHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceEchartHeadView.h; sourceTree = "<group>"; };
+		9C608D6C210DE245001F1E11 /* WMDeviceEchartHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceEchartHeadView.m; sourceTree = "<group>"; };
+		9C608D6E210E06CD001F1E11 /* WMDevicePollutionSumView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDevicePollutionSumView.h; sourceTree = "<group>"; };
+		9C608D6F210E06CD001F1E11 /* WMDevicePollutionSumView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDevicePollutionSumView.m; sourceTree = "<group>"; };
 		9C9F113A20A85B95001D02FC /* WMUIUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMUIUtility.h; sourceTree = "<group>"; };
 		9C9F113B20A85B95001D02FC /* WMUIUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMUIUtility.m; sourceTree = "<group>"; };
 		9CB8062B20FB8F58001A5C5E /* WMOrderListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMOrderListViewController.h; sourceTree = "<group>"; };
@@ -868,8 +874,12 @@
 				9C484671210737D6005F2883 /* WMDeviceDataView.m */,
 				9C48467321074680005F2883 /* WMDeviceRankView.h */,
 				9C48467421074680005F2883 /* WMDeviceRankView.m */,
+				9C608D6B210DE245001F1E11 /* WMDeviceEchartHeadView.h */,
+				9C608D6C210DE245001F1E11 /* WMDeviceEchartHeadView.m */,
 				9C48467721097E31005F2883 /* WMDevicePollutionChangeView.h */,
 				9C48467821097E31005F2883 /* WMDevicePollutionChangeView.m */,
+				9C608D6E210E06CD001F1E11 /* WMDevicePollutionSumView.h */,
+				9C608D6F210E06CD001F1E11 /* WMDevicePollutionSumView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1089,11 +1099,13 @@
 				2708B8ED2084F85500A760E7 /* PYItemStyle.m in Sources */,
 				9CF0872020D67BAE0089BB97 /* WMViewController.m in Sources */,
 				27B3823E207CFB77006036A0 /* AppDelegate.m in Sources */,
+				9C608D6D210DE245001F1E11 /* WMDeviceEchartHeadView.m in Sources */,
 				9C4FBE4E20EA152D00D36D8D /* WMHTTPResult.m in Sources */,
 				27A7D228207D0BB5006C6AF6 /* WMDeviceViewController.m in Sources */,
 				2708B8E92084F85500A760E7 /* PYDataZoom.m in Sources */,
 				2708B8E42084F85500A760E7 /* PYItemStyleProp.m in Sources */,
 				2708B8AD2084F85500A760E7 /* PYJsonUtil.m in Sources */,
+				9C608D70210E06CD001F1E11 /* WMDevicePollutionSumView.m in Sources */,
 				274A553F208E2F50004FC461 /* WMMessageCell.m in Sources */,
 				2708B8C02084F85500A760E7 /* PYRadarSeries.m in Sources */,
 				9CB8064220FC9FFE001A5C5E /* WMDeviceRentInfo.m in Sources */,

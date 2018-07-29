@@ -1,15 +1,15 @@
 //
-//  WMDevicePollutionChangeView.m
+//  WMDevicePollutionSumView.m
 //  MiWei
 //
-//  Created by LiFei on 2018/7/26.
+//  Created by LiFei on 2018/7/29.
 //  Copyright © 2018年 Sin. All rights reserved.
 //
 
-#import "WMDevicePollutionChangeView.h"
+#import "WMDevicePollutionSumView.h"
 #import "WMUIUtility.h"
 
-@implementation WMDevicePollutionChangeView
+@implementation WMDevicePollutionSumView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -24,7 +24,7 @@
 - (WMDeviceEchartHeadView *)headView {
     if (!_headView) {
         _headView = [[WMDeviceEchartHeadView alloc] initWithFrame:WM_CGRectMake(0, 0, self.bounds.size.width, 36)];
-        _headView.titleLabel.text = @"污染指数变化";
+        _headView.titleLabel.text = @"累计去除污染";
     }
     return _headView;
 }
@@ -74,8 +74,7 @@
             }]);
         }])
         .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
-            series.smoothEqual(YES)
-            .typeEqual(PYSeriesTypeLine)
+            series.typeEqual(PYSeriesTypeBar)
             .itemStyleEqual([PYItemStyle initPYItemStyleWithBlock:^(PYItemStyle *itemStyle) {
                 itemStyle.normalEqual([PYItemStyleProp initPYItemStylePropWithBlock:^(PYItemStyleProp *normal) {
                     normal.areaStyleEqual([PYAreaStyle initPYAreaStyleWithBlock:^(PYAreaStyle *areaStyle) {
@@ -83,7 +82,8 @@
                     }]);
                 }]);
             }])
-            .dataEqual(@[@(4),@(2.2),@(3.7),@(3.2),@(1.9),@(1.7),@(2)]);
+            .dataEqual(@[@(4.9),@(6.5),@(7.1),@(3.8),@(1.9),@(5.1),@(1.7)]);
+            ((PYCartesianSeries *)series).barWidth = @15;
         }]);
     }];
 }

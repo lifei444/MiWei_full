@@ -16,6 +16,8 @@
 #import "WMDeviceSwitchContainerView.h"
 #import "WMDeviceDataView.h"
 #import "WMDeviceRankView.h"
+#import "WMDevicePollutionChangeView.h"
+#import "WMDevicePollutionSumView.h"
 
 #define Address_Y                       19
 #define Address_Height                  18
@@ -37,24 +39,36 @@
 
 #define GapBetweenAirAndSwitch          30
 
-#define Switch_X                        15
+#define GapBetweenTables                12
+#define Table_X                         15
+#define Table_Width                     345
+
+#define Switch_X                        Table_X
 #define Switch_Y                        (Air_Y + Air_Height + GapBetweenAirAndSwitch)
-#define Switch_Width                    345
+#define Switch_Width                    Table_Width
 #define Switch_Height                   205
 
-#define GapBetweenSwitchAndData         12
-
-#define Data_X                          Switch_X
-#define Data_Y                          (Switch_Y + Switch_Height + GapBetweenSwitchAndData)
-#define Data_Width                      Switch_Width
+#define Data_X                          Table_X
+#define Data_Y                          (Switch_Y + Switch_Height + GapBetweenTables)
+#define Data_Width                      Table_Width
 #define Data_Height                     100
 
-#define Rank_X                          Switch_X
-#define Rank_Y                          (Data_Y + Data_Height + GapBetweenSwitchAndData)
-#define Rank_Width                      Switch_Width
+#define Rank_X                          Table_X
+#define Rank_Y                          (Data_Y + Data_Height + GapBetweenTables)
+#define Rank_Width                      Table_Width
 #define Rank_Height                     68
 
-#define Remove_Y                        2000
+#define Pollution_Change_X              Table_X
+#define Pollution_Change_Y              (Rank_Y + Rank_Height + GapBetweenTables)
+#define Pollution_Change_Width          Table_Width
+#define Pollution_Change_Height         280
+
+#define Pollution_Sum_X                 Table_X
+#define Pollution_Sum_Y                 (Pollution_Change_Y + Pollution_Change_Height + GapBetweenTables)
+#define Pollution_Sum_Width             Table_Width
+#define Pollution_Sum_Height            280
+
+#define Scroll_Height                   (Pollution_Sum_Y + Pollution_Sum_Height + 10)
 
 @interface WMSellDeviceDetailViewController ()
 
@@ -69,11 +83,9 @@
 @property (nonatomic, strong) WMDeviceSwitchContainerView *switchContainerView;
 @property (nonatomic, strong) WMDeviceDataView *dataView;
 @property (nonatomic, strong) WMDeviceRankView *rankView;
+@property (nonatomic, strong) WMDevicePollutionChangeView *pollutionChangeView;
+@property (nonatomic, strong) WMDevicePollutionSumView *pollutionSumView;
 
-
-
-@property (nonatomic,strong) WKEchartsView *chartView;
-@property (nonatomic,strong) UIButton *upgradeButton;
 @end
 
 @implementation WMSellDeviceDetailViewController
@@ -91,20 +103,12 @@
     [self.scrollView addSubview:self.switchContainerView];
     [self.scrollView addSubview:self.dataView];
     [self.scrollView addSubview:self.rankView];
+    [self.scrollView addSubview:self.pollutionChangeView];
+    [self.scrollView addSubview:self.pollutionSumView];
     
     [self loadDeviceDetail];
     
-    self.scrollView.contentSize = WM_CGSizeMake(Screen_Width, Remove_Y);
-//    
-//    
-//    [self.scrollView addSubview:self.headView];
-//    [self.scrollView addSubview:self.pmView];
-//    [self.scrollView addSubview:self.controlView];
-//    [self.scrollView addSubview:self.chartView];
-//    [self.scrollView addSubview:self.upgradeButton];
-    
-    
-//    [self loadChart];
+    self.scrollView.contentSize = WM_CGSizeMake(Screen_Width, Scroll_Height);
 }
 
 #pragma mark - Private
@@ -353,111 +357,18 @@
     return _rankView;
 }
 
-#pragma mark -
-
-- (void)loadChart {
-    [self.chartView setOption:[self getOption]];
-    [self.chartView loadEcharts];
-    self.chartView.userInteractionEnabled = NO;
-}
-
-- (PYOption *)getOption {
-    return [PYOption initPYOptionWithBlock:^(PYOption *option) {
-        option.titleEqual([PYTitle initPYTitleWithBlock:^(PYTitle *title) {
-            title.textEqual(@"历史记录");
-        }])
-        .gridEqual([PYGrid initPYGridWithBlock:^(PYGrid *grid) {
-            grid.xEqual(@40).x2Equal(@50);
-        }])
-        .tooltipEqual([PYTooltip initPYTooltipWithBlock:^(PYTooltip *tooltip) {
-            tooltip.triggerEqual(PYTooltipTriggerAxis);
-        }])
-        .calculableEqual(YES)
-        .addXAxis([PYAxis initPYAxisWithBlock:^(PYAxis *axis) {
-            axis.typeEqual(PYAxisTypeCategory).boundaryGapEqual(@NO).addDataArr(@[@"周一",@"周二",@"周三",@"周四",@"周五",@"周六"]);
-        }])
-        .addYAxis([PYAxis initPYAxisWithBlock:^(PYAxis *axis) {
-            axis.typeEqual(PYAxisTypeValue);
-        }])
-        .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
-            series.smoothEqual(YES)
-            .nameEqual(@"预购")
-            .typeEqual(PYSeriesTypeLine)
-            .itemStyleEqual([PYItemStyle initPYItemStyleWithBlock:^(PYItemStyle *itemStyle) {
-                itemStyle.normalEqual([PYItemStyleProp initPYItemStylePropWithBlock:^(PYItemStyleProp *normal) {
-                    normal.areaStyleEqual([PYAreaStyle initPYAreaStyleWithBlock:^(PYAreaStyle *areaStyle) {
-                        areaStyle.typeEqual(PYAreaStyleTypeDefault);
-                    }]);
-                }]);
-            }])
-            .dataEqual(@[@(30),@(182),@(434),@(791),@(390),@(30),@(10),@(30),@(182),@(434),@(791),@(390),@(30),@(10)]);
-        }])
-        .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
-            series.smoothEqual(YES)
-            .nameEqual(@"意向")
-            .typeEqual(PYSeriesTypeLine)
-            .itemStyleEqual([PYItemStyle initPYItemStyleWithBlock:^(PYItemStyle *itemStyle) {
-                itemStyle.normalEqual([PYItemStyleProp initPYItemStylePropWithBlock:^(PYItemStyleProp *normal) {
-                    normal.areaStyleEqual([PYAreaStyle initPYAreaStyleWithBlock:^(PYAreaStyle *areaStyle) {
-                        areaStyle.typeEqual(PYAreaStyleTypeDefault);
-                    }]);
-                }]);
-            }])
-            .dataEqual(@[@(1320),@(1132),@(601),@(234),@(120),@(90),@(20),@(1320),@(1132),@(601),@(234),@(120),@(90),@(20)]);
-        }]);
-    }];
-}
-
-- (void)upgradeEvent {
-    NSLog(@"%s",__func__);
-}
-
-- (UIButton *)upgradeButton {
-    if(!_upgradeButton) {
-        _upgradeButton = [[UIButton alloc] initWithFrame:WM_CGRectMake(20, CGRectGetMaxY(self.chartView.frame)+20, self.view.bounds.size.width - 40, 44)];
-        [_upgradeButton setTitle:@"升级" forState:UIControlStateNormal];
-        [_upgradeButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-        [_upgradeButton addTarget:self action:@selector(upgradeEvent) forControlEvents:UIControlEventTouchUpInside];
+- (WMDevicePollutionChangeView *)pollutionChangeView {
+    if (!_pollutionChangeView) {
+        _pollutionChangeView = [[WMDevicePollutionChangeView alloc] initWithFrame:WM_CGRectMake(Pollution_Change_X, Pollution_Change_Y, Pollution_Change_Width, Pollution_Change_Height)];
     }
-    return _upgradeButton;
+    return _pollutionChangeView;
 }
 
-- (WKEchartsView *)chartView {
-    if(!_chartView) {
-        _chartView = [[WKEchartsView alloc] initWithFrame:WM_CGRectMake(0, 1200, self.view.frame.size.width, 300)];
+- (WMDevicePollutionSumView *)pollutionSumView {
+    if (!_pollutionSumView) {
+        _pollutionSumView = [[WMDevicePollutionSumView alloc] initWithFrame:WM_CGRectMake(Pollution_Sum_X, Pollution_Sum_Y, Pollution_Sum_Width, Pollution_Sum_Height)];
     }
-    return _chartView;
+    return _pollutionSumView;
 }
-//
-//- (WMDeviceInfoHeadView *)headView {
-//    if(!_headView) {
-//        NSArray *xibs = [[NSBundle mainBundle] loadNibNamed:@"WMDeviceInfoHeadView" owner:self options:nil];
-//        _headView  = [xibs firstObject];
-//        _headView.frame = WM_CGRectMake(0, 0,Screen_Width , [WMDeviceInfoHeadView viewHeight]);
-//    }
-//    return _headView;
-//}
-//
-//- (WMDeviceInfoPMView *)pmView {
-//    if(!_pmView) {
-//        NSArray *xibs = [[NSBundle mainBundle] loadNibNamed:@"WMDeviceInfoPMView" owner:self options:nil];
-//        _pmView  = [xibs firstObject];
-//        _pmView.frame = WM_CGRectMake(20, CGRectGetMaxY(self.headView.frame), Screen_Width-20*2, 100);
-//    }
-//    return _pmView;
-//}
-//
-//- (WMDeviceInfoControlView *)controlView {
-//    if(!_controlView) {
-//        NSArray *xibs = [[NSBundle mainBundle] loadNibNamed:@"WMDeviceInfoControlView" owner:self options:nil];
-//        _controlView  = [xibs firstObject];
-//        _controlView.frame = WM_CGRectMake(20, CGRectGetMaxY(self.pmView.frame)+20, Screen_Width-20*2, 280);
-//    }
-//    return _controlView;
-//}
-
-
-
-
 
 @end
