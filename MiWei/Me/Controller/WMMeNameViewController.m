@@ -9,6 +9,7 @@
 #import "WMMeNameViewController.h"
 #import "WMCommonDefine.h"
 #import "WMUIUtility.h"
+#import "WMHTTPUtility.h"
 
 @interface WMMeNameViewController ()
 @property(nonatomic,strong) UILabel *nameLabel;
@@ -18,6 +19,7 @@
 
 @implementation WMMeNameViewController
 
+#pragma mark - Life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -26,14 +28,35 @@
     [self.view addSubview:self.nameField];
     [self.view addSubview:self.nameLabel];
     [self.view addSubview:self.confirmButton];
-    self.nameField.text = @"测试昵称";
 }
 
+#pragma mark - Target action
+- (void)save {
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:self.nameField.text forKey:@"nickName"];
+    [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodPost
+                               URLString:@"/mobile/user/editUserInfo"
+                              parameters:dic
+                                response:^(WMHTTPResult *result) {
+                                    if (result.success) {
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            [WMHTTPUtility currentProfile].nickname = self.nameField.text;
+                                            [self.navigationController popViewControllerAnimated:YES];
+                                        });
+                                    } else {
+                                        NSLog(@"WMMeNameViewController save failed");
+                                    }
+                                }];
+}
+
+#pragma mark - Getters & setters
 - (UILabel *)nameLabel {
     if(!_nameLabel) {
-        _nameLabel = [[UILabel alloc]initWithFrame:WM_CGRectMake(0, Navi_Height+ 20, 60 ,44)];
+        _nameLabel = [[UILabel alloc] initWithFrame:WM_CGRectMake(0, Navi_Height + 10, 64, 50)];
         _nameLabel.backgroundColor = [UIColor whiteColor];
         _nameLabel.text = @"昵称";
+        _nameLabel.font = [UIFont systemFontOfSize:16];
+        _nameLabel.textColor = [WMUIUtility color:@"0x424345"];
         _nameLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _nameLabel;
@@ -41,18 +64,21 @@
 
 - (UITextField *)nameField {
     if(!_nameField) {
-        _nameField = [[UITextField alloc] initWithFrame:WM_CGRectMake(60, Navi_Height+20, self.view.frame.size.width-60, 44)];
+        _nameField = [[UITextField alloc] initWithFrame:WM_CGRectMake(64, Navi_Height + 10, Screen_Width - 64, 50)];
         _nameField.backgroundColor = [UIColor whiteColor];
         _nameField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        _nameField.text = [WMHTTPUtility currentProfile].nickname;
+        _nameField.font = [UIFont systemFontOfSize:16];
+        _nameField.textColor = [WMUIUtility color:@"0x737474"];
     }
     return _nameField;
 }
 
 - (UIButton *)confirmButton {
     if(!_confirmButton) {
-        _confirmButton = [[UIButton alloc] initWithFrame:WM_CGRectMake(20, Navi_Height+80, self.view.frame.size.width-40, 44)];
+        _confirmButton = [[UIButton alloc] initWithFrame:WM_CGRectMake(10, Navi_Height + 90, Screen_Width - 20, 40)];
         [_confirmButton setTitle:@"保存" forState:UIControlStateNormal];
-        _confirmButton.backgroundColor = [UIColor greenColor];
+        _confirmButton.backgroundColor = [WMUIUtility color:@"0x2b938b"];
         _confirmButton.layer.cornerRadius = 5;
         _confirmButton.layer.masksToBounds = YES;
         [_confirmButton addTarget:self action:@selector(save) forControlEvents:UIControlEventTouchUpInside];
@@ -60,23 +86,7 @@
     return _confirmButton;
 }
 
-- (void)save {
-    
-}
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

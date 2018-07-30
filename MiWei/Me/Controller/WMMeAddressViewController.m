@@ -9,6 +9,7 @@
 #import "WMMeAddressViewController.h"
 #import "WMCommonDefine.h"
 #import "WMUIUtility.h"
+#import "WMHTTPUtility.h"
 
 @interface WMMeAddressViewController ()
 @property(nonatomic,strong) UILabel *addressLabel;
@@ -18,6 +19,7 @@
 
 @implementation WMMeAddressViewController
 
+#pragma mark - Life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -26,14 +28,35 @@
     [self.view addSubview:self.addressField];
     [self.view addSubview:self.addressLabel];
     [self.view addSubview:self.confirmButton];
-    self.addressField.text = @"测试地址";
 }
 
+#pragma mark - Target action
+- (void)save {
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:self.addressField.text forKey:@"addrDetail"];
+    [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodPost
+                               URLString:@"/mobile/user/editUserInfo"
+                              parameters:dic
+                                response:^(WMHTTPResult *result) {
+                                    if (result.success) {
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            [WMHTTPUtility currentProfile].addrDetail = self.addressField.text;
+                                            [self.navigationController popViewControllerAnimated:YES];
+                                        });
+                                    } else {
+                                        NSLog(@"WMMeAddressViewController save failed");
+                                    }
+                                }];
+}
+
+#pragma mark - Getters & setters
 - (UILabel *)addressLabel {
     if(!_addressLabel) {
-        _addressLabel = [[UILabel alloc]initWithFrame:WM_CGRectMake(0, Navi_Height+ 20, 60 ,44)];
+        _addressLabel = [[UILabel alloc]initWithFrame:WM_CGRectMake(0, Navi_Height + 10, 64, 50)];
         _addressLabel.backgroundColor = [UIColor whiteColor];
         _addressLabel.text = @"地址";
+        _addressLabel.font = [UIFont systemFontOfSize:16];
+        _addressLabel.textColor = [WMUIUtility color:@"0x424345"];
         _addressLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _addressLabel;
@@ -41,42 +64,26 @@
 
 - (UITextField *)addressField {
     if(!_addressField) {
-        _addressField = [[UITextField alloc] initWithFrame:WM_CGRectMake(60, Navi_Height+20, self.view.frame.size.width-60, 44)];
+        _addressField = [[UITextField alloc] initWithFrame:WM_CGRectMake(64, Navi_Height + 10, Screen_Width - 64, 50)];
         _addressField.backgroundColor = [UIColor whiteColor];
         _addressField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        _addressField.text = [WMHTTPUtility currentProfile].addrDetail;
+        _addressField.font = [UIFont systemFontOfSize:16];
+        _addressField.textColor = [WMUIUtility color:@"0x737474"];
     }
     return _addressField;
 }
 
 - (UIButton *)confirmButton {
     if(!_confirmButton) {
-        _confirmButton = [[UIButton alloc] initWithFrame:WM_CGRectMake(20, Navi_Height+80, self.view.frame.size.width-40, 44)];
+        _confirmButton = [[UIButton alloc] initWithFrame:WM_CGRectMake(10, Navi_Height + 90, Screen_Width - 20, 40)];
         [_confirmButton setTitle:@"保存" forState:UIControlStateNormal];
-        _confirmButton.backgroundColor = [UIColor greenColor];
+        _confirmButton.backgroundColor = [WMUIUtility color:@"0x2b938b"];
         _confirmButton.layer.cornerRadius = 5;
         _confirmButton.layer.masksToBounds = YES;
         [_confirmButton addTarget:self action:@selector(save) forControlEvents:UIControlEventTouchUpInside];
     }
     return _confirmButton;
 }
-
-- (void)save {
-    
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

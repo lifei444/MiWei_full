@@ -758,7 +758,6 @@
 			isa = PBXGroup;
 			children = (
 				27A7D20E207D09D9006C6AF6 /* Controller */,
-				27A7D211207D09D9006C6AF6 /* Model */,
 				27A7D212207D09D9006C6AF6 /* View */,
 			);
 			path = Me;
@@ -785,13 +784,6 @@
 				274A5541208E36A5004FC461 /* WMFeedbackViewController.m */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		27A7D211207D09D9006C6AF6 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		27A7D212207D09D9006C6AF6 /* View */ = {

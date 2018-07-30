@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WMViewController.h"
 
-@interface WMMeAddressViewController : UIViewController
+@interface WMMeAddressViewController : WMViewController
 
 @end

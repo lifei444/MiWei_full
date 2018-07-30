@@ -11,6 +11,7 @@
 #import "WMMeNameViewController.h"
 #import "WMMeIconViewController.h"
 #import "WMUIUtility.h"
+#import "WMHTTPUtility.h"
 
 @interface WMPersonViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView *tableView;
@@ -25,6 +26,11 @@
     [self.view addSubview:self.tableView];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
+}
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 3;
@@ -35,15 +41,15 @@
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.textLabel.textColor = [WMUIUtility color:@"0x444444"];
     cell.textLabel.font = [UIFont systemFontOfSize:15];
-    if(indexPath.row == 0) {
+    if (indexPath.row == 0) {
         cell.textLabel.text = @"头像";
 //        cell.imageView.image = [UIImage imageNamed:@"person_portrait"];
-    }else if(indexPath.row == 1) {
+    } else if(indexPath.row == 1) {
         cell.textLabel.text = @"昵称";
-        cell.detailTextLabel.text= @"Megeid";
-    }else {
+        cell.detailTextLabel.text= [WMHTTPUtility currentProfile].nickname;
+    } else {
         cell.textLabel.text = @"地址";
-        cell.detailTextLabel.text= @"北京市海淀区";
+        cell.detailTextLabel.text= [WMHTTPUtility currentProfile].addrDetail;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
@@ -51,10 +57,10 @@
 
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row == 0) {
-        return 80;
-    }else {
-        return 50;
+    if (indexPath.row == 0) {
+        return [WMUIUtility WMCGFloatForY:80];
+    } else {
+        return [WMUIUtility WMCGFloatForY:50];
     }
 }
 
@@ -81,7 +87,5 @@
     }
     return _tableView;
 }
-
-
 
 @end
