@@ -10,6 +10,7 @@
 #import "WMUnderLineView.h"
 #import "WMCommonDefine.h"
 #import "WMUIUtility.h"
+#import "WMHTTPUtility.h"
 
 #define WaitSeconds 3
 @interface WMRegisterViewController ()
@@ -62,9 +63,33 @@
 
 #pragma mark - Target action
 - (void)registerAction {
-    
+    if ([self.passView.textField.text isEqualToString:self.confirmView.textField.text]) {
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+        [dic setObject:self.phoneView.textField.text forKey:@"phone"];
+        [dic setObject:self.passView.textField.text forKey:@"userPwd"];
+        [dic setObject:self.verifyView.textField.text forKey:@"verifiedCode"];
+        [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodPost
+                                   URLString:@"/mobile/user/register"
+                                  parameters:dic
+                                    response:^(WMHTTPResult *result) {
+                                        if (result.success) {
+                                            
+                                        } else {
+                                            NSLog(@"registerAction error");
+                                        }
+                                    }];
+    }
 }
 
+- (void)startTimer {
+    if (!self.timer) {
+        [self sendVerifyCode:self.phoneView.textField.text];
+        [self.phoneView.rightButton setTitle:[NSString stringWithFormat:@"重新发送(%d)", self.count--] forState:UIControlStateNormal];
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
+    }
+}
+
+#pragma mark - Private methods
 - (void)countDown {
     if (self.count > 0) {
         [self.phoneView.rightButton setTitle:[NSString stringWithFormat:@"重新发送(%d)", self.count--] forState:UIControlStateNormal];
@@ -78,11 +103,19 @@
     }
 }
 
-- (void)startTimer {
-    if (!self.timer) {
-        [self.phoneView.rightButton setTitle:[NSString stringWithFormat:@"重新发送(%d)", self.count--] forState:UIControlStateNormal];
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
-    }
+- (void)sendVerifyCode:(NSString *)phone {
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:phone forKey:@"phone"];
+    [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodPost
+                               URLString:@"/common/verifiedCode/send"
+                              parameters:dic
+                                response:^(WMHTTPResult *result) {
+                                    if (result.success) {
+                                        
+                                    } else {
+                                        NSLog(@"sendVerifyCode error");
+                                    }
+                                }];
 }
 
 #pragma mark - Getters and setters
