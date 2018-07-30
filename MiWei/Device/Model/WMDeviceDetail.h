@@ -82,4 +82,5 @@
 //设备当前固件版本
 @property (nonatomic, strong) NSNumber *verFW;
 
++ (instancetype)deviceDetailFromHTTPData:(NSDictionary *)content;
 @end

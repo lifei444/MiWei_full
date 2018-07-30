@@ -74,4 +74,12 @@ static float autoSizeScaleY;
     return result;
 }
 
++ (CGFloat)WMCGFloatForX:(CGFloat)value {
+    return value * autoSizeScaleX;
+}
+
++ (CGFloat)WMCGFloatForY:(CGFloat)value {
+    return value * autoSizeScaleY;
+}
+
 @end

@@ -110,6 +110,7 @@
 		9C48467921097E31005F2883 /* WMDevicePollutionChangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C48467821097E31005F2883 /* WMDevicePollutionChangeView.m */; };
 		9C4FBE4E20EA152D00D36D8D /* WMHTTPResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4FBE4A20EA152D00D36D8D /* WMHTTPResult.m */; };
 		9C4FBE4F20EA152D00D36D8D /* WMHTTPUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4FBE4B20EA152D00D36D8D /* WMHTTPUtility.m */; };
+		9C5EDCB3210EC2C90085ADEE /* WMRentDeviceDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5EDCB2210EC2C90085ADEE /* WMRentDeviceDetailViewController.m */; };
 		9C608D6D210DE245001F1E11 /* WMDeviceEchartHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C608D6C210DE245001F1E11 /* WMDeviceEchartHeadView.m */; };
 		9C608D70210E06CD001F1E11 /* WMDevicePollutionSumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C608D6F210E06CD001F1E11 /* WMDevicePollutionSumView.m */; };
 		9C9F113C20A85B95001D02FC /* WMUIUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9F113B20A85B95001D02FC /* WMUIUtility.m */; };
@@ -352,6 +353,8 @@
 		9C4FBE4B20EA152D00D36D8D /* WMHTTPUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMHTTPUtility.m; sourceTree = "<group>"; };
 		9C4FBE4C20EA152D00D36D8D /* WMHTTPResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMHTTPResult.h; sourceTree = "<group>"; };
 		9C4FBE4D20EA152D00D36D8D /* WMHTTPUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMHTTPUtility.h; sourceTree = "<group>"; };
+		9C5EDCB1210EC2C90085ADEE /* WMRentDeviceDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMRentDeviceDetailViewController.h; sourceTree = "<group>"; };
+		9C5EDCB2210EC2C90085ADEE /* WMRentDeviceDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMRentDeviceDetailViewController.m; sourceTree = "<group>"; };
 		9C608D6B210DE245001F1E11 /* WMDeviceEchartHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceEchartHeadView.h; sourceTree = "<group>"; };
 		9C608D6C210DE245001F1E11 /* WMDeviceEchartHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceEchartHeadView.m; sourceTree = "<group>"; };
 		9C608D6E210E06CD001F1E11 /* WMDevicePollutionSumView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDevicePollutionSumView.h; sourceTree = "<group>"; };
@@ -819,6 +822,8 @@
 				2729691B208A2DCB00391D63 /* WMDeviceAddViewController.m */,
 				9CDDA69421042BD30079E328 /* WMSellDeviceDetailViewController.h */,
 				9CDDA69521042BD30079E328 /* WMSellDeviceDetailViewController.m */,
+				9C5EDCB1210EC2C90085ADEE /* WMRentDeviceDetailViewController.h */,
+				9C5EDCB2210EC2C90085ADEE /* WMRentDeviceDetailViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1058,6 +1063,7 @@
 				274A5542208E36A5004FC461 /* WMFeedbackViewController.m in Sources */,
 				2708B8E32084F85500A760E7 /* PYToolboxFeature.m in Sources */,
 				2708B8D72084F85500A760E7 /* PYLinks.m in Sources */,
+				9C5EDCB3210EC2C90085ADEE /* WMRentDeviceDetailViewController.m in Sources */,
 				9CDDA6D22106D95F0079E328 /* WMDeviceSwitchContainerView.m in Sources */,
 				2708B8F02084F85500A760E7 /* PYZoomEchartsView.m in Sources */,
 				27A7D1F9207D04FD006C6AF6 /* WMLoginViewController.m in Sources */,

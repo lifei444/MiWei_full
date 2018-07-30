@@ -12,6 +12,7 @@
 #import "WMDeviceConfigViewController.h"
 #import "WMScanViewController.h"
 #import "WMSellDeviceDetailViewController.h"
+#import "WMRentDeviceDetailViewController.h"
 #import "WMDevice.h"
 #import "WMDeviceCell.h"
 #import "WMUIUtility.h"
@@ -102,9 +103,15 @@ static NSString *deviceCellIdentifier = @"WMDeviceCell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     WMDevice *device = self.modelArray[indexPath.item];
     
-    WMSellDeviceDetailViewController *vc = [[WMSellDeviceDetailViewController alloc] init];
-    vc.device = device;
-    [self.navigationController pushViewController:vc animated:YES];
+    if (device.rentInfo) {
+        WMRentDeviceDetailViewController *vc = [[WMRentDeviceDetailViewController alloc] init];
+        vc.device = device;
+        [self.navigationController pushViewController:vc animated:YES];
+    } else {
+        WMSellDeviceDetailViewController *vc = [[WMSellDeviceDetailViewController alloc] init];
+        vc.device = device;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma mark - Target action

@@ -15,20 +15,20 @@
 #define Circle_Height           201
 
 #define InnerLabel_X            96
-#define InnerLabel_Y            70
+#define InnerLabel_Y            94//70  //94
 #define InnerLabel_Height       16
 
-#define InnerPMValue_Y          40
+#define InnerPMValue_Y          61//40  //61
 #define InnerPMValue_Height     46
 
 #define OutLabel_X              238
-#define OutLabel_Y              115
+#define OutLabel_Y              138//115  //138
 #define OutLabel_Height         16
 
-#define OutPMValue_Y            110
+#define OutPMValue_Y            130//110  //130
 #define OutPMValue_Height       46
 
-#define PMLabel_Y               180
+#define PMLabel_Y               180  //218
 #define PMLabel_Height          16
 
 @implementation WMDevicePMView

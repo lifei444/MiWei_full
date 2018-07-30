@@ -20,4 +20,6 @@
                      height:(CGFloat)height;
 + (CGSize)WMCGSizeMakeWithWidth:(CGFloat)width
                          height:(CGFloat)height;
++ (CGFloat)WMCGFloatForX:(CGFloat)value;
++ (CGFloat)WMCGFloatForY:(CGFloat)value;
 @end
