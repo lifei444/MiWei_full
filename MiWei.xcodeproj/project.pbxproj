@@ -105,6 +105,7 @@
 		27B38246207CFB77006036A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27B38245207CFB77006036A0 /* Assets.xcassets */; };
 		27B38249207CFB77006036A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27B38247207CFB77006036A0 /* LaunchScreen.storyboard */; };
 		27B3824C207CFB77006036A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B3824B207CFB77006036A0 /* main.m */; };
+		400C88EBE7F30FFA3363238D /* libPods-MiWei.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8747C2CECE52D670715ADEE8 /* libPods-MiWei.a */; };
 		9C484672210737D6005F2883 /* WMDeviceDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C484671210737D6005F2883 /* WMDeviceDataView.m */; };
 		9C48467521074680005F2883 /* WMDeviceRankView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C48467421074680005F2883 /* WMDeviceRankView.m */; };
 		9C48467921097E31005F2883 /* WMDevicePollutionChangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C48467821097E31005F2883 /* WMDevicePollutionChangeView.m */; };
@@ -342,6 +343,8 @@
 		27B38248207CFB77006036A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		27B3824A207CFB77006036A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		27B3824B207CFB77006036A0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		73BAF809085A0165EFBE4095 /* Pods-MiWei.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiWei.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MiWei/Pods-MiWei.debug.xcconfig"; sourceTree = "<group>"; };
+		8747C2CECE52D670715ADEE8 /* libPods-MiWei.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MiWei.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C484670210737D6005F2883 /* WMDeviceDataView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceDataView.h; sourceTree = "<group>"; };
 		9C484671210737D6005F2883 /* WMDeviceDataView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceDataView.m; sourceTree = "<group>"; };
 		9C48467321074680005F2883 /* WMDeviceRankView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceRankView.h; sourceTree = "<group>"; };
@@ -393,6 +396,7 @@
 		9CF0872120D67E410089BB97 /* WMAlertManageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMAlertManageViewController.h; sourceTree = "<group>"; };
 		9CF0872220D67E410089BB97 /* WMAlertManageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMAlertManageViewController.m; sourceTree = "<group>"; };
 		A00A21DE20E8DF2F004B79B0 /* WMDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDevice.m; sourceTree = "<group>"; };
+		BEDD45956B7C55EC5039C277 /* Pods-MiWei.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiWei.release.xcconfig"; path = "Pods/Target Support Files/Pods-MiWei/Pods-MiWei.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -403,6 +407,7 @@
 				9CB8062420FAF6C3001A5C5E /* AFNetworking.framework in Frameworks */,
 				9CB8062720FAFA04001A5C5E /* AFNetworking.framework in Frameworks */,
 				2708B8FB2084F8B500A760E7 /* WebKit.framework in Frameworks */,
+				400C88EBE7F30FFA3363238D /* libPods-MiWei.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -576,6 +581,7 @@
 			children = (
 				9C4FBE4720EA142800D36D8D /* AFNetworking.framework */,
 				2708B8FA2084F8B500A760E7 /* WebKit.framework */,
+				8747C2CECE52D670715ADEE8 /* libPods-MiWei.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -893,6 +899,7 @@
 				27B3823B207CFB77006036A0 /* MiWei */,
 				27B3823A207CFB77006036A0 /* Products */,
 				2708B8F92084F8B500A760E7 /* Frameworks */,
+				CE90A7BFD8F6E75E8B0A2A8D /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -956,6 +963,15 @@
 			path = "New Group";
 			sourceTree = "<group>";
 		};
+		CE90A7BFD8F6E75E8B0A2A8D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				73BAF809085A0165EFBE4095 /* Pods-MiWei.debug.xcconfig */,
+				BEDD45956B7C55EC5039C277 /* Pods-MiWei.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -963,6 +979,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 27B3824F207CFB77006036A0 /* Build configuration list for PBXNativeTarget "MiWei" */;
 			buildPhases = (
+				77AC547470BDF8F07C8469A4 /* [CP] Check Pods Manifest.lock */,
 				27B38235207CFB77006036A0 /* Sources */,
 				27B38236207CFB77006036A0 /* Frameworks */,
 				27B38237207CFB77006036A0 /* Resources */,
@@ -1031,6 +1048,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		77AC547470BDF8F07C8469A4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MiWei-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		27B38235207CFB77006036A0 /* Sources */ = {
@@ -1286,6 +1324,7 @@
 		};
 		27B38250207CFB77006036A0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 73BAF809085A0165EFBE4095 /* Pods-MiWei.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MiWei/MiWei.entitlements;
@@ -1308,6 +1347,7 @@
 		};
 		27B38251207CFB77006036A0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BEDD45956B7C55EC5039C277 /* Pods-MiWei.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MiWei/MiWei.entitlements;
