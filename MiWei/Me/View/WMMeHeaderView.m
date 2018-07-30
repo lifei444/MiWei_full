@@ -76,7 +76,7 @@
         _nameLabel.textAlignment = NSTextAlignmentCenter;
         _nameLabel.textColor = [WMUIUtility color:@"0xffffff"];
         _nameLabel.font = [UIFont systemFontOfSize:16];
-        _nameLabel.text = [WMHTTPUtility currentProfile].name;
+        _nameLabel.text = [WMHTTPUtility currentProfile].nickname;
     }
     return _nameLabel;
 }
