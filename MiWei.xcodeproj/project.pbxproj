@@ -11,7 +11,6 @@
 		2702A2EE207E370900FE7577 /* WMPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2702A2ED207E370900FE7577 /* WMPersonViewController.m */; };
 		2702A2F2207E38EC00FE7577 /* UIColor+WM.m in Sources */ = {isa = PBXBuildFile; fileRef = 2702A2F1207E38EC00FE7577 /* UIColor+WM.m */; };
 		2702A2F6207E3C8900FE7577 /* WMMeNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2702A2F5207E3C8900FE7577 /* WMMeNameViewController.m */; };
-		2702A2F9207E3EB200FE7577 /* WMMeIconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2702A2F8207E3EB200FE7577 /* WMMeIconViewController.m */; };
 		2702A300207E5A3400FE7577 /* WMForgetPassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2702A2FF207E5A3400FE7577 /* WMForgetPassViewController.m */; };
 		2708B8AD2084F85500A760E7 /* PYJsonUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2708B8292084F85500A760E7 /* PYJsonUtil.m */; };
 		2708B8BD2084F85500A760E7 /* PYAxisTick.m in Sources */ = {isa = PBXBuildFile; fileRef = 2708B83E2084F85500A760E7 /* PYAxisTick.m */; };
@@ -157,8 +156,6 @@
 		2702A2F3207E38F600FE7577 /* UIColor+WM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+WM.h"; sourceTree = "<group>"; };
 		2702A2F4207E3C8900FE7577 /* WMMeNameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMMeNameViewController.h; sourceTree = "<group>"; };
 		2702A2F5207E3C8900FE7577 /* WMMeNameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMMeNameViewController.m; sourceTree = "<group>"; };
-		2702A2F7207E3EB200FE7577 /* WMMeIconViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMMeIconViewController.h; sourceTree = "<group>"; };
-		2702A2F8207E3EB200FE7577 /* WMMeIconViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMMeIconViewController.m; sourceTree = "<group>"; };
 		2702A2FE207E5A3400FE7577 /* WMForgetPassViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMForgetPassViewController.h; sourceTree = "<group>"; };
 		2702A2FF207E5A3400FE7577 /* WMForgetPassViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMForgetPassViewController.m; sourceTree = "<group>"; };
 		2708B8242084F7F400A760E7 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -776,8 +773,6 @@
 				2702A2EA207E34EA00FE7577 /* WMMeAddressViewController.m */,
 				2702A2F4207E3C8900FE7577 /* WMMeNameViewController.h */,
 				2702A2F5207E3C8900FE7577 /* WMMeNameViewController.m */,
-				2702A2F7207E3EB200FE7577 /* WMMeIconViewController.h */,
-				2702A2F8207E3EB200FE7577 /* WMMeIconViewController.m */,
 				2702A2EC207E370900FE7577 /* WMPersonViewController.h */,
 				2702A2ED207E370900FE7577 /* WMPersonViewController.m */,
 				274A5540208E36A5004FC461 /* WMFeedbackViewController.h */,
@@ -1163,7 +1158,6 @@
 				2708B8D32084F85500A760E7 /* PYGrid.m in Sources */,
 				271A9CEF2081B31A0028D20D /* WMQRCode.m in Sources */,
 				271A9CD32081A71A0028D20D /* WMPayRecordCell.m in Sources */,
-				2702A2F9207E3EB200FE7577 /* WMMeIconViewController.m in Sources */,
 				2702A2F6207E3C8900FE7577 /* WMMeNameViewController.m in Sources */,
 				2708B8BF2084F85500A760E7 /* PYCartesianSeries.m in Sources */,
 				2708B8C82084F85500A760E7 /* PYTreeSeries.m in Sources */,

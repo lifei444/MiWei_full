@@ -50,7 +50,7 @@
 static NSString *phoneKey = @"WMPhoneKey";
 static NSString *pswKey = @"WMPswKey";
 
-@interface WMLoginViewController ()
+@interface WMLoginViewController () <UITextFieldDelegate>
 @property (nonatomic,strong) UILabel *titleLable;
 @property (nonatomic,strong) UIImageView *logoImageView;
 @property (nonatomic,strong) WMUnderLineView *phoneView;
@@ -126,6 +126,12 @@ static NSString *pswKey = @"WMPswKey";
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
 #pragma mark - Getters and setters
 - (UILabel *)titleLable {
     if (!_titleLable) {
@@ -155,6 +161,7 @@ static NSString *pswKey = @"WMPswKey";
         _phoneView.textField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _phoneView.textField.adjustsFontSizeToFitWidth = YES;
         _phoneView.textField.text = [WMKeychainUtility WMDataForKey:phoneKey];
+        _phoneView.textField.delegate = self;
     }
     return _phoneView;
 }
@@ -170,6 +177,7 @@ static NSString *pswKey = @"WMPswKey";
         _passwordView.textField.clearButtonMode = UITextFieldViewModeNever;
         _passwordView.textField.adjustsFontSizeToFitWidth = YES;
         _passwordView.textField.text = [WMKeychainUtility WMDataForKey:pswKey];
+        _passwordView.textField.delegate = self;
     }
     return _passwordView;
 }

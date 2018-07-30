@@ -9,12 +9,12 @@
 #import "WMPersonViewController.h"
 #import "WMMeAddressViewController.h"
 #import "WMMeNameViewController.h"
-#import "WMMeIconViewController.h"
 #import "WMUIUtility.h"
 #import "WMHTTPUtility.h"
 
-@interface WMPersonViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface WMPersonViewController ()<UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (nonatomic,strong) UITableView *tableView;
+@property (nonatomic, strong)UIImagePickerController *picker;
 @end
 
 @implementation WMPersonViewController
@@ -65,16 +65,50 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row == 0) {
-        WMMeIconViewController *vc = [[WMMeIconViewController alloc] init];
-        [self.navigationController pushViewController:vc animated:YES];
-    }else if(indexPath.row == 1){
+    if (indexPath.row == 0) {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                                 delegate:self
+                                                        cancelButtonTitle:@"取消"
+                                                   destructiveButtonTitle:@"拍照"
+                                                        otherButtonTitles:@"从相册选择", nil];
+        [actionSheet showInView:self.view];
+    } else if(indexPath.row == 1) {
         WMMeNameViewController *vc = [[WMMeNameViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
-    }else {
+    } else {
         WMMeAddressViewController *vc = [[WMMeAddressViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     }
+}
+
+#pragma mark - UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex) {
+        case 0:
+            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+                self.picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+                self.picker.showsCameraControls = YES;
+            } else {
+                NSLog(@"模拟器无法连接相机");
+            }
+            [self presentViewController:self.picker animated:YES completion:nil];
+            break;
+            
+        case 1:
+            self.picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            [self presentViewController:self.picker animated:YES completion:nil];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    [self.picker dismissViewControllerAnimated:YES completion:nil];
+    
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
 }
 
 #pragma mark - Getters and setters
@@ -86,6 +120,15 @@
         _tableView.tableFooterView = [UIView new];
     }
     return _tableView;
+}
+
+- (UIImagePickerController *)picker {
+    if (_picker == nil) {
+        _picker = [[UIImagePickerController alloc] init];
+        _picker.delegate = self;
+        _picker.allowsEditing = NO;
+    }
+    return _picker;
 }
 
 @end
