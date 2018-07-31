@@ -10,6 +10,7 @@
 #import "WMCommonDefine.h"
 #import "WMUIUtility.h"
 #import "WMHTTPUtility.h"
+#import "UIImageView+WebCache.h"
 
 #define kheight 269
 
@@ -19,6 +20,7 @@
 @end
 
 @implementation WMMeHeaderView
+#pragma mark - Life cycle
 + (instancetype)headerView {
     WMMeHeaderView *v = [[self alloc] initWithFrame:WM_CGRectMake(0, 0, Screen_Width, kheight)];
     return v;
@@ -34,6 +36,11 @@
         [self addSubview:self.addressLabel];
     }
     return self;
+}
+
+#pragma mark - Public methods
+- (void)updatePortrait {
+    [self.portraitImageView sd_setImageWithURL:[WMHTTPUtility urlWithPortraitId:[WMHTTPUtility currentProfile].portrait] placeholderImage:[UIImage imageNamed:@"me_portrait"]];
 }
 
 #pragma mark - Getters and setters
@@ -64,7 +71,7 @@
         _portraitImageView = [[UIImageView alloc] initWithFrame:rect];
         _portraitImageView.layer.cornerRadius = 50;
         _portraitImageView.layer.masksToBounds = YES;
-        _portraitImageView.image = [UIImage imageNamed:@"me_portrait"];
+        [_portraitImageView sd_setImageWithURL:[WMHTTPUtility urlWithPortraitId:[WMHTTPUtility currentProfile].portrait] placeholderImage:[UIImage imageNamed:@"me_portrait"]];
     }
     return _portraitImageView;
 }

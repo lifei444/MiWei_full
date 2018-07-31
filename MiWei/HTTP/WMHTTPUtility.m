@@ -8,6 +8,7 @@
 #import <AFNetworking/AFNetworking.h>
 
 NSString *const BASE_URL = @"http://60.205.205.82:9998/api/v1/";
+NSString *const WMImagePrefix = @"http://60.205.205.82:9998/api/v1/common/file/";
 
 @implementation WMHTTPUtility
 static AFHTTPSessionManager *manager;
@@ -118,6 +119,38 @@ static WMProfile *myProfile;
         default:
             break;
     }
+}
+
++ (void)uploadFile:(NSData *)fileData
+          response:(void (^)(WMHTTPResult *))responseBlock {
+    AFHTTPSessionManager *session = [WMHTTPUtility sharedHTTPSessionManager];
+    
+    NSString *absoluteURLString = [BASE_URL stringByAppendingPathComponent:@"/common/file/upload"];
+    [session POST:absoluteURLString
+       parameters:nil
+constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
+    [formData appendPartWithFileData:fileData
+                                name:@"file"
+                            fileName:@"1.jpg"
+                            mimeType:@"multipart/form-data"];
+}
+         progress:nil
+          success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
+              if (responseBlock) {
+                  responseBlock([self httpSuccessResult:task response:responseObject]);
+              }
+          }
+          failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
+              NSLog(@"WMHTTPUtility uploadFile error is %@", error.localizedDescription);
+              if (responseBlock) {
+                  responseBlock([self httpFailureResult:task]);
+              }
+          }];
+}
+
++ (NSURL *)urlWithPortraitId:(NSString *)portraitId {
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@.jpg", WMImagePrefix, portraitId];
+    return [NSURL URLWithString:urlStr];
 }
 
 + (WMHTTPResult *)httpSuccessResult:(NSURLSessionDataTask *)task response:(id)responseObject {

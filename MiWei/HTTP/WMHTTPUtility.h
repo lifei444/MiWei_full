@@ -23,6 +23,11 @@ typedef NS_ENUM(NSUInteger, WMHTTPRequestMethod) {
                    parameters:(NSDictionary *)parameters
                      response:(void (^)(WMHTTPResult *result))responseBlock;
 
++ (void)uploadFile:(NSData *)fileData
+          response:(void (^)(WMHTTPResult *))responseBlock;
+
++ (NSURL *)urlWithPortraitId:(NSString *)portraitId;
+
 + (void)loginWithPhone:(NSString *)phone
                    psw:(NSString *)psw
               complete:(void (^)(BOOL))completeBlock;

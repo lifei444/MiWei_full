@@ -11,10 +11,13 @@
 #import "WMMeNameViewController.h"
 #import "WMUIUtility.h"
 #import "WMHTTPUtility.h"
+#import "UIImageView+WebCache.h"
+#import "MBProgressHUD.h"
 
 @interface WMPersonViewController ()<UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic, strong)UIImagePickerController *picker;
+@property(nonatomic, strong) MBProgressHUD *hud;
 @end
 
 @implementation WMPersonViewController
@@ -43,7 +46,7 @@
     cell.textLabel.font = [UIFont systemFontOfSize:15];
     if (indexPath.row == 0) {
         cell.textLabel.text = @"头像";
-//        cell.imageView.image = [UIImage imageNamed:@"person_portrait"];
+        [cell.imageView sd_setImageWithURL:[WMHTTPUtility urlWithPortraitId:[WMHTTPUtility currentProfile].portrait] placeholderImage:[UIImage imageNamed:@"me_portrait"]];
     } else if(indexPath.row == 1) {
         cell.textLabel.text = @"昵称";
         cell.detailTextLabel.text= [WMHTTPUtility currentProfile].nickname;
@@ -107,8 +110,44 @@
 #pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     [self.picker dismissViewControllerAnimated:YES completion:nil];
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.label.text = @"上传图片中";
     
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    NSData *data = UIImageJPEGRepresentation(image, 0.5);
+    
+    [WMHTTPUtility uploadFile:data
+                     response:^(WMHTTPResult *result) {
+                         if (result.success) {
+                             NSDictionary *content = result.content;
+                             NSString *fileId = content[@"fileID"];
+                             [WMHTTPUtility currentProfile].portrait = fileId;
+                             NSMutableDictionary *d = [[NSMutableDictionary alloc] init];
+                             [d setObject:fileId forKey:@"portraitID"];
+                             [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodPost
+                                                        URLString:@"/mobile/user/editUserInfo"
+                                                       parameters:d
+                                                         response:^(WMHTTPResult *result) {
+                                                             if (result.success) {
+                                                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                                                     [self.hud hideAnimated:YES];
+                                                                     [[NSNotificationCenter defaultCenter] postNotificationName:@"WMPortraitUpdate" object:nil];
+                                                                     [self.tableView reloadData];
+                                                                 });
+                                                             } else {
+                                                                 NSLog(@"imagePickerController, set error");
+                                                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                                                     [self.hud hideAnimated:YES];
+                                                                 });
+                                                             }
+                                                         }];
+                         } else {
+                             NSLog(@"imagePickerController, upload error");
+                             dispatch_async(dispatch_get_main_queue(), ^{
+                                 [self.hud hideAnimated:YES];
+                             });
+                         }
+                     }];
 }
 
 #pragma mark - Getters and setters

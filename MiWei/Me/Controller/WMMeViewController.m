@@ -47,6 +47,10 @@
     [self.view addSubview:self.settingImageView];
     [self.view addSubview:self.tableView];
     self.titles = @[@"修改密码",@"订单中心",@"报警管理",@"意见反馈"];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(portraitDidUpdate:)
+                                                 name:@"WMPortraitUpdate"
+                                               object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -138,6 +142,10 @@
 - (void)setting {
     WMPersonViewController *vc = [[WMPersonViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)portraitDidUpdate:(NSNotification *)notification {
+    [self.headerView updatePortrait];
 }
 
 #pragma mark - Getters and setters

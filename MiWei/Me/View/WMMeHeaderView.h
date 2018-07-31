@@ -13,4 +13,6 @@
 @property (nonatomic, strong) UIImageView *portraitImageView;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *addressLabel;
+
+- (void)updatePortrait;
 @end
