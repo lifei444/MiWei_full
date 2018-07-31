@@ -15,10 +15,6 @@
 
 @implementation WMMeCell
 
-+ (instancetype)cellWithTableView:(UITableView *)tableView {
-    return [super cellWithTableView:tableView];
-}
-
 - (void)loadSubViews {
     self.iconImageView = [[UIImageView alloc] initWithFrame:WM_CGRectMake(30, 17, 16, 16)];
     self.label = [[UILabel alloc] initWithFrame:WM_CGRectMake(67, 4, 100, 42)];
@@ -31,17 +27,7 @@
 }
 
 + (CGFloat)cellHeight {
-    return 50;
-}
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+    return [WMUIUtility WMCGFloatForY:50];
 }
 
 @end

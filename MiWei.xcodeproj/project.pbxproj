@@ -130,6 +130,7 @@
 		9C5EDCEF211076EC0085ADEE /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5EDCD9211076EC0085ADEE /* UIImageView+WebCache.m */; };
 		9C5EDCF0211076EC0085ADEE /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5EDCDC211076EC0085ADEE /* UIView+WebCacheOperation.m */; };
 		9C5EDCF1211076EC0085ADEE /* UIButton+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5EDCE0211076EC0085ADEE /* UIButton+WebCache.m */; };
+		9C5EDCF42110802B0085ADEE /* WMMePortraitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5EDCF32110802B0085ADEE /* WMMePortraitCell.m */; };
 		9C608D6D210DE245001F1E11 /* WMDeviceEchartHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C608D6C210DE245001F1E11 /* WMDeviceEchartHeadView.m */; };
 		9C608D70210E06CD001F1E11 /* WMDevicePollutionSumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C608D6F210E06CD001F1E11 /* WMDevicePollutionSumView.m */; };
 		9C9F113C20A85B95001D02FC /* WMUIUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9F113B20A85B95001D02FC /* WMUIUtility.m */; };
@@ -411,6 +412,8 @@
 		9C5EDCDF211076EC0085ADEE /* UIImage+MultiFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+MultiFormat.h"; sourceTree = "<group>"; };
 		9C5EDCE0211076EC0085ADEE /* UIButton+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+WebCache.m"; sourceTree = "<group>"; };
 		9C5EDCE1211076EC0085ADEE /* UIImage+GIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+GIF.h"; sourceTree = "<group>"; };
+		9C5EDCF22110802B0085ADEE /* WMMePortraitCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMMePortraitCell.h; sourceTree = "<group>"; };
+		9C5EDCF32110802B0085ADEE /* WMMePortraitCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMMePortraitCell.m; sourceTree = "<group>"; };
 		9C608D6B210DE245001F1E11 /* WMDeviceEchartHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceEchartHeadView.h; sourceTree = "<group>"; };
 		9C608D6C210DE245001F1E11 /* WMDeviceEchartHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceEchartHeadView.m; sourceTree = "<group>"; };
 		9C608D6E210E06CD001F1E11 /* WMDevicePollutionSumView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDevicePollutionSumView.h; sourceTree = "<group>"; };
@@ -839,10 +842,12 @@
 		27A7D212207D09D9006C6AF6 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				27A7D22C207D0CCF006C6AF6 /* WMMeCell.h */,
-				27A7D22D207D0CCF006C6AF6 /* WMMeCell.m */,
 				27A7D22F207D0D4D006C6AF6 /* WMMeHeaderView.h */,
 				27A7D230207D0D4D006C6AF6 /* WMMeHeaderView.m */,
+				27A7D22C207D0CCF006C6AF6 /* WMMeCell.h */,
+				27A7D22D207D0CCF006C6AF6 /* WMMeCell.m */,
+				9C5EDCF22110802B0085ADEE /* WMMePortraitCell.h */,
+				9C5EDCF32110802B0085ADEE /* WMMePortraitCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1236,6 +1241,7 @@
 				9CB8064220FC9FFE001A5C5E /* WMDeviceRentInfo.m in Sources */,
 				9CDDA6CC2105F96F0079E328 /* WMDevicePMView.m in Sources */,
 				274A553E208E2F50004FC461 /* WMWeatherListViewController.m in Sources */,
+				9C5EDCF42110802B0085ADEE /* WMMePortraitCell.m in Sources */,
 				9C5EDCE3211076EC0085ADEE /* MKAnnotationView+WebCache.m in Sources */,
 				9CDDA6C42105941B0079E328 /* WMKeychainUtility.m in Sources */,
 				9C5EDCE2211076EC0085ADEE /* UIImage+WebP.m in Sources */,

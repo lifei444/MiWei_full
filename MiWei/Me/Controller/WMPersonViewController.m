@@ -13,6 +13,7 @@
 #import "WMHTTPUtility.h"
 #import "UIImageView+WebCache.h"
 #import "MBProgressHUD.h"
+#import "WMMePortraitCell.h"
 
 @interface WMPersonViewController ()<UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (nonatomic,strong) UITableView *tableView;
@@ -40,22 +41,31 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    cell.textLabel.textColor = [WMUIUtility color:@"0x444444"];
-    cell.textLabel.font = [UIFont systemFontOfSize:15];
     if (indexPath.row == 0) {
+        WMMePortraitCell *cell = [WMMePortraitCell cellWithTableView:tableView];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.textLabel.textColor = [WMUIUtility color:@"0x444444"];
+        cell.textLabel.font = [UIFont systemFontOfSize:15];
         cell.textLabel.text = @"头像";
-        [cell.imageView sd_setImageWithURL:[WMHTTPUtility urlWithPortraitId:[WMHTTPUtility currentProfile].portrait] placeholderImage:[UIImage imageNamed:@"me_portrait"]];
-    } else if(indexPath.row == 1) {
-        cell.textLabel.text = @"昵称";
-        cell.detailTextLabel.text= [WMHTTPUtility currentProfile].nickname;
+        [cell.portraitView sd_setImageWithURL:[WMHTTPUtility urlWithPortraitId:[WMHTTPUtility currentProfile].portrait] placeholderImage:[UIImage imageNamed:@"me_portrait"]];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
     } else {
-        cell.textLabel.text = @"地址";
-        cell.detailTextLabel.text= [WMHTTPUtility currentProfile].addrDetail;
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.textLabel.textColor = [WMUIUtility color:@"0x444444"];
+        cell.textLabel.font = [UIFont systemFontOfSize:15];
+        
+        if (indexPath.row == 1) {
+            cell.textLabel.text = @"昵称";
+            cell.detailTextLabel.text= [WMHTTPUtility currentProfile].nickname;
+        } else {
+            cell.textLabel.text = @"地址";
+            cell.detailTextLabel.text= [WMHTTPUtility currentProfile].addrDetail;
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
 }
 
 #pragma mark - UITableViewDelegate
