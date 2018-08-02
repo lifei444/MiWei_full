@@ -16,6 +16,7 @@
 #import "WMUIUtility.h"
 #import "WMHTTPUtility.h"
 #import "WMKeychainUtility.h"
+#import <WXApi.h>
 
 #define TitleViewHeight 64
 #define GapBetweenTitleAndLogo 38
@@ -51,14 +52,16 @@ static NSString *phoneKey = @"WMPhoneKey";
 static NSString *pswKey = @"WMPswKey";
 
 @interface WMLoginViewController () <UITextFieldDelegate>
-@property (nonatomic,strong) UILabel *titleLable;
-@property (nonatomic,strong) UIImageView *logoImageView;
-@property (nonatomic,strong) WMUnderLineView *phoneView;
-@property (nonatomic,strong) WMUnderLineView *passwordView;
-@property (nonatomic,strong) UIView *wechatView;
-@property (nonatomic,strong) UIButton *loginButton;
-@property (nonatomic,strong) UILabel *registerLabel;
-@property (nonatomic,strong) UILabel *forgetLabel;
+@property (nonatomic, strong) UILabel *titleLable;
+@property (nonatomic, strong) UIImageView *logoImageView;
+@property (nonatomic, strong) WMUnderLineView *phoneView;
+@property (nonatomic, strong) WMUnderLineView *passwordView;
+@property (nonatomic, strong) UIView *wechatView;
+@property (nonatomic, strong) UIButton *loginButton;
+@property (nonatomic, strong) UILabel *registerLabel;
+@property (nonatomic, strong) UILabel *forgetLabel;
+@property (nonatomic, assign) BOOL needBind;
+@property (nonatomic, strong) NSNumber *wxBindCode;
 @end
 
 @implementation WMLoginViewController
@@ -75,6 +78,10 @@ static NSString *pswKey = @"WMPswKey";
     [self.view addSubview:self.loginButton];
     [self.view addSubview:self.registerLabel];
     [self.view addSubview:self.forgetLabel];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onWechatAuth:)
+                                                 name:WMWechatAuthNotification
+                                               object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -93,6 +100,10 @@ static NSString *pswKey = @"WMPswKey";
 #pragma mark - Target action
 - (void)wechat {
     NSLog(@"%s",__func__);
+    SendAuthReq *req = [[SendAuthReq alloc] init];
+    req.scope = @"snsapi_userinfo";
+    req.state = @"MiWei_Auth";
+    [WXApi sendReq:req];
 }
 
 - (void)doLogin {
@@ -101,14 +112,13 @@ static NSString *pswKey = @"WMPswKey";
     
     [WMHTTPUtility loginWithPhone:phone
                               psw:psw
+                       wxBindCode:self.wxBindCode
                          complete:^(BOOL result) {
                              if (result) {
                                  dispatch_async(dispatch_get_main_queue(), ^{
                                      [WMKeychainUtility setWMData:phone forKey:phoneKey];
                                      [WMKeychainUtility setWMData:psw forKey:pswKey];
-                                     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-                                     WMMainTabbarViewController *tabVC = [[WMMainTabbarViewController alloc] init];
-                                     app.window.rootViewController = tabVC;
+                                     [self loginSuccess];
                                  });
                              } else {
                                  NSLog(@"doLogin failed");
@@ -126,10 +136,36 @@ static NSString *pswKey = @"WMPswKey";
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+- (void)onWechatAuth:(NSNotification *)notification {
+    SendAuthResp *resq = notification.object;
+    [WMHTTPUtility loginWithWXOAuthCode:resq.code
+                               complete:^(WMAuthResult result, NSNumber *wxBindCode) {
+                                   if (result == WMAuthResultSucess) {
+                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                           [self loginSuccess];
+                                       });
+                                   } else if (result == WMAuthResultWXNotBind) {
+                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                           [self.loginButton setTitle:@"绑定" forState:UIControlStateNormal];
+                                           self.wxBindCode = wxBindCode;
+                                       });
+                                   } else {
+                                       NSLog(@"onWechatAuth login fail");
+                                   }
+                               }];
+}
+
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
+}
+
+#pragma mark - Private methods
+- (void)loginSuccess {
+    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    WMMainTabbarViewController *tabVC = [[WMMainTabbarViewController alloc] init];
+    app.window.rootViewController = tabVC;
 }
 
 #pragma mark - Getters and setters
@@ -201,6 +237,9 @@ static NSString *pswKey = @"WMPswKey";
         [_wechatView addSubview:label];
         UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(wechat)];
         [_wechatView addGestureRecognizer:recognizer];
+        if (![WXApi isWXAppInstalled]) {
+            _wechatView.hidden = YES;
+        }
     }
     return _wechatView;
 }
@@ -208,7 +247,11 @@ static NSString *pswKey = @"WMPswKey";
 - (UIButton *)loginButton {
     if (!_loginButton) {
         _loginButton = [[UIButton alloc] initWithFrame:WM_CGRectMake(LoginButtonX, LoginButtonY, LoginButtonW, LoginButtonHeight)];
-        [_loginButton setTitle:@"登录" forState:UIControlStateNormal];
+        if (self.needBind) {
+            [_loginButton setTitle:@"绑定" forState:UIControlStateNormal];
+        } else {
+            [_loginButton setTitle:@"登录" forState:UIControlStateNormal];
+        }
         _loginButton.backgroundColor = [WMUIUtility color:@"0x23938b"];
         _loginButton.titleLabel.textColor = [WMUIUtility color:@"0xffffff"];
         [_loginButton.layer setCornerRadius:4];

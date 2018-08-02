@@ -182,12 +182,16 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
 
 + (void)loginWithPhone:(NSString *)phone
                    psw:(NSString *)psw
+            wxBindCode:(NSNumber *)wxBindCode
               complete:(void (^)(BOOL))completeBlock {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     //4 for iOS APP
     [dic setObject:@(4) forKey:@"loginType"];
     [dic setObject:phone forKey:@"userPhone"];
     [dic setObject:psw forKey:@"userPwd"];
+    if (wxBindCode > 0) {
+        [dic setObject:wxBindCode forKey:@"wxBindCode"];
+    }
     [dic setObject:@(YES) forKey:@"withUserInfo"];
     
     [self requestWithHTTPMethod:WMHTTPRequestMethodPost
@@ -214,6 +218,49 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
                                NSLog(@"login error, result is %@", result);
                                if (completeBlock) {
                                    completeBlock(NO);
+                               }
+                           }
+                       }];
+}
+
++ (void)loginWithWXOAuthCode:(NSString *)wxOAuthCode
+                    complete:(void (^)(WMAuthResult result, NSNumber *wxBindCode))completeBlock {
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    //4 for iOS APP
+    [dic setObject:@(4) forKey:@"loginType"];
+    [dic setObject:wxOAuthCode forKey:@"wxOAuthCode"];
+    [dic setObject:@(YES) forKey:@"withUserInfo"];
+    
+    [self requestWithHTTPMethod:WMHTTPRequestMethodPost
+                      URLString:@"mobile/user/login"
+                     parameters:dic
+                       response:^(WMHTTPResult *result) {
+                           if (result.success) {
+                               NSDictionary *contentDic = result.content;
+                               NSString *token = contentDic[@"token"];
+                               [self setToken:token];
+                               WMProfile *profile = [[WMProfile alloc] init];
+                               NSDictionary *userInfo = contentDic[@"userInfo"];
+                               profile.profileId = userInfo[@"id"];
+                               profile.phone = userInfo[@"phone"];
+                               profile.name = userInfo[@"name"];
+                               profile.nickname = userInfo[@"nickName"];
+                               profile.portrait = userInfo[@"portraitID"];
+                               profile.addrDetail = userInfo[@"addrDetail"];
+                               myProfile = profile;
+                               if (completeBlock) {
+                                   completeBlock(WMAuthResultSucess, nil);
+                               }
+                           } else {
+                               NSLog(@"login error, result is %@", result);
+                               if (result.errorCode == WMHTTPCodeWXNotBind) {
+                                   NSDictionary *contentDic = result.content;
+                                   NSNumber *wxBindCode = contentDic[@"wxBindCode"];
+                                   if (completeBlock) {
+                                       completeBlock(WMAuthResultWXNotBind, wxBindCode);
+                                   }
+                               } else {
+                                   completeBlock(WMAuthResultFail, nil);
                                }
                            }
                        }];

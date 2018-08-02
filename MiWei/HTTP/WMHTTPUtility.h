@@ -16,6 +16,12 @@ typedef NS_ENUM(NSUInteger, WMHTTPRequestMethod) {
     WMHTTPRequestMethodDelete = 5
 };
 
+typedef NS_ENUM(NSUInteger, WMAuthResult) {
+    WMAuthResultSucess = 1,
+    WMAuthResultFail = 2,
+    WMAuthResultWXNotBind = 3
+};
+
 @interface WMHTTPUtility : NSObject
 
 + (void)requestWithHTTPMethod:(WMHTTPRequestMethod)method
@@ -30,7 +36,11 @@ typedef NS_ENUM(NSUInteger, WMHTTPRequestMethod) {
 
 + (void)loginWithPhone:(NSString *)phone
                    psw:(NSString *)psw
+            wxBindCode:(NSNumber *)wxBindCode
               complete:(void (^)(BOOL))completeBlock;
+
++ (void)loginWithWXOAuthCode:(NSString *)wxOAuthCode
+                    complete:(void (^)(WMAuthResult result, NSNumber *wxBindCode))completeBlock;
 
 + (WMProfile *)currentProfile;
 @end

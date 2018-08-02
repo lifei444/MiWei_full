@@ -9,6 +9,8 @@
 #ifndef WMCommonDefine_h
 #define WMCommonDefine_h
 
+FOUNDATION_EXPORT NSString *const WMWechatAuthNotification;
+
 //都以iPhone 6 为准
 //#define Screen_Bounds [UIScreen mainScreen].bounds
 //#define Screen_Size [UIScreen mainScreen].bounds.size
