@@ -99,7 +99,6 @@
 		27A7D231207D0D4D006C6AF6 /* WMMeHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A7D230207D0D4D006C6AF6 /* WMMeHeaderView.m */; };
 		27A7D236207D1107006C6AF6 /* WMBaseTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A7D235207D1107006C6AF6 /* WMBaseTableCell.m */; };
 		27B3823E207CFB77006036A0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B3823D207CFB77006036A0 /* AppDelegate.m */; };
-		27B38241207CFB77006036A0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B38240207CFB77006036A0 /* ViewController.m */; };
 		27B38244207CFB77006036A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27B38242207CFB77006036A0 /* Main.storyboard */; };
 		27B38246207CFB77006036A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27B38245207CFB77006036A0 /* Assets.xcassets */; };
 		27B38249207CFB77006036A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27B38247207CFB77006036A0 /* LaunchScreen.storyboard */; };
@@ -351,8 +350,6 @@
 		27B38239207CFB77006036A0 /* MiWei.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiWei.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27B3823C207CFB77006036A0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		27B3823D207CFB77006036A0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		27B3823F207CFB77006036A0 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		27B38240207CFB77006036A0 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		27B38243207CFB77006036A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		27B38245207CFB77006036A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		27B38248207CFB77006036A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -962,24 +959,22 @@
 				9CDDA6C5210595F50079E328 /* MiWei.entitlements */,
 				27B3823C207CFB77006036A0 /* AppDelegate.h */,
 				27B3823D207CFB77006036A0 /* AppDelegate.m */,
-				27B3823F207CFB77006036A0 /* ViewController.h */,
-				27B38240207CFB77006036A0 /* ViewController.m */,
 				2708B8242084F7F400A760E7 /* PrefixHeader.pch */,
+				2760C694207F8A03003CC126 /* Common */,
+				2708B8252084F85500A760E7 /* iOS-Echarts */,
+				9C4FBE4920EA152D00D36D8D /* HTTP */,
 				9C5EDCC0211076EC0085ADEE /* SDWebImage */,
 				9C5EDCB92110767F0085ADEE /* MBProgressHUD */,
 				9C5EDCB5210F27FE0085ADEE /* Profile */,
 				274A5534208E2F50004FC461 /* Message */,
-				2708B8252084F85500A760E7 /* iOS-Echarts */,
 				271A9CD72081AC470028D20D /* Scan */,
 				271A9CCA2081A61C0028D20D /* Pay */,
 				271A9CC420819D0A0028D20D /* City */,
-				2760C694207F8A03003CC126 /* Common */,
 				27A7D232207D0E1E006C6AF6 /* Utility */,
 				27A7D21F207D0B85006C6AF6 /* Device */,
 				27A7D20D207D09D9006C6AF6 /* Me */,
 				27A7D1F2207D04FD006C6AF6 /* Login */,
 				27A7D1ED207D04FD006C6AF6 /* MainTab */,
-				9C4FBE4920EA152D00D36D8D /* HTTP */,
 				27B38247207CFB77006036A0 /* LaunchScreen.storyboard */,
 				27B3824A207CFB77006036A0 /* Info.plist */,
 				27B3824B207CFB77006036A0 /* main.m */,
@@ -1173,7 +1168,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27B38241207CFB77006036A0 /* ViewController.m in Sources */,
 				2708B8E02084F85500A760E7 /* PYPolar.m in Sources */,
 				2708B8E82084F85500A760E7 /* PYAxisSplitLine.m in Sources */,
 				2708B8C52084F85500A760E7 /* PYMapSeries.m in Sources */,

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WMViewController.h"
 
 /**
  扫描二维码发生的错误，主要是申请相册权限出问题
@@ -22,6 +23,6 @@ typedef NS_ENUM(NSUInteger, WMQRCodeScanType) {
     WMQRCodeScanUnknown = 7,             //未知错误
 };
 
-@interface WMScanViewController : UIViewController
+@interface WMScanViewController : WMViewController
 
 @end

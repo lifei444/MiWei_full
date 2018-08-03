@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WMDevice.h"
 
 @interface WMDeviceAddViewController : UIViewController
-
+@property (nonatomic, strong) WMDevice *device;
 @end

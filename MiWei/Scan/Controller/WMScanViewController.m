@@ -13,32 +13,35 @@
 #import "WMQRCode.h"
 #import "WMScanInputViewController.h"
 #import "WMUIUtility.h"
+#import "WMHTTPUtility.h"
+#import "WMDevice.h"
+#import "WMDeviceAddViewController.h"
 
 @interface WMScanViewController ()<WMQRCodeScannerDelegate>
 @property(nonatomic, strong) WMScanView *scanningView;
 @end
 
 @implementation WMScanViewController
-
+#pragma mark - Life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setRightNavBar];
+    self.view.backgroundColor = [UIColor blackColor];
+    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:WM_CGRectMake(0, 0, 80, 30)];
-    titleLabel.text = @"设备扫描";
+    titleLabel.text = @"扫描设备";
     titleLabel.textColor = [UIColor whiteColor];
     self.navigationItem.titleView = titleLabel;
-    //设置导航栏
-    [self.view addSubview:[self scanContentView]];
+    
+    [self setRightNavBar];
+    [self.view addSubview:self.scanningView];
     //鉴权
     if ([self isCameraAuthorized] && [self isCameraExist]) {
-        
         // 二维码扫描
         [self scanQRCodeWithCamera];
     }
     
     [[WMQRCode sharedWMQRCode] setScannerDelegate:self];
 }
-
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -55,44 +58,18 @@
     [UIColor colorWithRed:255 / 255.0 green:255 / 255.0 blue:255 / 255.0 alpha:1 / 1.0];
 }
 
-- (void)setRightNavBar {
-    UIButton *btn = [[UIButton alloc] initWithFrame:WM_CGRectMake(0, 0, 80, 30)];
-    [btn setTitle:@"手动输入" forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(setting:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-}
-
+#pragma mark - Target action
 - (void)setting:(UIButton *)btn {
     WMScanInputViewController *vc = [[WMScanInputViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (UIView *)scanContentView {
-    if (!_scanningView) {
-        CGRect frame = self.view.bounds;
-        frame.origin.y = self.view.bounds.origin.y - 64 * (1 - 0.24);
-        _scanningView = [[WMScanView alloc] initWithSuperView:self.view];
-    }
-    return _scanningView;
-}
-
-- (void)scanQRCodeWithCamera {
-    //保证在扫描动画所在的范围内识别二维码
-    CGRect scanRect = [self.view convertRect:self.scanningView.scanContentView.frame toView:self.view];
-    CGRect rect =
-    WM_CGRectMake(scanRect.origin.x / self.view.frame.size.width, scanRect.origin.y / self.view.frame.size.height,
-               (scanRect.size.width + scanRect.origin.x) / self.view.frame.size.width,
-               (scanRect.size.height + scanRect.origin.y) / self.view.frame.size.height);
-    //    rect = CGRectMake(0, 0, 1, 1); -----rect即为最终的扫描比例范围，最大为（0，0，1，1），此时全屏都可扫描；
-    [[WMQRCode sharedWMQRCode] scanQRCideWithCamera:self.view rectOfInterest:rect];
-}
-
-//进入相册（添加按钮点击事件来实现）
-- (void)enterAlbum {
-    if ([self isAlbumAuthorized]) {
-        
-        [[WMQRCode sharedWMQRCode] scanQRCodeWithAlbum:nil];
-    }
+#pragma mark - Private methods
+- (void)setRightNavBar {
+    UIButton *btn = [[UIButton alloc] initWithFrame:WM_CGRectMake(0, 0, 80, 30)];
+    [btn setTitle:@"手动输入" forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(setting:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
 }
 
 //摄像头是否授权
@@ -134,29 +111,15 @@
     return isExist;
 }
 
-- (BOOL)isAlbumAuthorized {
-    //检测是否获取了相册权限
-    __block BOOL isAuthorized = NO;
-    __block NSUInteger type = WMQRCodeScanUnknown;
-    PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
-    if (PHAuthorizationStatusAuthorized == status) { //已授权
-        isAuthorized = YES;
-    } else if (status == PHAuthorizationStatusNotDetermined) {                 // 用户还没有做出选择
-        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) { // 弹框请求用户授权
-            if (status == PHAuthorizationStatusAuthorized) {                   // 用户点击了好
-                isAuthorized = YES;
-            } else {
-                type = status;
-            }
-        }];
-    } else {
-        type = status;
-    }
-    
-    if (!isAuthorized) {
-        NSLog(@"用户没有打开相册权限");
-    }
-    return isAuthorized;
+- (void)scanQRCodeWithCamera {
+    //保证在扫描动画所在的范围内识别二维码
+    CGRect scanRect = [self.view convertRect:self.scanningView.scanContentView.frame toView:self.view];
+    CGRect rect =
+    CGRectMake(scanRect.origin.x / self.view.frame.size.width, scanRect.origin.y / self.view.frame.size.height,
+               (scanRect.size.width + scanRect.origin.x) / self.view.frame.size.width,
+               (scanRect.size.height + scanRect.origin.y) / self.view.frame.size.height);
+    //    rect = CGRectMake(0, 0, 1, 1); -----rect即为最终的扫描比例范围，最大为（0，0，1，1），此时全屏都可扫描；
+    [[WMQRCode sharedWMQRCode] scanQRCideWithCamera:self.view rectOfInterest:rect];
 }
 
 - (void)errorDidOccured:(WMQRCodeScanType)type {
@@ -166,26 +129,47 @@
 #pragma mark - WMQRCodeScannerDelegate
 //扫描出结果
 - (void)scanQRCode:(WMQRCode *)code didScanOutResult:(NSArray<NSString *> *)results {
-    NSLog(@"%s %@",__func__,results);
+    NSLog(@"%s %@", __func__, results);
+    NSString *deviceId = results[0];
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:deviceId forKey:@"deviceID"];
+    [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodGet
+                               URLString:@"/mobile/device/queryBasicInfo"
+                              parameters:dic
+                                response:^(WMHTTPResult *result) {
+                                    if (result.success) {
+                                        WMDevice *device = [[WMDevice alloc] init];
+                                        NSDictionary *content = result.content;
+                                        device.deviceId = deviceId;
+                                        device.name = content[@"deviceName"];
+                                        NSDictionary *modelDic = content[@"modelInfo"];
+                                        WMDeviceModel *model = [[WMDeviceModel alloc] init];
+                                        model.image = modelDic[@"imageID"];
+                                        model.name = modelDic[@"name"];
+                                        device.model = model;
+                                        NSDictionary *prodDic = content[@"prodInfo"];
+                                        WMDeviceProdInfo *prod = [[WMDeviceProdInfo alloc] init];
+                                        prod.name = prodDic[@"name"];
+                                        device.prod = prod;
+                                        WMDeviceAddViewController *vc = [[WMDeviceAddViewController alloc] init];
+                                        vc.device = device;
+                                        [self.navigationController pushViewController:vc animated:YES];
+                                    } else {
+                                        NSLog(@"%s queryBasicInfo error %@", __func__, result);
+                                    }
+                                }];
 }
 //扫描失败回调
 - (void)dealDelegateError:(NSInteger)type {
-
+    NSLog(@"%s %ld", __func__, (long)type);
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resouWMs that can be recreated.
+#pragma mark - Getters & setters
+- (WMScanView *)scanningView {
+    if (!_scanningView) {
+        _scanningView = [[WMScanView alloc] initWithSuperView:self.view];
+    }
+    return _scanningView;
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
