@@ -24,10 +24,10 @@
     self.navigationItem.leftBarButtonItem = backButton;
      
     //title
-    UIFont *font = [UIFont fontWithName:@"Heiti SC" size:16];
-    NSDictionary *dic = @{NSFontAttributeName:font,
-                          NSForegroundColorAttributeName: [UIColor blackColor]};
-    self.navigationController.navigationBar.titleTextAttributes = dic;
+//    UIFont *font = [UIFont fontWithName:@"Heiti SC" size:16];
+//    NSDictionary *dic = @{NSFontAttributeName:font,
+//                          NSForegroundColorAttributeName: [UIColor blackColor]};
+//    self.navigationController.navigationBar.titleTextAttributes = dic;
 }
 
 - (void)leftBarButtonItemPressed:(id)sender {
