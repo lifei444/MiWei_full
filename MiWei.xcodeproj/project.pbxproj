@@ -104,13 +104,13 @@
 		27B38249207CFB77006036A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27B38247207CFB77006036A0 /* LaunchScreen.storyboard */; };
 		27B3824C207CFB77006036A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B3824B207CFB77006036A0 /* main.m */; };
 		400C88EBE7F30FFA3363238D /* libPods-MiWei.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8747C2CECE52D670715ADEE8 /* libPods-MiWei.a */; };
+		9C206F662114782600672206 /* WMProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C206F642114782600672206 /* WMProfile.m */; };
 		9C484672210737D6005F2883 /* WMDeviceDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C484671210737D6005F2883 /* WMDeviceDataView.m */; };
 		9C48467521074680005F2883 /* WMDeviceRankView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C48467421074680005F2883 /* WMDeviceRankView.m */; };
 		9C48467921097E31005F2883 /* WMDevicePollutionChangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C48467821097E31005F2883 /* WMDevicePollutionChangeView.m */; };
 		9C4FBE4E20EA152D00D36D8D /* WMHTTPResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4FBE4A20EA152D00D36D8D /* WMHTTPResult.m */; };
 		9C4FBE4F20EA152D00D36D8D /* WMHTTPUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4FBE4B20EA152D00D36D8D /* WMHTTPUtility.m */; };
 		9C5EDCB3210EC2C90085ADEE /* WMRentDeviceDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5EDCB2210EC2C90085ADEE /* WMRentDeviceDetailViewController.m */; };
-		9C5EDCB8210F28800085ADEE /* WMProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5EDCB6210F28800085ADEE /* WMProfile.m */; };
 		9C5EDCBE2110767F0085ADEE /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5EDCBB2110767F0085ADEE /* MBProgressHUD.m */; };
 		9C5EDCBF2110767F0085ADEE /* RCEActiveWheel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5EDCBD2110767F0085ADEE /* RCEActiveWheel.m */; };
 		9C5EDCE2211076EC0085ADEE /* UIImage+WebP.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5EDCC1211076EC0085ADEE /* UIImage+WebP.m */; };
@@ -358,6 +358,8 @@
 		27B3824B207CFB77006036A0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		73BAF809085A0165EFBE4095 /* Pods-MiWei.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiWei.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MiWei/Pods-MiWei.debug.xcconfig"; sourceTree = "<group>"; };
 		8747C2CECE52D670715ADEE8 /* libPods-MiWei.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MiWei.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C206F642114782600672206 /* WMProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMProfile.m; sourceTree = "<group>"; };
+		9C206F652114782600672206 /* WMProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMProfile.h; sourceTree = "<group>"; };
 		9C484670210737D6005F2883 /* WMDeviceDataView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceDataView.h; sourceTree = "<group>"; };
 		9C484671210737D6005F2883 /* WMDeviceDataView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceDataView.m; sourceTree = "<group>"; };
 		9C48467321074680005F2883 /* WMDeviceRankView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceRankView.h; sourceTree = "<group>"; };
@@ -371,8 +373,6 @@
 		9C4FBE4D20EA152D00D36D8D /* WMHTTPUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMHTTPUtility.h; sourceTree = "<group>"; };
 		9C5EDCB1210EC2C90085ADEE /* WMRentDeviceDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMRentDeviceDetailViewController.h; sourceTree = "<group>"; };
 		9C5EDCB2210EC2C90085ADEE /* WMRentDeviceDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMRentDeviceDetailViewController.m; sourceTree = "<group>"; };
-		9C5EDCB6210F28800085ADEE /* WMProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMProfile.m; path = MiWei/Profile/WMProfile.m; sourceTree = SOURCE_ROOT; };
-		9C5EDCB7210F28800085ADEE /* WMProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMProfile.h; path = MiWei/Profile/WMProfile.h; sourceTree = SOURCE_ROOT; };
 		9C5EDCBA2110767F0085ADEE /* RCEActiveWheel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCEActiveWheel.h; sourceTree = "<group>"; };
 		9C5EDCBB2110767F0085ADEE /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		9C5EDCBC2110767F0085ADEE /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
@@ -962,12 +962,12 @@
 				27B3823C207CFB77006036A0 /* AppDelegate.h */,
 				27B3823D207CFB77006036A0 /* AppDelegate.m */,
 				2708B8242084F7F400A760E7 /* PrefixHeader.pch */,
+				9C206F632114782600672206 /* Profile */,
 				2760C694207F8A03003CC126 /* Common */,
 				2708B8252084F85500A760E7 /* iOS-Echarts */,
 				9C4FBE4920EA152D00D36D8D /* HTTP */,
 				9C5EDCC0211076EC0085ADEE /* SDWebImage */,
 				9C5EDCB92110767F0085ADEE /* MBProgressHUD */,
-				9C5EDCB5210F27FE0085ADEE /* Profile */,
 				274A5534208E2F50004FC461 /* Message */,
 				271A9CD72081AC470028D20D /* Scan */,
 				271A9CCA2081A61C0028D20D /* Pay */,
@@ -987,6 +987,15 @@
 			path = MiWei;
 			sourceTree = "<group>";
 		};
+		9C206F632114782600672206 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				9C206F642114782600672206 /* WMProfile.m */,
+				9C206F652114782600672206 /* WMProfile.h */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		9C4FBE4920EA152D00D36D8D /* HTTP */ = {
 			isa = PBXGroup;
 			children = (
@@ -996,16 +1005,6 @@
 				9C4FBE4A20EA152D00D36D8D /* WMHTTPResult.m */,
 			);
 			path = HTTP;
-			sourceTree = "<group>";
-		};
-		9C5EDCB5210F27FE0085ADEE /* Profile */ = {
-			isa = PBXGroup;
-			children = (
-				9C5EDCB7210F28800085ADEE /* WMProfile.h */,
-				9C5EDCB6210F28800085ADEE /* WMProfile.m */,
-			);
-			name = Profile;
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		9C5EDCB92110767F0085ADEE /* MBProgressHUD */ = {
@@ -1189,7 +1188,6 @@
 				2708B8C72084F85500A760E7 /* PYWordCloudSeries.m in Sources */,
 				9C5EDCEB211076EC0085ADEE /* SDWebImagePrefetcher.m in Sources */,
 				2760C697207F8A20003CC126 /* WMUnderLineView.m in Sources */,
-				9C5EDCB8210F28800085ADEE /* WMProfile.m in Sources */,
 				9C5EDCE6211076EC0085ADEE /* UIImageView+HighlightedWebCache.m in Sources */,
 				27B3824C207CFB77006036A0 /* main.m in Sources */,
 				2708B8CD2084F85500A760E7 /* PYMarkLine.m in Sources */,
@@ -1208,6 +1206,7 @@
 				2708B8F02084F85500A760E7 /* PYZoomEchartsView.m in Sources */,
 				27A7D1F9207D04FD006C6AF6 /* WMLoginViewController.m in Sources */,
 				9C484672210737D6005F2883 /* WMDeviceDataView.m in Sources */,
+				9C206F662114782600672206 /* WMProfile.m in Sources */,
 				27A7D22E207D0CCF006C6AF6 /* WMMeCell.m in Sources */,
 				2708B8C12084F85500A760E7 /* PYPieSeries.m in Sources */,
 				2708B8C22084F85500A760E7 /* PYSeries.m in Sources */,

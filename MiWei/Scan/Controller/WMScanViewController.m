@@ -34,25 +34,26 @@
     
     [self setRightNavBar];
     [self.view addSubview:self.scanningView];
-    //鉴权
-    if ([self isCameraAuthorized] && [self isCameraExist]) {
-        // 二维码扫描
-        [self scanQRCodeWithCamera];
-    }
-    
-    [[WMQRCode sharedWMQRCode] setScannerDelegate:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.barTintColor =
     [UIColor colorWithRed:0 / 255.0 green:0 / 255.0 blue:0 / 255.0 alpha:1 / 1.0];
+    //鉴权
+    if ([self isCameraAuthorized] && [self isCameraExist]) {
+        // 二维码扫描
+        [self scanQRCodeWithCamera];
+    } 
+    
+    [[WMQRCode sharedWMQRCode] setScannerDelegate:self];
     
     [_scanningView startTimer];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [[WMQRCode sharedWMQRCode] setScannerDelegate:nil];
     [_scanningView stopTimer];
     self.navigationController.navigationBar.barTintColor =
     [UIColor colorWithRed:255 / 255.0 green:255 / 255.0 blue:255 / 255.0 alpha:1 / 1.0];

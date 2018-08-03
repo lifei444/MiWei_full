@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
+   <Group
+      location = "group:/Users/lifei/Documents/wqx/MiWei_full/MiWei/Profile"
+      name = "Profile">
+      <FileRef
+         location = "group:WMProfile.m">
+      </FileRef>
+      <FileRef
+         location = "group:WMProfile.h">
+      </FileRef>
+   </Group>
    <FileRef
       location = "group:MiWei.xcodeproj">
    </FileRef>
