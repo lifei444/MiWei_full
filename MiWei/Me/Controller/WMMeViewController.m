@@ -16,10 +16,14 @@
 #import "WMAlertManageViewController.h"
 #import "WMUIUtility.h"
 #import "WMOrderListViewController.h"
+#import "WMHTTPUtility.h"
+#import "WMKeychainUtility.h"
+#import "WMLoginViewController.h"
+#import "WMNavigationViewController.h"
 
 #define kheight 269
 
-@interface WMMeViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface WMMeViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) NSArray *titles;
 @property (nonatomic,strong) NSArray *imageNames;
@@ -130,12 +134,25 @@
         NSLog(@"关于米微");
     } else {
         NSLog(@"退出");
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
+                                                            message:@"确认退出登录？"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"取消"
+                                                  otherButtonTitles:@"确认", nil];
+        [alertView show];
     }
 }
 
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return [WMMeCell cellHeight];
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        [self logout];
+    }
 }
 
 #pragma mark - Target action
@@ -146,6 +163,26 @@
 
 - (void)portraitDidUpdate:(NSNotification *)notification {
     [self.headerView updatePortrait];
+}
+
+#pragma mark - Private methods
+- (void)logout {
+    [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodPost
+                               URLString:@"/mobile/user/logout"
+                              parameters:nil
+                                response:^(WMHTTPResult *result) {
+                                    if (result.success) {
+//                                        [WMKeychainUtility removeWMDataForKey:@"WMPswKey"];
+                                        //TODO youmeng removeAlias
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            WMLoginViewController *loginVC = [[WMLoginViewController alloc] init];
+                                            WMNavigationViewController *nav = [[WMNavigationViewController alloc] initWithRootViewController:loginVC];
+                                            self.view.window.rootViewController = nav;
+                                        });
+                                    } else {
+                                        NSLog(@"logout error %@", result);
+                                    }
+                                }];
 }
 
 #pragma mark - Getters and setters
