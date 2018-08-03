@@ -131,6 +131,8 @@
 - (void)scanQRCode:(WMQRCode *)code didScanOutResult:(NSArray<NSString *> *)results {
     NSLog(@"%s %@", __func__, results);
     NSString *deviceId = results[0];
+    //TODO test
+    deviceId = @"865066030730852";
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:deviceId forKey:@"deviceID"];
     [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodGet
@@ -151,9 +153,11 @@
                                         WMDeviceProdInfo *prod = [[WMDeviceProdInfo alloc] init];
                                         prod.name = prodDic[@"name"];
                                         device.prod = prod;
-                                        WMDeviceAddViewController *vc = [[WMDeviceAddViewController alloc] init];
-                                        vc.device = device;
-                                        [self.navigationController pushViewController:vc animated:YES];
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            WMDeviceAddViewController *vc = [[WMDeviceAddViewController alloc] init];
+                                            vc.device = device;
+                                            [self.navigationController pushViewController:vc animated:YES];
+                                        });
                                     } else {
                                         NSLog(@"%s queryBasicInfo error %@", __func__, result);
                                     }

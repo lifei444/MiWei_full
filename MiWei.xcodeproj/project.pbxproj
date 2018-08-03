@@ -130,6 +130,7 @@
 		9C5EDCF0211076EC0085ADEE /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5EDCDC211076EC0085ADEE /* UIView+WebCacheOperation.m */; };
 		9C5EDCF1211076EC0085ADEE /* UIButton+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5EDCE0211076EC0085ADEE /* UIButton+WebCache.m */; };
 		9C5EDCF42110802B0085ADEE /* WMMePortraitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5EDCF32110802B0085ADEE /* WMMePortraitCell.m */; };
+		9C5EDCF621146AEA0085ADEE /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C5EDCF521146AEA0085ADEE /* icon.png */; };
 		9C608D6D210DE245001F1E11 /* WMDeviceEchartHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C608D6C210DE245001F1E11 /* WMDeviceEchartHeadView.m */; };
 		9C608D70210E06CD001F1E11 /* WMDevicePollutionSumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C608D6F210E06CD001F1E11 /* WMDevicePollutionSumView.m */; };
 		9C9F113C20A85B95001D02FC /* WMUIUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9F113B20A85B95001D02FC /* WMUIUtility.m */; };
@@ -411,6 +412,7 @@
 		9C5EDCE1211076EC0085ADEE /* UIImage+GIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+GIF.h"; sourceTree = "<group>"; };
 		9C5EDCF22110802B0085ADEE /* WMMePortraitCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMMePortraitCell.h; sourceTree = "<group>"; };
 		9C5EDCF32110802B0085ADEE /* WMMePortraitCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMMePortraitCell.m; sourceTree = "<group>"; };
+		9C5EDCF521146AEA0085ADEE /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		9C608D6B210DE245001F1E11 /* WMDeviceEchartHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceEchartHeadView.h; sourceTree = "<group>"; };
 		9C608D6C210DE245001F1E11 /* WMDeviceEchartHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceEchartHeadView.m; sourceTree = "<group>"; };
 		9C608D6E210E06CD001F1E11 /* WMDevicePollutionSumView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDevicePollutionSumView.h; sourceTree = "<group>"; };
@@ -976,6 +978,7 @@
 				27A7D1F2207D04FD006C6AF6 /* Login */,
 				27A7D1ED207D04FD006C6AF6 /* MainTab */,
 				27B38247207CFB77006036A0 /* LaunchScreen.storyboard */,
+				9C5EDCF521146AEA0085ADEE /* icon.png */,
 				27B3824A207CFB77006036A0 /* Info.plist */,
 				27B3824B207CFB77006036A0 /* main.m */,
 				27B38242207CFB77006036A0 /* Main.storyboard */,
@@ -1134,6 +1137,7 @@
 				27B38249207CFB77006036A0 /* LaunchScreen.storyboard in Resources */,
 				2708B8F62084F86600A760E7 /* js in Resources */,
 				271A9CC920819E0F0028D20D /* citydict.plist in Resources */,
+				9C5EDCF621146AEA0085ADEE /* icon.png in Resources */,
 				2708B8F82084F86600A760E7 /* echarts.html in Resources */,
 				27B38246207CFB77006036A0 /* Assets.xcassets in Resources */,
 				27B38244207CFB77006036A0 /* Main.storyboard in Resources */,
@@ -1436,7 +1440,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 73BAF809085A0165EFBE4095 /* Pods-MiWei.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MiWei/MiWei.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9CVMN4UZK4;
@@ -1459,7 +1462,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BEDD45956B7C55EC5039C277 /* Pods-MiWei.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MiWei/MiWei.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9CVMN4UZK4;
