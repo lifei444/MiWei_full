@@ -41,14 +41,18 @@
     self.navigationController.navigationBar.barTintColor =
     [UIColor colorWithRed:0 / 255.0 green:0 / 255.0 blue:0 / 255.0 alpha:1 / 1.0];
     //鉴权
-    if ([self isCameraAuthorized] && [self isCameraExist]) {
-        // 二维码扫描
-        [self scanQRCodeWithCamera];
-    } 
-    
-    [[WMQRCode sharedWMQRCode] setScannerDelegate:self];
-    
-    [_scanningView startTimer];
+    if ([self isCameraExist]) {
+        [self cameraAuthorize:^(BOOL result) {
+            if (result) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    // 二维码扫描
+                    [self scanQRCodeWithCamera];
+                    [[WMQRCode sharedWMQRCode] setScannerDelegate:self];
+                    [_scanningView startTimer];
+                });
+            }
+        }];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -60,7 +64,7 @@
 }
 
 #pragma mark - Target action
-- (void)setting:(UIButton *)btn {
+- (void)manualInput:(UIButton *)btn {
     WMScanInputViewController *vc = [[WMScanInputViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -69,35 +73,32 @@
 - (void)setRightNavBar {
     UIButton *btn = [[UIButton alloc] initWithFrame:WM_CGRectMake(0, 0, 80, 30)];
     [btn setTitle:@"手动输入" forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(setting:) forControlEvents:UIControlEventTouchUpInside];
+    [btn addTarget:self action:@selector(manualInput:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
 }
 
 //摄像头是否授权
-- (BOOL)isCameraAuthorized {
+- (void)cameraAuthorize:(void (^)(BOOL result))block {
     __block BOOL isAuthorized = NO;
     __block WMQRCodeScanType type = WMQRCodeScanUnknown;
     NSString *mediaType = AVMediaTypeVideo;                                                         //读取媒体类型
     AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType]; //读取设备授权状态
     if (AVAuthorizationStatusAuthorized == authStatus) {
         isAuthorized = YES;
+        block(YES);
     } else {
         [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo
                                  completionHandler:^(BOOL granted) {
                                      if (granted) {
                                          isAuthorized = YES;
+                                         block(YES);
                                      } else {
                                          type = WMQRCodeScanCameraDenied;
+                                         [self errorDidOccured:type];
+                                         block(NO);
                                      }
                                  }];
     }
-    if (type == WMQRCodeScanUnknown) {
-        type = authStatus + 4; //相机权限从4开始
-    }
-    if (!isAuthorized) {
-        [self errorDidOccured:type];
-    }
-    return isAuthorized;
 }
 
 - (BOOL)isCameraExist {

@@ -9,6 +9,24 @@
 #import "WMScanInputViewController.h"
 #import "WMCommonDefine.h"
 #import "WMUIUtility.h"
+#import "WMHTTPUtility.h"
+#import "WMDevice.h"
+#import "WMDeviceAddViewController.h"
+
+#define SNTextField_Y               163
+#define SNTextField_Width           300
+#define SNTextField_Height          44
+
+#define GapBetweenFieldAndLabel     17
+
+#define SNLabel_Y                   (SNTextField_Y + SNTextField_Height + GapBetweenFieldAndLabel)
+#define SNLabel_Height              12
+
+#define GapBetweenLabelAndButton    109
+
+#define Button_Y                    (SNLabel_Y + SNLabel_Height + GapBetweenLabelAndButton)
+#define Button_Width                SNTextField_Width
+#define Button_Height               44
 
 @interface WMScanInputViewController ()
 @property (nonatomic,strong) UITextField *SNTextField;
@@ -17,7 +35,7 @@
 @end
 
 @implementation WMScanInputViewController
-
+#pragma mark - Life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -25,9 +43,12 @@
     titleLabel.text = @"手动输入";
     titleLabel.textColor = [UIColor whiteColor];
     self.navigationItem.titleView = titleLabel;
+    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
     self.view.backgroundColor = [UIColor blackColor];
     [self setRightNavBar];
-    [self loadSubViews];
+    [self.view addSubview:self.SNTextField];
+    [self.view addSubview:self.SNLabel];
+    [self.view addSubview:self.confirmButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -42,6 +63,46 @@
     [UIColor colorWithRed:255 / 255.0 green:255 / 255.0 blue:255 / 255.0 alpha:1 / 1.0];
 }
 
+#pragma mark - Target action
+- (void)setting:(UIButton *)btn {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)confirm:(UIButton *)btn {
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    if (self.SNTextField.text.length > 0) {
+    [dic setObject:self.SNTextField.text forKey:@"deviceID"];
+        [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodGet
+                                   URLString:@"/mobile/device/queryBasicInfo"
+                                  parameters:dic
+                                    response:^(WMHTTPResult *result) {
+                                        if (result.success) {
+                                            WMDevice *device = [[WMDevice alloc] init];
+                                            NSDictionary *content = result.content;
+                                            device.deviceId = self.SNTextField.text;
+                                            device.name = content[@"deviceName"];
+                                            NSDictionary *modelDic = content[@"modelInfo"];
+                                            WMDeviceModel *model = [[WMDeviceModel alloc] init];
+                                            model.image = modelDic[@"imageID"];
+                                            model.name = modelDic[@"name"];
+                                            device.model = model;
+                                            NSDictionary *prodDic = content[@"prodInfo"];
+                                            WMDeviceProdInfo *prod = [[WMDeviceProdInfo alloc] init];
+                                            prod.name = prodDic[@"name"];
+                                            device.prod = prod;
+                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                WMDeviceAddViewController *vc = [[WMDeviceAddViewController alloc] init];
+                                                vc.device = device;
+                                                [self.navigationController pushViewController:vc animated:YES];
+                                            });
+                                        } else {
+                                            NSLog(@"%s queryBasicInfo error %@", __func__, result);
+                                        }
+                                    }];
+    }
+}
+
+#pragma mark - Private methods
 - (void)setRightNavBar {
     UIButton *btn = [[UIButton alloc] initWithFrame:WM_CGRectMake(0, 0, 80, 30)];
     [btn setTitle:@"切换扫描" forState:UIControlStateNormal];
@@ -49,58 +110,39 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
 }
 
-- (void)setting:(UIButton *)btn {
-    [self.navigationController popViewControllerAnimated:YES];
+#pragma mark - Getters & setters
+- (UITextField *)SNTextField {
+    if (!_SNTextField) {
+        _SNTextField = [[UITextField alloc] initWithFrame:WM_CGRectMake((Screen_Width - SNTextField_Width)/2, SNTextField_Y, SNTextField_Width, SNTextField_Height)];
+        NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+        style.alignment = NSTextAlignmentCenter;
+        NSAttributedString *attri = [[NSAttributedString alloc] initWithString:@"请输入设备SN号" attributes:@{NSForegroundColorAttributeName:[WMUIUtility color:@"0x999999"], NSFontAttributeName:[UIFont systemFontOfSize:15], NSParagraphStyleAttributeName:style}];
+        _SNTextField.backgroundColor = [WMUIUtility color:@"0xffffff"];
+        _SNTextField.attributedPlaceholder = attri;
+        _SNTextField.textAlignment = NSTextAlignmentCenter;
+    }
+    return _SNTextField;
 }
 
-- (void)loadSubViews {
-    CGFloat SNTextFieldX = 35;
-    CGFloat SNTextFieldY = 100;
-    CGFloat SNTextFieldW = Screen_Width - 2 *SNTextFieldX;
-    CGFloat SNTextFieldH = 44;
-    
-    self.SNTextField = [[UITextField alloc] initWithFrame:WM_CGRectMake(SNTextFieldX, SNTextFieldY, SNTextFieldW, SNTextFieldH)];
-    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-    style.alignment = NSTextAlignmentCenter;
-    NSAttributedString *attri = [[NSAttributedString alloc] initWithString:@"请输入设备SN号" attributes:@{NSForegroundColorAttributeName:[UIColor lightGrayColor],NSFontAttributeName:[UIFont systemFontOfSize:17], NSParagraphStyleAttributeName:style}];
-    self.SNTextField.backgroundColor = [UIColor whiteColor];
-    self.SNTextField.attributedPlaceholder = attri;
-    [self.view addSubview:self.SNTextField];
-    
-    CGFloat SNLabelX = 35;
-    CGFloat SNLabelY = CGRectGetMaxY(self.SNTextField.frame)+10;
-    CGFloat SNLabelW = Screen_Width - 2 *SNTextFieldX;
-    CGFloat SNLabelH = 44;
-    
-    self.SNLabel = [[UILabel alloc] initWithFrame:WM_CGRectMake(SNLabelX, SNLabelY, SNLabelW, SNLabelH)];
-    self.SNLabel.textColor = [UIColor whiteColor];
-    self.SNLabel.text = @"请输入设备SN号";
-    [self.view addSubview:self.SNLabel];
-    
-    CGFloat confirmButtonX = 35;
-    CGFloat confirmButtonY = CGRectGetMaxY(self.SNLabel.frame)+30;
-    CGFloat confirmButtonW = Screen_Width - 2 *SNTextFieldX;
-    CGFloat confirmButtonH = 44;
-    
-    self.confirmButton = [[UIButton alloc] initWithFrame:WM_CGRectMake(confirmButtonX, confirmButtonY, confirmButtonW, confirmButtonH)];
-    [self.confirmButton setTitle:@"确认" forState:UIControlStateNormal];
-    self.confirmButton.backgroundColor = [UIColor greenColor];
-    [self.view addSubview:self.confirmButton];
+- (UILabel *)SNLabel {
+    if (!_SNLabel) {
+        _SNLabel = [[UILabel alloc] initWithFrame:WM_CGRectMake(0, SNLabel_Y, Screen_Width, SNLabel_Height)];
+        _SNLabel.textColor = [WMUIUtility color:@"0xffffff"];
+        _SNLabel.textAlignment = NSTextAlignmentCenter;
+        _SNLabel.text = @"请输入设备SN号";
+        _SNLabel.font = [UIFont systemFontOfSize:12];
+    }
+    return _SNLabel;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (UIButton *)confirmButton {
+    if (!_confirmButton) {
+        _confirmButton = [[UIButton alloc] initWithFrame:WM_CGRectMake((Screen_Width - Button_Width)/2, Button_Y, Button_Width, Button_Height)];
+        [_confirmButton setTitle:@"确认" forState:UIControlStateNormal];
+        _confirmButton.backgroundColor = [WMUIUtility color:@"0x2b938b"];
+        [_confirmButton addTarget:self action:@selector(confirm:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _confirmButton;
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -116,6 +116,7 @@ static NSString *pswKey = @"WMPswKey";
                          complete:^(BOOL result) {
                              if (result) {
                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                     self.wxBindCode = nil;
                                      [WMKeychainUtility setWMData:phone forKey:phoneKey];
                                      [WMKeychainUtility setWMData:psw forKey:pswKey];
                                      [self loginSuccess];

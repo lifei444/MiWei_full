@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WMViewController.h"
 
-@interface WMScanInputViewController : UIViewController
+@interface WMScanInputViewController : WMViewController
 
 @end
