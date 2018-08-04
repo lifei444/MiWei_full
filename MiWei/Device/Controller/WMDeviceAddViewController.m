@@ -34,7 +34,7 @@
 }
 
 #pragma mark - Target action
-- (void)addEvent {
+- (void)addEvent:(UIButton *)button {
     NSLog(@"%s",__func__);
 }
 
@@ -76,11 +76,11 @@
 
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return Cell_Height;
+    return [WMUIUtility WMCGFloatForY:Cell_Height];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return Header_Height;
+    return [WMUIUtility WMCGFloatForY:Header_Height];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -91,7 +91,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return Footer_Height;
+    return [WMUIUtility WMCGFloatForY:(Footer_Height + Footer_Gap)];
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
@@ -100,9 +100,10 @@
     UIButton *btn = [[UIButton alloc] initWithFrame:WM_CGRectMake(Button_X, Footer_Gap, Screen_Width - Button_X * 2, Footer_Height)];
     btn.backgroundColor = [WMUIUtility color:@"0x2b938b"];
     [btn setTitle:@"添加" forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(addEvent) forControlEvents:UIControlEventTouchUpInside];
+    [btn addTarget:self action:@selector(addEvent:) forControlEvents:UIControlEventTouchUpInside];
     btn.layer.cornerRadius = 5;
     [view addSubview:btn];
+    view.userInteractionEnabled = YES;
     
     return view;
  }

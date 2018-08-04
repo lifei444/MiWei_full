@@ -77,20 +77,20 @@
                                   parameters:dic
                                     response:^(WMHTTPResult *result) {
                                         if (result.success) {
-                                            WMDevice *device = [[WMDevice alloc] init];
-                                            NSDictionary *content = result.content;
-                                            device.deviceId = self.SNTextField.text;
-                                            device.name = content[@"deviceName"];
-                                            NSDictionary *modelDic = content[@"modelInfo"];
-                                            WMDeviceModel *model = [[WMDeviceModel alloc] init];
-                                            model.image = modelDic[@"imageID"];
-                                            model.name = modelDic[@"name"];
-                                            device.model = model;
-                                            NSDictionary *prodDic = content[@"prodInfo"];
-                                            WMDeviceProdInfo *prod = [[WMDeviceProdInfo alloc] init];
-                                            prod.name = prodDic[@"name"];
-                                            device.prod = prod;
                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                WMDevice *device = [[WMDevice alloc] init];
+                                                NSDictionary *content = result.content;
+                                                device.deviceId = self.SNTextField.text;
+                                                device.name = content[@"deviceName"];
+                                                NSDictionary *modelDic = content[@"modelInfo"];
+                                                WMDeviceModel *model = [[WMDeviceModel alloc] init];
+                                                model.image = modelDic[@"imageID"];
+                                                model.name = modelDic[@"name"];
+                                                device.model = model;
+                                                NSDictionary *prodDic = content[@"prodInfo"];
+                                                WMDeviceProdInfo *prod = [[WMDeviceProdInfo alloc] init];
+                                                prod.name = prodDic[@"name"];
+                                                device.prod = prod;
                                                 WMDeviceAddViewController *vc = [[WMDeviceAddViewController alloc] init];
                                                 vc.device = device;
                                                 [self.navigationController pushViewController:vc animated:YES];
