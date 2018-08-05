@@ -82,6 +82,9 @@ static NSString *pswKey = @"WMPswKey";
                                              selector:@selector(onWechatAuth:)
                                                  name:WMWechatAuthNotification
                                                object:nil];
+    self.view.userInteractionEnabled = YES;
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fingerTapped:)];
+    [self.view addGestureRecognizer:singleTap];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -154,6 +157,10 @@ static NSString *pswKey = @"WMPswKey";
                                        NSLog(@"onWechatAuth login fail");
                                    }
                                }];
+}
+
+- (void)fingerTapped:(UITapGestureRecognizer *)gestureRecognizer {
+    [self.view endEditing:YES];
 }
 
 #pragma mark - UITextFieldDelegate

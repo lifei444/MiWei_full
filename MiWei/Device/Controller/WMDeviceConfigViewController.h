@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WMViewController.h"
 
-@interface WMDeviceConfigViewController : UIViewController
+@interface WMDeviceConfigViewController : WMViewController
+
+@property (nonatomic, copy) NSString *ssid;
 
 @end

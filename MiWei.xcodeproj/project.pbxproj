@@ -103,10 +103,10 @@
 		27B38246207CFB77006036A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27B38245207CFB77006036A0 /* Assets.xcassets */; };
 		27B38249207CFB77006036A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27B38247207CFB77006036A0 /* LaunchScreen.storyboard */; };
 		27B3824C207CFB77006036A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B3824B207CFB77006036A0 /* main.m */; };
-		520EDFD1EE551AF22756703D /* Pods_MiWei.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15F0619F78D9EB891CE3BA73 /* Pods_MiWei.framework */; };
 		9C206F662114782600672206 /* WMProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C206F642114782600672206 /* WMProfile.m */; };
-		9C206F6A2116BCA000672206 /* FogV3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C206F692116BC9F00672206 /* FogV3.framework */; };
-		9C206F6B2116BCA000672206 /* FogV3.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9C206F692116BC9F00672206 /* FogV3.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9C206F6C2116E0E300672206 /* FogV3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C206F672116AED800672206 /* FogV3.framework */; };
+		9C206F6D2116E0E300672206 /* FogV3.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9C206F672116AED800672206 /* FogV3.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9C206F702116EBEC00672206 /* WMDeviceConfigCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C206F6F2116EBEC00672206 /* WMDeviceConfigCell.m */; };
 		9C484672210737D6005F2883 /* WMDeviceDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C484671210737D6005F2883 /* WMDeviceDataView.m */; };
 		9C48467521074680005F2883 /* WMDeviceRankView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C48467421074680005F2883 /* WMDeviceRankView.m */; };
 		9C48467921097E31005F2883 /* WMDevicePollutionChangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C48467821097E31005F2883 /* WMDevicePollutionChangeView.m */; };
@@ -152,6 +152,7 @@
 		9CF0872020D67BAE0089BB97 /* WMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CF0871F20D67BAE0089BB97 /* WMViewController.m */; };
 		9CF0872320D67E410089BB97 /* WMAlertManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CF0872220D67E410089BB97 /* WMAlertManageViewController.m */; };
 		A00A21DF20E8DF2F004B79B0 /* WMDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = A00A21DE20E8DF2F004B79B0 /* WMDevice.m */; };
+		A0C065494DA5BE149E0D8510 /* Pods_MiWei.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F31000D3EC7E635B8F285CC /* Pods_MiWei.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -161,7 +162,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9C206F6B2116BCA000672206 /* FogV3.framework in Embed Frameworks */,
+				9C206F6D2116E0E300672206 /* FogV3.framework in Embed Frameworks */,
 				9CB8062820FAFA04001A5C5E /* AFNetworking.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -170,7 +171,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		15F0619F78D9EB891CE3BA73 /* Pods_MiWei.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MiWei.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2702A2E9207E34EA00FE7577 /* WMMeAddressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMMeAddressViewController.h; sourceTree = "<group>"; };
 		2702A2EA207E34EA00FE7577 /* WMMeAddressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMMeAddressViewController.m; sourceTree = "<group>"; };
 		2702A2EC207E370900FE7577 /* WMPersonViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMPersonViewController.h; sourceTree = "<group>"; };
@@ -361,10 +361,12 @@
 		27B3824A207CFB77006036A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		27B3824B207CFB77006036A0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		73BAF809085A0165EFBE4095 /* Pods-MiWei.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiWei.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MiWei/Pods-MiWei.debug.xcconfig"; sourceTree = "<group>"; };
+		7F31000D3EC7E635B8F285CC /* Pods_MiWei.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MiWei.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C206F642114782600672206 /* WMProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMProfile.m; sourceTree = "<group>"; };
 		9C206F652114782600672206 /* WMProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMProfile.h; sourceTree = "<group>"; };
 		9C206F672116AED800672206 /* FogV3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FogV3.framework; path = MiWei/Frameworks/FogV3.framework; sourceTree = "<group>"; };
-		9C206F692116BC9F00672206 /* FogV3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FogV3.framework; path = MiWei/Frameworks/FogV3.framework; sourceTree = "<group>"; };
+		9C206F6F2116EBEC00672206 /* WMDeviceConfigCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceConfigCell.m; sourceTree = "<group>"; };
+		9C206F712116F7CA00672206 /* WMDeviceConfigCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMDeviceConfigCell.h; sourceTree = "<group>"; };
 		9C484670210737D6005F2883 /* WMDeviceDataView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceDataView.h; sourceTree = "<group>"; };
 		9C484671210737D6005F2883 /* WMDeviceDataView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceDataView.m; sourceTree = "<group>"; };
 		9C48467321074680005F2883 /* WMDeviceRankView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceRankView.h; sourceTree = "<group>"; };
@@ -462,10 +464,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9C206F6A2116BCA000672206 /* FogV3.framework in Frameworks */,
+				9C206F6C2116E0E300672206 /* FogV3.framework in Frameworks */,
 				9CB8062420FAF6C3001A5C5E /* AFNetworking.framework in Frameworks */,
 				2708B8FB2084F8B500A760E7 /* WebKit.framework in Frameworks */,
-				520EDFD1EE551AF22756703D /* Pods_MiWei.framework in Frameworks */,
+				A0C065494DA5BE149E0D8510 /* Pods_MiWei.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -640,7 +642,7 @@
 				9C206F672116AED800672206 /* FogV3.framework */,
 				9C4FBE4720EA142800D36D8D /* AFNetworking.framework */,
 				2708B8FA2084F8B500A760E7 /* WebKit.framework */,
-				15F0619F78D9EB891CE3BA73 /* Pods_MiWei.framework */,
+				7F31000D3EC7E635B8F285CC /* Pods_MiWei.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -926,6 +928,8 @@
 				9C48467821097E31005F2883 /* WMDevicePollutionChangeView.m */,
 				9C608D6E210E06CD001F1E11 /* WMDevicePollutionSumView.h */,
 				9C608D6F210E06CD001F1E11 /* WMDevicePollutionSumView.m */,
+				9C206F712116F7CA00672206 /* WMDeviceConfigCell.h */,
+				9C206F6F2116EBEC00672206 /* WMDeviceConfigCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -947,7 +951,6 @@
 		27B38230207CFB77006036A0 = {
 			isa = PBXGroup;
 			children = (
-				9C206F692116BC9F00672206 /* FogV3.framework */,
 				27B3823B207CFB77006036A0 /* MiWei */,
 				27B3823A207CFB77006036A0 /* Products */,
 				2708B8F92084F8B500A760E7 /* Frameworks */,
@@ -1087,7 +1090,7 @@
 				27B38236207CFB77006036A0 /* Frameworks */,
 				27B38237207CFB77006036A0 /* Resources */,
 				9CB8062920FAFA04001A5C5E /* Embed Frameworks */,
-				7EFE38116CD291CAD9934E85 /* [CP] Embed Pods Frameworks */,
+				392E664977F718672DFC1EFA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1155,25 +1158,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		77AC547470BDF8F07C8469A4 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MiWei-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7EFE38116CD291CAD9934E85 /* [CP] Embed Pods Frameworks */ = {
+		392E664977F718672DFC1EFA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1193,6 +1178,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MiWei/Pods-MiWei-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		77AC547470BDF8F07C8469A4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MiWei-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1255,6 +1258,7 @@
 				2708B8ED2084F85500A760E7 /* PYItemStyle.m in Sources */,
 				9CF0872020D67BAE0089BB97 /* WMViewController.m in Sources */,
 				27B3823E207CFB77006036A0 /* AppDelegate.m in Sources */,
+				9C206F702116EBEC00672206 /* WMDeviceConfigCell.m in Sources */,
 				9C5EDCE8211076EC0085ADEE /* UIImage+GIF.m in Sources */,
 				9C5EDCEC211076EC0085ADEE /* SDImageCache.m in Sources */,
 				9C608D6D210DE245001F1E11 /* WMDeviceEchartHeadView.m in Sources */,

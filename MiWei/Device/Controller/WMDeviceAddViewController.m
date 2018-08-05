@@ -12,6 +12,7 @@
 #import "UIImageView+WebCache.h"
 #import "WMHTTPUtility.h"
 #import <FogV3/FogV3.h>
+#import "WMDeviceConfigViewController.h"
 
 #define Header_Height   227
 #define Footer_Height   44
@@ -20,7 +21,7 @@
 #define Cell_Height     59
 
 @interface WMDeviceAddViewController ()<UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic,strong) UITableView *tableview;
+@property (nonatomic,strong) UITableView *tableView;
 @end
 
 @implementation WMDeviceAddViewController
@@ -28,20 +29,19 @@
 #pragma mark - Life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     self.title = @"添加设备";
     self.view.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:self.tableview];
+    [self.view addSubview:self.tableView];
 }
 
 #pragma mark - Target action
 - (void)addEvent:(UIButton *)button {
     NSString *ssid = [[FogEasyLinkManager sharedInstance] getSSID];
-    [[FogDeviceManager sharedInstance]startSearchDevices];
-    NSLog(@"%s",__func__);
     
+    WMDeviceConfigViewController *vc = [[WMDeviceConfigViewController alloc] init];
+    vc.ssid = ssid;
+    [self.navigationController pushViewController:vc animated:YES];
 }
-
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -51,6 +51,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
     cell.detailTextLabel.textAlignment = NSTextAlignmentLeft;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     switch (indexPath.row) {
         case 0:
             cell.textLabel.text = @"IMEI/MAC";
@@ -88,7 +89,7 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:WM_CGRectMake(0, 0, self.view.bounds.size.width, Header_Height)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:WM_CGRectMake(0, 0, Screen_Width, Header_Height)];
     NSURL *imageUrl = [WMHTTPUtility urlWithPortraitId:self.device.model.image];
     [imageView sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@"device_add_placehold"]];
     return imageView;
@@ -113,13 +114,14 @@
  }
 
 #pragma mark - Getters & setters
-- (UITableView *)tableview {
-    if(!_tableview) {
-        _tableview = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-        _tableview.delegate = self;
-        _tableview.dataSource = self;
+- (UITableView *)tableView {
+    if(!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.scrollEnabled = NO;
     }
-    return _tableview;
+    return _tableView;
 }
 
 @end

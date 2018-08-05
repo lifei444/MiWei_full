@@ -28,7 +28,7 @@
 #define Button_Width                SNTextField_Width
 #define Button_Height               44
 
-@interface WMScanInputViewController ()
+@interface WMScanInputViewController () <UITextFieldDelegate>
 @property (nonatomic,strong) UITextField *SNTextField;
 @property (nonatomic,strong) UILabel *SNLabel;
 @property (nonatomic,strong) UIButton *confirmButton;
@@ -49,6 +49,9 @@
     [self.view addSubview:self.SNTextField];
     [self.view addSubview:self.SNLabel];
     [self.view addSubview:self.confirmButton];
+    self.view.userInteractionEnabled = YES;
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fingerTapped:)];
+    [self.view addGestureRecognizer:singleTap];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -61,6 +64,16 @@
     [super viewWillDisappear:animated];
     self.navigationController.navigationBar.barTintColor =
     [UIColor colorWithRed:255 / 255.0 green:255 / 255.0 blue:255 / 255.0 alpha:1 / 1.0];
+}
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    if (textField.text.length > 0) {
+        [self confirm:self.confirmButton];
+        return YES;
+    }
+    return NO;
 }
 
 #pragma mark - Target action
@@ -102,6 +115,10 @@
     }
 }
 
+- (void)fingerTapped:(UITapGestureRecognizer *)gestureRecognizer {
+    [self.view endEditing:YES];
+}
+
 #pragma mark - Private methods
 - (void)setRightNavBar {
     UIButton *btn = [[UIButton alloc] initWithFrame:WM_CGRectMake(0, 0, 80, 30)];
@@ -119,7 +136,9 @@
         NSAttributedString *attri = [[NSAttributedString alloc] initWithString:@"请输入设备SN号" attributes:@{NSForegroundColorAttributeName:[WMUIUtility color:@"0x999999"], NSFontAttributeName:[UIFont systemFontOfSize:15], NSParagraphStyleAttributeName:style}];
         _SNTextField.backgroundColor = [WMUIUtility color:@"0xffffff"];
         _SNTextField.attributedPlaceholder = attri;
+        _SNTextField.returnKeyType = UIReturnKeyDone;
         _SNTextField.textAlignment = NSTextAlignmentCenter;
+        _SNTextField.delegate = self;
     }
     return _SNTextField;
 }
