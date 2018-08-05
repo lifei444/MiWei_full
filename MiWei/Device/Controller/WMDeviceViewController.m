@@ -39,7 +39,7 @@ static NSString *deviceCellIdentifier = @"WMDeviceCell";
 
 @interface WMDeviceViewController () <UISearchResultsUpdating>
 @property (nonatomic, strong) UISearchController *searchController;
-@property (nonatomic, strong) NSMutableArray <WMDevice *> *modelArray;
+@property (nonatomic, strong) NSArray <WMDevice *> *modelArray;
 @end
 
 @implementation WMDeviceViewController
@@ -132,8 +132,7 @@ static NSString *deviceCellIdentifier = @"WMDeviceCell";
                               parameters:nil
                                 response:^(WMHTTPResult *result) {
                                     if (result.success) {
-                                        [self.modelArray removeAllObjects];
-                                        
+                                        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
                                         NSDictionary *content = result.content;
                                         NSArray *devices = content[@"devices"];                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
                                         for (NSDictionary *dic in devices) {
@@ -166,9 +165,10 @@ static NSString *deviceCellIdentifier = @"WMDeviceCell";
                                                 rent.rentTime = rentDic[@"rentTime"];
                                                 device.rentInfo = rent;
                                             }
-                                            [self.modelArray addObject:device];
+                                            [tempArray addObject:device];
                                         }
                                         dispatch_async(dispatch_get_main_queue(), ^{
+                                            self.modelArray = tempArray;
                                             [self.collectionView reloadData];
                                         });
                                     } else {
@@ -178,9 +178,9 @@ static NSString *deviceCellIdentifier = @"WMDeviceCell";
 }
 
 #pragma mark - Getters & setters
-- (NSMutableArray<WMDevice *> *)modelArray {
+- (NSArray<WMDevice *> *)modelArray {
     if (!_modelArray) {
-        _modelArray = [[NSMutableArray alloc] init];
+        _modelArray = [[NSArray alloc] init];
     }
     return _modelArray;
 }
