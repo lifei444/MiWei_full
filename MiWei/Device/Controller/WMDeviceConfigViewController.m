@@ -29,7 +29,7 @@
 #define Button_Y            (Psw_Cell_Y + Cell_Height + Button_Gap)
 #define Button_Width        (Screen_Width - Button_X * 2)
 
-@interface WMDeviceConfigViewController () <UITextFieldDelegate>
+@interface WMDeviceConfigViewController () <UITextFieldDelegate, FogDeviceDelegate>
 
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) WMDeviceConfigCell *wifiCell;
@@ -58,11 +58,18 @@
 - (void)addEvent:(UIButton *)button {
     NSLog(@"%s",__func__);
     [[FogEasyLinkManager sharedInstance] startEasyLinkWithPassword:self.pswCell.textField.text];
+    [FogDeviceManager sharedInstance].delegate = self;
+    [[FogDeviceManager sharedInstance] startSearchDevices];
     
 }
 
 - (void)fingerTapped:(UITapGestureRecognizer *)gestureRecognizer {
     [self.view endEditing:YES];
+}
+
+#pragma mark - FogDeviceDelegate
+- (void)didSearchDeviceReturnArray:(NSArray *)array {
+    //TODO bind? add device? stop search? stop easylink?
 }
 
 #pragma mark - UITextFieldDelegate
