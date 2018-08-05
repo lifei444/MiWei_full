@@ -4,4 +4,8 @@
 target 'MiWei' do
   pod 'WechatOpenSDK'
 
+use_frameworks!
+  pod 'XMNetworking'
+  pod 'MQTTClient'
+
 end

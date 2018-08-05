@@ -103,8 +103,10 @@
 		27B38246207CFB77006036A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27B38245207CFB77006036A0 /* Assets.xcassets */; };
 		27B38249207CFB77006036A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27B38247207CFB77006036A0 /* LaunchScreen.storyboard */; };
 		27B3824C207CFB77006036A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B3824B207CFB77006036A0 /* main.m */; };
-		400C88EBE7F30FFA3363238D /* libPods-MiWei.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8747C2CECE52D670715ADEE8 /* libPods-MiWei.a */; };
+		520EDFD1EE551AF22756703D /* Pods_MiWei.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15F0619F78D9EB891CE3BA73 /* Pods_MiWei.framework */; };
 		9C206F662114782600672206 /* WMProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C206F642114782600672206 /* WMProfile.m */; };
+		9C206F6A2116BCA000672206 /* FogV3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C206F692116BC9F00672206 /* FogV3.framework */; };
+		9C206F6B2116BCA000672206 /* FogV3.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9C206F692116BC9F00672206 /* FogV3.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9C484672210737D6005F2883 /* WMDeviceDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C484671210737D6005F2883 /* WMDeviceDataView.m */; };
 		9C48467521074680005F2883 /* WMDeviceRankView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C48467421074680005F2883 /* WMDeviceRankView.m */; };
 		9C48467921097E31005F2883 /* WMDevicePollutionChangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C48467821097E31005F2883 /* WMDevicePollutionChangeView.m */; };
@@ -159,6 +161,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				9C206F6B2116BCA000672206 /* FogV3.framework in Embed Frameworks */,
 				9CB8062820FAFA04001A5C5E /* AFNetworking.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -167,6 +170,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		15F0619F78D9EB891CE3BA73 /* Pods_MiWei.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MiWei.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2702A2E9207E34EA00FE7577 /* WMMeAddressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMMeAddressViewController.h; sourceTree = "<group>"; };
 		2702A2EA207E34EA00FE7577 /* WMMeAddressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMMeAddressViewController.m; sourceTree = "<group>"; };
 		2702A2EC207E370900FE7577 /* WMPersonViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMPersonViewController.h; sourceTree = "<group>"; };
@@ -357,9 +361,10 @@
 		27B3824A207CFB77006036A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		27B3824B207CFB77006036A0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		73BAF809085A0165EFBE4095 /* Pods-MiWei.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiWei.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MiWei/Pods-MiWei.debug.xcconfig"; sourceTree = "<group>"; };
-		8747C2CECE52D670715ADEE8 /* libPods-MiWei.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MiWei.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C206F642114782600672206 /* WMProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMProfile.m; sourceTree = "<group>"; };
 		9C206F652114782600672206 /* WMProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMProfile.h; sourceTree = "<group>"; };
+		9C206F672116AED800672206 /* FogV3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FogV3.framework; path = MiWei/Frameworks/FogV3.framework; sourceTree = "<group>"; };
+		9C206F692116BC9F00672206 /* FogV3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FogV3.framework; path = MiWei/Frameworks/FogV3.framework; sourceTree = "<group>"; };
 		9C484670210737D6005F2883 /* WMDeviceDataView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceDataView.h; sourceTree = "<group>"; };
 		9C484671210737D6005F2883 /* WMDeviceDataView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceDataView.m; sourceTree = "<group>"; };
 		9C48467321074680005F2883 /* WMDeviceRankView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceRankView.h; sourceTree = "<group>"; };
@@ -457,9 +462,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C206F6A2116BCA000672206 /* FogV3.framework in Frameworks */,
 				9CB8062420FAF6C3001A5C5E /* AFNetworking.framework in Frameworks */,
 				2708B8FB2084F8B500A760E7 /* WebKit.framework in Frameworks */,
-				400C88EBE7F30FFA3363238D /* libPods-MiWei.a in Frameworks */,
+				520EDFD1EE551AF22756703D /* Pods_MiWei.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -631,9 +637,10 @@
 		2708B8F92084F8B500A760E7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9C206F672116AED800672206 /* FogV3.framework */,
 				9C4FBE4720EA142800D36D8D /* AFNetworking.framework */,
 				2708B8FA2084F8B500A760E7 /* WebKit.framework */,
-				8747C2CECE52D670715ADEE8 /* libPods-MiWei.a */,
+				15F0619F78D9EB891CE3BA73 /* Pods_MiWei.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -940,6 +947,7 @@
 		27B38230207CFB77006036A0 = {
 			isa = PBXGroup;
 			children = (
+				9C206F692116BC9F00672206 /* FogV3.framework */,
 				27B3823B207CFB77006036A0 /* MiWei */,
 				27B3823A207CFB77006036A0 /* Products */,
 				2708B8F92084F8B500A760E7 /* Frameworks */,
@@ -1079,6 +1087,7 @@
 				27B38236207CFB77006036A0 /* Frameworks */,
 				27B38237207CFB77006036A0 /* Resources */,
 				9CB8062920FAFA04001A5C5E /* Embed Frameworks */,
+				7EFE38116CD291CAD9934E85 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1162,6 +1171,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7EFE38116CD291CAD9934E85 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MiWei/Pods-MiWei-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/MQTTClient/MQTTClient.framework",
+				"${BUILT_PRODUCTS_DIR}/XMNetworking/XMNetworking.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MQTTClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XMNetworking.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MiWei/Pods-MiWei-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1442,6 +1473,7 @@
 				CODE_SIGN_ENTITLEMENTS = MiWei/MiWei.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9CVMN4UZK4;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MiWei/Utility",
@@ -1464,6 +1496,7 @@
 				CODE_SIGN_ENTITLEMENTS = MiWei/MiWei.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9CVMN4UZK4;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MiWei/Utility",

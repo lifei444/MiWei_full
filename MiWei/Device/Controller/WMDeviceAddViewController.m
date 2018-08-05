@@ -11,6 +11,7 @@
 #import "WMUIUtility.h"
 #import "UIImageView+WebCache.h"
 #import "WMHTTPUtility.h"
+#import <FogV3/FogV3.h>
 
 #define Header_Height   227
 #define Footer_Height   44
@@ -35,7 +36,10 @@
 
 #pragma mark - Target action
 - (void)addEvent:(UIButton *)button {
+    NSString *ssid = [[FogEasyLinkManager sharedInstance] getSSID];
+    [[FogDeviceManager sharedInstance]startSearchDevices];
     NSLog(@"%s",__func__);
+    
 }
 
 
