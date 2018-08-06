@@ -11,8 +11,17 @@
 #import "WMCityViewController.h"
 #import "WMUIUtility.h"
 #import "WMHTTPUtility.h"
+#import "WMCommonDefine.h"
 #import "WMMessage.h"
 #import "WMMessageFactory.h"
+#import "WMStrainerAlarmMessageCell.h"
+#import "WMDevShareNotiMessageCell.h"
+#import "WMAirQualityNotiMessageCell.h"
+
+#define Section_Gap 22
+NSString *const strainerAlarmIdentifier = @"strainerAlarm";
+NSString *const devShareNotiIdentifier = @"devShareNoti";
+NSString *const airQualityNotiIdentifier = @"airQualityNoti";
 
 @interface WMMessageViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -34,6 +43,9 @@
     [super viewDidLoad];
     
     [self.view addSubview:self.tableView];
+    [self.tableView registerClass:[WMStrainerAlarmMessageCell class] forCellReuseIdentifier:strainerAlarmIdentifier];
+    [self.tableView registerClass:[WMDevShareNotiMessageCell class] forCellReuseIdentifier:devShareNotiIdentifier];
+    [self.tableView registerClass:[WMAirQualityNotiMessageCell class] forCellReuseIdentifier:airQualityNotiIdentifier];
     [self loadMessages];
 }
 
@@ -64,18 +76,77 @@
 }
 
 #pragma mark - UITableViewDataSource
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.modelArray.count;
 }
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    WMMessageCell *cell = [WMMessageCell cellWithTableView:tableView];
+    WMMessage *message = self.modelArray[indexPath.section];
+    UITableViewCell *cell;
+    switch (message.type) {
+        case WMMessageTypeStrainerAlarm: {
+            cell = [tableView dequeueReusableCellWithIdentifier:strainerAlarmIdentifier];
+            break;
+        }
+            
+        case WMMessageTypeDevShareNoti: {
+            cell = [tableView dequeueReusableCellWithIdentifier:devShareNotiIdentifier];
+            break;
+        }
+            
+        case WMMessageTypeAirQualityNoti: {
+            cell = [tableView dequeueReusableCellWithIdentifier:airQualityNotiIdentifier];
+            break;
+        }
+            
+        default:
+            break;
+    }
     return cell;
 }
 
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [WMMessageCell cellHeight];
+    WMMessage *message = self.modelArray[indexPath.section];
+    CGFloat cellHeight;
+    switch (message.type) {
+        case WMMessageTypeStrainerAlarm: {
+            cellHeight = [WMStrainerAlarmMessageCell cellHeight];
+            break;
+        }
+            
+        case WMMessageTypeDevShareNoti: {
+            cellHeight = [WMDevShareNotiMessageCell cellHeight];
+            break;
+        }
+            
+        case WMMessageTypeAirQualityNoti: {
+            cellHeight = [WMAirQualityNotiMessageCell cellHeight];
+            break;
+        }
+            
+        default:
+            break;
+    }
+    
+    return cellHeight;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (section < self.modelArray.count - 1) {
+        return [WMUIUtility WMCGFloatForY:Section_Gap];
+    } else {
+        return 0;
+    }
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] initWithFrame:WM_CGRectMake(0, 0, Screen_Width, Section_Gap)];
+    return view;
 }
 
 #pragma mark - Target action
@@ -83,7 +154,7 @@
 #pragma mark - Getters & setters
 - (UITableView *)tableView {
     if(!_tableView) {
-        _tableView  = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+        _tableView  = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
         _tableView.delegate = self;
         _tableView.dataSource = self;
     }

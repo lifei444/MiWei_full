@@ -69,7 +69,8 @@
 
 #pragma mark - FogDeviceDelegate
 - (void)didSearchDeviceReturnArray:(NSArray *)array {
-    //TODO bind? add device? stop search? stop easylink?
+    //TODO (no)bind? (yes)add device? (yes)stop search? (yes)stop easylink?
+    //return to deviceList
 }
 
 #pragma mark - UITextFieldDelegate

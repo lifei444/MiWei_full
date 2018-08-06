@@ -112,6 +112,9 @@
 		9C206F842117076E00672206 /* WMAirQualityNotiMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C206F832117076E00672206 /* WMAirQualityNotiMessage.m */; };
 		9C206F872117089600672206 /* WMStrainerStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C206F862117089600672206 /* WMStrainerStatus.m */; };
 		9C206F8A21172F3200672206 /* WMMessageFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C206F8921172F3200672206 /* WMMessageFactory.m */; };
+		9C206F8D2118060700672206 /* WMStrainerAlarmMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C206F8C2118060700672206 /* WMStrainerAlarmMessageCell.m */; };
+		9C206F902118062000672206 /* WMDevShareNotiMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C206F8F2118062000672206 /* WMDevShareNotiMessageCell.m */; };
+		9C206F932118063A00672206 /* WMAirQualityNotiMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C206F922118063A00672206 /* WMAirQualityNotiMessageCell.m */; };
 		9C484672210737D6005F2883 /* WMDeviceDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C484671210737D6005F2883 /* WMDeviceDataView.m */; };
 		9C48467521074680005F2883 /* WMDeviceRankView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C48467421074680005F2883 /* WMDeviceRankView.m */; };
 		9C48467921097E31005F2883 /* WMDevicePollutionChangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C48467821097E31005F2883 /* WMDevicePollutionChangeView.m */; };
@@ -382,6 +385,12 @@
 		9C206F862117089600672206 /* WMStrainerStatus.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WMStrainerStatus.m; path = MiWei/Message/Model/WMStrainerStatus.m; sourceTree = SOURCE_ROOT; };
 		9C206F8821172F3200672206 /* WMMessageFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMMessageFactory.h; path = MiWei/Message/Model/WMMessageFactory.h; sourceTree = SOURCE_ROOT; };
 		9C206F8921172F3200672206 /* WMMessageFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WMMessageFactory.m; path = MiWei/Message/Model/WMMessageFactory.m; sourceTree = SOURCE_ROOT; };
+		9C206F8B2118060700672206 /* WMStrainerAlarmMessageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMStrainerAlarmMessageCell.h; sourceTree = "<group>"; };
+		9C206F8C2118060700672206 /* WMStrainerAlarmMessageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMStrainerAlarmMessageCell.m; sourceTree = "<group>"; };
+		9C206F8E2118062000672206 /* WMDevShareNotiMessageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDevShareNotiMessageCell.h; sourceTree = "<group>"; };
+		9C206F8F2118062000672206 /* WMDevShareNotiMessageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDevShareNotiMessageCell.m; sourceTree = "<group>"; };
+		9C206F912118063A00672206 /* WMAirQualityNotiMessageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMAirQualityNotiMessageCell.h; sourceTree = "<group>"; };
+		9C206F922118063A00672206 /* WMAirQualityNotiMessageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMAirQualityNotiMessageCell.m; sourceTree = "<group>"; };
 		9C484670210737D6005F2883 /* WMDeviceDataView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceDataView.h; sourceTree = "<group>"; };
 		9C484671210737D6005F2883 /* WMDeviceDataView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceDataView.m; sourceTree = "<group>"; };
 		9C48467321074680005F2883 /* WMDeviceRankView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceRankView.h; sourceTree = "<group>"; };
@@ -790,6 +799,12 @@
 			children = (
 				274A553B208E2F50004FC461 /* WMMessageCell.m */,
 				274A553C208E2F50004FC461 /* WMMessageCell.h */,
+				9C206F8B2118060700672206 /* WMStrainerAlarmMessageCell.h */,
+				9C206F8C2118060700672206 /* WMStrainerAlarmMessageCell.m */,
+				9C206F8E2118062000672206 /* WMDevShareNotiMessageCell.h */,
+				9C206F8F2118062000672206 /* WMDevShareNotiMessageCell.m */,
+				9C206F912118063A00672206 /* WMAirQualityNotiMessageCell.h */,
+				9C206F922118063A00672206 /* WMAirQualityNotiMessageCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1323,6 +1338,7 @@
 				27A7D21A207D09D9006C6AF6 /* WMMeViewController.m in Sources */,
 				9C48467921097E31005F2883 /* WMDevicePollutionChangeView.m in Sources */,
 				2708B8F22084F85500A760E7 /* NSObject+PYObject.m in Sources */,
+				9C206F8D2118060700672206 /* WMStrainerAlarmMessageCell.m in Sources */,
 				2708B8E12084F85500A760E7 /* PYLegend.m in Sources */,
 				27A7D236207D1107006C6AF6 /* WMBaseTableCell.m in Sources */,
 				2708B8C92084F85500A760E7 /* PYEventRiverSeries.m in Sources */,
@@ -1330,6 +1346,7 @@
 				2708B8D02084F85500A760E7 /* PYCategories.m in Sources */,
 				9CDDA6C82105BFA70079E328 /* WMDeviceDetail.m in Sources */,
 				9C206F812117075200672206 /* WMDevShareNotiMessage.m in Sources */,
+				9C206F932118063A00672206 /* WMAirQualityNotiMessageCell.m in Sources */,
 				2708B8C62084F85500A760E7 /* PYChordSeries.m in Sources */,
 				9CB8062D20FB8F58001A5C5E /* WMOrderListViewController.m in Sources */,
 				9CB8063C20FC9E47001A5C5E /* WMDeviceModel.m in Sources */,
@@ -1346,6 +1363,7 @@
 				2708B8E62084F85500A760E7 /* PYNoDataLoadingOption.m in Sources */,
 				9C9F113C20A85B95001D02FC /* WMUIUtility.m in Sources */,
 				2708B8CE2084F85500A760E7 /* PYGaugeSeries.m in Sources */,
+				9C206F902118062000672206 /* WMDevShareNotiMessageCell.m in Sources */,
 				27A7D231207D0D4D006C6AF6 /* WMMeHeaderView.m in Sources */,
 				27A7D1FA207D04FD006C6AF6 /* WMRegisterViewController.m in Sources */,
 				271A9CF42081B6A10028D20D /* WMScanInputViewController.m in Sources */,
