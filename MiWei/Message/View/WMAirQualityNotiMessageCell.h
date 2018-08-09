@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WMBaseTableCell.h"
+#import "WMMessageBaseCell.h"
 
-@interface WMAirQualityNotiMessageCell : WMBaseTableCell
+@interface WMAirQualityNotiMessageCell : WMMessageBaseCell
 
 @end

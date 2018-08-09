@@ -90,22 +90,26 @@ NSString *const airQualityNotiIdentifier = @"airQualityNoti";
     switch (message.type) {
         case WMMessageTypeStrainerAlarm: {
             cell = [tableView dequeueReusableCellWithIdentifier:strainerAlarmIdentifier];
+            [(WMStrainerAlarmMessageCell *)cell setDataModel:message];
             break;
         }
             
         case WMMessageTypeDevShareNoti: {
             cell = [tableView dequeueReusableCellWithIdentifier:devShareNotiIdentifier];
+            [(WMDevShareNotiMessageCell *)cell setDataModel:message];
             break;
         }
             
         case WMMessageTypeAirQualityNoti: {
             cell = [tableView dequeueReusableCellWithIdentifier:airQualityNotiIdentifier];
+            [(WMAirQualityNotiMessageCell *)cell setDataModel:message];
             break;
         }
             
         default:
             break;
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
@@ -137,7 +141,7 @@ NSString *const airQualityNotiIdentifier = @"airQualityNoti";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if (section < self.modelArray.count - 1) {
+    if (section == self.modelArray.count - 1) {
         return [WMUIUtility WMCGFloatForY:Section_Gap];
     } else {
         return 0;
@@ -145,6 +149,15 @@ NSString *const airQualityNotiIdentifier = @"airQualityNoti";
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] initWithFrame:WM_CGRectMake(0, 0, Screen_Width, 0)];
+    return view;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return [WMUIUtility WMCGFloatForY:Section_Gap];
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] initWithFrame:WM_CGRectMake(0, 0, Screen_Width, Section_Gap)];
     return view;
 }

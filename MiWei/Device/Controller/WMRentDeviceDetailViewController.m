@@ -182,15 +182,6 @@
 }
 
 #pragma mark - Getters & setters
-- (NSDateFormatter *)formatter {
-    if (!_formatter) {
-        _formatter = [[NSDateFormatter alloc] init];
-        [_formatter setDateStyle:NSDateFormatterShortStyle];
-        [_formatter setDateFormat:@"yyyy-MM-dd"];
-    }
-    return _formatter;
-}
-
 - (UIScrollView *)scrollView {
     if(!_scrollView) {
         _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];

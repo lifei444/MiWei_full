@@ -16,7 +16,7 @@
 @property (nonatomic, strong) NSNumber *index;
 //滤网名
 @property (nonatomic, copy)   NSString *name;
-//剩余使用时间（小时）
+//剩余使用时间（秒）
 @property (nonatomic, strong) NSNumber *reaminingTime;
 
 @end

@@ -157,7 +157,7 @@
         //nameLabel
         NSString *dateString = @"";
         if (detail.lastUpdateTime) {
-            NSDate *date = [NSDate dateWithTimeIntervalSince1970:[detail.lastUpdateTime doubleValue] / 1000];
+            NSDate *date = [NSDate dateWithTimeIntervalSince1970:[detail.lastUpdateTime longLongValue] / 1000];
             dateString = [self.formatter stringFromDate:date];
         }
         self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", detail.name, dateString];

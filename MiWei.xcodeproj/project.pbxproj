@@ -106,12 +106,6 @@
 		9C206F6D2116E0E300672206 /* FogV3.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9C206F672116AED800672206 /* FogV3.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9C206F702116EBEC00672206 /* WMDeviceConfigCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C206F6F2116EBEC00672206 /* WMDeviceConfigCell.m */; };
 		9C206F732117020200672206 /* WMMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C206F722117020200672206 /* WMMessageViewController.m */; };
-		9C206F7B211704EB00672206 /* WMMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C206F79211704EB00672206 /* WMMessage.m */; };
-		9C206F7E2117073200672206 /* WMStrainerAlarmMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C206F7D2117073200672206 /* WMStrainerAlarmMessage.m */; };
-		9C206F812117075200672206 /* WMDevShareNotiMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C206F802117075200672206 /* WMDevShareNotiMessage.m */; };
-		9C206F842117076E00672206 /* WMAirQualityNotiMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C206F832117076E00672206 /* WMAirQualityNotiMessage.m */; };
-		9C206F872117089600672206 /* WMStrainerStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C206F862117089600672206 /* WMStrainerStatus.m */; };
-		9C206F8A21172F3200672206 /* WMMessageFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C206F8921172F3200672206 /* WMMessageFactory.m */; };
 		9C206F8D2118060700672206 /* WMStrainerAlarmMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C206F8C2118060700672206 /* WMStrainerAlarmMessageCell.m */; };
 		9C206F902118062000672206 /* WMDevShareNotiMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C206F8F2118062000672206 /* WMDevShareNotiMessageCell.m */; };
 		9C206F932118063A00672206 /* WMAirQualityNotiMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C206F922118063A00672206 /* WMAirQualityNotiMessageCell.m */; };
@@ -143,6 +137,14 @@
 		9C5EDCF621146AEA0085ADEE /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C5EDCF521146AEA0085ADEE /* icon.png */; };
 		9C608D6D210DE245001F1E11 /* WMDeviceEchartHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C608D6C210DE245001F1E11 /* WMDeviceEchartHeadView.m */; };
 		9C608D70210E06CD001F1E11 /* WMDevicePollutionSumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C608D6F210E06CD001F1E11 /* WMDevicePollutionSumView.m */; };
+		9C8C82E9211C5C8200D9F9F1 /* WMMessageFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8C82DD211C5C8200D9F9F1 /* WMMessageFactory.m */; };
+		9C8C82EA211C5C8200D9F9F1 /* WMStrainerStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8C82DE211C5C8200D9F9F1 /* WMStrainerStatus.m */; };
+		9C8C82EB211C5C8200D9F9F1 /* WMMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8C82E0211C5C8200D9F9F1 /* WMMessage.m */; };
+		9C8C82EC211C5C8200D9F9F1 /* WMAirQualityNotiMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8C82E4211C5C8200D9F9F1 /* WMAirQualityNotiMessage.m */; };
+		9C8C82ED211C5C8200D9F9F1 /* WMDevShareNotiMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8C82E7211C5C8200D9F9F1 /* WMDevShareNotiMessage.m */; };
+		9C8C82EE211C5C8200D9F9F1 /* WMStrainerAlarmMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8C82E8211C5C8200D9F9F1 /* WMStrainerAlarmMessage.m */; };
+		9C8C82F1211C5DBD00D9F9F1 /* WMMessageBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8C82F0211C5DBD00D9F9F1 /* WMMessageBaseCell.m */; };
+		9C8C82F4211C5E2000D9F9F1 /* WMMessageCellFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8C82F3211C5E2000D9F9F1 /* WMMessageCellFooterView.m */; };
 		9C9F113C20A85B95001D02FC /* WMUIUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9F113B20A85B95001D02FC /* WMUIUtility.m */; };
 		9CB8062420FAF6C3001A5C5E /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C4FBE4720EA142800D36D8D /* AFNetworking.framework */; };
 		9CB8062820FAFA04001A5C5E /* AFNetworking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9C4FBE4720EA142800D36D8D /* AFNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -373,18 +375,6 @@
 		9C206F6F2116EBEC00672206 /* WMDeviceConfigCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceConfigCell.m; sourceTree = "<group>"; };
 		9C206F712116F7CA00672206 /* WMDeviceConfigCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMDeviceConfigCell.h; sourceTree = "<group>"; };
 		9C206F722117020200672206 /* WMMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMessageViewController.m; sourceTree = "<group>"; };
-		9C206F79211704EB00672206 /* WMMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMMessage.m; path = MiWei/Message/Model/WMMessage.m; sourceTree = SOURCE_ROOT; };
-		9C206F7A211704EB00672206 /* WMMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMMessage.h; path = MiWei/Message/Model/WMMessage.h; sourceTree = SOURCE_ROOT; };
-		9C206F7C2117073200672206 /* WMStrainerAlarmMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMStrainerAlarmMessage.h; path = MiWei/Message/Model/WMStrainerAlarmMessage.h; sourceTree = SOURCE_ROOT; };
-		9C206F7D2117073200672206 /* WMStrainerAlarmMessage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WMStrainerAlarmMessage.m; path = MiWei/Message/Model/WMStrainerAlarmMessage.m; sourceTree = SOURCE_ROOT; };
-		9C206F7F2117075200672206 /* WMDevShareNotiMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMDevShareNotiMessage.h; path = MiWei/Message/Model/WMDevShareNotiMessage.h; sourceTree = SOURCE_ROOT; };
-		9C206F802117075200672206 /* WMDevShareNotiMessage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WMDevShareNotiMessage.m; path = MiWei/Message/Model/WMDevShareNotiMessage.m; sourceTree = SOURCE_ROOT; };
-		9C206F822117076E00672206 /* WMAirQualityNotiMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMAirQualityNotiMessage.h; path = MiWei/Message/Model/WMAirQualityNotiMessage.h; sourceTree = SOURCE_ROOT; };
-		9C206F832117076E00672206 /* WMAirQualityNotiMessage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WMAirQualityNotiMessage.m; path = MiWei/Message/Model/WMAirQualityNotiMessage.m; sourceTree = SOURCE_ROOT; };
-		9C206F852117089600672206 /* WMStrainerStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMStrainerStatus.h; path = MiWei/Message/Model/WMStrainerStatus.h; sourceTree = SOURCE_ROOT; };
-		9C206F862117089600672206 /* WMStrainerStatus.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WMStrainerStatus.m; path = MiWei/Message/Model/WMStrainerStatus.m; sourceTree = SOURCE_ROOT; };
-		9C206F8821172F3200672206 /* WMMessageFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMMessageFactory.h; path = MiWei/Message/Model/WMMessageFactory.h; sourceTree = SOURCE_ROOT; };
-		9C206F8921172F3200672206 /* WMMessageFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WMMessageFactory.m; path = MiWei/Message/Model/WMMessageFactory.m; sourceTree = SOURCE_ROOT; };
 		9C206F8B2118060700672206 /* WMStrainerAlarmMessageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMStrainerAlarmMessageCell.h; sourceTree = "<group>"; };
 		9C206F8C2118060700672206 /* WMStrainerAlarmMessageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMStrainerAlarmMessageCell.m; sourceTree = "<group>"; };
 		9C206F8E2118062000672206 /* WMDevShareNotiMessageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDevShareNotiMessageCell.h; sourceTree = "<group>"; };
@@ -448,6 +438,22 @@
 		9C608D6C210DE245001F1E11 /* WMDeviceEchartHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceEchartHeadView.m; sourceTree = "<group>"; };
 		9C608D6E210E06CD001F1E11 /* WMDevicePollutionSumView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDevicePollutionSumView.h; sourceTree = "<group>"; };
 		9C608D6F210E06CD001F1E11 /* WMDevicePollutionSumView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDevicePollutionSumView.m; sourceTree = "<group>"; };
+		9C8C82DD211C5C8200D9F9F1 /* WMMessageFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMessageFactory.m; sourceTree = "<group>"; };
+		9C8C82DE211C5C8200D9F9F1 /* WMStrainerStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMStrainerStatus.m; sourceTree = "<group>"; };
+		9C8C82DF211C5C8200D9F9F1 /* WMAirQualityNotiMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMAirQualityNotiMessage.h; sourceTree = "<group>"; };
+		9C8C82E0211C5C8200D9F9F1 /* WMMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMessage.m; sourceTree = "<group>"; };
+		9C8C82E1211C5C8200D9F9F1 /* WMStrainerAlarmMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMStrainerAlarmMessage.h; sourceTree = "<group>"; };
+		9C8C82E2211C5C8200D9F9F1 /* WMDevShareNotiMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMDevShareNotiMessage.h; sourceTree = "<group>"; };
+		9C8C82E3211C5C8200D9F9F1 /* WMMessageFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMessageFactory.h; sourceTree = "<group>"; };
+		9C8C82E4211C5C8200D9F9F1 /* WMAirQualityNotiMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMAirQualityNotiMessage.m; sourceTree = "<group>"; };
+		9C8C82E5211C5C8200D9F9F1 /* WMMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMessage.h; sourceTree = "<group>"; };
+		9C8C82E6211C5C8200D9F9F1 /* WMStrainerStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMStrainerStatus.h; sourceTree = "<group>"; };
+		9C8C82E7211C5C8200D9F9F1 /* WMDevShareNotiMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMDevShareNotiMessage.m; sourceTree = "<group>"; };
+		9C8C82E8211C5C8200D9F9F1 /* WMStrainerAlarmMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMStrainerAlarmMessage.m; sourceTree = "<group>"; };
+		9C8C82EF211C5DBD00D9F9F1 /* WMMessageBaseCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMMessageBaseCell.h; sourceTree = "<group>"; };
+		9C8C82F0211C5DBD00D9F9F1 /* WMMessageBaseCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMMessageBaseCell.m; sourceTree = "<group>"; };
+		9C8C82F2211C5E2000D9F9F1 /* WMMessageCellFooterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMMessageCellFooterView.h; sourceTree = "<group>"; };
+		9C8C82F3211C5E2000D9F9F1 /* WMMessageCellFooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMMessageCellFooterView.m; sourceTree = "<group>"; };
 		9C9F113A20A85B95001D02FC /* WMUIUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMUIUtility.h; sourceTree = "<group>"; };
 		9C9F113B20A85B95001D02FC /* WMUIUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMUIUtility.m; sourceTree = "<group>"; };
 		9CB8062B20FB8F58001A5C5E /* WMOrderListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMOrderListViewController.h; sourceTree = "<group>"; };
@@ -778,7 +784,7 @@
 		274A5534208E2F50004FC461 /* Message */ = {
 			isa = PBXGroup;
 			children = (
-				9C206F78211704A600672206 /* Model */,
+				9C8C82DC211C5C8200D9F9F1 /* Model */,
 				274A5535208E2F50004FC461 /* Controller */,
 				274A553A208E2F50004FC461 /* View */,
 			);
@@ -799,6 +805,10 @@
 			children = (
 				274A553B208E2F50004FC461 /* WMMessageCell.m */,
 				274A553C208E2F50004FC461 /* WMMessageCell.h */,
+				9C8C82F2211C5E2000D9F9F1 /* WMMessageCellFooterView.h */,
+				9C8C82F3211C5E2000D9F9F1 /* WMMessageCellFooterView.m */,
+				9C8C82EF211C5DBD00D9F9F1 /* WMMessageBaseCell.h */,
+				9C8C82F0211C5DBD00D9F9F1 /* WMMessageBaseCell.m */,
 				9C206F8B2118060700672206 /* WMStrainerAlarmMessageCell.h */,
 				9C206F8C2118060700672206 /* WMStrainerAlarmMessageCell.m */,
 				9C206F8E2118062000672206 /* WMDevShareNotiMessageCell.h */,
@@ -1036,26 +1046,6 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
-		9C206F78211704A600672206 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				9C206F7A211704EB00672206 /* WMMessage.h */,
-				9C206F79211704EB00672206 /* WMMessage.m */,
-				9C206F7C2117073200672206 /* WMStrainerAlarmMessage.h */,
-				9C206F7D2117073200672206 /* WMStrainerAlarmMessage.m */,
-				9C206F7F2117075200672206 /* WMDevShareNotiMessage.h */,
-				9C206F802117075200672206 /* WMDevShareNotiMessage.m */,
-				9C206F822117076E00672206 /* WMAirQualityNotiMessage.h */,
-				9C206F832117076E00672206 /* WMAirQualityNotiMessage.m */,
-				9C206F852117089600672206 /* WMStrainerStatus.h */,
-				9C206F862117089600672206 /* WMStrainerStatus.m */,
-				9C206F8821172F3200672206 /* WMMessageFactory.h */,
-				9C206F8921172F3200672206 /* WMMessageFactory.m */,
-			);
-			name = Model;
-			path = "New Group";
-			sourceTree = "<group>";
-		};
 		9C4FBE4920EA152D00D36D8D /* HTTP */ = {
 			isa = PBXGroup;
 			children = (
@@ -1116,6 +1106,25 @@
 				9C5EDCE1211076EC0085ADEE /* UIImage+GIF.h */,
 			);
 			path = SDWebImage;
+			sourceTree = "<group>";
+		};
+		9C8C82DC211C5C8200D9F9F1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9C8C82E5211C5C8200D9F9F1 /* WMMessage.h */,
+				9C8C82E0211C5C8200D9F9F1 /* WMMessage.m */,
+				9C8C82E3211C5C8200D9F9F1 /* WMMessageFactory.h */,
+				9C8C82DD211C5C8200D9F9F1 /* WMMessageFactory.m */,
+				9C8C82E6211C5C8200D9F9F1 /* WMStrainerStatus.h */,
+				9C8C82DE211C5C8200D9F9F1 /* WMStrainerStatus.m */,
+				9C8C82E1211C5C8200D9F9F1 /* WMStrainerAlarmMessage.h */,
+				9C8C82E8211C5C8200D9F9F1 /* WMStrainerAlarmMessage.m */,
+				9C8C82E2211C5C8200D9F9F1 /* WMDevShareNotiMessage.h */,
+				9C8C82E7211C5C8200D9F9F1 /* WMDevShareNotiMessage.m */,
+				9C8C82DF211C5C8200D9F9F1 /* WMAirQualityNotiMessage.h */,
+				9C8C82E4211C5C8200D9F9F1 /* WMAirQualityNotiMessage.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		CE90A7BFD8F6E75E8B0A2A8D /* Pods */ = {
@@ -1274,26 +1283,25 @@
 				27B3824C207CFB77006036A0 /* main.m in Sources */,
 				2708B8CD2084F85500A760E7 /* PYMarkLine.m in Sources */,
 				9CDDA6CF2106D7A60079E328 /* WMDeviceSwitchView.m in Sources */,
-				9C206F872117089600672206 /* WMStrainerStatus.m in Sources */,
 				2708B8EC2084F85500A760E7 /* PYAxisLabel.m in Sources */,
 				2708B8DD2084F85500A760E7 /* PYAreaStyle.m in Sources */,
 				2708B8EB2084F85500A760E7 /* PYSplitArea.m in Sources */,
-				9C206F7B211704EB00672206 /* WMMessage.m in Sources */,
 				9C5EDCE9211076EC0085ADEE /* UIImage+MultiFormat.m in Sources */,
 				2708B8D62084F85500A760E7 /* PYLoadingOption.m in Sources */,
 				274A5542208E36A5004FC461 /* WMFeedbackViewController.m in Sources */,
 				2708B8E32084F85500A760E7 /* PYToolboxFeature.m in Sources */,
 				2708B8D72084F85500A760E7 /* PYLinks.m in Sources */,
 				9C5EDCBF2110767F0085ADEE /* RCEActiveWheel.m in Sources */,
+				9C8C82EA211C5C8200D9F9F1 /* WMStrainerStatus.m in Sources */,
 				9C5EDCB3210EC2C90085ADEE /* WMRentDeviceDetailViewController.m in Sources */,
 				9CDDA6D22106D95F0079E328 /* WMDeviceSwitchContainerView.m in Sources */,
 				2708B8F02084F85500A760E7 /* PYZoomEchartsView.m in Sources */,
-				9C206F8A21172F3200672206 /* WMMessageFactory.m in Sources */,
 				27A7D1F9207D04FD006C6AF6 /* WMLoginViewController.m in Sources */,
 				9C484672210737D6005F2883 /* WMDeviceDataView.m in Sources */,
 				9C206F662114782600672206 /* WMProfile.m in Sources */,
 				27A7D22E207D0CCF006C6AF6 /* WMMeCell.m in Sources */,
 				2708B8C12084F85500A760E7 /* PYPieSeries.m in Sources */,
+				9C8C82ED211C5C8200D9F9F1 /* WMDevShareNotiMessage.m in Sources */,
 				2708B8C22084F85500A760E7 /* PYSeries.m in Sources */,
 				2708B8E52084F85500A760E7 /* PYTimeline.m in Sources */,
 				2708B8C32084F85500A760E7 /* PYVennSeries.m in Sources */,
@@ -1301,7 +1309,6 @@
 				2702A2EE207E370900FE7577 /* WMPersonViewController.m in Sources */,
 				2708B8CF2084F85500A760E7 /* PYColor.m in Sources */,
 				2708B8DC2084F85500A760E7 /* PYAxisPointer.m in Sources */,
-				9C206F7E2117073200672206 /* WMStrainerAlarmMessage.m in Sources */,
 				2708B8DF2084F85500A760E7 /* PYToolbox.m in Sources */,
 				2708B8E22084F85500A760E7 /* PYAxisLine.m in Sources */,
 				271A9CEE2081B31A0028D20D /* WMQRCodeScanner.m in Sources */,
@@ -1323,11 +1330,13 @@
 				274A553F208E2F50004FC461 /* WMMessageCell.m in Sources */,
 				2708B8C02084F85500A760E7 /* PYRadarSeries.m in Sources */,
 				9CB8064220FC9FFE001A5C5E /* WMDeviceRentInfo.m in Sources */,
+				9C8C82E9211C5C8200D9F9F1 /* WMMessageFactory.m in Sources */,
 				9CDDA6CC2105F96F0079E328 /* WMDevicePMView.m in Sources */,
 				9C5EDCF42110802B0085ADEE /* WMMePortraitCell.m in Sources */,
 				9C5EDCE3211076EC0085ADEE /* MKAnnotationView+WebCache.m in Sources */,
 				9CDDA6C42105941B0079E328 /* WMKeychainUtility.m in Sources */,
 				9C5EDCE2211076EC0085ADEE /* UIImage+WebP.m in Sources */,
+				9C8C82EE211C5C8200D9F9F1 /* WMStrainerAlarmMessage.m in Sources */,
 				27A7D22B207D0C53006C6AF6 /* WMDeviceCell.m in Sources */,
 				2708B8EE2084F85500A760E7 /* PYNodes.m in Sources */,
 				27A7D1F8207D04FD006C6AF6 /* WMNavigationViewController.m in Sources */,
@@ -1345,22 +1354,22 @@
 				9C48467521074680005F2883 /* WMDeviceRankView.m in Sources */,
 				2708B8D02084F85500A760E7 /* PYCategories.m in Sources */,
 				9CDDA6C82105BFA70079E328 /* WMDeviceDetail.m in Sources */,
-				9C206F812117075200672206 /* WMDevShareNotiMessage.m in Sources */,
 				9C206F932118063A00672206 /* WMAirQualityNotiMessageCell.m in Sources */,
 				2708B8C62084F85500A760E7 /* PYChordSeries.m in Sources */,
 				9CB8062D20FB8F58001A5C5E /* WMOrderListViewController.m in Sources */,
 				9CB8063C20FC9E47001A5C5E /* WMDeviceModel.m in Sources */,
 				9C5EDCEE211076EC0085ADEE /* NSData+ImageContentType.m in Sources */,
+				9C8C82EB211C5C8200D9F9F1 /* WMMessage.m in Sources */,
 				2708B8D92084F85500A760E7 /* PYTitle.m in Sources */,
 				9C5EDCF0211076EC0085ADEE /* UIView+WebCacheOperation.m in Sources */,
 				9CF0872320D67E410089BB97 /* WMAlertManageViewController.m in Sources */,
 				2708B8F12084F85500A760E7 /* PYEchartsView.m in Sources */,
 				2708B8CC2084F85500A760E7 /* PYFunnelSeries.m in Sources */,
 				2708B8D52084F85500A760E7 /* PYNodeStyle.m in Sources */,
-				9C206F842117076E00672206 /* WMAirQualityNotiMessage.m in Sources */,
 				9C5EDCE7211076EC0085ADEE /* SDWebImageDownloader.m in Sources */,
 				27A7D1F7207D04FD006C6AF6 /* WMMainTabbarViewController.m in Sources */,
 				2708B8E62084F85500A760E7 /* PYNoDataLoadingOption.m in Sources */,
+				9C8C82F1211C5DBD00D9F9F1 /* WMMessageBaseCell.m in Sources */,
 				9C9F113C20A85B95001D02FC /* WMUIUtility.m in Sources */,
 				2708B8CE2084F85500A760E7 /* PYGaugeSeries.m in Sources */,
 				9C206F902118062000672206 /* WMDevShareNotiMessageCell.m in Sources */,
@@ -1375,6 +1384,7 @@
 				271A9CEF2081B31A0028D20D /* WMQRCode.m in Sources */,
 				9C5EDCEF211076EC0085ADEE /* UIImageView+WebCache.m in Sources */,
 				271A9CD32081A71A0028D20D /* WMPayRecordCell.m in Sources */,
+				9C8C82F4211C5E2000D9F9F1 /* WMMessageCellFooterView.m in Sources */,
 				2702A2F6207E3C8900FE7577 /* WMMeNameViewController.m in Sources */,
 				2708B8BF2084F85500A760E7 /* PYCartesianSeries.m in Sources */,
 				2708B8C82084F85500A760E7 /* PYTreeSeries.m in Sources */,
@@ -1393,6 +1403,7 @@
 				9C5EDCEA211076EC0085ADEE /* SDWebImageCompat.m in Sources */,
 				271A9CE02081AE520028D20D /* WMScanView.m in Sources */,
 				2708B8EF2084F85500A760E7 /* WKEchartsView.m in Sources */,
+				9C8C82EC211C5C8200D9F9F1 /* WMAirQualityNotiMessage.m in Sources */,
 				9C5EDCF1211076EC0085ADEE /* UIButton+WebCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
