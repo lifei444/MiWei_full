@@ -20,6 +20,7 @@
 #import "WMKeychainUtility.h"
 #import "WMLoginViewController.h"
 #import "WMNavigationViewController.h"
+#import <UMPush/UMessage.h>
 
 #define kheight 269
 
@@ -173,7 +174,11 @@
                                 response:^(WMHTTPResult *result) {
                                     if (result.success) {
 //                                        [WMKeychainUtility removeWMDataForKey:@"WMPswKey"];
-                                        //TODO youmeng removeAlias
+                                        [UMessage removeAlias:[[WMHTTPUtility currentProfile].profileId stringValue]
+                                                         type:@"miiot_push"
+                                                     response:^(id  _Nullable responseObject, NSError * _Nullable error) {
+                                                     }];
+                                        
                                         dispatch_async(dispatch_get_main_queue(), ^{
                                             WMLoginViewController *loginVC = [[WMLoginViewController alloc] init];
                                             WMNavigationViewController *nav = [[WMNavigationViewController alloc] initWithRootViewController:loginVC];

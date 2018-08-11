@@ -146,6 +146,7 @@
 		9C8C82F1211C5DBD00D9F9F1 /* WMMessageBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8C82F0211C5DBD00D9F9F1 /* WMMessageBaseCell.m */; };
 		9C8C82F4211C5E2000D9F9F1 /* WMMessageCellFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8C82F3211C5E2000D9F9F1 /* WMMessageCellFooterView.m */; };
 		9C8C8304211EF3D000D9F9F1 /* WMDeviceUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8C8302211EF3D000D9F9F1 /* WMDeviceUtility.m */; };
+		9C8C8306211EFA1200D9F9F1 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C8C8305211EFA1200D9F9F1 /* UserNotifications.framework */; };
 		9C9F113C20A85B95001D02FC /* WMUIUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9F113B20A85B95001D02FC /* WMUIUtility.m */; };
 		9CB8062420FAF6C3001A5C5E /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C4FBE4720EA142800D36D8D /* AFNetworking.framework */; };
 		9CB8062820FAFA04001A5C5E /* AFNetworking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9C4FBE4720EA142800D36D8D /* AFNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -457,6 +458,7 @@
 		9C8C82F3211C5E2000D9F9F1 /* WMMessageCellFooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMMessageCellFooterView.m; sourceTree = "<group>"; };
 		9C8C8302211EF3D000D9F9F1 /* WMDeviceUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMDeviceUtility.m; sourceTree = "<group>"; };
 		9C8C8303211EF3D000D9F9F1 /* WMDeviceUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMDeviceUtility.h; sourceTree = "<group>"; };
+		9C8C8305211EFA1200D9F9F1 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		9C9F113A20A85B95001D02FC /* WMUIUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMUIUtility.h; sourceTree = "<group>"; };
 		9C9F113B20A85B95001D02FC /* WMUIUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMUIUtility.m; sourceTree = "<group>"; };
 		9CB8062B20FB8F58001A5C5E /* WMOrderListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMOrderListViewController.h; sourceTree = "<group>"; };
@@ -497,6 +499,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C8C8306211EFA1200D9F9F1 /* UserNotifications.framework in Frameworks */,
 				9C206F6C2116E0E300672206 /* FogV3.framework in Frameworks */,
 				9CB8062420FAF6C3001A5C5E /* AFNetworking.framework in Frameworks */,
 				2708B8FB2084F8B500A760E7 /* WebKit.framework in Frameworks */,
@@ -672,6 +675,7 @@
 		2708B8F92084F8B500A760E7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9C8C8305211EFA1200D9F9F1 /* UserNotifications.framework */,
 				9C206F672116AED800672206 /* FogV3.framework */,
 				9C4FBE4720EA142800D36D8D /* AFNetworking.framework */,
 				2708B8FA2084F8B500A760E7 /* WebKit.framework */,
@@ -1177,7 +1181,13 @@
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};

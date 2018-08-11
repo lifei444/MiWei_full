@@ -17,6 +17,7 @@
 #import "WMHTTPUtility.h"
 #import "WMKeychainUtility.h"
 #import <WXApi.h>
+#import <UMPush/UMessage.h>
 
 #define TitleViewHeight 64
 #define GapBetweenTitleAndLogo 38
@@ -171,6 +172,10 @@ static NSString *pswKey = @"WMPswKey";
 
 #pragma mark - Private methods
 - (void)loginSuccess {
+    [UMessage addAlias:[[WMHTTPUtility currentProfile].profileId stringValue]
+                  type:@"miiot_push"
+              response:^(id  _Nullable responseObject, NSError * _Nullable error) {
+              }];
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
     WMMainTabbarViewController *tabVC = [[WMMainTabbarViewController alloc] init];
     app.window.rootViewController = tabVC;

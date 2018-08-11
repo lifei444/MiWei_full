@@ -6,7 +6,7 @@ target 'MiWei' do
 use_frameworks!
   pod 'XMNetworking'
   pod 'MQTTClient'
-
+  pod 'UMCPush'
 
 
 end
