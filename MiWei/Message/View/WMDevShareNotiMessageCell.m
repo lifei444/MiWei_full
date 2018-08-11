@@ -11,6 +11,7 @@
 #import "WMCommonDefine.h"
 #import "WMDevShareNotiMessage.h"
 #import "WMHTTPUtility.h"
+#import "MBProgressHUD.h"
 
 #define Name_Y              84
 #define Name_Height         24
@@ -29,6 +30,12 @@
 #define Owner_X             100
 #define Owner_Width         100
 
+typedef NS_ENUM(NSUInteger, PermissionType) {
+    PermissionAllow,
+    PermissionReject,
+    PermissionOwner
+};
+
 @interface WMDevShareNotiMessageCell ()
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UIView *separator;
@@ -36,6 +43,7 @@
 @property (nonatomic, strong) UIButton *rejectButton;
 @property (nonatomic, strong) UIButton *ownerButton;
 @property (nonatomic, strong) WMDevShareNotiMessage *message;
+@property (nonatomic, strong) MBProgressHUD *hud;
 @end
 
 @implementation WMDevShareNotiMessageCell
@@ -63,31 +71,52 @@
 
 #pragma mark - Target action
 - (void)clickAllow:(UIButton *)btn {
+    [self setPermission:PermissionAllow];
+}
+
+- (void)clickReject:(UIButton *)btn {
+    [self setPermission:PermissionReject];
+}
+
+- (void)clickOwner:(UIButton *)btn {
+    [self setPermission:PermissionOwner];
+}
+
+#pragma mark - Private method
+- (void)setPermission:(PermissionType)type {
+    self.hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:self.message.deviceId forKey:@"deviceID"];
-    [dic setObject:@(0x03) forKey:@"permission"];
+    if (type == PermissionAllow) {
+        [dic setObject:@(0x03) forKey:@"permission"];
+    } else if (type == PermissionReject) {
+        [dic setObject:@(0x01) forKey:@"permission"];
+    } else if (type == PermissionOwner) {
+        [dic setObject:@(0x07) forKey:@"permission"];
+    }
     [dic setObject:self.message.requestUserID forKey:@"userID"];
     [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodPost
                                URLString:@"/mobile/device/setPermission"
                               parameters:dic
                                 response:^(WMHTTPResult *result) {
-                                  if (result.success) {
-                                      
-                                  } else {
-                                      NSLog(@"clickAllow, result is %@", result);
-                                  }
-                              }];
+                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                        [self.hud hideAnimated:YES];
+                                        if (result.success) {
+                                            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
+                                                                                                           message:@"设置成功"
+                                                                                                    preferredStyle:UIAlertControllerStyleAlert];
+                                            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+                                            [self.vc presentViewController:alert animated:true completion:nil];
+                                        } else {
+                                            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
+                                                                                                           message:@"设置失败"
+                                                                                                    preferredStyle:UIAlertControllerStyleAlert];
+                                            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+                                            [self.vc presentViewController:alert animated:true completion:nil];
+                                        }
+                                    });
+                                }];
 }
-
-- (void)clickReject:(UIButton *)btn {
-    
-}
-
-- (void)clickOwner:(UIButton *)btn {
-    
-}
-
-#pragma mark - Private method
 
      
 #pragma mark - Getters & setters
@@ -138,7 +167,7 @@
         [_ownerButton setTitle:@"分配主人权限" forState:UIControlStateNormal];
         [_ownerButton setTitleColor:[WMUIUtility color:@"0x108cfe"] forState:UIControlStateNormal];
         _ownerButton.titleLabel.font = [UIFont systemFontOfSize:[WMUIUtility WMCGFloatForY:14]];
-        [_rejectButton addTarget:self action:@selector(clickOwner:) forControlEvents:UIControlEventTouchUpInside];
+        [_ownerButton addTarget:self action:@selector(clickOwner:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _ownerButton;
 }

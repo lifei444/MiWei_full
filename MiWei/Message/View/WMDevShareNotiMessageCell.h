@@ -11,4 +11,6 @@
 
 @interface WMDevShareNotiMessageCell : WMMessageBaseCell
 
+@property (nonatomic, strong) UIViewController *vc;
+
 @end

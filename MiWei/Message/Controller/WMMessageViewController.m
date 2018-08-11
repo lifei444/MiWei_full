@@ -96,7 +96,9 @@ NSString *const airQualityNotiIdentifier = @"airQualityNoti";
             
         case WMMessageTypeDevShareNoti: {
             cell = [tableView dequeueReusableCellWithIdentifier:devShareNotiIdentifier];
-            [(WMDevShareNotiMessageCell *)cell setDataModel:message];
+            WMDevShareNotiMessageCell *shareCell = (WMDevShareNotiMessageCell *)cell;
+            [shareCell setDataModel:message];
+            shareCell.vc = self;
             break;
         }
             
