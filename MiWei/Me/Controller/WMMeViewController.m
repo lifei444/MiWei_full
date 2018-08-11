@@ -21,6 +21,7 @@
 #import "WMLoginViewController.h"
 #import "WMNavigationViewController.h"
 #import <UMPush/UMessage.h>
+#import "WMModifyPasswordViewController.h"
 
 #define kheight 269
 
@@ -121,6 +122,8 @@
     if(indexPath.section == 0) {
         if(indexPath.row == 0) {
             NSLog(@"修改密码");
+            WMModifyPasswordViewController *vc = [[WMModifyPasswordViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
         } else if(indexPath.row == 1) {
             WMOrderListViewController *vc =[[WMOrderListViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];

@@ -147,6 +147,7 @@
 		9C8C82F4211C5E2000D9F9F1 /* WMMessageCellFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8C82F3211C5E2000D9F9F1 /* WMMessageCellFooterView.m */; };
 		9C8C8304211EF3D000D9F9F1 /* WMDeviceUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8C8302211EF3D000D9F9F1 /* WMDeviceUtility.m */; };
 		9C8C8306211EFA1200D9F9F1 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C8C8305211EFA1200D9F9F1 /* UserNotifications.framework */; };
+		9C8C8309211F0B4100D9F9F1 /* WMModifyPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8C8308211F0B4100D9F9F1 /* WMModifyPasswordViewController.m */; };
 		9C9F113C20A85B95001D02FC /* WMUIUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9F113B20A85B95001D02FC /* WMUIUtility.m */; };
 		9CB8062420FAF6C3001A5C5E /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C4FBE4720EA142800D36D8D /* AFNetworking.framework */; };
 		9CB8062820FAFA04001A5C5E /* AFNetworking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9C4FBE4720EA142800D36D8D /* AFNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -459,6 +460,8 @@
 		9C8C8302211EF3D000D9F9F1 /* WMDeviceUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMDeviceUtility.m; sourceTree = "<group>"; };
 		9C8C8303211EF3D000D9F9F1 /* WMDeviceUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMDeviceUtility.h; sourceTree = "<group>"; };
 		9C8C8305211EFA1200D9F9F1 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		9C8C8307211F0B4100D9F9F1 /* WMModifyPasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMModifyPasswordViewController.h; sourceTree = "<group>"; };
+		9C8C8308211F0B4100D9F9F1 /* WMModifyPasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMModifyPasswordViewController.m; sourceTree = "<group>"; };
 		9C9F113A20A85B95001D02FC /* WMUIUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMUIUtility.h; sourceTree = "<group>"; };
 		9C9F113B20A85B95001D02FC /* WMUIUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMUIUtility.m; sourceTree = "<group>"; };
 		9CB8062B20FB8F58001A5C5E /* WMOrderListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMOrderListViewController.h; sourceTree = "<group>"; };
@@ -889,6 +892,8 @@
 				2702A2ED207E370900FE7577 /* WMPersonViewController.m */,
 				274A5540208E36A5004FC461 /* WMFeedbackViewController.h */,
 				274A5541208E36A5004FC461 /* WMFeedbackViewController.m */,
+				9C8C8307211F0B4100D9F9F1 /* WMModifyPasswordViewController.h */,
+				9C8C8308211F0B4100D9F9F1 /* WMModifyPasswordViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1280,6 +1285,7 @@
 			files = (
 				2708B8E02084F85500A760E7 /* PYPolar.m in Sources */,
 				2708B8E82084F85500A760E7 /* PYAxisSplitLine.m in Sources */,
+				9C8C8309211F0B4100D9F9F1 /* WMModifyPasswordViewController.m in Sources */,
 				2708B8C52084F85500A760E7 /* PYMapSeries.m in Sources */,
 				2708B8CA2084F85500A760E7 /* PYTreeMapSeries.m in Sources */,
 				9CDDA699210437150079E328 /* WMDeviceAddressView.m in Sources */,

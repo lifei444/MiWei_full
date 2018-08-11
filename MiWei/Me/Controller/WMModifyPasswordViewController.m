@@ -1,18 +1,18 @@
 //
-//  WMForgetPassViewController.m
-//  WeiMi
+//  WMModifyPasswordViewController.m
+//  MiWei
 //
-//  Created by Sin on 2018/4/11.
+//  Created by LiFei on 2018/8/11.
 //  Copyright © 2018年 Sin. All rights reserved.
 //
 
-#import "WMForgetPassViewController.h"
+#import "WMModifyPasswordViewController.h"
 #import "WMUnderLineView.h"
 #import "WMHTTPUtility.h"
-#import "WMCommonDefine.h"
 #import "WMUIUtility.h"
+#import "WMCommonDefine.h"
 
-#define WaitSeconds 3
+#define WaitSeconds     3
 
 #define ViewX           0
 #define ViewWidth       Screen_Width
@@ -21,18 +21,20 @@
 #define ViewHeight      30
 #define Gap             30
 #define VerifyY         (PhoneY + ViewHeight + Gap)
-#define PassY           (VerifyY + ViewHeight + Gap)
+#define OldPassY        (VerifyY + ViewHeight + Gap)
+#define PassY           (OldPassY + ViewHeight + Gap)
 #define ConfirmY        (PassY + ViewHeight + Gap)
-#define Gap2            87
+#define Gap2            50
 #define RegisterY       (ConfirmY + ViewHeight + Gap2)
 #define RegisterHeight  44
 
 #define RegisterX       37
 #define RegisterW       300
 
-@interface WMForgetPassViewController ()
+@interface WMModifyPasswordViewController ()
 @property (nonatomic,strong) WMUnderLineView *phoneView;
 @property (nonatomic,strong) WMUnderLineView *verifyView;
+@property (nonatomic,strong) WMUnderLineView *oldPassView;
 @property (nonatomic,strong) WMUnderLineView *passView;
 @property (nonatomic,strong) WMUnderLineView *confirmView;
 @property (nonatomic,strong) UIButton *modifyButton;
@@ -40,14 +42,15 @@
 @property (nonatomic,assign) int count;
 @end
 
-@implementation WMForgetPassViewController
+@implementation WMModifyPasswordViewController
 #pragma mark - Life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"找回密码";
+    self.title = @"修改密码";
     self.count = WaitSeconds;
     [self.view addSubview:self.phoneView];
     [self.view addSubview:self.verifyView];
+    [self.view addSubview:self.oldPassView];
     [self.view addSubview:self.passView];
     [self.view addSubview:self.confirmView];
     [self.view addSubview:self.modifyButton];
@@ -67,17 +70,18 @@
     if ([self.passView.textField.text isEqualToString:self.confirmView.textField.text]) {
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
         [dic setObject:self.phoneView.textField.text forKey:@"phone"];
-        [dic setObject:self.passView.textField.text forKey:@"userPwd"];
+        [dic setObject:self.oldPassView.textField.text forKey:@"oldPwd"];
+        [dic setObject:self.passView.textField.text forKey:@"newPwd"];
         [dic setObject:self.verifyView.textField.text forKey:@"verifiedCode"];
         [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodPost
-                                   URLString:@"/mobile/user/resetPassword"
+                                   URLString:@"/mobile/user/changePassword"
                                   parameters:dic
                                     response:^(WMHTTPResult *result) {
                                         dispatch_async(dispatch_get_main_queue(), ^{
                                             if (result.success) {
                                                 [self.navigationController popViewControllerAnimated:YES];
                                             } else {
-                                                NSLog(@"modifyAction error, result is %@", result);
+                                                NSLog(@"modifyAction error");
                                                 [WMUIUtility showAlertWithMessage:@"修改失败" viewController:self];
                                             }
                                         });
@@ -147,11 +151,21 @@
     return _verifyView;
 }
 
+- (WMUnderLineView *)oldPassView {
+    if (!_oldPassView) {
+        _oldPassView = [[WMUnderLineView alloc] initWithFrame:WM_CGRectMake(ViewX, OldPassY, ViewWidth, ViewHeight)];
+        _oldPassView.imageView.image = [UIImage imageNamed:@"register_password"];
+        _oldPassView.textField.placeholder = @"输入旧密码";
+        _oldPassView.textField.secureTextEntry = YES;
+    }
+    return _oldPassView;
+}
+
 - (WMUnderLineView *)passView {
     if (!_passView) {
         _passView = [[WMUnderLineView alloc] initWithFrame:WM_CGRectMake(ViewX, PassY, ViewWidth, ViewHeight)];
         _passView.imageView.image = [UIImage imageNamed:@"register_password"];
-        _passView.textField.placeholder = @"输入密码";
+        _passView.textField.placeholder = @"输入新密码";
         _passView.textField.secureTextEntry = YES;
     }
     return _passView;
@@ -161,7 +175,7 @@
     if (!_confirmView) {
         _confirmView = [[WMUnderLineView alloc] initWithFrame:WM_CGRectMake(ViewX, ConfirmY, ViewWidth, ViewHeight)];
         _confirmView.imageView.image = [UIImage imageNamed:@"register_password"];
-        _confirmView.textField.placeholder = @"确认密码";
+        _confirmView.textField.placeholder = @"确认新密码";
         _confirmView.textField.secureTextEntry = YES;
     }
     return _confirmView;

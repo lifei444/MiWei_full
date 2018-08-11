@@ -82,6 +82,8 @@
                                             }
                                         });
                                     }];
+    } else {
+        [WMUIUtility showAlertWithMessage:@"密码不一致" viewController:self];
     }
 }
 
