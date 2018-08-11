@@ -11,6 +11,9 @@
 #import "WMCommonDefine.h"
 #import "WMDeviceConfigCell.h"
 #import <FogV3/FogV3.h>
+#import "MBProgressHUD.h"
+#import "WMDeviceUtility.h"
+#import "WMDeviceViewController.h"
 
 #define Image_Y             (63 + Navi_Height)
 #define Image_Width         90
@@ -35,6 +38,7 @@
 @property (nonatomic, strong) WMDeviceConfigCell *wifiCell;
 @property (nonatomic, strong) WMDeviceConfigCell *pswCell;
 @property (nonatomic, strong) UIButton *confirmButton;
+@property (nonatomic, strong) MBProgressHUD *hud;
 
 @end
 
@@ -60,7 +64,7 @@
     [[FogEasyLinkManager sharedInstance] startEasyLinkWithPassword:self.pswCell.textField.text];
     [FogDeviceManager sharedInstance].delegate = self;
     [[FogDeviceManager sharedInstance] startSearchDevices];
-    
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 }
 
 - (void)fingerTapped:(UITapGestureRecognizer *)gestureRecognizer {
@@ -69,8 +73,28 @@
 
 #pragma mark - FogDeviceDelegate
 - (void)didSearchDeviceReturnArray:(NSArray *)array {
-    //TODO (no)bind? (yes)add device? (yes)stop search? (yes)stop easylink?
-    //return to deviceList
+    [self.hud hideAnimated:YES];
+    [[FogDeviceManager sharedInstance] stopSearchDevices];
+    [[FogEasyLinkManager sharedInstance] stopEasyLink];
+    
+    if (array.count > 0) {
+        [WMDeviceUtility addDevice:self.device
+                          location:self.coord
+                              ssid:self.ssid
+                          complete:^(BOOL result) {
+                              if (result) {
+                                  for (UIViewController *controller in self.navigationController.viewControllers) {
+                                      if ([controller isKindOfClass:[WMDeviceViewController class]]) {
+                                          WMDeviceViewController *vc = (WMDeviceViewController *)controller;
+                                          [self.navigationController popToViewController:vc animated:YES];
+                                          break;
+                                      }
+                                  }
+                              } else {
+                                  [WMUIUtility showAlertWithMessage:@"添加失败" viewController:self];
+                              }
+                          }];
+    }
 }
 
 #pragma mark - UITextFieldDelegate

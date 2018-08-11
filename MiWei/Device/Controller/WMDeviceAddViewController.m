@@ -10,9 +10,14 @@
 #import "WMCommonDefine.h"
 #import "WMUIUtility.h"
 #import "UIImageView+WebCache.h"
-#import "WMHTTPUtility.h"
 #import <FogV3/FogV3.h>
 #import "WMDeviceConfigViewController.h"
+#import "WMDeviceUtility.h"
+#import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
+#import "MBProgressHUD.h"
+#import "WMHTTPUtility.h"
+#import "WMDeviceViewController.h"
 
 #define Header_Height   227
 #define Footer_Height   44
@@ -20,8 +25,12 @@
 #define Button_X        10
 #define Cell_Height     59
 
-@interface WMDeviceAddViewController ()<UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic,strong) UITableView *tableView;
+@interface WMDeviceAddViewController ()<UITableViewDelegate, UITableViewDataSource, MKMapViewDelegate>
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) MKMapView *mapView;
+@property (nonatomic, assign) CLLocationCoordinate2D coord;
+@property (nonatomic, strong) MBProgressHUD *hud;
+@property (nonatomic, strong) CLLocationManager *locationManager;
 @end
 
 @implementation WMDeviceAddViewController
@@ -32,15 +41,74 @@
     self.title = @"添加设备";
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
+    [self.view addSubview:self.mapView];
+    [self requestLocationAuth];
 }
 
 #pragma mark - Target action
 - (void)addEvent:(UIButton *)button {
     NSString *ssid = [[FogEasyLinkManager sharedInstance] getSSID];
     
-    WMDeviceConfigViewController *vc = [[WMDeviceConfigViewController alloc] init];
-    vc.ssid = ssid;
-    [self.navigationController pushViewController:vc animated:YES];
+    //TODO
+    self.device.model.connWay = WMDeviceModelConnWayWIFI;
+    self.device.online = NO;
+    self.device.deviceOwnerExist = NO;
+    
+    if ([self.device isRentDevice]) {
+        if (!self.device.online) {
+            [WMUIUtility showAlertWithMessage:@"设备不在线，无法添加" viewController:self];
+        } else {
+            self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            [WMDeviceUtility addDevice:self.device
+                              location:self.coord
+                                  ssid:ssid
+                              complete:^(BOOL result) {
+                                  [self.hud hideAnimated:YES];
+                                  if (result) {
+                                      //TODO 支付
+                                  } else {
+                                      [WMUIUtility showAlertWithMessage:@"添加失败" viewController:self];
+                                  }
+                              }];
+        }
+    } else { //销售设备
+        if (self.device.online) {
+            self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            [WMDeviceUtility addDevice:self.device
+                              location:self.coord
+                                  ssid:ssid
+                              complete:^(BOOL result) {
+                                  [self.hud hideAnimated:YES];
+                                  if (result) {
+                                      for (UIViewController *controller in self.navigationController.viewControllers) {
+                                          if ([controller isKindOfClass:[WMDeviceViewController class]]) {
+                                              WMDeviceViewController *vc = (WMDeviceViewController *)controller;
+                                              [self.navigationController popToViewController:vc animated:YES];
+                                              break;
+                                          }
+                                      }
+                                  } else {
+                                      [WMUIUtility showAlertWithMessage:@"添加失败" viewController:self];
+                                  }
+                              }];
+        } else {
+            if (self.device.deviceOwnerExist) {
+                [WMUIUtility showAlertWithMessage:@"设备不在线，无法添加" viewController:self];
+            } else {
+                WMDeviceConfigViewController *vc = [[WMDeviceConfigViewController alloc] init];
+                vc.ssid = ssid;
+                vc.device = self.device;
+                vc.coord = self.coord;
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+        }
+    }
+}
+
+#pragma mark - MKMapViewDelegate
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
+    self.coord = [userLocation coordinate];
+    [self.mapView setShowsUserLocation:NO];
 }
 
 #pragma mark - UITableViewDataSource
@@ -113,6 +181,23 @@
     return view;
  }
 
+#pragma mark - Private method
+- (void)requestLocationAuth {
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        //判断当前设备定位服务是否打开
+        if (![CLLocationManager locationServicesEnabled]) {
+            NSLog(@"设备尚未打开定位服务");
+        }
+        
+        //判断当前设备版本大于iOS8以后的话执行里面的方法
+        if ([UIDevice currentDevice].systemVersion.floatValue >=8.0) {
+            //当用户使用的时候授权
+            self.locationManager = [[CLLocationManager alloc] init];
+            [self.locationManager requestWhenInUseAuthorization];
+        }
+//    });
+}
+
 #pragma mark - Getters & setters
 - (UITableView *)tableView {
     if(!_tableView) {
@@ -122,6 +207,16 @@
         _tableView.scrollEnabled = NO;
     }
     return _tableView;
+}
+
+- (MKMapView *)mapView {
+    if (!_mapView) {
+        _mapView = [[MKMapView alloc] initWithFrame:CGRectZero];
+        [_mapView setShowsUserLocation:YES];
+        _mapView.delegate = self;
+        _mapView.hidden = YES;
+    }
+    return _mapView;
 }
 
 @end

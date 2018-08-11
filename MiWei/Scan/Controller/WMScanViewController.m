@@ -146,13 +146,18 @@
                                         NSDictionary *content = result.content;
                                         device.deviceId = deviceId;
                                         device.name = content[@"deviceName"];
+                                        device.deviceOwnerExist = [content[@"deviceOwnerExist"] boolValue];
+                                        device.online = [content[@"online"] boolValue];
                                         NSDictionary *modelDic = content[@"modelInfo"];
                                         WMDeviceModel *model = [[WMDeviceModel alloc] init];
+                                        model.connWay = [modelDic[@"connWay"] longValue];
+                                        model.modelId = modelDic[@"id"];
                                         model.image = modelDic[@"imageID"];
                                         model.name = modelDic[@"name"];
                                         device.model = model;
                                         NSDictionary *prodDic = content[@"prodInfo"];
                                         WMDeviceProdInfo *prod = [[WMDeviceProdInfo alloc] init];
+                                        prod.prodId = prodDic[@"id"];
                                         prod.name = prodDic[@"name"];
                                         device.prod = prod;
                                         dispatch_async(dispatch_get_main_queue(), ^{

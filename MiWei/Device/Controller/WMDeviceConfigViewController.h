@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "WMViewController.h"
+#import "WMDevice.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface WMDeviceConfigViewController : WMViewController
 
 @property (nonatomic, copy) NSString *ssid;
+@property (nonatomic, strong) WMDevice *device;
+@property (nonatomic, assign) CLLocationCoordinate2D coord;
 
 @end

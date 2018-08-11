@@ -10,4 +10,8 @@
 
 @implementation WMDevice
 
+- (BOOL)isRentDevice {
+    return self.model.connWay == WMDeviceModelConnWay2G;
+}
+
 @end

@@ -12,14 +12,23 @@
 #define WM_CGSizeMake(Width, Height) [WMUIUtility WMCGSizeMakeWithWidth:Width height:Height]
 
 @interface WMUIUtility : NSObject
+
 + (UIColor *)color:(NSString *)colorString;
+
 + (void)registerAutoSizeScale;
+
 + (CGRect)WMCGRectMakeWithX:(CGFloat)x
                           y:(CGFloat)y
                       width:(CGFloat)width
                      height:(CGFloat)height;
+
 + (CGSize)WMCGSizeMakeWithWidth:(CGFloat)width
                          height:(CGFloat)height;
+
 + (CGFloat)WMCGFloatForX:(CGFloat)value;
+
 + (CGFloat)WMCGFloatForY:(CGFloat)value;
+
++ (void)showAlertWithMessage:(NSString *)message
+              viewController:(UIViewController *)vc;
 @end

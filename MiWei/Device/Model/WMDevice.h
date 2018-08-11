@@ -14,12 +14,15 @@
 
 @interface WMDevice : NSObject
 
-@property(nonatomic, copy)   NSString *deviceId;
-@property(nonatomic, copy)   NSString *name;
-@property(nonatomic, strong) WMDeviceModel *model;
-@property(nonatomic, assign) BOOL online;
-@property(nonatomic, assign) WMDevicePermissionType permission;
-@property(nonatomic, strong) WMDeviceProdInfo *prod;
-@property(nonatomic, strong) WMDeviceRentInfo *rentInfo;
+@property (nonatomic, copy)   NSString *deviceId;
+@property (nonatomic, copy)   NSString *name;
+@property (nonatomic, assign) BOOL deviceOwnerExist;
+@property (nonatomic, strong) WMDeviceModel *model;
+@property (nonatomic, assign) BOOL online;
+@property (nonatomic, assign) WMDevicePermissionType permission;
+@property (nonatomic, strong) WMDeviceProdInfo *prod;
+@property (nonatomic, strong) WMDeviceRentInfo *rentInfo;
+
+- (BOOL)isRentDevice;
 
 @end

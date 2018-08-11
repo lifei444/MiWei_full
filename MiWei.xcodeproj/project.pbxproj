@@ -145,6 +145,7 @@
 		9C8C82EE211C5C8200D9F9F1 /* WMStrainerAlarmMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8C82E8211C5C8200D9F9F1 /* WMStrainerAlarmMessage.m */; };
 		9C8C82F1211C5DBD00D9F9F1 /* WMMessageBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8C82F0211C5DBD00D9F9F1 /* WMMessageBaseCell.m */; };
 		9C8C82F4211C5E2000D9F9F1 /* WMMessageCellFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8C82F3211C5E2000D9F9F1 /* WMMessageCellFooterView.m */; };
+		9C8C8304211EF3D000D9F9F1 /* WMDeviceUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8C8302211EF3D000D9F9F1 /* WMDeviceUtility.m */; };
 		9C9F113C20A85B95001D02FC /* WMUIUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9F113B20A85B95001D02FC /* WMUIUtility.m */; };
 		9CB8062420FAF6C3001A5C5E /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C4FBE4720EA142800D36D8D /* AFNetworking.framework */; };
 		9CB8062820FAFA04001A5C5E /* AFNetworking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9C4FBE4720EA142800D36D8D /* AFNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -454,6 +455,8 @@
 		9C8C82F0211C5DBD00D9F9F1 /* WMMessageBaseCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMMessageBaseCell.m; sourceTree = "<group>"; };
 		9C8C82F2211C5E2000D9F9F1 /* WMMessageCellFooterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMMessageCellFooterView.h; sourceTree = "<group>"; };
 		9C8C82F3211C5E2000D9F9F1 /* WMMessageCellFooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMMessageCellFooterView.m; sourceTree = "<group>"; };
+		9C8C8302211EF3D000D9F9F1 /* WMDeviceUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMDeviceUtility.m; sourceTree = "<group>"; };
+		9C8C8303211EF3D000D9F9F1 /* WMDeviceUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMDeviceUtility.h; sourceTree = "<group>"; };
 		9C9F113A20A85B95001D02FC /* WMUIUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMUIUtility.h; sourceTree = "<group>"; };
 		9C9F113B20A85B95001D02FC /* WMUIUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMUIUtility.m; sourceTree = "<group>"; };
 		9CB8062B20FB8F58001A5C5E /* WMOrderListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMOrderListViewController.h; sourceTree = "<group>"; };
@@ -902,6 +905,8 @@
 		27A7D21F207D0B85006C6AF6 /* Device */ = {
 			isa = PBXGroup;
 			children = (
+				9C8C8303211EF3D000D9F9F1 /* WMDeviceUtility.h */,
+				9C8C8302211EF3D000D9F9F1 /* WMDeviceUtility.m */,
 				27A7D220207D0B85006C6AF6 /* Controller */,
 				27A7D223207D0B85006C6AF6 /* Model */,
 				27A7D224207D0B85006C6AF6 /* View */,
@@ -1373,6 +1378,7 @@
 				9C9F113C20A85B95001D02FC /* WMUIUtility.m in Sources */,
 				2708B8CE2084F85500A760E7 /* PYGaugeSeries.m in Sources */,
 				9C206F902118062000672206 /* WMDevShareNotiMessageCell.m in Sources */,
+				9C8C8304211EF3D000D9F9F1 /* WMDeviceUtility.m in Sources */,
 				27A7D231207D0D4D006C6AF6 /* WMMeHeaderView.m in Sources */,
 				27A7D1FA207D04FD006C6AF6 /* WMRegisterViewController.m in Sources */,
 				271A9CF42081B6A10028D20D /* WMScanInputViewController.m in Sources */,
