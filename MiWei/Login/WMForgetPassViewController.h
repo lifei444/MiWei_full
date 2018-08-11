@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WMViewController.h"
 
-@interface WMForgetPassViewController : UIViewController
+@interface WMForgetPassViewController : WMViewController
 
 @end

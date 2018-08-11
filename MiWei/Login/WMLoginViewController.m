@@ -127,6 +127,9 @@ static NSString *pswKey = @"WMPswKey";
                                  });
                              } else {
                                  NSLog(@"doLogin failed");
+                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                     [WMUIUtility showAlertWithMessage:@"登录失败" viewController:self];
+                                 });
                              }
                          }];
 }
@@ -156,6 +159,9 @@ static NSString *pswKey = @"WMPswKey";
                                        });
                                    } else {
                                        NSLog(@"onWechatAuth login fail");
+                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                           [WMUIUtility showAlertWithMessage:@"登录失败" viewController:self];
+                                       });
                                    }
                                }];
 }

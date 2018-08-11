@@ -12,7 +12,24 @@
 #import "WMUIUtility.h"
 #import "WMHTTPUtility.h"
 
-#define WaitSeconds 3
+#define WaitSeconds     3
+
+#define ViewX           0
+#define ViewWidth       Screen_Width
+
+#define PhoneY          (40 + Navi_Height)
+#define ViewHeight      30
+#define Gap             30
+#define VerifyY         (PhoneY + ViewHeight + Gap)
+#define PassY           (VerifyY + ViewHeight + Gap)
+#define ConfirmY        (PassY + ViewHeight + Gap)
+#define Gap2            87
+#define RegisterY       (ConfirmY + ViewHeight + Gap2)
+#define RegisterHeight  44
+
+#define RegisterX       37
+#define RegisterW       300
+
 @interface WMRegisterViewController ()
 @property (nonatomic,strong) WMUnderLineView *phoneView;
 @property (nonatomic,strong) WMUnderLineView *verifyView;
@@ -22,22 +39,6 @@
 @property (nonatomic,strong) NSTimer *timer;
 @property (nonatomic,assign) int count;
 @end
-
-#define ViewX 0
-#define ViewWidth Screen_Width
-
-#define PhoneY 40 + Navi_Height
-#define ViewHeight 30
-#define Gap 30
-#define VerifyY PhoneY + ViewHeight + Gap
-#define PassY VerifyY + ViewHeight + Gap
-#define ConfirmY PassY + ViewHeight + Gap
-#define Gap2 87
-#define RegisterY ConfirmY + ViewHeight + Gap2
-#define RegisterHeight 44
-
-#define RegisterX 37
-#define RegisterW 300
 
 @implementation WMRegisterViewController
 #pragma mark - Life cycle
@@ -72,11 +73,14 @@
                                    URLString:@"/mobile/user/register"
                                   parameters:dic
                                     response:^(WMHTTPResult *result) {
-                                        if (result.success) {
-                                            
-                                        } else {
-                                            NSLog(@"registerAction error");
-                                        }
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            if (result.success) {
+                                                [self.navigationController popViewControllerAnimated:YES];
+                                            } else {
+                                                NSLog(@"registerAction error");
+                                                [WMUIUtility showAlertWithMessage:@"注册失败" viewController:self];
+                                            }
+                                        });
                                     }];
     }
 }
