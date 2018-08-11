@@ -49,11 +49,6 @@
 - (void)addEvent:(UIButton *)button {
     NSString *ssid = [[FogEasyLinkManager sharedInstance] getSSID];
     
-    //TODO
-    self.device.model.connWay = WMDeviceModelConnWayWIFI;
-    self.device.online = NO;
-    self.device.deviceOwnerExist = NO;
-    
     if ([self.device isRentDevice]) {
         if (!self.device.online) {
             [WMUIUtility showAlertWithMessage:@"设备不在线，无法添加" viewController:self];
