@@ -12,6 +12,8 @@
 
 @property (nonatomic, copy)   NSString *deviceId;
 @property (nonatomic, copy)   NSString *deviceName;
+//空气污染等级
+@property (nonatomic, assign) WMAqLevel aqLevel;
 //室内甲醛告警数值
 @property (nonatomic, strong) NSNumber *ch2o;
 //室内CO2告警数值

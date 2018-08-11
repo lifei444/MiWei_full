@@ -11,7 +11,7 @@
 #import "WMCommonDefine.h"
 #import "WMStrainerAlarmMessage.h"
 
-#define Alarm_X             152
+#define Alarm_X             140
 #define Alarm_Y             80
 #define Alarm_Width         16
 #define Alarm_Height        16
@@ -44,17 +44,8 @@
 
 @implementation WMStrainerAlarmMessageCell
 #pragma mark - Life cycle
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-//        self.contentView.backgroundColor = [UIColor redColor];
-    }
-    return self;
-}
-
 - (void)loadSubViews {
-    [self.contentView addSubview:self.titleLabel];
-    [self.contentView addSubview:self.footerView];
+    [super loadSubViews];
     [self.contentView addSubview:self.alarmImageView];
     [self.contentView addSubview:self.firstNameLabel];
     [self.contentView addSubview:self.firstTimeLabel];
@@ -111,7 +102,7 @@
 
 - (UILabel *)firstTimeLabel {
     if (!_firstTimeLabel) {
-        _firstTimeLabel = [[UILabel alloc] initWithFrame:WM_CGRectMake(0, FirstTime_Y, Screen_Width, FirstTime_Height)];
+        _firstTimeLabel = [[UILabel alloc] initWithFrame:WM_CGRectMake(0, FirstTime_Y, MessageCell_Width, FirstTime_Height)];
         _firstTimeLabel.textColor = [WMUIUtility color:@"0x222222"];
         _firstTimeLabel.font = [UIFont systemFontOfSize:[WMUIUtility WMCGFloatForY:24]];
         _firstTimeLabel.textAlignment = NSTextAlignmentCenter;

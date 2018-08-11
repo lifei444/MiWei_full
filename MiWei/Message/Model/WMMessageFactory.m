@@ -63,6 +63,7 @@
             message.time = json[@"time"];
             NSDictionary *airQualityNotiDic = json[@"airQualityNoti"];
             WMAirQualityNotiMessage *airQualityNotiMessage = (WMAirQualityNotiMessage *)message;
+            airQualityNotiMessage.aqLevel = [airQualityNotiDic[@"aqLevel"] longValue];
             airQualityNotiMessage.ch2o = airQualityNotiDic[@"ch2o"];
             airQualityNotiMessage.co2 = airQualityNotiDic[@"co2"];
             airQualityNotiMessage.deviceId = airQualityNotiDic[@"deviceID"];

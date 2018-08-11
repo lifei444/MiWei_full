@@ -14,6 +14,13 @@ typedef NS_ENUM(NSUInteger, WMMessageType) {
     WMMessageTypeAirQualityNoti = 3
 };
 
+typedef NS_ENUM(NSUInteger, WMAqLevel) {
+    WMAqLevelGreen = 0,
+    WMAqLevelBlue = 1,
+    WMAqLevelYellow = 2,
+    WMAqLevelRed = 3
+};
+
 @interface WMMessage : NSObject
 @property (nonatomic, assign) WMMessageType type;
 @property (nonatomic, strong) NSNumber *messageId;

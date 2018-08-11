@@ -11,7 +11,7 @@
 #import "WMCommonDefine.h"
 
 #define Separator_Width     325
-#define Separator_X         ((Screen_Width - Separator_Width)/2)
+#define Separator_X         ((345 - Separator_Width)/2)
 
 @interface WMMessageCellFooterView ()
 @property (nonatomic, strong) UIView *separator;

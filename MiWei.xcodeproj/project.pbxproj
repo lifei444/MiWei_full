@@ -1040,8 +1040,8 @@
 		9C206F632114782600672206 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				9C206F642114782600672206 /* WMProfile.m */,
 				9C206F652114782600672206 /* WMProfile.h */,
+				9C206F642114782600672206 /* WMProfile.m */,
 			);
 			path = Profile;
 			sourceTree = "<group>";

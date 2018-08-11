@@ -9,6 +9,8 @@
 #import "WMBaseTableCell.h"
 #import "WMMessageCellFooterView.h"
 
+#define MessageCell_Width   345
+
 @interface WMMessageBaseCell : WMBaseTableCell
 
 @property (nonatomic, strong) UILabel *titleLabel;

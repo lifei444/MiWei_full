@@ -8,20 +8,26 @@
 
 #import "WMMessageBaseCell.h"
 #import "WMUIUtility.h"
+#import "WMCommonDefine.h"
 
 @interface WMMessageBaseCell ()
 @property (nonatomic, strong) NSDateFormatter *formatter;
 @end
 
+#define Content_Width   MessageCell_Width
+#define Content_X       (Screen_Width - Content_Width)/2
+
 @implementation WMMessageBaseCell
 
-- (instancetype)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self addSubview:self.titleLabel];
-        [self addSubview:self.footerView];
-    }
-    return self;
+- (void)loadSubViews {
+    [self.contentView addSubview:self.titleLabel];
+    [self.contentView addSubview:self.footerView];
+}
+
+- (void)setFrame:(CGRect)frame {
+    frame.size.width = [WMUIUtility WMCGFloatForX:Content_Width];
+    frame.origin.x = [WMUIUtility WMCGFloatForX:Content_X];
+    [super setFrame:frame];
 }
 
 - (NSString *)timeStringWithTimestamp:(NSNumber *)timestamp {
@@ -39,7 +45,7 @@
 
 - (WMMessageCellFooterView *)footerView {
     if (!_footerView) {
-        CGFloat y = [WMUIUtility WMCGFloatForY:269-45];
+        CGFloat y = [[self class] cellHeight] - [WMUIUtility WMCGFloatForY:45];
         _footerView = [[WMMessageCellFooterView alloc] initWithFrame:CGRectMake(0, y, self.frame.size.width, [WMUIUtility WMCGFloatForY:45])];
     }
     return _footerView;
