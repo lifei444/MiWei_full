@@ -23,7 +23,7 @@
 #define CollectionX                 SearchBarX
 #define CollectionY                 (SearchBarY + SearchBarHeight + GapYBetweenSearchAndContent)
 #define CollectionWidth             SearchBarWidth
-#define CollectionHeight            550//TODO
+#define CollectionHeight            635//TODO
 
 #define EdgeGap                     8
 #define CellWidth                   176
@@ -75,7 +75,7 @@ static NSString *deviceCellIdentifier = @"WMDeviceCell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     WMDevice *device = self.searchArray[indexPath.item];
     
-    if (device.rentInfo) {
+    if ([device isRentDevice]) {
         WMRentDeviceDetailViewController *vc = [[WMRentDeviceDetailViewController alloc] init];
         vc.device = device;
         [self.presentingViewController.navigationController pushViewController:vc animated:YES];

@@ -145,7 +145,7 @@ static NSString *deviceCellIdentifier = @"WMDeviceCell";
 //        device = self.modelArray[indexPath.item];
 //    }
 //    
-    if (device.rentInfo) {
+    if ([device isRentDevice]) {
         WMRentDeviceDetailViewController *vc = [[WMRentDeviceDetailViewController alloc] init];
         vc.device = device;
         [self.navigationController pushViewController:vc animated:YES];
