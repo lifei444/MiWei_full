@@ -24,7 +24,11 @@
 }
 
 - (void)onTap {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"WMDeviceSwitchViewTapNotification" object:@(self.viewTag)];
+    if (self.isOn) {
+        if ([self.delegate respondsToSelector:@selector(viewDidTap:)]) {
+            [self.delegate viewDidTap:self.viewTag];
+        }
+    }
 }
 
 - (void)drawRect:(CGRect)rect {

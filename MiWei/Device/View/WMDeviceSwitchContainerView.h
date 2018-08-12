@@ -24,6 +24,7 @@
 @property (nonatomic, strong) WMDeviceSwitchView *timingView;
 //设置
 @property (nonatomic, strong) WMDeviceSwitchView *settingView;
+@property (nonatomic, weak)   UIViewController *vc;
 
 - (void)setModel:(WMDeviceDetail *)detail;
 

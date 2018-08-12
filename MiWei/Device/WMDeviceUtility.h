@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "WMDevice.h"
 #import <CoreLocation/CoreLocation.h>
+#import "WMHTTPUtility.h"
 
 @interface WMDeviceUtility : NSObject
 
@@ -19,4 +20,6 @@
 
 + (NSArray <WMDevice *> *)deviceListFromJson:(NSDictionary *)json;
 
++ (void)setDevice:(NSDictionary *)dic
+         response:(void (^)(WMHTTPResult *result))responseBlock;
 @end

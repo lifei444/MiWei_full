@@ -110,6 +110,17 @@
 - (void)refreshData:(WMDeviceDetail *)detail {
     self.deviceDetail = detail;
     dispatch_async(dispatch_get_main_queue(), ^{
+        //background color
+        if ([detail.aqLevel longValue] == WMAqLevelGreen) {
+            self.scrollView.backgroundColor = [WMUIUtility color:@"0x1d8489"];
+        } else if ([detail.aqLevel longValue] == WMAqLevelBlue) {
+            self.scrollView.backgroundColor = [WMUIUtility color:@"0x5b81d0"];
+        } else if ([detail.aqLevel longValue] == WMAqLevelYellow) {
+            self.scrollView.backgroundColor = [WMUIUtility color:@"0xf4d53f"];
+        } else if ([detail.aqLevel longValue] == WMAqLevelRed) {
+            self.scrollView.backgroundColor = [WMUIUtility color:@"0xda3232"];
+        }
+        
         //pmView
         //        detail.pm25 = [NSNumber numberWithInt:100];
         self.pmView.innerPMValueLabel.text = [NSString stringWithFormat:@"%@", detail.pm25];
@@ -220,6 +231,7 @@
 - (WMDeviceSwitchContainerView *)switchContainerView {
     if (!_switchContainerView) {
         _switchContainerView = [[WMDeviceSwitchContainerView alloc] initWithFrame:WM_CGRectMake(Table_X, Switch_Y, Table_Width, Switch_Height)];
+        _switchContainerView.vc = self;
     }
     return _switchContainerView;
 }

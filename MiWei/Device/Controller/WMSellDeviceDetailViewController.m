@@ -85,7 +85,6 @@
 @property (nonatomic, strong) WMDeviceRankView *rankView;
 @property (nonatomic, strong) WMDevicePollutionChangeView *pollutionChangeView;
 @property (nonatomic, strong) WMDevicePollutionSumView *pollutionSumView;
-
 @end
 
 @implementation WMSellDeviceDetailViewController
@@ -109,43 +108,6 @@
     [self loadDeviceDetail];
     
     self.scrollView.contentSize = WM_CGSizeMake(Screen_Width, Scroll_Height);
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(onTapSwitchContainer:)
-                                                 name:@"WMDeviceSwitchViewTapNotification"
-                                               object:nil];
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-#pragma mark - Target action
-- (void)onTapSwitchContainer:(NSNotification *)notification {
-    NSNumber *value = notification.object;
-    WMDeviceSwitchViewTag tag = [value longValue];
-    switch (tag) {
-        case WMDeviceSwitchViewTagPowerOn:
-            
-            break;
-        case WMDeviceSwitchViewTagVentilation:
-            
-            break;
-        case WMDeviceSwitchViewTagAuxiliaryHeat:
-            
-            break;
-        case WMDeviceSwitchViewTagAirSpeed:
-            
-            break;
-        case WMDeviceSwitchViewTagTiming:
-            
-            break;
-        case WMDeviceSwitchViewTagSetting:
-            
-            break;
-            
-        default:
-            break;
-    }
 }
 
 #pragma mark - Private
@@ -170,7 +132,6 @@
     self.deviceDetail = detail;
     dispatch_async(dispatch_get_main_queue(), ^{
         //background color
-        detail.aqLevel = @(3);
         if ([detail.aqLevel longValue] == WMAqLevelGreen) {
             self.scrollView.backgroundColor = [WMUIUtility color:@"0x1d8489"];
         } else if ([detail.aqLevel longValue] == WMAqLevelBlue) {
@@ -333,6 +294,7 @@
 - (WMDeviceSwitchContainerView *)switchContainerView {
     if (!_switchContainerView) {
         _switchContainerView = [[WMDeviceSwitchContainerView alloc] initWithFrame:WM_CGRectMake(Switch_X, Switch_Y, Switch_Width, Switch_Height)];
+        _switchContainerView.vc = self;
     }
     return _switchContainerView;
 }

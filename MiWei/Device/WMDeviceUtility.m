@@ -7,7 +7,6 @@
 //
 
 #import "WMDeviceUtility.h"
-#import "WMHTTPUtility.h"
 
 @implementation WMDeviceUtility
 
@@ -75,6 +74,17 @@
         [resultArray addObject:device];
     }
     return [resultArray copy];
+}
+
++ (void)setDevice:(NSDictionary *)dic response:(void (^)(WMHTTPResult *))responseBlock {
+    [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodPost
+                               URLString:@"/mobile/device/control"
+                              parameters:dic
+                                response:^(WMHTTPResult *result) {
+                                    if (responseBlock) {
+                                        responseBlock(result);
+                                    }
+                                }];
 }
 
 @end

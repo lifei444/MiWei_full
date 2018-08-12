@@ -8,6 +8,8 @@
 
 #import "WMDeviceSwitchContainerView.h"
 #import "WMUIUtility.h"
+#import "WMDeviceUtility.h"
+#import "MBProgressHUD.h"
 
 #define Radius                  60
 
@@ -38,13 +40,15 @@
 
 #define Label_Y2                (AirSpeed_Y + Radius + GapBetweenCircleLabel)
 
-@interface WMDeviceSwitchContainerView ()
+@interface WMDeviceSwitchContainerView () <WMDeviceSwitchViewDelegate>
 @property (nonatomic, strong) UILabel *powerOnLabel;
 @property (nonatomic, strong) UILabel *ventilationLabel;
 @property (nonatomic, strong) UILabel *auxiliaryHeatLabel;
 @property (nonatomic, strong) UILabel *airSpeedLabel;
 @property (nonatomic, strong) UILabel *timingLabel;
 @property (nonatomic, strong) UILabel *settingLabel;
+@property (nonatomic, strong) WMDeviceDetail *deviceDetail;
+@property (nonatomic, strong) MBProgressHUD *hud;
 @end
 
 @implementation WMDeviceSwitchContainerView
@@ -72,11 +76,14 @@
 
 #pragma mark - Public method
 - (void)setModel:(WMDeviceDetail *)detail {
+    self.deviceDetail = detail;
     if (detail.online) {
         if (detail.powerOn) {
             self.powerOnView.name.text = @"开";
+            self.powerOnView.status = 1;
         } else {
             self.powerOnView.name.text = @"关";
+            self.powerOnView.status = 0;
         }
         self.powerOnView.isOn = YES;
         if (detail.ventilationMode == WMVentilationModeLow) {
@@ -86,11 +93,14 @@
         } else if (detail.ventilationMode == WMVentilationModeHigh) {
             self.ventilationView.name.text = @"高效";
         }
+        self.ventilationView.status = detail.ventilationMode;
         self.ventilationView.isOn = YES;
         if (detail.auxiliaryHeat) {
             self.auxiliaryHeatView.name.text = @"开";
+            self.auxiliaryHeatView.status = 1;
         } else {
             self.auxiliaryHeatView.name.text = @"关";
+            self.auxiliaryHeatView.status = 0;
         }
         self.auxiliaryHeatView.isOn = YES;
         switch (detail.airSpeed) {
@@ -116,6 +126,7 @@
             default:
                 break;
         }
+        self.airSpeedView.status = detail.airSpeed;
         self.airSpeedView.isOn = YES;
     } else {
         self.powerOnView.isOn = NO;
@@ -131,12 +142,92 @@
     self.timingView.isOn = YES;
 }
 
+#pragma mark - WMDeviceSwitchViewDelegate
+- (void)viewDidTap:(WMDeviceSwitchViewTag)tag {
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:self.deviceDetail.deviceId forKey:@"deviceID"];
+
+    switch (tag) {
+        case WMDeviceSwitchViewTagPowerOn: {
+            BOOL powerOn = (self.powerOnView.status == 1);
+            [dic setObject:@(!powerOn) forKey:@"powerOn"];
+            self.hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+            [WMDeviceUtility setDevice:dic
+                              response:^(WMHTTPResult *result) {
+                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                      [self.hud hideAnimated:YES];
+                                      if (result.success) {
+                                          [WMUIUtility showAlertWithMessage:@"设置成功" viewController:self.vc];
+                                          if (self.powerOnView.status == 1) {
+                                              self.powerOnView.status = 0;
+                                              self.powerOnView.name.text = @"关";
+                                          } else {
+                                              self.powerOnView.status = 1;
+                                              self.powerOnView.name.text = @"开";
+                                          }
+                                      } else {
+                                          NSLog(@"poweron set fail, result is %@", result);
+                                          [WMUIUtility showAlertWithMessage:@"设置失败" viewController:self.vc];
+                                      }
+                                  });
+                              }];
+            break;
+        }
+        case WMDeviceSwitchViewTagVentilation: {
+            
+            
+            break;
+        }
+        case WMDeviceSwitchViewTagAuxiliaryHeat: {
+            BOOL auxiliaryHeat = (self.auxiliaryHeatView.status == 1);
+            [dic setObject:@(!auxiliaryHeat) forKey:@"auxiliaryHeat"];
+            self.hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+            [WMDeviceUtility setDevice:dic
+                              response:^(WMHTTPResult *result) {
+                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                      [self.hud hideAnimated:YES];
+                                      if (result.success) {
+                                          [WMUIUtility showAlertWithMessage:@"设置成功" viewController:self.vc];
+                                          if (self.auxiliaryHeatView.status == 1) {
+                                              self.auxiliaryHeatView.status = 0;
+                                              self.auxiliaryHeatView.name.text = @"关";
+                                          } else {
+                                              self.auxiliaryHeatView.status = 1;
+                                              self.auxiliaryHeatView.name.text = @"开";
+                                          }
+                                      } else {
+                                          NSLog(@"poweron set fail, result is %@", result);
+                                          [WMUIUtility showAlertWithMessage:@"设置失败" viewController:self.vc];
+                                      }
+                                  });
+                              }];
+            break;
+        }
+        case WMDeviceSwitchViewTagAirSpeed: {
+            
+            break;
+        }
+        case WMDeviceSwitchViewTagTiming: {
+            
+            break;
+        }
+        case WMDeviceSwitchViewTagSetting: {
+            
+            break;
+        }
+            
+        default:
+            break;
+    }
+}
+
 #pragma mark - Getters & setters
 - (WMDeviceSwitchView *)powerOnView {
     if (!_powerOnView) {
         _powerOnView = [[WMDeviceSwitchView alloc] initWithFrame:WM_CGRectMake(PowerOn_X, PowerOn_Y, Radius, Radius)];
         _powerOnView.name.text = @"关";
         _powerOnView.viewTag = WMDeviceSwitchViewTagPowerOn;
+        _powerOnView.delegate = self;
     }
     return _powerOnView;
 }
@@ -146,6 +237,7 @@
         _ventilationView = [[WMDeviceSwitchView alloc] initWithFrame:WM_CGRectMake(Ventilation_X, Ventilation_Y, Radius, Radius)];
         _ventilationView.name.text = @"关闭";
         _ventilationView.viewTag = WMDeviceSwitchViewTagVentilation;
+        _ventilationView.delegate = self;
     }
     return _ventilationView;
 }
@@ -155,6 +247,7 @@
         _auxiliaryHeatView = [[WMDeviceSwitchView alloc] initWithFrame:WM_CGRectMake(AuxiliaryHeat_X, AuxiliaryHeat_Y, Radius, Radius)];
         _auxiliaryHeatView.name.text = @"关";
         _auxiliaryHeatView.viewTag = WMDeviceSwitchViewTagAuxiliaryHeat;
+        _auxiliaryHeatView.delegate = self;
     }
     return _auxiliaryHeatView;
 }
@@ -164,7 +257,8 @@
         _airSpeedView = [[WMDeviceSwitchView alloc] initWithFrame:WM_CGRectMake(AirSpeed_X, AirSpeed_Y, Radius, Radius)];
         _airSpeedView.name.text = @"自动";
         _airSpeedView.viewTag = WMDeviceSwitchViewTagAirSpeed;
-    }
+        _airSpeedView.delegate = self;
+   }
     return _airSpeedView;
 }
 
@@ -173,6 +267,7 @@
         _timingView = [[WMDeviceSwitchView alloc] initWithFrame:WM_CGRectMake(Timing_X, Timing_Y, Radius, Radius)];
         _timingView.name.text = @"定时";
         _timingView.viewTag = WMDeviceSwitchViewTagTiming;
+        _timingView.delegate = self;
     }
     return _timingView;
 }
@@ -182,6 +277,7 @@
         _settingView = [[WMDeviceSwitchView alloc] initWithFrame:WM_CGRectMake(Setting_X, Setting_Y, Radius, Radius)];
         _settingView.name.text = @"设置";
         _settingView.viewTag = WMDeviceSwitchViewTagSetting;
+        _settingView.delegate = self;
     }
     return _settingView;
 }
