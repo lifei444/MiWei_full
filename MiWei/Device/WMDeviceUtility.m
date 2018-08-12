@@ -39,4 +39,42 @@
                                 }];
 }
 
++ (NSArray<WMDevice *> *)deviceListFromJson:(NSDictionary *)json {
+    NSMutableArray *resultArray = [[NSMutableArray alloc] init];
+    NSArray *devices = json[@"devices"];
+    for (NSDictionary *dic in devices) {
+        WMDevice *device = [[WMDevice alloc] init];
+        device.deviceId = dic[@"deviceID"];
+        device.name = dic[@"deviceName"];
+        device.online = [dic[@"online"] boolValue];
+        device.permission = [dic[@"permission"] longValue];
+        NSDictionary *modelDic = dic[@"modelInfo"];
+        if (modelDic) {
+            WMDeviceModel *model = [[WMDeviceModel alloc] init];
+            model.connWay = [modelDic[@"connWay"] longValue];
+            model.modelId = modelDic[@"id"];
+            model.name = modelDic[@"name"];
+            device.model = model;
+        }
+        NSDictionary *prodDic = dic[@"prodInfo"];
+        if (prodDic) {
+            WMDeviceProdInfo *prod = [[WMDeviceProdInfo alloc] init];
+            prod.prodId = prodDic[@"id"];
+            prod.name = prodDic[@"name"];
+            device.prod = prod;
+        }
+        NSDictionary *rentDic = dic[@"rentInfo"];
+        if (rentDic) {
+            WMDeviceRentInfo *rent = [[WMDeviceRentInfo alloc] init];
+            rent.price = rentDic[@"price"];
+            rent.remainingTime = rentDic[@"rentRemainingTime"];
+            rent.startTime = rentDic[@"rentStartTime"];
+            rent.rentTime = rentDic[@"rentTime"];
+            device.rentInfo = rent;
+        }
+        [resultArray addObject:device];
+    }
+    return [resultArray copy];
+}
+
 @end

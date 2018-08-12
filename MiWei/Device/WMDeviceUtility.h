@@ -17,4 +17,6 @@
              ssid:(NSString *)ssid
          complete:(void (^)(BOOL result))completeBlock;
 
++ (NSArray <WMDevice *> *)deviceListFromJson:(NSDictionary *)json;
+
 @end
