@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WMDeviceDefine.h"
 
 @interface WMDeviceSwitchView : UIView
 
 @property (nonatomic, strong) UILabel *name;
 @property (nonatomic, assign) BOOL isOn;
+@property (nonatomic, assign) WMDeviceSwitchViewTag viewTag;
 
 @end

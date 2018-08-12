@@ -16,12 +16,19 @@
     if (self) {
         self.opaque = NO;
         [self addSubview:self.name];
+        self.userInteractionEnabled = YES;
+        UITapGestureRecognizer *recog = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap)];
+        [self addGestureRecognizer:recog];
     }
     return self;
 }
 
+- (void)onTap {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"WMDeviceSwitchViewTapNotification" object:@(self.viewTag)];
+}
+
 - (void)drawRect:(CGRect)rect {
-    if (self.isOn) {
+    if (_isOn) {
         [[WMUIUtility color:@"0x168591"] set];
     } else {
         [[WMUIUtility color:@"0xaeaeae"] set];
@@ -33,8 +40,8 @@
 - (UILabel *)name {
     if (!_name) {
         _name = [[UILabel alloc] initWithFrame:WM_CGRectMake(0, 0, 60, 60)];
-        _name.font = [UIFont systemFontOfSize:16];
-        if (self.isOn) {
+        _name.font = [UIFont systemFontOfSize:[WMUIUtility WMCGFloatForY:16]];
+        if (_isOn) {
             _name.textColor = [WMUIUtility color:@"0x168591"];
         } else {
             _name.textColor = [WMUIUtility color:@"0xaeaeae"];
@@ -42,6 +49,16 @@
         _name.textAlignment = NSTextAlignmentCenter;
     }
     return _name;
+}
+
+- (void)setIsOn:(BOOL)isOn {
+    _isOn = isOn;
+    if (_isOn) {
+        _name.textColor = [WMUIUtility color:@"0x168591"];
+    } else {
+        _name.textColor = [WMUIUtility color:@"0xaeaeae"];
+    }
+    [self setNeedsDisplay];
 }
 
 @end

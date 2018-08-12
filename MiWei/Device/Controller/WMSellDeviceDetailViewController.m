@@ -109,6 +109,43 @@
     [self loadDeviceDetail];
     
     self.scrollView.contentSize = WM_CGSizeMake(Screen_Width, Scroll_Height);
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onTapSwitchContainer:)
+                                                 name:@"WMDeviceSwitchViewTapNotification"
+                                               object:nil];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - Target action
+- (void)onTapSwitchContainer:(NSNotification *)notification {
+    NSNumber *value = notification.object;
+    WMDeviceSwitchViewTag tag = [value longValue];
+    switch (tag) {
+        case WMDeviceSwitchViewTagPowerOn:
+            
+            break;
+        case WMDeviceSwitchViewTagVentilation:
+            
+            break;
+        case WMDeviceSwitchViewTagAuxiliaryHeat:
+            
+            break;
+        case WMDeviceSwitchViewTagAirSpeed:
+            
+            break;
+        case WMDeviceSwitchViewTagTiming:
+            
+            break;
+        case WMDeviceSwitchViewTagSetting:
+            
+            break;
+            
+        default:
+            break;
+    }
 }
 
 #pragma mark - Private
@@ -186,17 +223,17 @@
         self.airLabel.text = detail.pm25AirText;
         
         //switchContainerView
-        if (detail.powerOn) {
-            self.switchContainerView.powerOnView.isOn = YES;
-            [self.switchContainerView.powerOnView setNeedsDisplay];
-            self.switchContainerView.ventilationView.isOn = YES;
-            [self.switchContainerView.powerOnView setNeedsDisplay];
-            self.switchContainerView.auxiliaryHeatView.isOn = YES;
-            [self.switchContainerView.auxiliaryHeatView setNeedsDisplay];
-            self.switchContainerView.airSpeedView.isOn = YES;
-            [self.switchContainerView.airSpeedView setNeedsDisplay];
-            self.switchContainerView.settingView.isOn = YES;
-            [self.switchContainerView.settingView setNeedsDisplay];
+        if (detail.permission == WMDevicePermissionTypeViewAndControl || detail.permission == WMDevicePermissionTypeOwner) {
+            [self.switchContainerView setModel:detail];
+        } else {
+            self.switchContainerView.hidden = YES;
+            [self layoutViewWithoutSwitchView:self.dataView];
+            [self layoutViewWithoutSwitchView:self.rankView];
+            [self layoutViewWithoutSwitchView:self.pollutionSumView];
+            [self layoutViewWithoutSwitchView:self.pollutionChangeView];
+            CGSize size = self.scrollView.contentSize;
+            size.height -= [WMUIUtility WMCGFloatForY:(Switch_Height + GapBetweenTables)];
+            self.scrollView.contentSize = size;
         }
         
         //dataView
@@ -226,6 +263,12 @@
         }
         self.rankView.textView.text = str;
     });
+}
+
+- (void)layoutViewWithoutSwitchView:(UIView *)view {
+    CGRect frame = view.frame;
+    frame.origin.y -= [WMUIUtility WMCGFloatForY:(Switch_Height + GapBetweenTables)];
+    view.frame = frame;
 }
 
 #pragma mark - Getters & setters

@@ -146,17 +146,14 @@
         self.rankView.textView.text = str;
         
         //switchContainerView
-        if (detail.powerOn) {
-            self.switchContainerView.powerOnView.isOn = YES;
-            [self.switchContainerView.powerOnView setNeedsDisplay];
-            self.switchContainerView.ventilationView.isOn = YES;
-            [self.switchContainerView.powerOnView setNeedsDisplay];
-            self.switchContainerView.auxiliaryHeatView.isOn = YES;
-            [self.switchContainerView.auxiliaryHeatView setNeedsDisplay];
-            self.switchContainerView.airSpeedView.isOn = YES;
-            [self.switchContainerView.airSpeedView setNeedsDisplay];
-            self.switchContainerView.settingView.isOn = YES;
-            [self.switchContainerView.settingView setNeedsDisplay];
+        if (detail.permission == WMDevicePermissionTypeViewAndControl || detail.permission == WMDevicePermissionTypeOwner) {
+            [self.switchContainerView setModel:detail];
+        } else {
+            self.switchContainerView.hidden = YES;
+            [self layoutViewWithoutSwitchView:self.dataView];
+            CGSize size = self.scrollView.contentSize;
+            size.height -= [WMUIUtility WMCGFloatForY:(Switch_Height + GapBetweenTables)];
+            self.scrollView.contentSize = size;
         }
         
         //dataView
@@ -179,6 +176,12 @@
         str = [str stringByAppendingFormat:@"%@", detail.humidity];
         self.dataView.humidityLabel.text = str;
     });
+}
+
+- (void)layoutViewWithoutSwitchView:(UIView *)view {
+    CGRect frame = view.frame;
+    frame.origin.y -= [WMUIUtility WMCGFloatForY:(Switch_Height + GapBetweenTables)];
+    view.frame = frame;
 }
 
 #pragma mark - Getters & setters

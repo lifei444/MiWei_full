@@ -49,19 +49,21 @@
 
 //deviceStatus 暂不封装
 //风速档位
-@property (nonatomic, strong) NSNumber *airSpeed;
+@property (nonatomic, assign) WMAirSpeed airSpeed;
 //电辅热开关
 @property (nonatomic, assign) BOOL auxiliaryHeat;
 //婴儿锁开关
 @property (nonatomic, assign) BOOL babyLock;
 //风机定时模式
 @property (nonatomic, strong) NSNumber *fanTiming;
+//设备是否在线
+@property (nonatomic, assign) BOOL online;
 //开关状态
 @property (nonatomic, assign) BOOL powerOn;
 //灯光面板开关
 @property (nonatomic, assign) BOOL screenSwitch;
 //新风模式
-@property (nonatomic, strong) NSNumber *ventilationMode;
+@property (nonatomic, assign) WMVentilationMode ventilationMode;
 
 //设备型号
 @property (nonatomic, copy)   NSString *modelName;

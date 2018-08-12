@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WMDeviceSwitchView.h"
+#import "WMDeviceDetail.h"
 
 @interface WMDeviceSwitchContainerView : UIView
 
@@ -23,5 +24,7 @@
 @property (nonatomic, strong) WMDeviceSwitchView *timingView;
 //设置
 @property (nonatomic, strong) WMDeviceSwitchView *settingView;
+
+- (void)setModel:(WMDeviceDetail *)detail;
 
 @end

@@ -41,13 +41,14 @@
     detail.longitude = position[@"longitude"];
     
     NSDictionary *deviceStatus = content[@"deviceStatus"];
-    detail.airSpeed = deviceStatus[@"airSpeed"];
+    detail.airSpeed = [deviceStatus[@"airSpeed"] longValue];
     detail.auxiliaryHeat = [deviceStatus[@"auxiliaryHeat"] boolValue];
     detail.babyLock = [deviceStatus[@"babyLock"] boolValue];
     detail.fanTiming = deviceStatus[@"fanTiming"];
+    detail.online = [deviceStatus[@"online"] boolValue];
     detail.powerOn = [deviceStatus[@"powerOn"] boolValue];
     detail.screenSwitch = [deviceStatus[@"screenSwitch"] boolValue];
-    detail.ventilationMode = deviceStatus[@"ventilationMode"];
+    detail.ventilationMode = [deviceStatus[@"ventilationMode"] longValue];
     
     detail.modelName = content[@"modelName"];
     detail.newestVerFw = content[@"newestVerFw"];

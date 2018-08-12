@@ -22,4 +22,28 @@ typedef NS_ENUM(NSUInteger, WMAqLevel) {
     WMAqLevelRed = 3
 };
 
+typedef NS_ENUM(NSUInteger, WMDeviceSwitchViewTag) {
+    WMDeviceSwitchViewTagPowerOn,
+    WMDeviceSwitchViewTagVentilation,
+    WMDeviceSwitchViewTagAuxiliaryHeat,
+    WMDeviceSwitchViewTagAirSpeed,
+    WMDeviceSwitchViewTagTiming,
+    WMDeviceSwitchViewTagSetting
+};
+
+typedef NS_ENUM(NSUInteger, WMVentilationMode) {
+    WMVentilationModeLow = 0,
+    WMVentilationModeOff = 1,
+    WMVentilationModeHigh = 2
+};
+
+typedef NS_ENUM(NSUInteger, WMAirSpeed) {
+    WMAirSpeedAuto = 0,
+    WMAirSpeedSilent = 1,
+    WMAirSpeedComfort = 2,
+    WMAirSpeedStandard = 3,
+    WMAirSpeedStrong = 4,
+    WMAirSpeedHurricane = 5
+};
+
 #endif /* WMDeviceDefine_h */
