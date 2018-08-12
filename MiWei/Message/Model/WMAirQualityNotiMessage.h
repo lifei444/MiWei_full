@@ -7,6 +7,7 @@
 //
 
 #import "WMMessage.h"
+#import "WMDeviceDefine.h"
 
 @interface WMAirQualityNotiMessage : WMMessage
 

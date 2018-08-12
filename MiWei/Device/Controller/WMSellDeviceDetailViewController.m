@@ -132,6 +132,18 @@
 - (void)refreshData:(WMDeviceDetail *)detail {
     self.deviceDetail = detail;
     dispatch_async(dispatch_get_main_queue(), ^{
+        //background color
+        detail.aqLevel = @(3);
+        if ([detail.aqLevel longValue] == WMAqLevelGreen) {
+            self.scrollView.backgroundColor = [WMUIUtility color:@"0x1d8489"];
+        } else if ([detail.aqLevel longValue] == WMAqLevelBlue) {
+            self.scrollView.backgroundColor = [WMUIUtility color:@"0x5b81d0"];
+        } else if ([detail.aqLevel longValue] == WMAqLevelYellow) {
+            self.scrollView.backgroundColor = [WMUIUtility color:@"0xf4d53f"];
+        } else if ([detail.aqLevel longValue] == WMAqLevelRed) {
+            self.scrollView.backgroundColor = [WMUIUtility color:@"0xda3232"];
+        }
+        
         //addressView
         if (detail.addrDetail.length == 0) {
             detail.addrDetail = @"回龙观东大街521号ttfasdfasdfasdf";

@@ -117,21 +117,11 @@ static NSString *deviceCellIdentifier = @"WMDeviceCell";
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.modelArray.count;
-//    if (self.searchController.active) {
-//        return self.searchArray.count;
-//    } else {
-//        return self.modelArray.count;
-//    }
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     WMDeviceCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:deviceCellIdentifier forIndexPath:indexPath];
     [cell setDataModel:self.modelArray[indexPath.item]];
-//    if (self.searchController.active) {
-//        [cell setDataModel:self.searchArray[indexPath.item]];
-//    } else {
-//        [cell setDataModel:self.modelArray[indexPath.item]];
-//    }
     return (UICollectionViewCell *)cell;
 }
 
@@ -139,12 +129,6 @@ static NSString *deviceCellIdentifier = @"WMDeviceCell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     WMDevice *device;
     device = self.modelArray[indexPath.item];
-//    if (self.searchController.active) {
-//        device = self.searchArray[indexPath.item];
-//    } else {
-//        device = self.modelArray[indexPath.item];
-//    }
-//    
     if ([device isRentDevice]) {
         WMRentDeviceDetailViewController *vc = [[WMRentDeviceDetailViewController alloc] init];
         vc.device = device;
@@ -169,8 +153,6 @@ static NSString *deviceCellIdentifier = @"WMDeviceCell";
                                         NSArray *tempArray = [WMDeviceUtility deviceListFromJson:result.content];
                                         dispatch_async(dispatch_get_main_queue(), ^{
                                             self.deviceSearchViewController.searchArray = tempArray;
-//                                            self.searchArray = tempArray;
-//                                            [self.collectionView reloadData];
                                         });
                                     } else {
                                         NSLog(@"updateSearchResultsForSearchController error, result is %@", result);

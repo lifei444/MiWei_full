@@ -15,4 +15,11 @@ typedef NS_ENUM(NSUInteger, WMDevicePermissionType) {
     WMDevicePermissionTypeOwner = 0x07,
 };
 
+typedef NS_ENUM(NSUInteger, WMAqLevel) {
+    WMAqLevelGreen = 0,
+    WMAqLevelBlue = 1,
+    WMAqLevelYellow = 2,
+    WMAqLevelRed = 3
+};
+
 #endif /* WMDeviceDefine_h */
