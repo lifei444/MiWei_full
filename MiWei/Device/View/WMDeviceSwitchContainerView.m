@@ -10,6 +10,8 @@
 #import "WMUIUtility.h"
 #import "WMDeviceUtility.h"
 #import "MBProgressHUD.h"
+#import "WMDeviceVentilationSettingViewController.h"
+#import "WMDeviceAirSpeedSettingViewController.h"
 
 #define Radius                  60
 
@@ -174,8 +176,10 @@
             break;
         }
         case WMDeviceSwitchViewTagVentilation: {
-            
-            
+            WMDeviceVentilationSettingViewController *vc = [[WMDeviceVentilationSettingViewController alloc] init];
+            vc.mode = self.deviceDetail.ventilationMode;
+            vc.deviceId = self.deviceDetail.deviceId;
+            [self.vc.navigationController pushViewController:vc animated:YES];
             break;
         }
         case WMDeviceSwitchViewTagAuxiliaryHeat: {
@@ -204,7 +208,10 @@
             break;
         }
         case WMDeviceSwitchViewTagAirSpeed: {
-            
+            WMDeviceAirSpeedSettingViewController *vc = [[WMDeviceAirSpeedSettingViewController alloc] init];
+            vc.speed = self.deviceDetail.airSpeed;
+            vc.deviceId = self.deviceDetail.deviceId;
+            [self.vc.navigationController pushViewController:vc animated:YES];
             break;
         }
         case WMDeviceSwitchViewTagTiming: {

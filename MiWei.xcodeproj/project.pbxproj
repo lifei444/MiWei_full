@@ -115,6 +115,8 @@
 		9C4FBE4E20EA152D00D36D8D /* WMHTTPResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4FBE4A20EA152D00D36D8D /* WMHTTPResult.m */; };
 		9C4FBE4F20EA152D00D36D8D /* WMHTTPUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4FBE4B20EA152D00D36D8D /* WMHTTPUtility.m */; };
 		9C544543212008CE00EF7DC3 /* WMDeviceSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C544542212008CE00EF7DC3 /* WMDeviceSearchViewController.m */; };
+		9C5445A821213B3A00EF7DC3 /* WMDeviceVentilationSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5445A721213B3A00EF7DC3 /* WMDeviceVentilationSettingViewController.m */; };
+		9C5445AC2121A23A00EF7DC3 /* WMDeviceAirSpeedSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5445AB2121A23A00EF7DC3 /* WMDeviceAirSpeedSettingViewController.m */; };
 		9C5EDCB3210EC2C90085ADEE /* WMRentDeviceDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5EDCB2210EC2C90085ADEE /* WMRentDeviceDetailViewController.m */; };
 		9C5EDCBE2110767F0085ADEE /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5EDCBB2110767F0085ADEE /* MBProgressHUD.m */; };
 		9C5EDCBF2110767F0085ADEE /* RCEActiveWheel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5EDCBD2110767F0085ADEE /* RCEActiveWheel.m */; };
@@ -398,6 +400,10 @@
 		9C4FBE4D20EA152D00D36D8D /* WMHTTPUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMHTTPUtility.h; sourceTree = "<group>"; };
 		9C544541212008CD00EF7DC3 /* WMDeviceSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceSearchViewController.h; sourceTree = "<group>"; };
 		9C544542212008CE00EF7DC3 /* WMDeviceSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceSearchViewController.m; sourceTree = "<group>"; };
+		9C5445A621213B3A00EF7DC3 /* WMDeviceVentilationSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceVentilationSettingViewController.h; sourceTree = "<group>"; };
+		9C5445A721213B3A00EF7DC3 /* WMDeviceVentilationSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceVentilationSettingViewController.m; sourceTree = "<group>"; };
+		9C5445AA2121A23A00EF7DC3 /* WMDeviceAirSpeedSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceAirSpeedSettingViewController.h; sourceTree = "<group>"; };
+		9C5445AB2121A23A00EF7DC3 /* WMDeviceAirSpeedSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceAirSpeedSettingViewController.m; sourceTree = "<group>"; };
 		9C5EDCB1210EC2C90085ADEE /* WMRentDeviceDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMRentDeviceDetailViewController.h; sourceTree = "<group>"; };
 		9C5EDCB2210EC2C90085ADEE /* WMRentDeviceDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMRentDeviceDetailViewController.m; sourceTree = "<group>"; };
 		9C5EDCBA2110767F0085ADEE /* RCEActiveWheel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCEActiveWheel.h; sourceTree = "<group>"; };
@@ -941,6 +947,10 @@
 				9CDDA69521042BD30079E328 /* WMSellDeviceDetailViewController.m */,
 				9C5EDCB1210EC2C90085ADEE /* WMRentDeviceDetailViewController.h */,
 				9C5EDCB2210EC2C90085ADEE /* WMRentDeviceDetailViewController.m */,
+				9C5445A621213B3A00EF7DC3 /* WMDeviceVentilationSettingViewController.h */,
+				9C5445A721213B3A00EF7DC3 /* WMDeviceVentilationSettingViewController.m */,
+				9C5445AA2121A23A00EF7DC3 /* WMDeviceAirSpeedSettingViewController.h */,
+				9C5445AB2121A23A00EF7DC3 /* WMDeviceAirSpeedSettingViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1313,6 +1323,7 @@
 				2708B8DD2084F85500A760E7 /* PYAreaStyle.m in Sources */,
 				2708B8EB2084F85500A760E7 /* PYSplitArea.m in Sources */,
 				9C5EDCE9211076EC0085ADEE /* UIImage+MultiFormat.m in Sources */,
+				9C5445A821213B3A00EF7DC3 /* WMDeviceVentilationSettingViewController.m in Sources */,
 				2708B8D62084F85500A760E7 /* PYLoadingOption.m in Sources */,
 				274A5542208E36A5004FC461 /* WMFeedbackViewController.m in Sources */,
 				2708B8E32084F85500A760E7 /* PYToolboxFeature.m in Sources */,
@@ -1336,6 +1347,7 @@
 				2708B8CF2084F85500A760E7 /* PYColor.m in Sources */,
 				2708B8DC2084F85500A760E7 /* PYAxisPointer.m in Sources */,
 				2708B8DF2084F85500A760E7 /* PYToolbox.m in Sources */,
+				9C5445AC2121A23A00EF7DC3 /* WMDeviceAirSpeedSettingViewController.m in Sources */,
 				2708B8E22084F85500A760E7 /* PYAxisLine.m in Sources */,
 				271A9CEE2081B31A0028D20D /* WMQRCodeScanner.m in Sources */,
 				2708B8D22084F85500A760E7 /* PYChordStyle.m in Sources */,

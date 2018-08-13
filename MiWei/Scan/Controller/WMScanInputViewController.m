@@ -38,7 +38,7 @@
 #pragma mark - Life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:WM_CGRectMake(0, 0, 80, 30)];
     titleLabel.text = @"手动输入";
     titleLabel.textColor = [UIColor whiteColor];
