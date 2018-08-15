@@ -29,9 +29,9 @@
 #define RentTime_Width  180
 #define RentTime_Height 14
 
-
 @interface WMOrderListCell()
-@property (nonatomic, strong) NSDateFormatter *formatter;
+@property (nonatomic, strong) NSDateFormatter *formatterYMD;
+@property (nonatomic, strong) NSDateFormatter *formatterHMS;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *payTimeLabel;
 @property (nonatomic, strong) UILabel *priceLabel;
@@ -50,14 +50,16 @@
 - (void)setDataModel:(id)model {
     WMPayment *payment = model;
     self.nameLabel.text = payment.deviceName;
+    
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:[payment.payTime longLongValue] / 1000];
-    self.payTimeLabel.text = [self.formatter stringFromDate:date];
+    self.payTimeLabel.text = [self.formatterYMD stringFromDate:date];
     
     int yuan = [payment.price intValue] / 100;
     int fen = [payment.price intValue] % 100;
     NSString *priceString = [NSString stringWithFormat:@"%d.%02d元/%@小时", yuan, fen, payment.rentTime];
     self.priceLabel.text = priceString;
-    self.rentTimeLabel.text = @"01:20:09";
+    
+    self.rentTimeLabel.text = [self.formatterHMS stringFromDate:date];
 }
 
 + (CGFloat)cellHeight {
@@ -103,11 +105,19 @@
     return _rentTimeLabel;
 }
 
-- (NSDateFormatter *)formatter {
-    if (!_formatter) {
-        _formatter = [[NSDateFormatter alloc] init];
-        [_formatter setDateFormat:@"yyyy-MM-dd"];
+- (NSDateFormatter *)formatterYMD {
+    if (!_formatterYMD) {
+        _formatterYMD = [[NSDateFormatter alloc] init];
+        [_formatterYMD setDateFormat:@"yyyy-MM-dd"];
     }
-    return _formatter;
+    return _formatterYMD;
+}
+
+- (NSDateFormatter *)formatterHMS {
+    if (!_formatterHMS) {
+        _formatterHMS = [[NSDateFormatter alloc] init];
+        [_formatterHMS setDateFormat:@"HH:mm:ss"];
+    }
+    return _formatterHMS;
 }
 @end
