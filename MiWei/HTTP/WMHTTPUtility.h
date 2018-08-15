@@ -26,7 +26,13 @@ typedef NS_ENUM(NSUInteger, WMAuthResult) {
 
 + (void)requestWithHTTPMethod:(WMHTTPRequestMethod)method
                     URLString:(NSString *)URLString
-                   parameters:(NSDictionary *)parameters
+                   parameters:(id)parameters
+                     response:(void (^)(WMHTTPResult *result))responseBlock;
+
+//json
++ (void)jsonRequestWithHTTPMethod:(WMHTTPRequestMethod)method
+                    URLString:(NSString *)URLString
+                   parameters:(id)parameters
                      response:(void (^)(WMHTTPResult *result))responseBlock;
 
 + (void)uploadFile:(NSData *)fileData

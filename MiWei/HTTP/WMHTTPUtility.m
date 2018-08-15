@@ -11,32 +11,64 @@ NSString *const BASE_URL = @"http://60.205.205.82:9998/api/v1/";
 NSString *const WMImagePrefix = @"http://60.205.205.82:9998/api/v1/common/file/";
 
 @implementation WMHTTPUtility
-static AFHTTPSessionManager *manager;
+static AFHTTPSessionManager *managerFormEncodeRequest;
+static AFHTTPSessionManager *managerJsonRequest;
 static dispatch_queue_t wm_http_response_queue;
 static WMProfile *myProfile;
 
-+ (AFHTTPSessionManager *)sharedHTTPSessionManager {
++ (AFHTTPSessionManager *)sharedHTTPSessionManagerFormEncodeRequest {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        manager = [AFHTTPSessionManager manager];
+        managerFormEncodeRequest = [AFHTTPSessionManager manager];
         wm_http_response_queue = dispatch_queue_create("com.miwei.httpRspQueue", DISPATCH_QUEUE_SERIAL);
-        manager.completionQueue = wm_http_response_queue;
-        manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-        [manager.requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-        manager.requestSerializer.HTTPMethodsEncodingParametersInURI = [NSSet setWithObjects:@"GET", @"HEAD", nil];
-        manager.requestSerializer.HTTPShouldHandleCookies = YES;
-        ((AFJSONResponseSerializer *)manager.responseSerializer).removesKeysWithNullValues = YES;
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+        managerFormEncodeRequest.completionQueue = wm_http_response_queue;
+        managerFormEncodeRequest.requestSerializer = [AFHTTPRequestSerializer serializer];
+        [managerFormEncodeRequest.requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+        managerFormEncodeRequest.requestSerializer.HTTPMethodsEncodingParametersInURI = [NSSet setWithObjects:@"GET", @"HEAD",  nil];
+        managerFormEncodeRequest.requestSerializer.HTTPShouldHandleCookies = YES;
+        ((AFJSONResponseSerializer *)managerFormEncodeRequest.responseSerializer).removesKeysWithNullValues = YES;
+        managerFormEncodeRequest.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     });
-    return manager;
+    return managerFormEncodeRequest;
+}
+
++ (AFHTTPSessionManager *)sharedHTTPSessionManagerJsonRequest {
+    static dispatch_once_t onceToken2;
+    dispatch_once(&onceToken2, ^{
+        managerJsonRequest = [AFHTTPSessionManager manager];
+        wm_http_response_queue = dispatch_queue_create("com.miwei.httpRspQueue", DISPATCH_QUEUE_SERIAL);
+        managerJsonRequest.completionQueue = wm_http_response_queue;
+        managerJsonRequest.requestSerializer = [AFJSONRequestSerializer serializer];
+        [managerJsonRequest.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        managerJsonRequest.requestSerializer.HTTPMethodsEncodingParametersInURI = [NSSet setWithObjects:@"GET", @"HEAD",  nil];
+        managerJsonRequest.requestSerializer.HTTPShouldHandleCookies = YES;
+        ((AFJSONResponseSerializer *)managerJsonRequest.responseSerializer).removesKeysWithNullValues = YES;
+        managerJsonRequest.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    });
+    return managerJsonRequest;
+}
+
++ (void)jsonRequestWithHTTPMethod:(WMHTTPRequestMethod)method
+                     URLString:(NSString *)URLString
+                    parameters:(id)parameters
+                      response:(void (^)(WMHTTPResult *))responseBlock {
+    AFHTTPSessionManager *session = [WMHTTPUtility sharedHTTPSessionManagerJsonRequest];
+    [self requestWithHTTPMethod:method URLString:URLString parameters:parameters session:session response:responseBlock];
 }
 
 + (void)requestWithHTTPMethod:(WMHTTPRequestMethod)method
                     URLString:(NSString *)URLString
-                   parameters:(NSDictionary *)parameters
+                   parameters:(id)parameters
                      response:(void (^)(WMHTTPResult *))responseBlock {
-    AFHTTPSessionManager *session = [WMHTTPUtility sharedHTTPSessionManager];
-    
+    AFHTTPSessionManager *session = [WMHTTPUtility sharedHTTPSessionManagerFormEncodeRequest];
+    [self requestWithHTTPMethod:method URLString:URLString parameters:parameters session:session response:responseBlock];
+}
+
++ (void)requestWithHTTPMethod:(WMHTTPRequestMethod)method
+                    URLString:(NSString *)URLString
+                   parameters:(id)parameters
+                      session:(AFHTTPSessionManager *)session
+                     response:(void (^)(WMHTTPResult *))responseBlock {
     NSString *absoluteURLString = [BASE_URL stringByAppendingPathComponent:URLString];
     switch (method) {
         case WMHTTPRequestMethodGet: {
@@ -123,7 +155,7 @@ static WMProfile *myProfile;
 
 + (void)uploadFile:(NSData *)fileData
           response:(void (^)(WMHTTPResult *))responseBlock {
-    AFHTTPSessionManager *session = [WMHTTPUtility sharedHTTPSessionManager];
+    AFHTTPSessionManager *session = [WMHTTPUtility sharedHTTPSessionManagerFormEncodeRequest];
     
     NSString *absoluteURLString = [BASE_URL stringByAppendingPathComponent:@"/common/file/upload"];
     [session POST:absoluteURLString
@@ -268,7 +300,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
 
 + (void)setToken:(NSString *)token {
     NSString *str = [NSString stringWithFormat:@"Bearer %@", token];
-    [[WMHTTPUtility sharedHTTPSessionManager].requestSerializer setValue:str forHTTPHeaderField:@"Authorization"];
+    [[WMHTTPUtility sharedHTTPSessionManagerFormEncodeRequest].requestSerializer setValue:str forHTTPHeaderField:@"Authorization"];
+    [[WMHTTPUtility sharedHTTPSessionManagerJsonRequest].requestSerializer setValue:str forHTTPHeaderField:@"Authorization"];
 }
 
 + (WMProfile *)currentProfile {
