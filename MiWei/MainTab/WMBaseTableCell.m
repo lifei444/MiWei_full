@@ -16,6 +16,7 @@
     }
     return cell;
 }
+
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if(self) {
@@ -27,6 +28,7 @@
 - (void)loadSubViews {
     NSLog(@"%s 子类必须实现此方法",__func__);
 }
+
 - (void)setDataModel:(id)model {
     NSLog(@"%s 子类必须实现此方法",__func__);
 }
@@ -35,15 +37,4 @@
     NSLog(@"%s 子类必须实现此方法",__func__);
     return 50;
 }
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
 @end

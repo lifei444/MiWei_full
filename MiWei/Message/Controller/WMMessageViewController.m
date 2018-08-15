@@ -7,7 +7,6 @@
 //
 
 #import "WMMessageViewController.h"
-#import "WMMessageCell.h"
 #import "WMCityViewController.h"
 #import "WMUIUtility.h"
 #import "WMHTTPUtility.h"

@@ -106,7 +106,9 @@
             self.timeLabel.text = timeString;
         }
         self.priceLabel.hidden = NO;
-        NSString *priceString = [NSString stringWithFormat:@"%@元/%@小时", model.rentInfo.price, model.rentInfo.rentTime];
+        int yuan = [model.rentInfo.price intValue] / 100;
+        int fen = [model.rentInfo.price intValue] % 100;
+        NSString *priceString = [NSString stringWithFormat:@"%d.%02d元/%@小时", yuan, fen, model.rentInfo.rentTime];
         self.priceLabel.text = priceString;
     } else {
         self.timeLabel.hidden = YES;

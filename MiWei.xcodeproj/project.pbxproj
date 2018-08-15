@@ -83,7 +83,6 @@
 		271A9CF02081B31A0028D20D /* WMQRCodeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 271A9CEC2081B31A0028D20D /* WMQRCodeGenerator.m */; };
 		271A9CF42081B6A10028D20D /* WMScanInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 271A9CF32081B6A10028D20D /* WMScanInputViewController.m */; };
 		2729691C208A2DCB00391D63 /* WMDeviceAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2729691B208A2DCB00391D63 /* WMDeviceAddViewController.m */; };
-		274A553F208E2F50004FC461 /* WMMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 274A553B208E2F50004FC461 /* WMMessageCell.m */; };
 		274A5542208E36A5004FC461 /* WMFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274A5541208E36A5004FC461 /* WMFeedbackViewController.m */; };
 		2760C697207F8A20003CC126 /* WMUnderLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2760C696207F8A20003CC126 /* WMUnderLineView.m */; };
 		27A7D1F7207D04FD006C6AF6 /* WMMainTabbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A7D1EF207D04FD006C6AF6 /* WMMainTabbarViewController.m */; };
@@ -119,6 +118,8 @@
 		9C5445AC2121A23A00EF7DC3 /* WMDeviceAirSpeedSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5445AB2121A23A00EF7DC3 /* WMDeviceAirSpeedSettingViewController.m */; };
 		9C5445AF2122818E00EF7DC3 /* WMDeviceTimeSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5445AE2122818E00EF7DC3 /* WMDeviceTimeSettingViewController.m */; };
 		9C5445B32122901000EF7DC3 /* WMAlarmSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5445B22122901000EF7DC3 /* WMAlarmSetting.m */; };
+		9C5445B621241E6B00EF7DC3 /* WMOrderListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5445B521241E6B00EF7DC3 /* WMOrderListCell.m */; };
+		9C5445B921241F7100EF7DC3 /* WMPayment.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5445B821241F7100EF7DC3 /* WMPayment.m */; };
 		9C5EDCB3210EC2C90085ADEE /* WMRentDeviceDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5EDCB2210EC2C90085ADEE /* WMRentDeviceDetailViewController.m */; };
 		9C5EDCBE2110767F0085ADEE /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5EDCBB2110767F0085ADEE /* MBProgressHUD.m */; };
 		9C5EDCBF2110767F0085ADEE /* RCEActiveWheel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5EDCBD2110767F0085ADEE /* RCEActiveWheel.m */; };
@@ -340,8 +341,6 @@
 		2729691A208A2DCB00391D63 /* WMDeviceAddViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceAddViewController.h; sourceTree = "<group>"; };
 		2729691B208A2DCB00391D63 /* WMDeviceAddViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceAddViewController.m; sourceTree = "<group>"; };
 		274A5536208E2F50004FC461 /* WMMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMessageViewController.h; sourceTree = "<group>"; };
-		274A553B208E2F50004FC461 /* WMMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMessageCell.m; sourceTree = "<group>"; };
-		274A553C208E2F50004FC461 /* WMMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMessageCell.h; sourceTree = "<group>"; };
 		274A5540208E36A5004FC461 /* WMFeedbackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFeedbackViewController.h; sourceTree = "<group>"; };
 		274A5541208E36A5004FC461 /* WMFeedbackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFeedbackViewController.m; sourceTree = "<group>"; };
 		2760C695207F8A20003CC126 /* WMUnderLineView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMUnderLineView.h; sourceTree = "<group>"; };
@@ -410,6 +409,10 @@
 		9C5445AE2122818E00EF7DC3 /* WMDeviceTimeSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceTimeSettingViewController.m; sourceTree = "<group>"; };
 		9C5445B12122901000EF7DC3 /* WMAlarmSetting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMAlarmSetting.h; sourceTree = "<group>"; };
 		9C5445B22122901000EF7DC3 /* WMAlarmSetting.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMAlarmSetting.m; sourceTree = "<group>"; };
+		9C5445B421241E6B00EF7DC3 /* WMOrderListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMOrderListCell.h; sourceTree = "<group>"; };
+		9C5445B521241E6B00EF7DC3 /* WMOrderListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMOrderListCell.m; sourceTree = "<group>"; };
+		9C5445B721241F7100EF7DC3 /* WMPayment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMPayment.h; sourceTree = "<group>"; };
+		9C5445B821241F7100EF7DC3 /* WMPayment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMPayment.m; sourceTree = "<group>"; };
 		9C5EDCB1210EC2C90085ADEE /* WMRentDeviceDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMRentDeviceDetailViewController.h; sourceTree = "<group>"; };
 		9C5EDCB2210EC2C90085ADEE /* WMRentDeviceDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMRentDeviceDetailViewController.m; sourceTree = "<group>"; };
 		9C5EDCBA2110767F0085ADEE /* RCEActiveWheel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCEActiveWheel.h; sourceTree = "<group>"; };
@@ -828,8 +831,6 @@
 		274A553A208E2F50004FC461 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				274A553B208E2F50004FC461 /* WMMessageCell.m */,
-				274A553C208E2F50004FC461 /* WMMessageCell.h */,
 				9C8C82F2211C5E2000D9F9F1 /* WMMessageCellFooterView.h */,
 				9C8C82F3211C5E2000D9F9F1 /* WMMessageCellFooterView.m */,
 				9C8C82EF211C5DBD00D9F9F1 /* WMMessageBaseCell.h */,
@@ -923,6 +924,8 @@
 				27A7D22D207D0CCF006C6AF6 /* WMMeCell.m */,
 				9C5EDCF22110802B0085ADEE /* WMMePortraitCell.h */,
 				9C5EDCF32110802B0085ADEE /* WMMePortraitCell.m */,
+				9C5445B421241E6B00EF7DC3 /* WMOrderListCell.h */,
+				9C5445B521241E6B00EF7DC3 /* WMOrderListCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1100,6 +1103,8 @@
 			children = (
 				9C5445B12122901000EF7DC3 /* WMAlarmSetting.h */,
 				9C5445B22122901000EF7DC3 /* WMAlarmSetting.m */,
+				9C5445B721241F7100EF7DC3 /* WMPayment.h */,
+				9C5445B821241F7100EF7DC3 /* WMPayment.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1370,6 +1375,7 @@
 				2708B8E22084F85500A760E7 /* PYAxisLine.m in Sources */,
 				271A9CEE2081B31A0028D20D /* WMQRCodeScanner.m in Sources */,
 				2708B8D22084F85500A760E7 /* PYChordStyle.m in Sources */,
+				9C5445B621241E6B00EF7DC3 /* WMOrderListCell.m in Sources */,
 				2708B8CB2084F85500A760E7 /* PYHeatmapSeries.m in Sources */,
 				2708B8ED2084F85500A760E7 /* PYItemStyle.m in Sources */,
 				9CF0872020D67BAE0089BB97 /* WMViewController.m in Sources */,
@@ -1385,7 +1391,6 @@
 				2708B8E42084F85500A760E7 /* PYItemStyleProp.m in Sources */,
 				2708B8AD2084F85500A760E7 /* PYJsonUtil.m in Sources */,
 				9C608D70210E06CD001F1E11 /* WMDevicePollutionSumView.m in Sources */,
-				274A553F208E2F50004FC461 /* WMMessageCell.m in Sources */,
 				2708B8C02084F85500A760E7 /* PYRadarSeries.m in Sources */,
 				9CB8064220FC9FFE001A5C5E /* WMDeviceRentInfo.m in Sources */,
 				9C8C82E9211C5C8200D9F9F1 /* WMMessageFactory.m in Sources */,
@@ -1419,6 +1424,7 @@
 				9CB8063C20FC9E47001A5C5E /* WMDeviceModel.m in Sources */,
 				9C5EDCEE211076EC0085ADEE /* NSData+ImageContentType.m in Sources */,
 				9C8C82EB211C5C8200D9F9F1 /* WMMessage.m in Sources */,
+				9C5445B921241F7100EF7DC3 /* WMPayment.m in Sources */,
 				2708B8D92084F85500A760E7 /* PYTitle.m in Sources */,
 				9C5EDCF0211076EC0085ADEE /* UIView+WebCacheOperation.m in Sources */,
 				9CF0872320D67E410089BB97 /* WMAlertManageViewController.m in Sources */,

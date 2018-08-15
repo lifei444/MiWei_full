@@ -9,9 +9,13 @@
 #import "WMOrderListViewController.h"
 #import "WMCommonDefine.h"
 #import "WMUIUtility.h"
+#import "WMOrderListCell.h"
+#import "WMHTTPUtility.h"
+#import "WMPayment.h"
 
 @interface WMOrderListViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView *tableView;
+@property (nonatomic, strong) NSArray *modelArray;
 @end
 
 @implementation WMOrderListViewController
@@ -21,6 +25,8 @@
     [super viewDidLoad];
     self.title = @"订单中心";
     [self.view addSubview:self.tableView];
+    [self.tableView registerClass:[WMOrderListCell class] forCellReuseIdentifier:@"cell"];
+    [self loadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -28,29 +34,50 @@
     self.tableView.contentInset = UIEdgeInsetsMake(-35,0,0,0);
 }
 
+#pragma mark - Private method
+- (void)loadData {
+    [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodGet
+                               URLString:@"/mobile/user/queryPaymentHistory"
+                              parameters:nil
+                                response:^(WMHTTPResult *result) {
+                                    if (result.success) {
+                                        NSDictionary *content = result.content;
+                                        NSArray *payments = content[@"payments"];
+                                        NSMutableArray *arr = [[NSMutableArray alloc] init];
+                                        for (NSDictionary *dic in payments) {
+                                            WMPayment *payment = [[WMPayment alloc] init];
+                                            payment.deviceId = dic[@"deviceID"];
+                                            payment.deviceName = dic[@"deviceName"];
+                                            payment.payTime = dic[@"payTime"];
+                                            payment.price = dic[@"price"];
+                                            payment.rentTime = dic[@"rentTime"];
+                                            [arr addObject:payment];
+                                        }
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            self.modelArray = arr;
+                                            [self.tableView reloadData];
+                                        });
+                                    } else {
+                                        NSLog(@"订单中心 loadData error, result is %@", result);
+                                    }
+                                }];
+}
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.modelArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
-    
-    cell.textLabel.textColor = [WMUIUtility color:@"0x444444"];
-    cell.textLabel.font = [UIFont systemFontOfSize:16];
-    if(indexPath.section == 0) {
-        cell.textLabel.text = @"Amy的设备报警";
-        //        cell.imageView.image = [UIImage imageNamed:@"person_portrait"];
-    }else if(indexPath.section == 1) {
-        cell.textLabel.text = @"momo的设备报警";
-    }
+    WMOrderListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    [cell setDataModel:self.modelArray[indexPath.row]];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 85;
+    return [WMOrderListCell cellHeight];
 }
 
 #pragma mark - Getters & setters

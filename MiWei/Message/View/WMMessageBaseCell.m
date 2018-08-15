@@ -54,7 +54,6 @@
 - (NSDateFormatter *)formatter {
     if (!_formatter) {
         _formatter = [[NSDateFormatter alloc] init];
-//        [_formatter setDateStyle:NSDateFormatterShortStyle];
         [_formatter setDateFormat:@"yyyy-MM-dd   HH:mm:ss"];
     }
     return _formatter;
