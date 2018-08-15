@@ -42,6 +42,8 @@ NSString *const airQualityNotiIdentifier = @"airQualityNoti";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[WMUIUtility color:@"0x444444"], NSForegroundColorAttributeName, [UIFont systemFontOfSize:[WMUIUtility WMCGFloatForY:17]], NSFontAttributeName, nil];
+    [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     [self.view addSubview:self.tableView];
     [self.tableView registerClass:[WMStrainerAlarmMessageCell class] forCellReuseIdentifier:strainerAlarmIdentifier];
     [self.tableView registerClass:[WMDevShareNotiMessageCell class] forCellReuseIdentifier:devShareNotiIdentifier];

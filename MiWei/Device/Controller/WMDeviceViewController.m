@@ -52,7 +52,9 @@ static NSString *deviceCellIdentifier = @"WMDeviceCell";
 - (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout *)layout {
     self = [super initWithCollectionViewLayout:layout];
     if (self) {
-        self.title = @"设备列表";
+        NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[WMUIUtility color:@"0x444444"], NSForegroundColorAttributeName, [UIFont systemFontOfSize:[WMUIUtility WMCGFloatForY:17]], NSFontAttributeName, nil];
+        [self.navigationController.navigationBar setTitleTextAttributes:attributes];
+        self.navigationItem.title = @"设备列表";
         self.view.backgroundColor = [WMUIUtility color:@"0xf6f6f6"];
     }
     return self;

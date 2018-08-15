@@ -76,7 +76,7 @@
     }
     
     cell.textLabel.textColor = [WMUIUtility color:@"0x444444"];
-    cell.textLabel.font = [UIFont systemFontOfSize:16];
+    cell.textLabel.font = [UIFont systemFontOfSize:[WMUIUtility WMCGFloatForY:16]];
     WMAlarmSetting *setting = self.modelArray[indexPath.section];
     cell.textLabel.text = [NSString stringWithFormat:@"%@报警", setting.name];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -90,8 +90,9 @@
 
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 50;
+    return [WMUIUtility WMCGFloatForY:50];
 }
+
 
 #pragma mark - Target action
 - (void)onClickSwitch:(UISwitch *)switchButton {

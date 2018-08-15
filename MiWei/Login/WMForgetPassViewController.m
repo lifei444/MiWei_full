@@ -132,7 +132,7 @@
         _phoneView.textField.placeholder = @"输入手机号";
         [_phoneView.rightButton setTitle:@"获取验证码" forState:UIControlStateNormal];
         [_phoneView.rightButton setTitleColor:[WMUIUtility color:@"0x999999"] forState:UIControlStateNormal];
-        _phoneView.rightButton.titleLabel.font = [UIFont systemFontOfSize:14];
+        _phoneView.rightButton.titleLabel.font = [UIFont systemFontOfSize:[WMUIUtility WMCGFloatForY:14]];
         [_phoneView.rightButton addTarget:self action:@selector(startTimer) forControlEvents:UIControlEventTouchUpInside];
     }
     return _phoneView;

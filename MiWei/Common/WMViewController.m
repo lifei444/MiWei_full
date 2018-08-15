@@ -7,6 +7,7 @@
 //
 
 #import "WMViewController.h"
+#import "WMUIUtility.h"
 
 @interface WMViewController ()
 
@@ -17,6 +18,8 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:246/255.0 green:246/255.0 blue:246/255.0 alpha:1];
     
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[WMUIUtility color:@"0x444444"], NSForegroundColorAttributeName, [UIFont systemFontOfSize:[WMUIUtility WMCGFloatForY:17]], NSFontAttributeName, nil];
+    [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     //left button
     self.navigationItem.hidesBackButton = YES;
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"register_return"] style:UIBarButtonItemStyleDone target:self action:@selector(leftBarButtonItemPressed:)];
