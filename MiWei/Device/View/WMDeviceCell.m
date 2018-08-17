@@ -9,6 +9,8 @@
 #import "WMDeviceCell.h"
 #import "WMCommonDefine.h"
 #import "WMUIUtility.h"
+#import "WMHTTPUtility.h"
+#import "UIImageView+WebCache.h"
 
 #define Cell_width                  176
 
@@ -86,7 +88,7 @@
 - (void)setDataModel:(WMDevice *)model {
     self.nameLabel.text = model.name;
     
-    if (model.model.connWay == WMDeviceTypeRent) {
+    if ([model isRentDevice]) {
         self.typeLabel.text = @"租赁设备";
         self.authorityLabel.hidden = YES;
         self.applyAuthorityLable.hidden = YES;
@@ -128,6 +130,10 @@
             self.authorityLabel.hidden = NO;
             self.authorityLabel.text = @"已有权限";
         }
+    }
+    if (model.model.image) {
+        [self.iconView
+         sd_setImageWithURL:[WMHTTPUtility urlWithPortraitId:model.model.image]];
     }
 }
 

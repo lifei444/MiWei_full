@@ -53,6 +53,7 @@
             model.connWay = [modelDic[@"connWay"] longValue];
             model.modelId = modelDic[@"id"];
             model.name = modelDic[@"name"];
+            model.image = modelDic[@"imageID"];
             device.model = model;
         }
         NSDictionary *prodDic = dic[@"prodInfo"];
