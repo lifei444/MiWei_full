@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface WMDeviceSearchViewController : UIViewController
-@property (nonatomic, strong) NSArray *searchArray;
+@property (nonatomic, strong) NSArray *modelArray;
 @end

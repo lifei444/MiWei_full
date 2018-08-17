@@ -111,6 +111,7 @@
 		9C484672210737D6005F2883 /* WMDeviceDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C484671210737D6005F2883 /* WMDeviceDataView.m */; };
 		9C48467521074680005F2883 /* WMDeviceRankView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C48467421074680005F2883 /* WMDeviceRankView.m */; };
 		9C48467921097E31005F2883 /* WMDevicePollutionChangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C48467821097E31005F2883 /* WMDevicePollutionChangeView.m */; };
+		9C4D76272126D5930089F728 /* WMSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D76262126D5930089F728 /* WMSearchBar.m */; };
 		9C4FBE4E20EA152D00D36D8D /* WMHTTPResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4FBE4A20EA152D00D36D8D /* WMHTTPResult.m */; };
 		9C4FBE4F20EA152D00D36D8D /* WMHTTPUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4FBE4B20EA152D00D36D8D /* WMHTTPUtility.m */; };
 		9C544543212008CE00EF7DC3 /* WMDeviceSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C544542212008CE00EF7DC3 /* WMDeviceSearchViewController.m */; };
@@ -394,6 +395,8 @@
 		9C48467421074680005F2883 /* WMDeviceRankView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceRankView.m; sourceTree = "<group>"; };
 		9C48467721097E31005F2883 /* WMDevicePollutionChangeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDevicePollutionChangeView.h; sourceTree = "<group>"; };
 		9C48467821097E31005F2883 /* WMDevicePollutionChangeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDevicePollutionChangeView.m; sourceTree = "<group>"; };
+		9C4D76252126D5930089F728 /* WMSearchBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMSearchBar.h; sourceTree = "<group>"; };
+		9C4D76262126D5930089F728 /* WMSearchBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMSearchBar.m; sourceTree = "<group>"; };
 		9C4FBE4720EA142800D36D8D /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = MiWei/Frameworks/AFNetworking.framework; sourceTree = "<group>"; };
 		9C4FBE4A20EA152D00D36D8D /* WMHTTPResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMHTTPResult.m; sourceTree = "<group>"; };
 		9C4FBE4B20EA152D00D36D8D /* WMHTTPUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMHTTPUtility.m; sourceTree = "<group>"; };
@@ -852,6 +855,8 @@
 				2760C696207F8A20003CC126 /* WMUnderLineView.m */,
 				9CF0871E20D67BAE0089BB97 /* WMViewController.h */,
 				9CF0871F20D67BAE0089BB97 /* WMViewController.m */,
+				9C4D76252126D5930089F728 /* WMSearchBar.h */,
+				9C4D76262126D5930089F728 /* WMSearchBar.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1459,6 +1464,7 @@
 				2708B8E72084F85500A760E7 /* PYLinkStyle.m in Sources */,
 				2708B8DB2084F85500A760E7 /* PYOption.m in Sources */,
 				9C206F732117020200672206 /* WMMessageViewController.m in Sources */,
+				9C4D76272126D5930089F728 /* WMSearchBar.m in Sources */,
 				271A9CC720819D190028D20D /* WMCityViewController.m in Sources */,
 				2708B8DE2084F85500A760E7 /* PYLineStyle.m in Sources */,
 				9C5EDCE4211076EC0085ADEE /* SDWebImageManager.m in Sources */,
