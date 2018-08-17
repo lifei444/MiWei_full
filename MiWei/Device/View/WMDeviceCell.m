@@ -86,7 +86,7 @@
 - (void)setDataModel:(WMDevice *)model {
     self.nameLabel.text = model.name;
     
-    if (model.rentInfo) {
+    if (model.model.connWay == WMDeviceTypeRent) {
         self.typeLabel.text = @"租赁设备";
         self.authorityLabel.hidden = YES;
         self.applyAuthorityLable.hidden = YES;

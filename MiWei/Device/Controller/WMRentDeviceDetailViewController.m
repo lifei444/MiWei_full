@@ -130,7 +130,9 @@
         if (detail.addrDetail.length == 0) {
             detail.addrDetail = @"回龙观东大街521号ttfasdfasdfasdf";
         }
-        self.addressView.label.text = detail.addrDetail;
+//        self.addressView.label.text = detail.addrDetail;
+        self.addressView.label.text = [NSString stringWithFormat:@"%@%@%@", detail.addrLev1, detail.addrLev2, detail.addrLev3];
+
         CGRect addressViewFrame = self.addressView.frame;
         CGRect labelFrame = self.addressView.label.frame;
         
