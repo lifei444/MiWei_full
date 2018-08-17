@@ -40,7 +40,9 @@
 
 #pragma mark - Public methods
 - (void)updatePortrait {
-    [self.portraitImageView sd_setImageWithURL:[WMHTTPUtility urlWithPortraitId:[WMHTTPUtility currentProfile].portrait] placeholderImage:[UIImage imageNamed:@"me_portrait"]];
+    [self.portraitImageView
+     sd_setImageWithURL:[WMHTTPUtility urlWithPortraitId:[WMHTTPUtility currentProfile].portrait]
+     placeholderImage:[UIImage imageNamed:@"me_portrait"]];
 }
 
 #pragma mark - Getters and setters
