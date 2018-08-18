@@ -73,27 +73,34 @@
 
 #pragma mark - FogDeviceDelegate
 - (void)didSearchDeviceReturnArray:(NSArray *)array {
-    [self.hud hideAnimated:YES];
     [[FogDeviceManager sharedInstance] stopSearchDevices];
     [[FogEasyLinkManager sharedInstance] stopEasyLink];
     
     if (array.count > 0) {
-        [WMDeviceUtility addDevice:self.device
-                          location:self.coord
-                              ssid:self.ssid
-                          complete:^(BOOL result) {
-                              if (result) {
-                                  for (UIViewController *controller in self.navigationController.viewControllers) {
-                                      if ([controller isKindOfClass:[WMDeviceViewController class]]) {
-                                          WMDeviceViewController *vc = (WMDeviceViewController *)controller;
-                                          [self.navigationController popToViewController:vc animated:YES];
-                                          break;
+        if (self.device) {
+            [WMDeviceUtility addDevice:self.device
+                              location:self.coord
+                                  ssid:self.ssid
+                              complete:^(BOOL result) {
+                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                      [self.hud hideAnimated:YES];
+                                      if (result) {
+                                          [self popToDeviceListView];
+                                      } else {
+                                          [WMUIUtility showAlertWithMessage:@"添加失败" viewController:self];
                                       }
-                                  }
-                              } else {
-                                  [WMUIUtility showAlertWithMessage:@"添加失败" viewController:self];
-                              }
-                          }];
+                                  });
+                              }];
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.hud hideAnimated:YES];
+                [self popToDeviceListView];
+            });
+        }
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.hud hideAnimated:YES];
+        });
     }
 }
 
@@ -103,6 +110,17 @@
     return YES;
 }
 
+#pragma mark - Private method
+- (void)popToDeviceListView {
+    for (UIViewController *controller in self.navigationController.viewControllers) {
+        if ([controller isKindOfClass:[WMDeviceViewController class]]) {
+            WMDeviceViewController *vc = (WMDeviceViewController *)controller;
+            [self.navigationController popToViewController:vc animated:YES];
+            break;
+        }
+    }
+}
+                           
 #pragma mark - Getters & setters
 - (UIImageView *)imageView {
     if (!_imageView) {

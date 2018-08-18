@@ -22,8 +22,6 @@ typedef NS_ENUM(NSInteger, WMHTTPErrorCode) {
     //无效微信授权码
     WMHTTPCodeInvalidWXOAuthCode = 0x020e,
     
-    
-    
 };
 
 //请求是否成功

@@ -12,6 +12,8 @@
 #import "WMHTTPUtility.h"
 #import "WMDevice.h"
 #import "WMDeviceAddViewController.h"
+#import "WMDeviceConfigViewController.h"
+#import <FogV3/FogV3.h>
 
 #define SNTextField_Y               163
 #define SNTextField_Width           300
@@ -89,8 +91,13 @@
                                    URLString:@"/mobile/device/queryBasicInfo"
                                   parameters:dic
                                     response:^(WMHTTPResult *result) {
-                                        if (result.success) {
-                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            if (result.errorCode != 0 || !result.content) {
+                                                NSString *ssid = [[FogEasyLinkManager sharedInstance] getSSID];
+                                                WMDeviceConfigViewController *vc = [[WMDeviceConfigViewController alloc] init];
+                                                vc.ssid = ssid;
+                                                [self.navigationController pushViewController:vc animated:YES];
+                                            } else if (result.success) {
                                                 WMDevice *device = [[WMDevice alloc] init];
                                                 NSDictionary *content = result.content;
                                                 device.deviceId = self.SNTextField.text;
@@ -112,10 +119,10 @@
                                                 WMDeviceAddViewController *vc = [[WMDeviceAddViewController alloc] init];
                                                 vc.device = device;
                                                 [self.navigationController pushViewController:vc animated:YES];
-                                            });
-                                        } else {
-                                            NSLog(@"%s queryBasicInfo error %@", __func__, result);
-                                        }
+                                            } else {
+                                                NSLog(@"%s queryBasicInfo error %@", __func__, result);
+                                            }
+                                        });
                                     }];
     }
 }
