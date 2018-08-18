@@ -9,6 +9,8 @@
 #import "WMDeviceTimerCell.h"
 #import "WMDeviceTimer.h"
 #import "WMUIUtility.h"
+#import "MBProgressHUD.h"
+#import "WMHTTPUtility.h"
 
 #define Time_X          10
 #define Time_Y          11
@@ -16,8 +18,8 @@
 #define Time_Height     18
 
 #define Repeat_X        65
-#define Repeat_Y        15
-#define Repeat_Width    50
+#define Repeat_Y        14
+#define Repeat_Width    290
 #define Repeat_Height   14
 
 #define Detail_X        Time_X
@@ -36,6 +38,8 @@
 @property (nonatomic, strong) UILabel *detailLabel;
 @property (nonatomic, strong) UISwitch *switchView;
 @property (nonatomic, strong) NSMutableArray<NSNumber *> *repeatDays;
+@property (nonatomic, strong) MBProgressHUD *hud;
+@property (nonatomic, strong) WMDeviceTimer *timer;
 @end
 
 @implementation WMDeviceTimerCell
@@ -49,6 +53,7 @@
 
 - (void)setDataModel:(id)model {
     WMDeviceTimer *timer = model;
+    self.timer = timer;
     
     self.switchView.on = timer.enable;
     [self refreshLabelColor:timer.enable];
@@ -64,6 +69,26 @@
 #pragma mark - Target action
 - (void)onSwitch {
     [self refreshLabelColor:self.switchView.isOn];
+    
+    if (self.timer) {
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+        [dic setObject:self.timer.timerId forKey:@"id"];
+        [dic setObject:@(self.switchView.isOn) forKey:@"enable"];
+        self.hud = [MBProgressHUD showHUDAddedTo:self.vc.view animated:YES];
+        [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodPost
+                                   URLString:@"mobile/timing/edit"
+                                  parameters:dic
+                                    response:^(WMHTTPResult *result) {
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            [self.hud hideAnimated:YES];
+                                            if (result.success) {
+                                                [WMUIUtility showAlertWithMessage:@"设置成功" viewController:self.vc];
+                                            } else {
+                                                [WMUIUtility showAlertWithMessage:@"设置失败" viewController:self.vc];
+                                            }
+                                        });
+                                    }];
+    }
 }
 
 #pragma mark - Private method
@@ -101,8 +126,10 @@
                 repeatString = [repeatString stringByAppendingString:[NSString stringWithFormat:@"%@ ", weekDay[i]]];
                 [self.repeatDays addObject:@(i)];
             }
+            bit = 0x01 << (i + 1);
         }
         repeatString = [repeatString substringToIndex:(repeatString.length-1)];
+        repeatString = [repeatString stringByAppendingString:@")"];
     }
     self.repeatLabel.text = repeatString;
 }

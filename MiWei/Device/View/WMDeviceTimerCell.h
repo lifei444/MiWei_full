@@ -10,5 +10,6 @@
 #import "WMBaseTableCell.h"
 
 @interface WMDeviceTimerCell : WMBaseTableCell
+@property (nonatomic, weak) UIViewController *vc;
 - (void)refreshLabelColor:(BOOL)enable;
 @end

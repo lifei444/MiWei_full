@@ -12,12 +12,14 @@
 #import "WMHTTPUtility.h"
 #import "WMDeviceTimeSetting.h"
 #import "WMDeviceTimerCell.h"
+#import "MBProgressHUD.h"
 
 NSString *const cellIdentifier = @"cell";
 
 @interface WMDeviceTimeSettingViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) WMDeviceTimeSetting *setting;
+@property (nonatomic, strong) MBProgressHUD *hud;
 @end
 
 @implementation WMDeviceTimeSettingViewController
@@ -41,10 +43,25 @@ NSString *const cellIdentifier = @"cell";
 
 - (void)onSwitch:(id)sender {
     UISwitch *switchView = sender;
-    if (switchView.isOn) {
-        
-    } else {
-        
+    
+    if (self.setting) {
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+        [dic setObject:self.deviceId forKey:@"deviceID"];
+        [dic setObject:@(switchView.isOn) forKey:@"enable"];
+        self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodPost
+                                   URLString:@"mobile/timing/switchAll"
+                                  parameters:dic
+                                    response:^(WMHTTPResult *result) {
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            [self.hud hideAnimated:YES];
+                                            if (result.success) {
+                                                [WMUIUtility showAlertWithMessage:@"设置成功" viewController:self];
+                                            } else {
+                                                [WMUIUtility showAlertWithMessage:@"设置失败" viewController:self];
+                                            }
+                                        });
+                                    }];
     }
 }
 
@@ -64,12 +81,14 @@ NSString *const cellIdentifier = @"cell";
     UISwitch *switchView = [[UISwitch alloc] initWithFrame:WM_CGRectMake(305, 11, 45, 20)];
     [switchView addTarget:self action:@selector(onSwitch:) forControlEvents:UIControlEventValueChanged];
     switchView.onTintColor = [WMUIUtility color:@"0x2b928a"];
+    switchView.on = self.setting.enable;
     [view addSubview:switchView];
     return view;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WMDeviceTimerCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    cell.vc = self;
     [cell setDataModel:self.setting.timers[indexPath.row]];
     return cell;
 }
