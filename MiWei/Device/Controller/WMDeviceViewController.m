@@ -34,7 +34,7 @@ static NSString *headerIdentifier = @"headerIdentifier";
 #define CollectionX                 SearchBarX
 #define CollectionY                 (SearchBarY + SearchBarHeight + GapYBetweenSearchAndContent)
 #define CollectionWidth             SearchBarWidth
-#define CollectionHeight            600//TODO
+#define CollectionHeight            500//TODO
 
 #define EdgeGap                     8
 #define CellWidth                   176

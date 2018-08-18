@@ -26,7 +26,7 @@
 #define CollectionX                 SearchBarX
 #define CollectionY                 (SearchBarY + SearchBarHeight + GapYBetweenSearchAndContent)
 #define CollectionWidth             SearchBarWidth
-#define CollectionHeight            635//TODO
+#define CollectionHeight            590//TODO
 
 #define EdgeGap                     8
 #define CellWidth                   176
