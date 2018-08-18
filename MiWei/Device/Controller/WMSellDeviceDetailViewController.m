@@ -175,8 +175,8 @@
         
         //pmView
 //        detail.pm25 = [NSNumber numberWithInt:100];
-        self.pmView.innerPMValueLabel.text = [NSString stringWithFormat:@"%@", detail.pm25];
-        self.pmView.outPMVauleLabel.text = [NSString stringWithFormat:@"%@", detail.outdoorPM25];
+        self.pmView.innerPMValueLabel.text = [NSString stringWithFormat:@"%d", [detail.pm25 intValue]];
+        self.pmView.outPMVauleLabel.text = [NSString stringWithFormat:@"%d", [detail.outdoorPM25 intValue]];
         
         //airLabel
         if (detail.pm25AirText.length == 0) {
@@ -200,22 +200,22 @@
         
         //dataView
         NSString *str = self.dataView.PMLabel.text;
-        str = [str stringByAppendingFormat:@"%@", detail.pm25];
+        str = [str stringByAppendingFormat:@"%d", [detail.pm25 intValue]];
         self.dataView.PMLabel.text = str;
         str = self.dataView.co2Label.text;
-        str = [str stringByAppendingFormat:@"%@", detail.co2];
+        str = [str stringByAppendingFormat:@"%0.2f", [detail.co2 floatValue]];
         self.dataView.co2Label.text = str;
         str = self.dataView.ch2oLabel.text;
-        str = [str stringByAppendingFormat:@"%@", detail.ch2o];
+        str = [str stringByAppendingFormat:@"%0.2f", [detail.ch2o floatValue]];
         self.dataView.ch2oLabel.text = str;
         str = self.dataView.tvocLabel.text;
-        str = [str stringByAppendingFormat:@"%@", detail.tvoc];
+        str = [str stringByAppendingFormat:@"%0.2f", [detail.tvoc floatValue]];
         self.dataView.tvocLabel.text = str;
         str = self.dataView.tempLabel.text;
-        str = [str stringByAppendingFormat:@"%@", detail.temp];
+        str = [str stringByAppendingFormat:@"%0.2f", [detail.temp floatValue]];
         self.dataView.tempLabel.text = str;
         str = self.dataView.humidityLabel.text;
-        str = [str stringByAppendingFormat:@"%@", detail.humidity];
+        str = [str stringByAppendingFormat:@"%0.2f", [detail.humidity floatValue]];
         self.dataView.humidityLabel.text = str;
         
         //rankView
