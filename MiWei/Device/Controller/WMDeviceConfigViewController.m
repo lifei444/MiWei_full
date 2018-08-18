@@ -65,7 +65,7 @@
     [[FogEasyLinkManager sharedInstance] startEasyLinkWithPassword:self.pswCell.textField.text];
     [FogDeviceManager sharedInstance].delegate = self;
     [[FogDeviceManager sharedInstance] startSearchDevices];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:3
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:90
                                                   target:self
                                                 selector:@selector(onTimeExpire)
                                                 userInfo:nil
