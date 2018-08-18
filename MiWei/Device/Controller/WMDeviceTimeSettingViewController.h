@@ -9,5 +9,5 @@
 #import "WMViewController.h"
 
 @interface WMDeviceTimeSettingViewController : WMViewController
-
+@property (nonatomic, copy) NSString *deviceId;
 @end

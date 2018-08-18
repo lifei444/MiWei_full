@@ -12,6 +12,7 @@
 #import "MBProgressHUD.h"
 #import "WMDeviceVentilationSettingViewController.h"
 #import "WMDeviceAirSpeedSettingViewController.h"
+#import "WMDeviceTimeSettingViewController.h"
 
 #define Radius                  60
 
@@ -215,7 +216,9 @@
             break;
         }
         case WMDeviceSwitchViewTagTiming: {
-            
+            WMDeviceTimeSettingViewController *vc = [[WMDeviceTimeSettingViewController alloc] init];
+            vc.deviceId = self.deviceDetail.deviceId;
+            [self.vc.navigationController pushViewController:vc animated:YES];
             break;
         }
         case WMDeviceSwitchViewTagSetting: {
