@@ -24,5 +24,6 @@
 @property (nonatomic, strong) WMDeviceRentInfo *rentInfo;
 
 - (BOOL)isRentDevice;
+- (NSString*)formatRemainingTime;
 
 @end

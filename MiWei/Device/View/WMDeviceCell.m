@@ -92,25 +92,21 @@
         self.typeLabel.text = @"租赁设备";
         self.authorityLabel.hidden = YES;
         self.applyAuthorityLable.hidden = YES;
-        
-        if (model.rentInfo.remainingTime == 0) {
+        long longRemaining = [model.rentInfo.remainingTime longValue];
+
+        if (longRemaining == 0) {
             self.timeLabel.hidden = YES;
             self.resultLabel.hidden = NO;
             self.resultLabel.text = @"已结束";
         } else {
             self.resultLabel.hidden = YES;
             self.timeLabel.hidden = NO;
-            int intRemaining = [model.rentInfo.remainingTime intValue];
-            int hour = intRemaining / 3600;
-            int minute = ( intRemaining % 3600 ) / 60;
-            int second = ( intRemaining % 60) % 60;
-            NSString *timeString = [NSString stringWithFormat:@"%02d:%02d:%02d", hour, minute, second];
-            self.timeLabel.text = timeString;
+            self.timeLabel.text = [model formatRemainingTime];
         }
         self.priceLabel.hidden = NO;
         int yuan = [model.rentInfo.price intValue] / 100;
         int fen = [model.rentInfo.price intValue] % 100;
-        NSString *priceString = [NSString stringWithFormat:@"%d.%02d元/%@小时", yuan, fen, model.rentInfo.rentTime];
+        NSString *priceString = [NSString stringWithFormat:@"%d.%02d元/%d小时", yuan, fen, [model.rentInfo.rentTime intValue]/60];
         self.priceLabel.text = priceString;
     } else {
         self.timeLabel.hidden = YES;
@@ -121,7 +117,7 @@
         } else {
             self.typeLabel.text = @"离线";
         }
-        if (model.permission == WMDevicePermissionTypeView) {
+        if (model.permission != WMDevicePermissionTypeOwner) {
             self.authorityLabel.hidden = YES;
             self.applyAuthorityLable.hidden = NO;
             self.applyAuthorityLable.text = @"申请控制权限";
