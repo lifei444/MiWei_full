@@ -39,6 +39,7 @@
 @property (nonatomic, strong) WMDeviceConfigCell *pswCell;
 @property (nonatomic, strong) UIButton *confirmButton;
 @property (nonatomic, strong) MBProgressHUD *hud;
+@property (nonatomic, strong) NSTimer *timer;
 
 @end
 
@@ -64,11 +65,27 @@
     [[FogEasyLinkManager sharedInstance] startEasyLinkWithPassword:self.pswCell.textField.text];
     [FogDeviceManager sharedInstance].delegate = self;
     [[FogDeviceManager sharedInstance] startSearchDevices];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:3
+                                                  target:self
+                                                selector:@selector(onTimeExpire)
+                                                userInfo:nil
+                                                 repeats:NO];
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 }
 
 - (void)fingerTapped:(UITapGestureRecognizer *)gestureRecognizer {
     [self.view endEditing:YES];
+}
+
+- (void)onTimeExpire {
+    if([self.timer isValid]) {
+        [self.timer invalidate];
+        self.timer = nil;
+    }
+    [[FogDeviceManager sharedInstance] stopSearchDevices];
+    [[FogEasyLinkManager sharedInstance] stopEasyLink];
+    [self.hud hideAnimated:YES];
+    [WMUIUtility showAlertWithMessage:@"配网失败" viewController:self];
 }
 
 #pragma mark - FogDeviceDelegate
