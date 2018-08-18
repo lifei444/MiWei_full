@@ -1,47 +1,40 @@
 //
-//  WMDeviceTimeSettingViewController.m
+//  WMDeviceTimeSettingEditViewController.m
 //  MiWei
 //
-//  Created by LiFei on 2018/8/14.
+//  Created by LiFei on 2018/8/18.
 //  Copyright © 2018年 Sin. All rights reserved.
 //
 
-#import "WMDeviceTimeSettingViewController.h"
-#import "WMCommonDefine.h"
-#import "WMUIUtility.h"
-#import "WMHTTPUtility.h"
-#import "WMDeviceTimeSetting.h"
-#import "WMDeviceTimerCell.h"
-#import "MBProgressHUD.h"
 #import "WMDeviceTimeSettingEditViewController.h"
+#import "MBProgressHUD.h"
+#import "WMHTTPUtility.h"
+#import "WMUIUtility.h"
+#import "WMCommonDefine.h"
+#import "WMDeviceTimerEditCell.h"
 
-NSString *const timerCellIdentifier = @"timerCell";
+NSString *const timerEditCellIdentifier = @"timerEditCell";
 
-@interface WMDeviceTimeSettingViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface WMDeviceTimeSettingEditViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) WMDeviceTimeSetting *setting;
 @property (nonatomic, strong) MBProgressHUD *hud;
+@property (nonatomic, strong) WMDeviceTimeSetting *setting;
 @end
 
-@implementation WMDeviceTimeSettingViewController
+@implementation WMDeviceTimeSettingEditViewController
+
 #pragma mark - Life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"定时设置";
     [self.view addSubview:self.tableView];
     [self setRightNavBar];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
     [self loadData];
 }
 
 #pragma mark - Target action
-- (void)edit {
-    WMDeviceTimeSettingEditViewController *vc = [[WMDeviceTimeSettingEditViewController alloc] init];
-    vc.deviceId = self.deviceId;
-    [self.navigationController pushViewController:vc animated:NO];
+- (void)complete {
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 - (void)add {
@@ -53,7 +46,7 @@ NSString *const timerCellIdentifier = @"timerCell";
     
     if (self.setting) {
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-        [dic setObject:self.deviceId forKey:@"deviceID"];
+        [dic setObject:self.setting.deviceId forKey:@"deviceID"];
         [dic setObject:@(switchView.isOn) forKey:@"enable"];
         self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodPost
@@ -94,16 +87,15 @@ NSString *const timerCellIdentifier = @"timerCell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    WMDeviceTimerCell *cell = [tableView dequeueReusableCellWithIdentifier:timerCellIdentifier];
+    WMDeviceTimerEditCell *cell = [tableView dequeueReusableCellWithIdentifier:timerEditCellIdentifier];
     cell.vc = self;
     [cell setDataModel:self.setting.timers[indexPath.row]];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [WMDeviceTimerCell cellHeight];
+    return [WMDeviceTimerEditCell cellHeight];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -114,9 +106,9 @@ NSString *const timerCellIdentifier = @"timerCell";
 - (void)setRightNavBar {
     UIView *view = [[UIView alloc] initWithFrame:WM_CGRectMake(0, 0, 80, 30)];
     UIButton *editButton = [[UIButton alloc] initWithFrame:WM_CGRectMake(0, 0, 50, 30)];
-    [editButton setTitle:@"编辑" forState:UIControlStateNormal];
+    [editButton setTitle:@"完成" forState:UIControlStateNormal];
     [editButton setTitleColor:[WMUIUtility color:@"0x6a6a6a"] forState:UIControlStateNormal];
-    [editButton addTarget:self action:@selector(edit) forControlEvents:UIControlEventTouchUpInside];
+    [editButton addTarget:self action:@selector(complete) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:editButton];
     UIButton *addButton = [[UIButton alloc] initWithFrame:WM_CGRectMake(50, 0, 30, 30)];
     [addButton setImage:[UIImage imageNamed:@"device_time_add"] forState:UIControlStateNormal];
@@ -148,7 +140,7 @@ NSString *const timerCellIdentifier = @"timerCell";
         _tableView  = [[UITableView alloc] initWithFrame:WM_CGRectMake(0, 0, Screen_Width, Screen_Height) style:UITableViewStyleGrouped];
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        [_tableView registerClass:[WMDeviceTimerCell class] forCellReuseIdentifier:timerCellIdentifier];
+        [_tableView registerClass:[WMDeviceTimerEditCell class] forCellReuseIdentifier:timerEditCellIdentifier];
     }
     return _tableView;
 }

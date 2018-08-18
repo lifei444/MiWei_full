@@ -115,6 +115,8 @@
 		9C4D762A212811B40089F728 /* WMDeviceTimeSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D7629212811B40089F728 /* WMDeviceTimeSetting.m */; };
 		9C4D762D212812790089F728 /* WMDeviceTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D762C212812790089F728 /* WMDeviceTimer.m */; };
 		9C4D7630212817F30089F728 /* WMDeviceTimerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D762F212817F30089F728 /* WMDeviceTimerCell.m */; };
+		9C4D76332128620E0089F728 /* WMDeviceTimeSettingEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D76322128620E0089F728 /* WMDeviceTimeSettingEditViewController.m */; };
+		9C4D763621288CB90089F728 /* WMDeviceTimerEditCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D763521288CB90089F728 /* WMDeviceTimerEditCell.m */; };
 		9C4FBE4E20EA152D00D36D8D /* WMHTTPResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4FBE4A20EA152D00D36D8D /* WMHTTPResult.m */; };
 		9C4FBE4F20EA152D00D36D8D /* WMHTTPUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4FBE4B20EA152D00D36D8D /* WMHTTPUtility.m */; };
 		9C544543212008CE00EF7DC3 /* WMDeviceSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C544542212008CE00EF7DC3 /* WMDeviceSearchViewController.m */; };
@@ -406,6 +408,10 @@
 		9C4D762C212812790089F728 /* WMDeviceTimer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceTimer.m; sourceTree = "<group>"; };
 		9C4D762E212817F30089F728 /* WMDeviceTimerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceTimerCell.h; sourceTree = "<group>"; };
 		9C4D762F212817F30089F728 /* WMDeviceTimerCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceTimerCell.m; sourceTree = "<group>"; };
+		9C4D76312128620E0089F728 /* WMDeviceTimeSettingEditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceTimeSettingEditViewController.h; sourceTree = "<group>"; };
+		9C4D76322128620E0089F728 /* WMDeviceTimeSettingEditViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceTimeSettingEditViewController.m; sourceTree = "<group>"; };
+		9C4D763421288CB90089F728 /* WMDeviceTimerEditCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceTimerEditCell.h; sourceTree = "<group>"; };
+		9C4D763521288CB90089F728 /* WMDeviceTimerEditCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceTimerEditCell.m; sourceTree = "<group>"; };
 		9C4FBE4720EA142800D36D8D /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = MiWei/Frameworks/AFNetworking.framework; sourceTree = "<group>"; };
 		9C4FBE4A20EA152D00D36D8D /* WMHTTPResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMHTTPResult.m; sourceTree = "<group>"; };
 		9C4FBE4B20EA152D00D36D8D /* WMHTTPUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMHTTPUtility.m; sourceTree = "<group>"; };
@@ -977,6 +983,8 @@
 				9C5445AB2121A23A00EF7DC3 /* WMDeviceAirSpeedSettingViewController.m */,
 				9C5445AD2122818E00EF7DC3 /* WMDeviceTimeSettingViewController.h */,
 				9C5445AE2122818E00EF7DC3 /* WMDeviceTimeSettingViewController.m */,
+				9C4D76312128620E0089F728 /* WMDeviceTimeSettingEditViewController.h */,
+				9C4D76322128620E0089F728 /* WMDeviceTimeSettingEditViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1030,6 +1038,8 @@
 				9C206F6F2116EBEC00672206 /* WMDeviceConfigCell.m */,
 				9C4D762E212817F30089F728 /* WMDeviceTimerCell.h */,
 				9C4D762F212817F30089F728 /* WMDeviceTimerCell.m */,
+				9C4D763421288CB90089F728 /* WMDeviceTimerEditCell.h */,
+				9C4D763521288CB90089F728 /* WMDeviceTimerEditCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1366,6 +1376,7 @@
 				2708B8EC2084F85500A760E7 /* PYAxisLabel.m in Sources */,
 				2708B8DD2084F85500A760E7 /* PYAreaStyle.m in Sources */,
 				2708B8EB2084F85500A760E7 /* PYSplitArea.m in Sources */,
+				9C4D763621288CB90089F728 /* WMDeviceTimerEditCell.m in Sources */,
 				9C5EDCE9211076EC0085ADEE /* UIImage+MultiFormat.m in Sources */,
 				9C5445A821213B3A00EF7DC3 /* WMDeviceVentilationSettingViewController.m in Sources */,
 				2708B8D62084F85500A760E7 /* PYLoadingOption.m in Sources */,
@@ -1398,6 +1409,7 @@
 				9C5445B621241E6B00EF7DC3 /* WMOrderListCell.m in Sources */,
 				2708B8CB2084F85500A760E7 /* PYHeatmapSeries.m in Sources */,
 				2708B8ED2084F85500A760E7 /* PYItemStyle.m in Sources */,
+				9C4D76332128620E0089F728 /* WMDeviceTimeSettingEditViewController.m in Sources */,
 				9CF0872020D67BAE0089BB97 /* WMViewController.m in Sources */,
 				27B3823E207CFB77006036A0 /* AppDelegate.m in Sources */,
 				9C206F702116EBEC00672206 /* WMDeviceConfigCell.m in Sources */,
