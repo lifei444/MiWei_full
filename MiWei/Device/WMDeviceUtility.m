@@ -158,4 +158,19 @@
     }
     return temp;
 }
+
++ (NSString *)generatePriceStringFromPrice:(NSNumber *)fenNumber andRentTime:(NSNumber *)minuteNumber {
+    int yuan = [fenNumber intValue] / 100;
+    int fen = [fenNumber intValue] % 100;
+    NSString *priceString = [NSString stringWithFormat:@"%d.%02d元/%d小时", yuan, fen, [minuteNumber intValue]/60];
+    return priceString;
+}
+
++ (NSString *)timeStringFromSecond:(NSNumber *)time {
+    int timeInt = [time intValue];
+    int hour = timeInt / 3600;
+    int minute = (timeInt % 3600) / 60;
+    int second = timeInt % 60;
+    return [NSString stringWithFormat:@"%02d:%02d:%02d", hour, minute, second];
+}
 @end

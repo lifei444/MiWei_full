@@ -11,6 +11,7 @@
 #import "WMUIUtility.h"
 #import "WMHTTPUtility.h"
 #import "UIImageView+WebCache.h"
+#import "WMDeviceUtility.h"
 
 #define Cell_width                  176
 
@@ -104,10 +105,7 @@
             self.timeLabel.text = [model formatRemainingTime];
         }
         self.priceLabel.hidden = NO;
-        int yuan = [model.rentInfo.price intValue] / 100;
-        int fen = [model.rentInfo.price intValue] % 100;
-        NSString *priceString = [NSString stringWithFormat:@"%d.%02d元/%d小时", yuan, fen, [model.rentInfo.rentTime intValue]/60];
-        self.priceLabel.text = priceString;
+        self.priceLabel.text = [WMDeviceUtility generatePriceStringFromPrice:model.rentInfo.price andRentTime:model.rentInfo.rentTime];
     } else {
         self.timeLabel.hidden = YES;
         self.resultLabel.hidden = YES;

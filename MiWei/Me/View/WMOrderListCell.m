@@ -8,6 +8,7 @@
 
 #import "WMOrderListCell.h"
 #import "WMUIUtility.h"
+#import "WMDeviceUtility.h"
 
 #define Name_X          24
 #define Name_Y          22
@@ -53,11 +54,7 @@
     
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:[payment.payTime longLongValue] / 1000];
     self.payTimeLabel.text = [self.formatterYMD stringFromDate:date];
-    
-    int yuan = [payment.price intValue] / 100;
-    int fen = [payment.price intValue] % 100;
-    NSString *priceString = [NSString stringWithFormat:@"%d.%02d元/%@小时", yuan, fen, payment.rentTime];
-    self.priceLabel.text = priceString;
+    self.priceLabel.text = [WMDeviceUtility generatePriceStringFromPrice:payment.price andRentTime:payment.rentTime];
     
     self.rentTimeLabel.text = [self.formatterHMS stringFromDate:date];
 }

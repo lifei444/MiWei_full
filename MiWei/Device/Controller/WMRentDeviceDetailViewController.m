@@ -13,9 +13,11 @@
 #import "WMDeviceRankView.h"
 #import "WMDeviceSwitchContainerView.h"
 #import "WMDeviceDataView.h"
+#import "WMDeviceStoreView.h"
 #import "WMUIUtility.h"
 #import "WMCommonDefine.h"
 #import "WMHTTPUtility.h"
+#import "WMDeviceUtility.h"
 
 #define PM_Y                            25
 #define PM_Height                       201
@@ -60,8 +62,8 @@
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) WMDevicePMView *pmView;
 @property (nonatomic, strong) WMDeviceAddressView *addressView;
-//date and price view
-//time and store view
+@property (nonatomic, strong) UILabel *priceLabel;
+@property (nonatomic, strong) WMDeviceStoreView *storeView;
 @property (nonatomic, strong) WMDeviceRankView *rankView;
 @property (nonatomic, strong) WMDeviceSwitchContainerView *switchContainerView;
 @property (nonatomic, strong) WMDeviceDataView *dataView;
@@ -78,8 +80,8 @@
     [self.view addSubview:self.scrollView];
     [self.scrollView addSubview:self.pmView];
     [self.scrollView addSubview:self.addressView];
-    //date and price view
-    //time and store view
+    [self.scrollView addSubview:self.priceLabel];
+    [self.scrollView addSubview:self.storeView];
     [self.scrollView addSubview:self.rankView];
     [self.scrollView addSubview:self.switchContainerView];
     [self.scrollView addSubview:self.dataView];
@@ -132,7 +134,6 @@
         if (detail.addrDetail.length == 0) {
             detail.addrDetail = @"回龙观东大街521号ttfasdfasdfasdf";
         }
-//        self.addressView.label.text = detail.addrDetail;
         self.addressView.label.text = [NSString stringWithFormat:@"%@%@%@", detail.addrLev1, detail.addrLev2, detail.addrLev3];
 
         CGRect addressViewFrame = self.addressView.frame;
@@ -153,6 +154,17 @@
         self.addressView.center = addressViewCenter;
         
         NSString *str;
+        //price
+        if (detail.rentInfo) {
+            NSDate *date = [NSDate dateWithTimeIntervalSince1970:[detail.rentInfo.startTime longLongValue] / 1000];
+            str = [self.formatter stringFromDate:date];
+            str = [NSString stringWithFormat:@"%@   %@", str, [WMDeviceUtility generatePriceStringFromPrice:detail.rentInfo.price andRentTime:detail.rentInfo.rentTime]];
+            self.priceLabel.text = str;
+        }
+        
+        //store
+        self.storeView.remainingTimeLabel.text = [WMDeviceUtility timeStringFromSecond:detail.rentInfo.remainingTime];
+        
         //rankView
         str = detail.pm25RankText;
         if (str.length == 0) {
@@ -225,6 +237,23 @@
     return _addressView;
 }
 
+- (UILabel *)priceLabel {
+    if (!_priceLabel) {
+        _priceLabel = [[UILabel alloc] initWithFrame:WM_CGRectMake(0, Price_Y, Screen_Width, Price_Height)];
+        _priceLabel.font = [UIFont systemFontOfSize:[WMUIUtility WMCGFloatForY:Price_Height]];
+        _priceLabel.textColor = [WMUIUtility color:@"0x0ee0dc"];
+        _priceLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _priceLabel;
+}
+
+- (WMDeviceStoreView *)storeView {
+    if (!_storeView) {
+        _storeView = [[WMDeviceStoreView alloc] initWithFrame:WM_CGRectMake(0, Store_Y, Screen_Width, Store_Height)];
+    }
+    return _storeView;
+}
+
 - (WMDeviceRankView *)rankView {
     if (!_rankView) {
         _rankView = [[WMDeviceRankView alloc] initWithFrame:WM_CGRectMake(Table_X, Rank_Y, Table_Width, Rank_Height)];
@@ -245,6 +274,14 @@
         _dataView = [[WMDeviceDataView alloc] initWithFrame:WM_CGRectMake(Table_X, Data_Y, Table_Width, Data_Height)];
     }
     return _dataView;
+}
+
+- (NSDateFormatter *)formatter {
+    if (!_formatter) {
+        _formatter = [[NSDateFormatter alloc] init];
+        [_formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    }
+    return _formatter;
 }
 
 @end

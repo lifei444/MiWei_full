@@ -31,4 +31,9 @@
 + (NSString *)generateWeekDayString:(NSNumber *)value;
 
 + (NSArray <NSNumber *> *)generateWeekDayArray:(NSNumber *)value;
+
++ (NSString *)generatePriceStringFromPrice:(NSNumber *)fenNumber
+                               andRentTime:(NSNumber *)minuteNumber;
+
++ (NSString *)timeStringFromSecond:(NSNumber *)time;
 @end

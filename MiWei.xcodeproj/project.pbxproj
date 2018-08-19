@@ -117,6 +117,8 @@
 		9C4D7630212817F30089F728 /* WMDeviceTimerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D762F212817F30089F728 /* WMDeviceTimerCell.m */; };
 		9C4D763921292D740089F728 /* WMDeviceTimerEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D763821292D740089F728 /* WMDeviceTimerEditViewController.m */; };
 		9C4D763C212967730089F728 /* WMDeviceRepetitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D763B212967730089F728 /* WMDeviceRepetitionViewController.m */; };
+		9C4D763F212991300089F728 /* WMDeviceStoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D763E212991300089F728 /* WMDeviceStoreView.m */; };
+		9C4D7642212993070089F728 /* WMDeviceStoreItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D7641212993070089F728 /* WMDeviceStoreItem.m */; };
 		9C4FBE4E20EA152D00D36D8D /* WMHTTPResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4FBE4A20EA152D00D36D8D /* WMHTTPResult.m */; };
 		9C4FBE4F20EA152D00D36D8D /* WMHTTPUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4FBE4B20EA152D00D36D8D /* WMHTTPUtility.m */; };
 		9C544543212008CE00EF7DC3 /* WMDeviceSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C544542212008CE00EF7DC3 /* WMDeviceSearchViewController.m */; };
@@ -412,6 +414,10 @@
 		9C4D763821292D740089F728 /* WMDeviceTimerEditViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceTimerEditViewController.m; sourceTree = "<group>"; };
 		9C4D763A212967730089F728 /* WMDeviceRepetitionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceRepetitionViewController.h; sourceTree = "<group>"; };
 		9C4D763B212967730089F728 /* WMDeviceRepetitionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceRepetitionViewController.m; sourceTree = "<group>"; };
+		9C4D763D212991300089F728 /* WMDeviceStoreView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceStoreView.h; sourceTree = "<group>"; };
+		9C4D763E212991300089F728 /* WMDeviceStoreView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceStoreView.m; sourceTree = "<group>"; };
+		9C4D7640212993070089F728 /* WMDeviceStoreItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceStoreItem.h; sourceTree = "<group>"; };
+		9C4D7641212993070089F728 /* WMDeviceStoreItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceStoreItem.m; sourceTree = "<group>"; };
 		9C4FBE4720EA142800D36D8D /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = MiWei/Frameworks/AFNetworking.framework; sourceTree = "<group>"; };
 		9C4FBE4A20EA152D00D36D8D /* WMHTTPResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMHTTPResult.m; sourceTree = "<group>"; };
 		9C4FBE4B20EA152D00D36D8D /* WMHTTPUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMHTTPUtility.m; sourceTree = "<group>"; };
@@ -1040,6 +1046,10 @@
 				9C206F6F2116EBEC00672206 /* WMDeviceConfigCell.m */,
 				9C4D762E212817F30089F728 /* WMDeviceTimerCell.h */,
 				9C4D762F212817F30089F728 /* WMDeviceTimerCell.m */,
+				9C4D763D212991300089F728 /* WMDeviceStoreView.h */,
+				9C4D763E212991300089F728 /* WMDeviceStoreView.m */,
+				9C4D7640212993070089F728 /* WMDeviceStoreItem.h */,
+				9C4D7641212993070089F728 /* WMDeviceStoreItem.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1481,6 +1491,8 @@
 				2708B8BE2084F85500A760E7 /* PYForceSeries.m in Sources */,
 				2708B8D32084F85500A760E7 /* PYGrid.m in Sources */,
 				271A9CEF2081B31A0028D20D /* WMQRCode.m in Sources */,
+				9C4D7642212993070089F728 /* WMDeviceStoreItem.m in Sources */,
+				9C4D763F212991300089F728 /* WMDeviceStoreView.m in Sources */,
 				9C5EDCEF211076EC0085ADEE /* UIImageView+WebCache.m in Sources */,
 				271A9CD32081A71A0028D20D /* WMPayRecordCell.m in Sources */,
 				9C4D7630212817F30089F728 /* WMDeviceTimerCell.m in Sources */,

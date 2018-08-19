@@ -10,6 +10,7 @@
 #import "WMUIUtility.h"
 #import "WMCommonDefine.h"
 #import "WMStrainerAlarmMessage.h"
+#import "WMDeviceUtility.h"
 
 #define Alarm_X             140
 #define Alarm_Y             80
@@ -58,28 +59,19 @@
     self.titleLabel.text = @"滤网报警提醒";
     if (message.strainerStatus[0]) {
         self.firstNameLabel.text = message.strainerStatus[0].name;
-        self.firstTimeLabel.text = [self timeStringFromSecond:message.strainerStatus[0].reaminingTime];
+        self.firstTimeLabel.text = [WMDeviceUtility timeStringFromSecond:message.strainerStatus[0].reaminingTime];
     }
     if (message.strainerStatus[1]) {
-        self.secondLabel.text = [NSString stringWithFormat:@"%@: %@", message.strainerStatus[1].name, [self timeStringFromSecond:message.strainerStatus[1].reaminingTime]];
+        self.secondLabel.text = [NSString stringWithFormat:@"%@: %@", message.strainerStatus[1].name, [WMDeviceUtility timeStringFromSecond:message.strainerStatus[1].reaminingTime]];
     }
     if (message.strainerStatus[2]) {
-        self.thirdLabel.text = [NSString stringWithFormat:@"%@: %@", message.strainerStatus[2].name, [self timeStringFromSecond:message.strainerStatus[2].reaminingTime]];
+        self.thirdLabel.text = [NSString stringWithFormat:@"%@: %@", message.strainerStatus[2].name, [WMDeviceUtility timeStringFromSecond:message.strainerStatus[2].reaminingTime]];
     }
     self.footerView.label.text = [self timeStringWithTimestamp:message.time];
 }
 
 + (CGFloat)cellHeight {
     return [WMUIUtility WMCGFloatForY:269];
-}
-
-#pragma mark - Private methods
-- (NSString *)timeStringFromSecond:(NSNumber *)time {
-    int timeInt = [time intValue];
-    int hour = timeInt / 3600;
-    int minute = (timeInt % 3600) / 60;
-    int second = timeInt % 60;
-    return [NSString stringWithFormat:@"%02d:%02d:%02d", hour, minute, second];
 }
 
 #pragma mark - Getters & setters
