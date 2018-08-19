@@ -21,8 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"选择风速档位";
-    self.navigationItem.rightBarButtonItem.title = @"确定";
-//    [self setRightNavBar];
+    [self setRightNavBar];
     [self.view addSubview:self.tableView];
 }
 
@@ -33,19 +32,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
-    if (indexPath.row == 0) {
-        cell.textLabel.text = @"自动";
-    } else if (indexPath.row == 1) {
-        cell.textLabel.text = @"静音";
-    } else if (indexPath.row == 2) {
-        cell.textLabel.text = @"舒适";
-    } else if (indexPath.row == 3) {
-        cell.textLabel.text = @"标准";
-    } else if (indexPath.row == 4) {
-        cell.textLabel.text = @"强力";
-    } else if (indexPath.row == 5) {
-        cell.textLabel.text = @"飓风";
-    }
+    cell.textLabel.text = [WMDeviceUtility descriptionOfAirSpeed:indexPath.row];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (self.speed == indexPath.row) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -73,20 +60,27 @@
     if (selectIndex.row == self.speed) {
         [self.navigationController popViewControllerAnimated:YES];
     } else {
-        [dic setObject:self.deviceId forKey:@"deviceID"];
-        [dic setObject:@(selectIndex.row) forKey:@"airSpeed"];
-        self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [WMDeviceUtility setDevice:dic response:^(WMHTTPResult *result) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.hud hideAnimated:YES];
-                if (result.success) {
-                    [self.navigationController popViewControllerAnimated:YES];
-                } else {
-                    NSLog(@"设置失败, result is %@", result);
-                    [WMUIUtility showAlertWithMessage:@"设置失败" viewController:self];
-                }
-            });
-        }];
+        if (self.mode == WMDeviceAirSpeedSettingModeDirectReturn) {
+            [dic setObject:self.deviceId forKey:@"deviceID"];
+            [dic setObject:@(selectIndex.row) forKey:@"airSpeed"];
+            self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            [WMDeviceUtility setDevice:dic response:^(WMHTTPResult *result) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.hud hideAnimated:YES];
+                    if (result.success) {
+                        [self.navigationController popViewControllerAnimated:YES];
+                    } else {
+                        NSLog(@"设置失败, result is %@", result);
+                        [WMUIUtility showAlertWithMessage:@"设置失败" viewController:self];
+                    }
+                });
+            }];
+        } else if (self.mode == WMDeviceAirSpeedSettingModeDelegate) {
+            if ([self.delegage respondsToSelector:@selector(onAirSpeedConfirm:)]) {
+                [self.delegage onAirSpeedConfirm:selectIndex.row];
+            }
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
 }
 
@@ -94,7 +88,7 @@
 - (void)setRightNavBar {
     UIButton *btn = [[UIButton alloc] initWithFrame:WM_CGRectMake(0, 0, 80, 30)];
     [btn setTitle:@"确定" forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [btn setTitleColor:[WMUIUtility color:@"0x6a6a6a"] forState:UIControlStateNormal];
     btn.titleLabel.textAlignment = NSTextAlignmentRight;
     [btn addTarget:self action:@selector(onConfirm) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];

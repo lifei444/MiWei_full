@@ -83,10 +83,12 @@
     [self.scrollView addSubview:self.rankView];
     [self.scrollView addSubview:self.switchContainerView];
     [self.scrollView addSubview:self.dataView];
-    
-    [self loadDeviceDetail];
-    
     self.scrollView.contentSize = WM_CGSizeMake(Screen_Width, Scroll_Height);
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self loadDeviceDetail];
 }
 
 #pragma mark - Private

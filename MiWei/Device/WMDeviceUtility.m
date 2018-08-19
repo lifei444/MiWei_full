@@ -88,4 +88,74 @@
                                 }];
 }
 
++ (NSString *)descriptionOfAirSpeed:(WMAirSpeed)airSpeed {
+    NSString *str = @"";
+    if (airSpeed == WMAirSpeedAuto) {
+        str = @"自动";
+    } else if (airSpeed == WMAirSpeedSilent) {
+        str = @"静音";
+    } else if (airSpeed == WMAirSpeedComfort) {
+        str = @"舒适";
+    } else if (airSpeed == WMAirSpeedStandard) {
+        str = @"标准";
+    } else if (airSpeed == WMAirSpeedStrong) {
+        str = @"强力";
+    } else if (airSpeed == WMAirSpeedHurricane) {
+        str = @"飓风";
+    }
+    return str;
+}
+
++ (NSString *)descriptionOfVentilation:(WMVentilationMode)mode {
+    NSString *str = @"";
+    if (mode == WMVentilationModeLow) {
+        str = @"低效";
+    } else if (mode == WMVentilationModeOff) {
+        str = @"关闭";
+    } else if (mode == WMVentilationModeHigh) {
+        str = @"高效";
+    }
+    return str;
+}
+
++ (NSString *)generateWeekDayString:(NSNumber *)value {
+    NSString *repeatString = @"";
+    int repeatValue = [value intValue];
+    if (repeatValue == 0) {
+        repeatString = @"永不";
+    } else if ((repeatValue & 0x7f) == 0x7f) {
+        repeatString = @"每天";
+    } else {
+        int bit = 0x01;
+        NSArray *weekDay = @[@"周一", @"周二", @"周三", @"周四", @"周五", @"周六", @"周日"];
+        for (int i = 0; i < 7; i++) {
+            if ((bit & repeatValue) != 0) {
+                repeatString = [repeatString stringByAppendingString:[NSString stringWithFormat:@"%@ ", weekDay[i]]];
+            }
+            bit = 0x01 << (i + 1);
+        }
+        repeatString = [repeatString substringToIndex:(repeatString.length-1)];
+    }
+    return repeatString;
+}
+
++ (NSArray<NSNumber *> *)generateWeekDayArray:(NSNumber *)value {
+    NSMutableArray *temp = [[NSMutableArray alloc] init];
+    int repeatValue = [value intValue];
+    if (repeatValue == 0) {
+    } else if ((repeatValue & 0x7f) == 0x7f) {
+        for (int i = 0; i < 7; i++) {
+            [temp addObject:@(i)];
+        }
+    } else {
+        int bit = 0x01;
+        for (int i = 0; i < 7; i++) {
+            if ((bit & repeatValue) != 0) {
+                [temp addObject:@(i)];
+            }
+            bit = 0x01 << (i + 1);
+        }
+    }
+    return temp;
+}
 @end

@@ -115,6 +115,8 @@
 		9C4D762A212811B40089F728 /* WMDeviceTimeSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D7629212811B40089F728 /* WMDeviceTimeSetting.m */; };
 		9C4D762D212812790089F728 /* WMDeviceTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D762C212812790089F728 /* WMDeviceTimer.m */; };
 		9C4D7630212817F30089F728 /* WMDeviceTimerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D762F212817F30089F728 /* WMDeviceTimerCell.m */; };
+		9C4D763921292D740089F728 /* WMDeviceTimerEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D763821292D740089F728 /* WMDeviceTimerEditViewController.m */; };
+		9C4D763C212967730089F728 /* WMDeviceRepetitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D763B212967730089F728 /* WMDeviceRepetitionViewController.m */; };
 		9C4FBE4E20EA152D00D36D8D /* WMHTTPResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4FBE4A20EA152D00D36D8D /* WMHTTPResult.m */; };
 		9C4FBE4F20EA152D00D36D8D /* WMHTTPUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4FBE4B20EA152D00D36D8D /* WMHTTPUtility.m */; };
 		9C544543212008CE00EF7DC3 /* WMDeviceSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C544542212008CE00EF7DC3 /* WMDeviceSearchViewController.m */; };
@@ -406,6 +408,10 @@
 		9C4D762C212812790089F728 /* WMDeviceTimer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceTimer.m; sourceTree = "<group>"; };
 		9C4D762E212817F30089F728 /* WMDeviceTimerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceTimerCell.h; sourceTree = "<group>"; };
 		9C4D762F212817F30089F728 /* WMDeviceTimerCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceTimerCell.m; sourceTree = "<group>"; };
+		9C4D763721292D740089F728 /* WMDeviceTimerEditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceTimerEditViewController.h; sourceTree = "<group>"; };
+		9C4D763821292D740089F728 /* WMDeviceTimerEditViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceTimerEditViewController.m; sourceTree = "<group>"; };
+		9C4D763A212967730089F728 /* WMDeviceRepetitionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceRepetitionViewController.h; sourceTree = "<group>"; };
+		9C4D763B212967730089F728 /* WMDeviceRepetitionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceRepetitionViewController.m; sourceTree = "<group>"; };
 		9C4FBE4720EA142800D36D8D /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = MiWei/Frameworks/AFNetworking.framework; sourceTree = "<group>"; };
 		9C4FBE4A20EA152D00D36D8D /* WMHTTPResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMHTTPResult.m; sourceTree = "<group>"; };
 		9C4FBE4B20EA152D00D36D8D /* WMHTTPUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMHTTPUtility.m; sourceTree = "<group>"; };
@@ -977,6 +983,10 @@
 				9C5445AB2121A23A00EF7DC3 /* WMDeviceAirSpeedSettingViewController.m */,
 				9C5445AD2122818E00EF7DC3 /* WMDeviceTimeSettingViewController.h */,
 				9C5445AE2122818E00EF7DC3 /* WMDeviceTimeSettingViewController.m */,
+				9C4D763721292D740089F728 /* WMDeviceTimerEditViewController.h */,
+				9C4D763821292D740089F728 /* WMDeviceTimerEditViewController.m */,
+				9C4D763A212967730089F728 /* WMDeviceRepetitionViewController.h */,
+				9C4D763B212967730089F728 /* WMDeviceRepetitionViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1372,6 +1382,7 @@
 				274A5542208E36A5004FC461 /* WMFeedbackViewController.m in Sources */,
 				2708B8E32084F85500A760E7 /* PYToolboxFeature.m in Sources */,
 				2708B8D72084F85500A760E7 /* PYLinks.m in Sources */,
+				9C4D763C212967730089F728 /* WMDeviceRepetitionViewController.m in Sources */,
 				9C5EDCBF2110767F0085ADEE /* RCEActiveWheel.m in Sources */,
 				9C8C82EA211C5C8200D9F9F1 /* WMStrainerStatus.m in Sources */,
 				9C5EDCB3210EC2C90085ADEE /* WMRentDeviceDetailViewController.m in Sources */,
@@ -1489,6 +1500,7 @@
 				2729691C208A2DCB00391D63 /* WMDeviceAddViewController.m in Sources */,
 				271A9CD02081A6510028D20D /* WMPayRecordViewController.m in Sources */,
 				2702A300207E5A3400FE7577 /* WMForgetPassViewController.m in Sources */,
+				9C4D763921292D740089F728 /* WMDeviceTimerEditViewController.m in Sources */,
 				271A9CD62081AA5E0028D20D /* WMDeviceConfigViewController.m in Sources */,
 				9C5EDCEA211076EC0085ADEE /* SDWebImageCompat.m in Sources */,
 				271A9CE02081AE520028D20D /* WMScanView.m in Sources */,

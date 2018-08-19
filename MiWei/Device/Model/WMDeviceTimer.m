@@ -20,6 +20,7 @@
     timer.repetition = dic[@"repetition"];
     timer.startTime = dic[@"startTime"];
     timer.ventilationMode = [dic[@"ventilationMode"] longValue];
+    
     return timer;
 }
 @end

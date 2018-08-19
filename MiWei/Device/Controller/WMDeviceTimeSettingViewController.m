@@ -13,6 +13,7 @@
 #import "WMDeviceTimeSetting.h"
 #import "WMDeviceTimerCell.h"
 #import "MBProgressHUD.h"
+#import "WMDeviceTimerEditViewController.h"
 
 NSString *const timerCellIdentifier = @"timerCell";
 
@@ -46,11 +47,13 @@ NSString *const timerCellIdentifier = @"timerCell";
         [editButton setTitle:@"完成" forState:UIControlStateNormal];
         [self.tableView setEditing:YES animated:YES];
     }
-
 }
 
 - (void)add {
-    
+    WMDeviceTimerEditViewController *vc = [[WMDeviceTimerEditViewController alloc] init];
+    vc.mode = WMDeviceTimerEditVCModeAdd;
+    vc.deviceId = self.deviceId;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)onSwitch:(id)sender {
@@ -123,6 +126,42 @@ NSString *const timerCellIdentifier = @"timerCell";
     return [WMUIUtility WMCGFloatForY:50];
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView.editing) {
+        WMDeviceTimerEditViewController *vc = [[WMDeviceTimerEditViewController alloc] init];
+        vc.timer = self.setting.timers[indexPath.row];
+        vc.mode = WMDeviceTimerEditVCModeEdit;
+        vc.deviceId = self.deviceId;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return @"删除";
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSNumber *timerId = self.setting.timers[indexPath.row].timerId;
+        NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:timerId, @"id", nil];
+        self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodPost
+                                   URLString:@"mobile/timing/delete"
+                                  parameters:dic
+                                    response:^(WMHTTPResult *result) {
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            [self.hud hideAnimated:YES];
+                                            if (result.success) {
+                                                [self loadData];
+                                                [WMUIUtility showAlertWithMessage:@"删除成功" viewController:self];
+                                            } else {
+                                                [WMUIUtility showAlertWithMessage:@"删除失败" viewController:self];
+                                            }
+                                        });
+                                    }];
+    }
+}
+
 #pragma mark - Private methods
 - (void)setRightNavBar {
     UIView *view = [[UIView alloc] initWithFrame:WM_CGRectMake(0, 0, 80, 30)];
@@ -161,6 +200,7 @@ NSString *const timerCellIdentifier = @"timerCell";
         _tableView  = [[UITableView alloc] initWithFrame:WM_CGRectMake(0, 0, Screen_Width, Screen_Height) style:UITableViewStyleGrouped];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.allowsSelectionDuringEditing = YES;
         [_tableView registerClass:[WMDeviceTimerCell class] forCellReuseIdentifier:timerCellIdentifier];
     }
     return _tableView;

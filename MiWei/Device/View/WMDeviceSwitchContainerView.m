@@ -180,6 +180,7 @@
             WMDeviceVentilationSettingViewController *vc = [[WMDeviceVentilationSettingViewController alloc] init];
             vc.mode = self.deviceDetail.ventilationMode;
             vc.deviceId = self.deviceDetail.deviceId;
+            vc.vcMode = WMDeviceVentilationSettingModeDirectReturn;
             [self.vc.navigationController pushViewController:vc animated:YES];
             break;
         }
@@ -212,6 +213,7 @@
             WMDeviceAirSpeedSettingViewController *vc = [[WMDeviceAirSpeedSettingViewController alloc] init];
             vc.speed = self.deviceDetail.airSpeed;
             vc.deviceId = self.deviceDetail.deviceId;
+            vc.mode = WMDeviceAirSpeedSettingModeDirectReturn;
             [self.vc.navigationController pushViewController:vc animated:YES];
             break;
         }

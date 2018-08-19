@@ -33,13 +33,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
-    if (indexPath.row == 0) {
-        cell.textLabel.text = @"初效";
-    } else if (indexPath.row == 1) {
-        cell.textLabel.text = @"关闭";
-    } else if (indexPath.row == 2) {
-        cell.textLabel.text = @"高效";
-    }
+    cell.textLabel.text = [WMDeviceUtility descriptionOfVentilation:indexPath.row];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (self.mode == indexPath.row) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -67,20 +61,27 @@
     if (selectIndex.row == self.mode) {
         [self.navigationController popViewControllerAnimated:YES];
     } else {
-        [dic setObject:self.deviceId forKey:@"deviceID"];
-        [dic setObject:@(selectIndex.row) forKey:@"ventilationMode"];
-        self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [WMDeviceUtility setDevice:dic response:^(WMHTTPResult *result) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.hud hideAnimated:YES];
-                if (result.success) {
-                    [self.navigationController popViewControllerAnimated:YES];
-                } else {
-                    NSLog(@"设置失败, result is %@", result);
-                    [WMUIUtility showAlertWithMessage:@"设置失败" viewController:self];
-                }
-            });
-        }];
+        if (self.vcMode == WMDeviceVentilationSettingModeDirectReturn) {
+            [dic setObject:self.deviceId forKey:@"deviceID"];
+            [dic setObject:@(selectIndex.row) forKey:@"ventilationMode"];
+            self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            [WMDeviceUtility setDevice:dic response:^(WMHTTPResult *result) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.hud hideAnimated:YES];
+                    if (result.success) {
+                        [self.navigationController popViewControllerAnimated:YES];
+                    } else {
+                        NSLog(@"设置失败, result is %@", result);
+                        [WMUIUtility showAlertWithMessage:@"设置失败" viewController:self];
+                    }
+                });
+            }];
+        } else if (self.vcMode == WMDeviceVentilationSettingModeDelegate) {
+            if ([self.delegate respondsToSelector:@selector(onVentilationConfirm:)]) {
+                [self.delegate onVentilationConfirm:selectIndex.row];
+            }
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
 }
 
@@ -88,7 +89,7 @@
 - (void)setRightNavBar {
     UIButton *btn = [[UIButton alloc] initWithFrame:WM_CGRectMake(0, 0, 80, 30)];
     [btn setTitle:@"确定" forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [btn setTitleColor:[WMUIUtility color:@"0x6a6a6a"] forState:UIControlStateNormal];
     btn.titleLabel.textAlignment = NSTextAlignmentRight;
     [btn addTarget:self action:@selector(onConfirm) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];

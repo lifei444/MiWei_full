@@ -11,6 +11,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "WMHTTPUtility.h"
 
+
 @interface WMDeviceUtility : NSObject
 
 + (void)addDevice:(WMDevice *)device
@@ -22,4 +23,12 @@
 
 + (void)setDevice:(NSDictionary *)dic
          response:(void (^)(WMHTTPResult *result))responseBlock;
+
++ (NSString *)descriptionOfAirSpeed:(WMAirSpeed)airSpeed;
+
++ (NSString *)descriptionOfVentilation:(WMVentilationMode)mode;
+
++ (NSString *)generateWeekDayString:(NSNumber *)value;
+
++ (NSArray <NSNumber *> *)generateWeekDayArray:(NSNumber *)value;
 @end

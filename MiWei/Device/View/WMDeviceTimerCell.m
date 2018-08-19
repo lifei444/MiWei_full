@@ -11,6 +11,7 @@
 #import "WMUIUtility.h"
 #import "MBProgressHUD.h"
 #import "WMHTTPUtility.h"
+#import "WMDeviceUtility.h"
 
 #define Time_X          10
 #define Time_Y          11
@@ -37,7 +38,6 @@
 @property (nonatomic, strong) UILabel *repeatLabel;
 @property (nonatomic, strong) UILabel *detailLabel;
 @property (nonatomic, strong) UISwitch *switchView;
-@property (nonatomic, strong) NSMutableArray<NSNumber *> *repeatDays;
 @property (nonatomic, strong) MBProgressHUD *hud;
 @property (nonatomic, strong) WMDeviceTimer *timer;
 @end
@@ -70,11 +70,11 @@
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
     [super setEditing:editing animated:animated];
     if (editing) {
-        self.switchView.hidden = YES;
         self.selectionStyle = UITableViewCellSelectionStyleGray;
+        self.switchView.hidden = YES;
     } else {
-        self.switchView.hidden = NO;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.switchView.hidden = NO;
     }
 }
 
@@ -125,26 +125,7 @@
 }
 
 - (void)refreshRepeatLabel:(WMDeviceTimer *)timer {
-    NSString *repeatString = @"(";
-    int repeatValue = [timer.repetition intValue];
-    if (repeatValue == 0) {
-        repeatString = @"(永不)";
-    } else if ((repeatValue & 0x7f) == 0x7f) {
-        repeatString = @"(每天)";
-    } else {
-        int bit = 0x01;
-        NSArray *weekDay = @[@"周一", @"周二", @"周三", @"周四", @"周五", @"周六", @"周日"];
-        for (int i = 0; i < 7; i++) {
-            if ((bit & repeatValue) != 0) {
-                repeatString = [repeatString stringByAppendingString:[NSString stringWithFormat:@"%@ ", weekDay[i]]];
-                [self.repeatDays addObject:@(i)];
-            }
-            bit = 0x01 << (i + 1);
-        }
-        repeatString = [repeatString substringToIndex:(repeatString.length-1)];
-        repeatString = [repeatString stringByAppendingString:@")"];
-    }
-    self.repeatLabel.text = repeatString;
+    self.repeatLabel.text = [NSString stringWithFormat:@"(%@)", [WMDeviceUtility generateWeekDayString:timer.repetition]];
 }
 
 - (void)refreshDetailLabel:(WMDeviceTimer *)timer {
@@ -243,12 +224,5 @@
         [_switchView addTarget:self action:@selector(onSwitch) forControlEvents:UIControlEventValueChanged];
     }
     return _switchView;
-}
-
-- (NSMutableArray<NSNumber *> *)repeatDays {
-    if (!_repeatDays) {
-        _repeatDays = [[NSMutableArray alloc] init];
-    }
-    return _repeatDays;
 }
 @end

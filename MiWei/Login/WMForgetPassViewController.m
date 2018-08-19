@@ -12,7 +12,7 @@
 #import "WMCommonDefine.h"
 #import "WMUIUtility.h"
 
-#define WaitSeconds 3
+#define WaitSeconds     90
 
 #define ViewX           0
 #define ViewWidth       Screen_Width
