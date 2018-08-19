@@ -45,10 +45,11 @@
 @implementation WMDeviceTimerCell
 #pragma mark - Life cycle
 - (void)loadSubViews {
-    [self addSubview:self.timeLabel];
-    [self addSubview:self.repeatLabel];
-    [self addSubview:self.detailLabel];
-    [self addSubview:self.switchView];
+    self.editingAccessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    [self.contentView addSubview:self.timeLabel];
+    [self.contentView addSubview:self.repeatLabel];
+    [self.contentView addSubview:self.detailLabel];
+    [self.contentView addSubview:self.switchView];
 }
 
 - (void)setDataModel:(id)model {
@@ -66,11 +67,23 @@
     return [WMUIUtility WMCGFloatForY:70];
 }
 
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    [super setEditing:editing animated:animated];
+    if (editing) {
+        self.switchView.hidden = YES;
+        self.selectionStyle = UITableViewCellSelectionStyleGray;
+    } else {
+        self.switchView.hidden = NO;
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+}
+
 #pragma mark - Target action
 - (void)onSwitch {
     [self refreshLabelColor:self.switchView.isOn];
     
     if (self.timer) {
+        self.timer.enable = self.switchView.isOn;
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
         [dic setObject:self.timer.timerId forKey:@"id"];
         [dic setObject:@(self.switchView.isOn) forKey:@"enable"];

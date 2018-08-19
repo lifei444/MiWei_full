@@ -13,7 +13,6 @@
 #import "WMDeviceTimeSetting.h"
 #import "WMDeviceTimerCell.h"
 #import "MBProgressHUD.h"
-#import "WMDeviceTimeSettingEditViewController.h"
 
 NSString *const timerCellIdentifier = @"timerCell";
 
@@ -38,10 +37,16 @@ NSString *const timerCellIdentifier = @"timerCell";
 }
 
 #pragma mark - Target action
-- (void)edit {
-    WMDeviceTimeSettingEditViewController *vc = [[WMDeviceTimeSettingEditViewController alloc] init];
-    vc.deviceId = self.deviceId;
-    [self.navigationController pushViewController:vc animated:NO];
+- (void)edit:(id)sender {
+    UIButton *editButton = sender;
+    if (self.tableView.isEditing) {
+        [editButton setTitle:@"编辑" forState:UIControlStateNormal];
+        [self.tableView setEditing:NO animated:YES];
+    } else {
+        [editButton setTitle:@"完成" forState:UIControlStateNormal];
+        [self.tableView setEditing:YES animated:YES];
+    }
+
 }
 
 - (void)add {
@@ -52,6 +57,7 @@ NSString *const timerCellIdentifier = @"timerCell";
     UISwitch *switchView = sender;
     
     if (self.setting) {
+        self.setting.enable = switchView.isOn;
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
         [dic setObject:self.deviceId forKey:@"deviceID"];
         [dic setObject:@(switchView.isOn) forKey:@"enable"];
@@ -97,8 +103,15 @@ NSString *const timerCellIdentifier = @"timerCell";
     WMDeviceTimerCell *cell = [tableView dequeueReusableCellWithIdentifier:timerCellIdentifier];
     cell.vc = self;
     [cell setDataModel:self.setting.timers[indexPath.row]];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleDelete;
 }
 
 #pragma mark - UITableViewDelegate
@@ -116,7 +129,7 @@ NSString *const timerCellIdentifier = @"timerCell";
     UIButton *editButton = [[UIButton alloc] initWithFrame:WM_CGRectMake(0, 0, 50, 30)];
     [editButton setTitle:@"编辑" forState:UIControlStateNormal];
     [editButton setTitleColor:[WMUIUtility color:@"0x6a6a6a"] forState:UIControlStateNormal];
-    [editButton addTarget:self action:@selector(edit) forControlEvents:UIControlEventTouchUpInside];
+    [editButton addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:editButton];
     UIButton *addButton = [[UIButton alloc] initWithFrame:WM_CGRectMake(50, 0, 30, 30)];
     [addButton setImage:[UIImage imageNamed:@"device_time_add"] forState:UIControlStateNormal];
