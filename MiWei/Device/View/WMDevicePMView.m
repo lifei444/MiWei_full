@@ -14,12 +14,18 @@
 #define Circle_Width            242
 #define Circle_Height           201
 
-#define InnerLabel_X            96
+#define InnerLabel_X            110
 #define InnerLabel_Y            94//70  //94
 #define InnerLabel_Height       16
 
 #define InnerPMValue_Y          61//40  //61
 #define InnerPMValue_Height     46
+
+#define Seperator_Y             118
+#define Seperator_Width         150
+#define Seperator_Height        2
+#define Seperator_X             ((Screen_Width - Seperator_Width) / 2)
+
 
 #define OutLabel_X              238
 #define OutLabel_Y              138//115  //138
@@ -39,6 +45,7 @@
         [self addSubview:self.circleImageView];
         [self addSubview:self.innerLabel];
         [self addSubview:self.innerPMValueLabel];
+        [self addSubview:self.seperatorView];
         [self addSubview:self.outLabel];
         [self addSubview:self.outPMVauleLabel];
         [self addSubview:self.pmLabel];
@@ -72,6 +79,14 @@
         _innerPMValueLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _innerPMValueLabel;
+}
+
+- (UIView *)seperatorView {
+    if (!_seperatorView) {
+        _seperatorView = [[UIView alloc] initWithFrame:WM_CGRectMake(Seperator_X, Seperator_Y, Seperator_Width, Seperator_Height)];
+        _seperatorView.backgroundColor = [WMUIUtility color:@"0xffffff"];
+    }
+    return _seperatorView;
 }
 
 - (UILabel *)outLabel {
