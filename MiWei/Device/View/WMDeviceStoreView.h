@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WMDeviceStoreItem.h"
 
 @interface WMDeviceStoreView : UIView
 @property (nonatomic, strong) UILabel *remainingTimeLabel;
+@property (nonatomic, strong) WMDeviceStoreItem *storeItem;
+@property (nonatomic, strong) WMDeviceStoreItem *payItem;
 @end

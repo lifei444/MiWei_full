@@ -119,6 +119,10 @@
 		9C4D763C212967730089F728 /* WMDeviceRepetitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D763B212967730089F728 /* WMDeviceRepetitionViewController.m */; };
 		9C4D763F212991300089F728 /* WMDeviceStoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D763E212991300089F728 /* WMDeviceStoreView.m */; };
 		9C4D7642212993070089F728 /* WMDeviceStoreItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D7641212993070089F728 /* WMDeviceStoreItem.m */; };
+		9C4D76452129B9900089F728 /* WMDevicePayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D76442129B9900089F728 /* WMDevicePayViewController.m */; };
+		9C4D76482129BA1F0089F728 /* WMDevicePayBGView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D76472129BA1F0089F728 /* WMDevicePayBGView.m */; };
+		9C4D764B2129C5200089F728 /* WMDeviceRentInfoForPay.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D764A2129C5200089F728 /* WMDeviceRentInfoForPay.m */; };
+		9C4D764E2129C7520089F728 /* WMDeviceRentPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D764D2129C7520089F728 /* WMDeviceRentPrice.m */; };
 		9C4FBE4E20EA152D00D36D8D /* WMHTTPResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4FBE4A20EA152D00D36D8D /* WMHTTPResult.m */; };
 		9C4FBE4F20EA152D00D36D8D /* WMHTTPUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4FBE4B20EA152D00D36D8D /* WMHTTPUtility.m */; };
 		9C544543212008CE00EF7DC3 /* WMDeviceSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C544542212008CE00EF7DC3 /* WMDeviceSearchViewController.m */; };
@@ -418,6 +422,14 @@
 		9C4D763E212991300089F728 /* WMDeviceStoreView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceStoreView.m; sourceTree = "<group>"; };
 		9C4D7640212993070089F728 /* WMDeviceStoreItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceStoreItem.h; sourceTree = "<group>"; };
 		9C4D7641212993070089F728 /* WMDeviceStoreItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceStoreItem.m; sourceTree = "<group>"; };
+		9C4D76432129B9900089F728 /* WMDevicePayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDevicePayViewController.h; sourceTree = "<group>"; };
+		9C4D76442129B9900089F728 /* WMDevicePayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDevicePayViewController.m; sourceTree = "<group>"; };
+		9C4D76462129BA1F0089F728 /* WMDevicePayBGView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDevicePayBGView.h; sourceTree = "<group>"; };
+		9C4D76472129BA1F0089F728 /* WMDevicePayBGView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDevicePayBGView.m; sourceTree = "<group>"; };
+		9C4D76492129C5200089F728 /* WMDeviceRentInfoForPay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceRentInfoForPay.h; sourceTree = "<group>"; };
+		9C4D764A2129C5200089F728 /* WMDeviceRentInfoForPay.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceRentInfoForPay.m; sourceTree = "<group>"; };
+		9C4D764C2129C7520089F728 /* WMDeviceRentPrice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceRentPrice.h; sourceTree = "<group>"; };
+		9C4D764D2129C7520089F728 /* WMDeviceRentPrice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceRentPrice.m; sourceTree = "<group>"; };
 		9C4FBE4720EA142800D36D8D /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = MiWei/Frameworks/AFNetworking.framework; sourceTree = "<group>"; };
 		9C4FBE4A20EA152D00D36D8D /* WMHTTPResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMHTTPResult.m; sourceTree = "<group>"; };
 		9C4FBE4B20EA152D00D36D8D /* WMHTTPUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMHTTPUtility.m; sourceTree = "<group>"; };
@@ -993,6 +1005,8 @@
 				9C4D763821292D740089F728 /* WMDeviceTimerEditViewController.m */,
 				9C4D763A212967730089F728 /* WMDeviceRepetitionViewController.h */,
 				9C4D763B212967730089F728 /* WMDeviceRepetitionViewController.m */,
+				9C4D76432129B9900089F728 /* WMDevicePayViewController.h */,
+				9C4D76442129B9900089F728 /* WMDevicePayViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1015,6 +1029,10 @@
 				9C4D7629212811B40089F728 /* WMDeviceTimeSetting.m */,
 				9C4D762B212812790089F728 /* WMDeviceTimer.h */,
 				9C4D762C212812790089F728 /* WMDeviceTimer.m */,
+				9C4D76492129C5200089F728 /* WMDeviceRentInfoForPay.h */,
+				9C4D764A2129C5200089F728 /* WMDeviceRentInfoForPay.m */,
+				9C4D764C2129C7520089F728 /* WMDeviceRentPrice.h */,
+				9C4D764D2129C7520089F728 /* WMDeviceRentPrice.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1050,6 +1068,8 @@
 				9C4D763E212991300089F728 /* WMDeviceStoreView.m */,
 				9C4D7640212993070089F728 /* WMDeviceStoreItem.h */,
 				9C4D7641212993070089F728 /* WMDeviceStoreItem.m */,
+				9C4D76462129BA1F0089F728 /* WMDevicePayBGView.h */,
+				9C4D76472129BA1F0089F728 /* WMDevicePayBGView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1466,6 +1486,7 @@
 				9CB8063C20FC9E47001A5C5E /* WMDeviceModel.m in Sources */,
 				9C5EDCEE211076EC0085ADEE /* NSData+ImageContentType.m in Sources */,
 				9C8C82EB211C5C8200D9F9F1 /* WMMessage.m in Sources */,
+				9C4D764B2129C5200089F728 /* WMDeviceRentInfoForPay.m in Sources */,
 				9C5445B921241F7100EF7DC3 /* WMPayment.m in Sources */,
 				2708B8D92084F85500A760E7 /* PYTitle.m in Sources */,
 				9C4D762A212811B40089F728 /* WMDeviceTimeSetting.m in Sources */,
@@ -1483,6 +1504,7 @@
 				9C206F902118062000672206 /* WMDevShareNotiMessageCell.m in Sources */,
 				9C8C8304211EF3D000D9F9F1 /* WMDeviceUtility.m in Sources */,
 				27A7D231207D0D4D006C6AF6 /* WMMeHeaderView.m in Sources */,
+				9C4D76452129B9900089F728 /* WMDevicePayViewController.m in Sources */,
 				27A7D1FA207D04FD006C6AF6 /* WMRegisterViewController.m in Sources */,
 				271A9CF42081B6A10028D20D /* WMScanInputViewController.m in Sources */,
 				2708B8D12084F85500A760E7 /* PYRoamController.m in Sources */,
@@ -1504,8 +1526,10 @@
 				9C4FBE4F20EA152D00D36D8D /* WMHTTPUtility.m in Sources */,
 				2708B8E72084F85500A760E7 /* PYLinkStyle.m in Sources */,
 				2708B8DB2084F85500A760E7 /* PYOption.m in Sources */,
+				9C4D76482129BA1F0089F728 /* WMDevicePayBGView.m in Sources */,
 				9C206F732117020200672206 /* WMMessageViewController.m in Sources */,
 				9C4D76272126D5930089F728 /* WMSearchBar.m in Sources */,
+				9C4D764E2129C7520089F728 /* WMDeviceRentPrice.m in Sources */,
 				271A9CC720819D190028D20D /* WMCityViewController.m in Sources */,
 				2708B8DE2084F85500A760E7 /* PYLineStyle.m in Sources */,
 				9C5EDCE4211076EC0085ADEE /* SDWebImageManager.m in Sources */,

@@ -51,4 +51,12 @@ typedef NS_ENUM(NSUInteger, WMAirSpeed) {
     WMAirSpeedHurricane = 5
 };
 
+typedef NS_ENUM(NSUInteger, WMRentStatus) {
+    //空闲
+    WMRentStatusIdle = 0,
+    //租赁中
+    WMRentStatusRent = 1,
+    //锁定中
+    WMRentStatusLocked = 2
+};
 #endif /* WMDeviceDefine_h */

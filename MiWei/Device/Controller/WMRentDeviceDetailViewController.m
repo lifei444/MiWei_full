@@ -18,6 +18,7 @@
 #import "WMCommonDefine.h"
 #import "WMHTTPUtility.h"
 #import "WMDeviceUtility.h"
+#import "WMDevicePayViewController.h"
 
 #define PM_Y                            25
 #define PM_Height                       201
@@ -91,6 +92,13 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self loadDeviceDetail];
+}
+
+#pragma mark - Target action
+- (void)tapPay {
+    WMDevicePayViewController *vc = [[WMDevicePayViewController alloc] init];
+    vc.deviceId = self.device.deviceId;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - Private
@@ -177,38 +185,33 @@
             [self.switchContainerView setModel:detail];
         } else {
             self.switchContainerView.hidden = YES;
-            [self layoutViewWithoutSwitchView:self.dataView];
+            CGRect rect = WM_CGRectMake(Table_X, Switch_Y, Table_Width, Data_Height);
+            self.dataView.frame = rect;
             CGSize size = self.scrollView.contentSize;
             size.height -= [WMUIUtility WMCGFloatForY:(Switch_Height + GapBetweenTables)];
             self.scrollView.contentSize = size;
         }
         
         //dataView
-        str = self.dataView.PMLabel.text;
+        str = @"PM2.5：";
         str = [str stringByAppendingFormat:@"%d", [detail.pm25 intValue]];
         self.dataView.PMLabel.text = str;
-        str = self.dataView.co2Label.text;
+        str = @"CO2：";
         str = [str stringByAppendingFormat:@"%0.2f", [detail.co2 floatValue]];
         self.dataView.co2Label.text = str;
-        str = self.dataView.ch2oLabel.text;
+        str = @"甲醛：";
         str = [str stringByAppendingFormat:@"%0.2f", [detail.ch2o floatValue]];
         self.dataView.ch2oLabel.text = str;
-        str = self.dataView.tvocLabel.text;
+        str = @"TVOC：";
         str = [str stringByAppendingFormat:@"%0.2f", [detail.tvoc floatValue]];
         self.dataView.tvocLabel.text = str;
-        str = self.dataView.tempLabel.text;
+        str = @"温度：";
         str = [str stringByAppendingFormat:@"%0.2f", [detail.temp floatValue]];
         self.dataView.tempLabel.text = str;
-        str = self.dataView.humidityLabel.text;
+        str = @"湿度：";
         str = [str stringByAppendingFormat:@"%0.2f", [detail.humidity floatValue]];
         self.dataView.humidityLabel.text = str;
     });
-}
-
-- (void)layoutViewWithoutSwitchView:(UIView *)view {
-    CGRect frame = view.frame;
-    frame.origin.y -= [WMUIUtility WMCGFloatForY:(Switch_Height + GapBetweenTables)];
-    view.frame = frame;
 }
 
 #pragma mark - Getters & setters
@@ -250,6 +253,8 @@
 - (WMDeviceStoreView *)storeView {
     if (!_storeView) {
         _storeView = [[WMDeviceStoreView alloc] initWithFrame:WM_CGRectMake(0, Store_Y, Screen_Width, Store_Height)];
+        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapPay)];
+        [_storeView.payItem addGestureRecognizer:tapRecognizer];
     }
     return _storeView;
 }

@@ -7,7 +7,6 @@
 //
 
 #import "WMDeviceStoreView.h"
-#import "WMDeviceStoreItem.h"
 #import "WMCommonDefine.h"
 #import "WMUIUtility.h"
 
@@ -15,11 +14,6 @@
 #define Item_Width      75
 #define Item_Height     28
 #define Pay_X           (Screen_Width - Store_X - Item_Width)
-
-@interface WMDeviceStoreView ()
-@property (nonatomic, strong) WMDeviceStoreItem *storeItem;
-@property (nonatomic, strong) WMDeviceStoreItem *payItem;
-@end
 
 @implementation WMDeviceStoreView
 #pragma mark - Life cycle
