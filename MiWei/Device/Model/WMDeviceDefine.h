@@ -59,4 +59,29 @@ typedef NS_ENUM(NSUInteger, WMRentStatus) {
     //锁定中
     WMRentStatusLocked = 2
 };
+
+typedef NS_ENUM(NSUInteger, WMOrderStatus) {
+    //已提交,等待支付
+    WMOrderStatusOrderSubmit = 0,
+    //支付成功,租赁中
+    WMOrderStatusRentSuccess = 1,
+    //支付超时,取消订单
+    WMOrderStatusPayTimeOut = 2,
+    //用户手动取消订单
+    WMOrderStatusUserCancel = 3,
+    //租赁结束,订单完成
+    WMOrderStatusOrderComplete = 4,
+    //系统取消订单
+    WMOrderStatusSystemCancel = 5,
+    //支付成功，等待租赁安排
+    WMOrderStatusPaySuccessWaitingForRent = 6,
+    //支付失败
+    WMOrderStatusPayFailed = 7,
+    //退款中
+    WMOrderStatusMoneyReturning = 8,
+    //退款成功
+    WMOrderStatusMoneyReturnSuccess = 9,
+    //退款失败
+    WMOrderStatusMoneyReturnFailed = 10
+};
 #endif /* WMDeviceDefine_h */

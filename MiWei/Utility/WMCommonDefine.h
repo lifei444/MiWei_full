@@ -10,6 +10,7 @@
 #define WMCommonDefine_h
 
 FOUNDATION_EXPORT NSString *const WMWechatAuthNotification;
+FOUNDATION_EXPORT NSString *const WMWechatPayNotification;
 
 //都以iPhone 6 为准
 //#define Screen_Bounds [UIScreen mainScreen].bounds

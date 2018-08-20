@@ -13,6 +13,8 @@
 #import "WMDeviceRentInfoForPay.h"
 #import "WMHTTPUtility.h"
 #import "WMDeviceRentPriceCell.h"
+#import "WMDevicePayResponse.h"
+#import <WXApi.h>
 
 #define Header_Height   360
 #define Footer_Height   50
@@ -33,11 +35,49 @@
     [self.view addSubview:self.tableView];
     self.navigationItem.title = @"支付";
     [self loadData];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onPayResp:)
+                                                 name:WMWechatPayNotification
+                                               object:nil];
 }
 
 #pragma mark - Target action
+- (void)onPayResp:(NSNotification *)notification {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        BOOL result = [notification.object boolValue];
+        if (result) {
+            [WMUIUtility showAlertWithMessage:@"支付成功" viewController:self];
+//            [self.navigationController popViewControllerAnimated:YES];
+        } else {
+            [WMUIUtility showAlertWithMessage:@"支付失败" viewController:self];
+        }
+    });
+}
+
 - (void)buy {
-    
+    NSIndexPath *index = [self.tableView indexPathForSelectedRow];
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:self.deviceId forKey:@"deviceID"];
+    [dic setObject:self.rentInfoForPay.rentPrices[index.row].priceId forKey:@"rentPriceID"];
+    [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodPost
+                               URLString:@"/mobile/wetchat/requestPay"
+                              parameters:dic
+                                response:^(WMHTTPResult *result) {
+                                    if (result.success) {
+                                        NSDictionary *content = result.content;
+                                        WMDevicePayResponse *resp = [WMDevicePayResponse payResponseWithDic:content];
+                                        PayReq *request = [[PayReq alloc] init];
+                                        request.partnerId = resp.partnerId;
+                                        request.prepayId = resp.prepayId;
+                                        request.package = @"Sign=WXPay";
+                                        request.nonceStr = resp.nonceStr;
+                                        request.timeStamp = [resp.timeStamp intValue];
+                                        request.sign = resp.sign;
+                                        [WXApi sendReq:request];
+                                    } else {
+                                        NSLog(@"/mobile/wetchat/requestPay error, result is %@", result);
+                                    }
+                                }];
 }
 
 #pragma mark - UITableViewDataSource

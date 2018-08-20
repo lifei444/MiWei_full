@@ -15,6 +15,7 @@
 //#import <UMPush/UMessage.h>
 
 NSString *const WMWechatAuthNotification = @"WMWechatAuthNotification";
+NSString *const WMWechatPayNotification = @"WMWechatPayNotification";
 
 @interface AppDelegate () <WXApiDelegate>
 @end
@@ -61,7 +62,22 @@ NSString *const WMWechatAuthNotification = @"WMWechatAuthNotification";
 
 - (void)onResp:(BaseResp *)resp {
     NSLog(@"onResp");
-    [[NSNotificationCenter defaultCenter] postNotificationName:WMWechatAuthNotification object:resp];
+    if ([resp isKindOfClass:[PayResp class]]) {
+        PayResp *response= (PayResp *)resp;
+        switch(response.errCode){
+            case WXSuccess:
+                //服务器端查询支付通知或查询API返回的结果再提示成功
+                NSLog(@"支付成功");
+                [[NSNotificationCenter defaultCenter] postNotificationName:WMWechatPayNotification object:@(YES)];
+                break;
+            default:
+                NSLog(@"支付失败，retcode=%d",resp.errCode);
+                [[NSNotificationCenter defaultCenter] postNotificationName:WMWechatPayNotification object:@(NO)];
+                break;
+        }
+    } else if ([resp isKindOfClass:[SendAuthResp class]]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:WMWechatAuthNotification object:resp];
+    }
 }
 
 @end
