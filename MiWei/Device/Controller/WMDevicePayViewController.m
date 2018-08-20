@@ -11,6 +11,8 @@
 #import "WMUIUtility.h"
 #import "WMCommonDefine.h"
 #import "WMDeviceRentInfoForPay.h"
+#import "WMHTTPUtility.h"
+#import "WMDeviceRentPriceCell.h"
 
 #define Header_Height   360
 #define Footer_Height   50
@@ -30,6 +32,7 @@
     [super viewDidLoad];
     [self.view addSubview:self.tableView];
     self.navigationItem.title = @"支付";
+    [self loadData];
 }
 
 #pragma mark - Target action
@@ -43,40 +46,19 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
-    //TODO
-//    cell.detailTextLabel.textAlignment = NSTextAlignmentLeft;
-//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//    switch (indexPath.row) {
-//        case 0:
-//            cell.textLabel.text = @"IMEI/MAC";
-//            cell.detailTextLabel.text = self.device.deviceId;
-//            break;
-//
-//        case 1:
-//            cell.textLabel.text = @"设备名称";
-//            cell.detailTextLabel.text = self.device.name;
-//            break;
-//
-//        case 2:
-//            cell.textLabel.text = @"设备类型";
-//            cell.detailTextLabel.text = self.device.prod.name;
-//            break;
-//
-//        case 3:
-//            cell.textLabel.text = @"设备型号";
-//            cell.detailTextLabel.text = self.device.model.name;
-//            break;
-//
-//        default:
-//            break;
-//    }
+    WMDeviceRentPriceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"rentPriceCell"];
+    [cell setDataModel:self.rentInfoForPay.rentPrices[indexPath.row]];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    if (indexPath.row == 0 && [tableView indexPathForSelectedRow] == nil) {
+        [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+        [cell refreshSelectState:YES];
+    }
     return cell;
 }
 
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [WMUIUtility WMCGFloatForY:Cell_Height];
+    return [WMDeviceRentPriceCell cellHeight];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -84,9 +66,19 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    WMDevicePayBGView *bgView = [[WMDevicePayBGView alloc] initWithFrame:WM_CGRectMake(0, 0, Screen_Width, Header_Height)];
-    self.bgView = bgView;
-    return bgView;
+    long long lastRentStartTime = [self.rentInfoForPay.rentStartTime longLongValue];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:lastRentStartTime/1000];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSUInteger unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
+    NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:date];
+    long year = [dateComponent year];
+    long month = [dateComponent month];
+    long day = [dateComponent day];
+    self.bgView.lastUseLabel.text = [NSString stringWithFormat:@"上次使用时间%ld年%02ld月%02ld日", year, month, day];
+    self.bgView.totalLabel.text = [NSString stringWithFormat:@"机器开启前PM2.5数值为%d毫克每立方，使用时间%d分钟，累计去除%d毫克PM2.5。", [self.rentInfoForPay.rentStartPM25 intValue], [self.rentInfoForPay.rentTime intValue], [self.rentInfoForPay.deconAmount intValue]];
+    self.bgView.pmView.innerPMValueLabel.text = [NSString stringWithFormat:@"%d", [self.rentInfoForPay.pm25 intValue]];
+    self.bgView.pmView.outPMVauleLabel.text = [NSString stringWithFormat:@"%d", [self.rentInfoForPay.outdoorPM25 intValue]];
+    return self.bgView;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -107,14 +99,50 @@
     return view;
 }
 
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSIndexPath *oldIndex = [tableView indexPathForSelectedRow];
+    WMDeviceRentPriceCell *oldCell = [tableView cellForRowAtIndexPath:oldIndex];
+    [oldCell refreshSelectState:NO];
+    WMDeviceRentPriceCell *newCell = [tableView cellForRowAtIndexPath:indexPath];
+    [newCell refreshSelectState:YES];
+    
+    return indexPath;
+}
+
+#pragma mark - Private method
+- (void)loadData {
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:self.deviceId, @"deviceID", nil];
+    [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodGet
+                               URLString:@"/mobile/device/queryRentDeviceInfo"
+                              parameters:dic
+                                response:^(WMHTTPResult *result) {
+                                    if (result.success) {
+                                        self.rentInfoForPay = [WMDeviceRentInfoForPay rentInfoForPayWithDic:result.content];
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            [self.tableView reloadData];
+                                        });
+                                    } else {
+                                        NSLog(@"queryRentDeviceInfo error, result is %@", result);
+                                    }
+                                }];
+}
+
 #pragma mark - Getters & setters
 - (UITableView *)tableView {
     if(!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        [_tableView registerClass:[WMDeviceRentPriceCell class] forCellReuseIdentifier:@"rentPriceCell"];
 //        _tableView.scrollEnabled = NO;
     }
     return _tableView;
+}
+
+- (WMDevicePayBGView *)bgView {
+    if (!_bgView) {
+        _bgView = [[WMDevicePayBGView alloc] initWithFrame:WM_CGRectMake(0, 0, Screen_Width, Header_Height)];
+    }
+    return _bgView;
 }
 @end

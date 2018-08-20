@@ -14,4 +14,6 @@
 @property (nonatomic, strong) NSNumber *price;
 //租赁时间，单位：分钟
 @property (nonatomic, strong) NSNumber *time;
+
++ (instancetype)rentPriceWithDic:(NSDictionary *)dic;
 @end

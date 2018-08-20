@@ -35,5 +35,5 @@
 @property (nonatomic, copy)   NSString *payText;
 @property (nonatomic, strong) NSArray <WMDeviceRentPrice *> *rentPrices;
 
-
++ (instancetype)rentInfoForPayWithDic:(NSDictionary *)dic;
 @end

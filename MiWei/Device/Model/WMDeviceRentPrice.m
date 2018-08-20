@@ -10,4 +10,11 @@
 
 @implementation WMDeviceRentPrice
 
++ (instancetype)rentPriceWithDic:(NSDictionary *)dic {
+    WMDeviceRentPrice *price = [[WMDeviceRentPrice alloc] init];
+    price.priceId = dic[@"id"];
+    price.price = dic[@"price"];
+    price.time = dic[@"time"];
+    return price;
+}
 @end
