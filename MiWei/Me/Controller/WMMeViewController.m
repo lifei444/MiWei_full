@@ -11,7 +11,7 @@
 #import "WMMeHeaderView.h"
 #import "WMPersonViewController.h"
 #import "WMMeAddressViewController.h"
-#import "WMFeedbackViewController.h"
+#import "WMFeedBackViewController.h"
 #import "WMCommonDefine.h"
 #import "WMAlertManageViewController.h"
 #import "WMUIUtility.h"
@@ -131,7 +131,7 @@
             WMAlertManageViewController *vc = [[WMAlertManageViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         } else if(indexPath.row == 3) {
-            WMFeedbackViewController *vc = [[WMFeedbackViewController alloc] init];
+            WMFeedBackViewController *vc = [[WMFeedBackViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
     } else if(indexPath.section == 1) {

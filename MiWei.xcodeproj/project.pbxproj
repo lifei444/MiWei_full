@@ -83,7 +83,7 @@
 		271A9CF02081B31A0028D20D /* WMQRCodeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 271A9CEC2081B31A0028D20D /* WMQRCodeGenerator.m */; };
 		271A9CF42081B6A10028D20D /* WMScanInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 271A9CF32081B6A10028D20D /* WMScanInputViewController.m */; };
 		2729691C208A2DCB00391D63 /* WMDeviceAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2729691B208A2DCB00391D63 /* WMDeviceAddViewController.m */; };
-		274A5542208E36A5004FC461 /* WMFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274A5541208E36A5004FC461 /* WMFeedbackViewController.m */; };
+		274A5542208E36A5004FC461 /* WMFeedBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274A5541208E36A5004FC461 /* WMFeedBackViewController.m */; };
 		2760C697207F8A20003CC126 /* WMUnderLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2760C696207F8A20003CC126 /* WMUnderLineView.m */; };
 		27A7D1F7207D04FD006C6AF6 /* WMMainTabbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A7D1EF207D04FD006C6AF6 /* WMMainTabbarViewController.m */; };
 		27A7D1F8207D04FD006C6AF6 /* WMNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A7D1F1207D04FD006C6AF6 /* WMNavigationViewController.m */; };
@@ -125,6 +125,8 @@
 		9C4D764E2129C7520089F728 /* WMDeviceRentPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D764D2129C7520089F728 /* WMDeviceRentPrice.m */; };
 		9C4D7658212AA29F0089F728 /* WMDeviceRentPriceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D7657212AA29F0089F728 /* WMDeviceRentPriceCell.m */; };
 		9C4D765B212AC9B50089F728 /* WMDevicePayResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D765A212AC9B50089F728 /* WMDevicePayResponse.m */; };
+		9C4D765E212BC0AC0089F728 /* WMFeedBackQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D765D212BC0AB0089F728 /* WMFeedBackQuestion.m */; };
+		9C4D7661212BF31F0089F728 /* WMFeedBackChooseQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D7660212BF31F0089F728 /* WMFeedBackChooseQuestionViewController.m */; };
 		9C4FBE4E20EA152D00D36D8D /* WMHTTPResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4FBE4A20EA152D00D36D8D /* WMHTTPResult.m */; };
 		9C4FBE4F20EA152D00D36D8D /* WMHTTPUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4FBE4B20EA152D00D36D8D /* WMHTTPUtility.m */; };
 		9C544543212008CE00EF7DC3 /* WMDeviceSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C544542212008CE00EF7DC3 /* WMDeviceSearchViewController.m */; };
@@ -355,8 +357,8 @@
 		2729691A208A2DCB00391D63 /* WMDeviceAddViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceAddViewController.h; sourceTree = "<group>"; };
 		2729691B208A2DCB00391D63 /* WMDeviceAddViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceAddViewController.m; sourceTree = "<group>"; };
 		274A5536208E2F50004FC461 /* WMMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMessageViewController.h; sourceTree = "<group>"; };
-		274A5540208E36A5004FC461 /* WMFeedbackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFeedbackViewController.h; sourceTree = "<group>"; };
-		274A5541208E36A5004FC461 /* WMFeedbackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFeedbackViewController.m; sourceTree = "<group>"; };
+		274A5540208E36A5004FC461 /* WMFeedBackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFeedBackViewController.h; sourceTree = "<group>"; };
+		274A5541208E36A5004FC461 /* WMFeedBackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFeedBackViewController.m; sourceTree = "<group>"; };
 		2760C695207F8A20003CC126 /* WMUnderLineView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMUnderLineView.h; sourceTree = "<group>"; };
 		2760C696207F8A20003CC126 /* WMUnderLineView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMUnderLineView.m; sourceTree = "<group>"; };
 		27A7D1EE207D04FD006C6AF6 /* WMMainTabbarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMainTabbarViewController.h; sourceTree = "<group>"; };
@@ -436,6 +438,10 @@
 		9C4D7657212AA29F0089F728 /* WMDeviceRentPriceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceRentPriceCell.m; sourceTree = "<group>"; };
 		9C4D7659212AC9B50089F728 /* WMDevicePayResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDevicePayResponse.h; sourceTree = "<group>"; };
 		9C4D765A212AC9B50089F728 /* WMDevicePayResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDevicePayResponse.m; sourceTree = "<group>"; };
+		9C4D765C212BC0AB0089F728 /* WMFeedBackQuestion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFeedBackQuestion.h; sourceTree = "<group>"; };
+		9C4D765D212BC0AB0089F728 /* WMFeedBackQuestion.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFeedBackQuestion.m; sourceTree = "<group>"; };
+		9C4D765F212BF31F0089F728 /* WMFeedBackChooseQuestionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFeedBackChooseQuestionViewController.h; sourceTree = "<group>"; };
+		9C4D7660212BF31F0089F728 /* WMFeedBackChooseQuestionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFeedBackChooseQuestionViewController.m; sourceTree = "<group>"; };
 		9C4FBE4720EA142800D36D8D /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = MiWei/Frameworks/AFNetworking.framework; sourceTree = "<group>"; };
 		9C4FBE4A20EA152D00D36D8D /* WMHTTPResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMHTTPResult.m; sourceTree = "<group>"; };
 		9C4FBE4B20EA152D00D36D8D /* WMHTTPUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMHTTPUtility.m; sourceTree = "<group>"; };
@@ -951,10 +957,12 @@
 				2702A2F5207E3C8900FE7577 /* WMMeNameViewController.m */,
 				2702A2EC207E370900FE7577 /* WMPersonViewController.h */,
 				2702A2ED207E370900FE7577 /* WMPersonViewController.m */,
-				274A5540208E36A5004FC461 /* WMFeedbackViewController.h */,
-				274A5541208E36A5004FC461 /* WMFeedbackViewController.m */,
+				274A5540208E36A5004FC461 /* WMFeedBackViewController.h */,
+				274A5541208E36A5004FC461 /* WMFeedBackViewController.m */,
 				9C8C8307211F0B4100D9F9F1 /* WMModifyPasswordViewController.h */,
 				9C8C8308211F0B4100D9F9F1 /* WMModifyPasswordViewController.m */,
+				9C4D765F212BF31F0089F728 /* WMFeedBackChooseQuestionViewController.h */,
+				9C4D7660212BF31F0089F728 /* WMFeedBackChooseQuestionViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1175,6 +1183,8 @@
 				9C5445B22122901000EF7DC3 /* WMAlarmSetting.m */,
 				9C5445B721241F7100EF7DC3 /* WMPayment.h */,
 				9C5445B821241F7100EF7DC3 /* WMPayment.m */,
+				9C4D765C212BC0AB0089F728 /* WMFeedBackQuestion.h */,
+				9C4D765D212BC0AB0089F728 /* WMFeedBackQuestion.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1419,7 +1429,7 @@
 				9C5EDCE9211076EC0085ADEE /* UIImage+MultiFormat.m in Sources */,
 				9C5445A821213B3A00EF7DC3 /* WMDeviceVentilationSettingViewController.m in Sources */,
 				2708B8D62084F85500A760E7 /* PYLoadingOption.m in Sources */,
-				274A5542208E36A5004FC461 /* WMFeedbackViewController.m in Sources */,
+				274A5542208E36A5004FC461 /* WMFeedBackViewController.m in Sources */,
 				2708B8E32084F85500A760E7 /* PYToolboxFeature.m in Sources */,
 				2708B8D72084F85500A760E7 /* PYLinks.m in Sources */,
 				9C4D763C212967730089F728 /* WMDeviceRepetitionViewController.m in Sources */,
@@ -1485,6 +1495,7 @@
 				2708B8F22084F85500A760E7 /* NSObject+PYObject.m in Sources */,
 				9C206F8D2118060700672206 /* WMStrainerAlarmMessageCell.m in Sources */,
 				2708B8E12084F85500A760E7 /* PYLegend.m in Sources */,
+				9C4D7661212BF31F0089F728 /* WMFeedBackChooseQuestionViewController.m in Sources */,
 				27A7D236207D1107006C6AF6 /* WMBaseTableCell.m in Sources */,
 				2708B8C92084F85500A760E7 /* PYEventRiverSeries.m in Sources */,
 				9C48467521074680005F2883 /* WMDeviceRankView.m in Sources */,
@@ -1523,6 +1534,7 @@
 				9C5EDCED211076EC0085ADEE /* SDWebImageDownloaderOperation.m in Sources */,
 				2708B8DA2084F85500A760E7 /* PYAxis.m in Sources */,
 				2708B8BE2084F85500A760E7 /* PYForceSeries.m in Sources */,
+				9C4D765E212BC0AC0089F728 /* WMFeedBackQuestion.m in Sources */,
 				2708B8D32084F85500A760E7 /* PYGrid.m in Sources */,
 				271A9CEF2081B31A0028D20D /* WMQRCode.m in Sources */,
 				9C4D7642212993070089F728 /* WMDeviceStoreItem.m in Sources */,
