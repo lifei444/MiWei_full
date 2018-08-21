@@ -195,8 +195,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
         result.content = responseObject[@"data"];
         result.success = (result.errorCode == WMHTTPCodeSuccess);
         if (result.errorCode != WMHTTPCodeSuccess) {
-            NSLog(@"http request returns error, url is %@, errorCode is %ld",
-                     ((NSHTTPURLResponse *)task.response).URL, (long)result.errorCode);
+            NSLog(@"http request returns error, url is %@, errorCode is %ld, errMsg is %@, errDetail is %@",
+                     ((NSHTTPURLResponse *)task.response).URL, (long)result.errorCode, result.message, responseObject[@"errDetail"]);
         }
     } else {
         result.success = NO;

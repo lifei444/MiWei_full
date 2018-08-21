@@ -12,6 +12,7 @@
 #import "WMHTTPUtility.h"
 #import "UIImageView+WebCache.h"
 #import "WMDeviceUtility.h"
+#import "MBProgressHUD.h"
 
 #define Cell_width                  176
 
@@ -65,6 +66,8 @@
 @property (nonatomic, strong) UILabel *priceLabel;
 @property (nonatomic, strong) UILabel *authorityLabel;//权限
 @property (nonatomic, strong) UILabel *applyAuthorityLable;//申请权限
+@property (nonatomic, strong) WMDevice *device;
+@property (nonatomic, strong) MBProgressHUD *hud;
 @end
 
 @implementation WMDeviceCell
@@ -87,6 +90,7 @@
 }
 
 - (void)setDataModel:(WMDevice *)model {
+    self.device = model;
     self.nameLabel.text = model.name;
     
     if ([model isRentDevice]) {
@@ -128,6 +132,28 @@
     if (model.model.image) {
         [self.iconView
          sd_setImageWithURL:[WMHTTPUtility urlWithPortraitId:model.model.image]];
+    }
+}
+
+#pragma mark - Target action
+- (void)applyAuthority {
+    if (self.device.deviceId.length > 0) {
+        self.hud = [MBProgressHUD showHUDAddedTo:self.vc.view animated:YES];
+        [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodPost
+                               URLString:@"/mobile/device/requestPermission"
+                              parameters:[NSDictionary dictionaryWithObjectsAndKeys:self.device.deviceId, @"deviceID", nil]
+                                response:^(WMHTTPResult *result) {
+                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                        [self.hud hideAnimated:YES];
+                                        if (result.success) {
+                                            [WMUIUtility showAlertWithMessage:@"申请成功" viewController:self.vc];
+                                        } else {
+                                            [WMUIUtility showAlertWithMessage:@"申请失败" viewController:self.vc];
+                                        }
+                                    });
+                                }];
+    } else {
+        [WMUIUtility showAlertWithMessage:@"申请失败" viewController:self.vc];
     }
 }
 
@@ -205,6 +231,9 @@
         _applyAuthorityLable.layer.cornerRadius = 11;
         _applyAuthorityLable.layer.masksToBounds = YES;
         _applyAuthorityLable.textAlignment = NSTextAlignmentCenter;
+        _applyAuthorityLable.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(applyAuthority)];
+        [_applyAuthorityLable addGestureRecognizer:tapRecognizer];
     }
     return _applyAuthorityLable;
 }

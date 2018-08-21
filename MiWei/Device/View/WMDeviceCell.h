@@ -10,5 +10,7 @@
 #import "WMDevice.h"
 
 @interface WMDeviceCell : UICollectionViewCell
+@property (nonatomic, weak) UIViewController *vc;
+
 - (void)setDataModel:(WMDevice *)model;
 @end

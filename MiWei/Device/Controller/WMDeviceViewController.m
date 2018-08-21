@@ -106,6 +106,7 @@ static NSString *headerIdentifier = @"headerIdentifier";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     WMDeviceCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:deviceCellIdentifier forIndexPath:indexPath];
+    cell.vc = self;
     [cell setDataModel:self.modelArray[indexPath.item]];
     return (UICollectionViewCell *)cell;
 }
