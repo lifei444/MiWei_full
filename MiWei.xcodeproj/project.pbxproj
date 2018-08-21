@@ -127,6 +127,7 @@
 		9C4D765B212AC9B50089F728 /* WMDevicePayResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D765A212AC9B50089F728 /* WMDevicePayResponse.m */; };
 		9C4D765E212BC0AC0089F728 /* WMFeedBackQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D765D212BC0AB0089F728 /* WMFeedBackQuestion.m */; };
 		9C4D7661212BF31F0089F728 /* WMFeedBackChooseQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D7660212BF31F0089F728 /* WMFeedBackChooseQuestionViewController.m */; };
+		9C4D7664212C13400089F728 /* WMAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D7663212C13400089F728 /* WMAboutViewController.m */; };
 		9C4FBE4E20EA152D00D36D8D /* WMHTTPResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4FBE4A20EA152D00D36D8D /* WMHTTPResult.m */; };
 		9C4FBE4F20EA152D00D36D8D /* WMHTTPUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4FBE4B20EA152D00D36D8D /* WMHTTPUtility.m */; };
 		9C544543212008CE00EF7DC3 /* WMDeviceSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C544542212008CE00EF7DC3 /* WMDeviceSearchViewController.m */; };
@@ -442,6 +443,8 @@
 		9C4D765D212BC0AB0089F728 /* WMFeedBackQuestion.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFeedBackQuestion.m; sourceTree = "<group>"; };
 		9C4D765F212BF31F0089F728 /* WMFeedBackChooseQuestionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFeedBackChooseQuestionViewController.h; sourceTree = "<group>"; };
 		9C4D7660212BF31F0089F728 /* WMFeedBackChooseQuestionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFeedBackChooseQuestionViewController.m; sourceTree = "<group>"; };
+		9C4D7662212C13400089F728 /* WMAboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMAboutViewController.h; sourceTree = "<group>"; };
+		9C4D7663212C13400089F728 /* WMAboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMAboutViewController.m; sourceTree = "<group>"; };
 		9C4FBE4720EA142800D36D8D /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = MiWei/Frameworks/AFNetworking.framework; sourceTree = "<group>"; };
 		9C4FBE4A20EA152D00D36D8D /* WMHTTPResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMHTTPResult.m; sourceTree = "<group>"; };
 		9C4FBE4B20EA152D00D36D8D /* WMHTTPUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMHTTPUtility.m; sourceTree = "<group>"; };
@@ -963,6 +966,8 @@
 				9C8C8308211F0B4100D9F9F1 /* WMModifyPasswordViewController.m */,
 				9C4D765F212BF31F0089F728 /* WMFeedBackChooseQuestionViewController.h */,
 				9C4D7660212BF31F0089F728 /* WMFeedBackChooseQuestionViewController.m */,
+				9C4D7662212C13400089F728 /* WMAboutViewController.h */,
+				9C4D7663212C13400089F728 /* WMAboutViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1539,6 +1544,7 @@
 				271A9CEF2081B31A0028D20D /* WMQRCode.m in Sources */,
 				9C4D7642212993070089F728 /* WMDeviceStoreItem.m in Sources */,
 				9C4D763F212991300089F728 /* WMDeviceStoreView.m in Sources */,
+				9C4D7664212C13400089F728 /* WMAboutViewController.m in Sources */,
 				9C5EDCEF211076EC0085ADEE /* UIImageView+WebCache.m in Sources */,
 				271A9CD32081A71A0028D20D /* WMPayRecordCell.m in Sources */,
 				9C4D7630212817F30089F728 /* WMDeviceTimerCell.m in Sources */,

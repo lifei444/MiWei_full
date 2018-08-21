@@ -22,6 +22,7 @@
 #import "WMNavigationViewController.h"
 #import <UMPush/UMessage.h>
 #import "WMModifyPasswordViewController.h"
+#import "WMAboutViewController.h"
 
 #define kheight 269
 
@@ -52,7 +53,7 @@
     [self.view addSubview:self.headerView];
     [self.view addSubview:self.settingImageView];
     [self.view addSubview:self.tableView];
-    self.titles = @[@"修改密码",@"订单中心",@"报警管理",@"意见反馈"];
+    self.titles = @[@"修改密码", @"订单中心", @"报警管理", @"意见反馈"];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(portraitDidUpdate:)
                                                  name:@"WMPortraitUpdate"
@@ -107,10 +108,10 @@
             default:
                 break;
         }
-    }else if(indexPath.section == 1) {
+    } else if(indexPath.section == 1) {
         cell.label.text = @"关于米微";
         cell.iconImageView.image = [UIImage imageNamed:@"me_about"];
-    }else {
+    } else {
         cell.label.text = @"退出";
         cell.iconImageView.image = [UIImage imageNamed:@"me_exit"];
     }
@@ -135,9 +136,9 @@
             [self.navigationController pushViewController:vc animated:YES];
         }
     } else if(indexPath.section == 1) {
-        NSLog(@"关于米微");
+        WMAboutViewController *vc = [[WMAboutViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
     } else {
-        NSLog(@"退出");
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
                                                             message:@"确认退出登录？"
                                                            delegate:self
