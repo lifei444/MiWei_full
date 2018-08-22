@@ -181,16 +181,7 @@
         self.rankView.textView.text = str;
         
         //switchContainerView
-        if (detail.permission == WMDevicePermissionTypeViewAndControl || detail.permission == WMDevicePermissionTypeOwner) {
-            [self.switchContainerView setModel:detail];
-        } else {
-            self.switchContainerView.hidden = YES;
-            CGRect rect = WM_CGRectMake(Table_X, Switch_Y, Table_Width, Data_Height);
-            self.dataView.frame = rect;
-            CGSize size = self.scrollView.contentSize;
-            size.height -= [WMUIUtility WMCGFloatForY:(Switch_Height + GapBetweenTables)];
-            self.scrollView.contentSize = size;
-        }
+        [self.switchContainerView setModel:detail];
         
         //dataView
         str = @"PM2.5：";

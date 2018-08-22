@@ -187,18 +187,7 @@
         self.airLabel.text = detail.pm25AirText;
         
         //switchContainerView
-        if (detail.permission == WMDevicePermissionTypeViewAndControl || detail.permission == WMDevicePermissionTypeOwner) {
-            [self.switchContainerView setModel:detail];
-        } else {
-            self.switchContainerView.hidden = YES;
-            [self layoutViewWithoutSwitchView:self.dataView];
-            [self layoutViewWithoutSwitchView:self.rankView];
-            [self layoutViewWithoutSwitchView:self.pollutionSumView];
-            [self layoutViewWithoutSwitchView:self.pollutionChangeView];
-            CGSize size = self.scrollView.contentSize;
-            size.height -= [WMUIUtility WMCGFloatForY:(Switch_Height + GapBetweenTables)];
-            self.scrollView.contentSize = size;
-        }
+        [self.switchContainerView setModel:detail];
         
         //dataView
         NSString *str = self.dataView.PMLabel.text;
