@@ -155,7 +155,7 @@
         height = _divSize.height;
         width = _divSize.width;
     } else {
-        _divSize = WM_CGSizeMake(width, height);
+        _divSize = CGSizeMake(width, height);
     }
     NSString *divSizeCss = [NSString stringWithFormat:@"'height:%.0fpx;width:%.0fpx;'", height, width];
     NSString *js = [NSString stringWithFormat:@"%@(%@)", @"resizeDiv", divSizeCss];

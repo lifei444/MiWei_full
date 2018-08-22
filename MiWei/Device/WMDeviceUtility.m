@@ -8,7 +8,17 @@
 
 #import "WMDeviceUtility.h"
 
+static NSDateFormatter *dateFormatter;
+
 @implementation WMDeviceUtility
+
++ (NSDateFormatter *)sharedDateFormatter {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        dateFormatter = [[NSDateFormatter alloc] init];
+    });
+    return dateFormatter;
+}
 
 + (void)addDevice:(WMDevice *)device
          location:(CLLocationCoordinate2D)coord
@@ -172,5 +182,102 @@
     int minute = (timeInt % 3600) / 60;
     int second = timeInt % 60;
     return [NSString stringWithFormat:@"%02d:%02d:%02d", hour, minute, second];
+}
+
++ (NSArray *)getDayAxisFromArray:(NSArray *)array {
+    NSMutableArray *resultArray = [[NSMutableArray alloc] init];
+    NSDateFormatter *formatter = [WMDeviceUtility sharedDateFormatter];
+    [formatter setDateFormat:@"HH:mm"];
+    for (WMPollutionIndex *pIndex in array) {
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:[pIndex.timestamp longLongValue] / 1000];
+        NSString *keyString = [formatter stringFromDate:date];
+        [resultArray addObject:keyString];
+    }
+    return resultArray;
+}
+
++ (NSArray *)getDayDataFromArray:(NSArray *)array {
+    NSMutableArray *resultArray = [[NSMutableArray alloc] init];
+    for (WMPollutionIndex *pIndex in array) {
+        [resultArray addObject:pIndex.value];
+    }
+    return resultArray;
+}
+
++ (NSArray *)getWeekAxisFromArray:(NSArray *)array {
+    NSMutableArray *resultArray = [[NSMutableArray alloc] init];
+    for (WMPollutionIndex *pIndex in array) {
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:[pIndex.timestamp longLongValue] / 1000];
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSUInteger unitFlags = NSCalendarUnitWeekday;
+        NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:date];
+        NSInteger weekDay = [dateComponent weekday];
+        NSString *weekStr;
+        if (weekDay == 1) {
+            weekStr = @"星期日";
+        }else if (weekDay == 2){
+            weekStr = @"星期一";
+        }else if (weekDay == 3){
+            weekStr = @"星期二";
+        }else if (weekDay == 4){
+            weekStr = @"星期三";
+        }else if (weekDay == 5){
+            weekStr = @"星期四";
+        }else if (weekDay == 6){
+            weekStr = @"星期五";
+        }else if (weekDay == 7){
+            weekStr = @"星期六";
+        }
+        [resultArray addObject:weekStr];
+    }
+    return resultArray;
+}
+
++ (NSArray *)getWeekDataFromArray:(NSArray *)array {
+    NSMutableArray *resultArray = [[NSMutableArray alloc] init];
+    for (WMPollutionIndex *pIndex in array) {
+        [resultArray addObject:pIndex.value];
+    }
+    return resultArray;
+}
+
++ (NSArray *)getMonthAxisFromArray:(NSArray *)array {
+    NSMutableArray *resultArray = [[NSMutableArray alloc] init];
+    NSDateFormatter *formatter = [WMDeviceUtility sharedDateFormatter];
+    [formatter setDateFormat:@"MM-dd"];
+    for (WMPollutionIndex *pIndex in array) {
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:[pIndex.timestamp longLongValue] / 1000];
+        NSString *keyString = [formatter stringFromDate:date];
+        [resultArray addObject:keyString];
+    }
+    return resultArray;
+}
+
++ (NSArray *)getMonthDataFromArray:(NSArray *)array {
+    NSMutableArray *resultArray = [[NSMutableArray alloc] init];
+    for (WMPollutionIndex *pIndex in array) {
+        [resultArray addObject:pIndex.value];
+    }
+    return resultArray;
+}
+
++ (NSArray *)getYearAxisFromArray:(NSArray *)array {
+    NSMutableArray *resultArray = [[NSMutableArray alloc] init];
+    NSDateFormatter *formatter = [WMDeviceUtility sharedDateFormatter];
+    [formatter setDateFormat:@"yyyy-MM"];
+    for (WMPollutionIndex *pIndex in array) {
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:[pIndex.timestamp longLongValue] / 1000];
+        NSString *keyString = [formatter stringFromDate:date];
+        [resultArray addObject:keyString];
+    }
+    return resultArray;
+}
+
++ (NSArray *)getYearDataFromArray:(NSArray *)array {
+    NSMutableArray *resultArray = [[NSMutableArray alloc] init];
+    for (WMPollutionIndex *pIndex in array) {
+        [resultArray addObject:pIndex.value];
+    }
+    return resultArray;
 }
 @end

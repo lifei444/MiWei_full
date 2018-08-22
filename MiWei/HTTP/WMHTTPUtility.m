@@ -7,8 +7,10 @@
 #import "WMHTTPResult.h"
 #import <AFNetworking/AFNetworking.h>
 
-NSString *const BASE_URL = @"http://60.205.205.82:9998/api/v1/";
-NSString *const WMImagePrefix = @"http://60.205.205.82:9998/api/v1/common/file/";
+//NSString *const BASE_URL = @"http://60.205.205.82:9998/api/v1/";
+NSString *const BASE_URL = @"https://mweb.mivei.com/api/v1/";
+//NSString *const WMImagePrefix = @"http://60.205.205.82:9998/api/v1/common/file/";
+NSString *const WMImagePrefix = @"https://mweb.mivei.com/api/v1/common/file/";
 
 @implementation WMHTTPUtility
 static AFHTTPSessionManager *managerFormEncodeRequest;

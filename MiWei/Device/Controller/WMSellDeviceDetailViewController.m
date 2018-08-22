@@ -319,6 +319,7 @@
 - (WMDevicePollutionChangeView *)pollutionChangeView {
     if (!_pollutionChangeView) {
         _pollutionChangeView = [[WMDevicePollutionChangeView alloc] initWithFrame:WM_CGRectMake(Pollution_Change_X, Pollution_Change_Y, Pollution_Change_Width, Pollution_Change_Height)];
+        _pollutionChangeView.device = self.device;
     }
     return _pollutionChangeView;
 }
@@ -326,6 +327,7 @@
 - (WMDevicePollutionSumView *)pollutionSumView {
     if (!_pollutionSumView) {
         _pollutionSumView = [[WMDevicePollutionSumView alloc] initWithFrame:WM_CGRectMake(Pollution_Sum_X, Pollution_Sum_Y, Pollution_Sum_Width, Pollution_Sum_Height)];
+        _pollutionSumView.device = self.device;
     }
     return _pollutionSumView;
 }

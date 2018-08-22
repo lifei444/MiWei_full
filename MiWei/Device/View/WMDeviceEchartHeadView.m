@@ -23,6 +23,16 @@
 #define Label_Width         45
 #define Label_Height        20
 
+NSString *const WMDeviceEchartHeadViewSelectNotification = @"WMDeviceEchartHeadViewSelectNotification";
+
+@interface WMDeviceEchartHeadView ()
+@property (nonatomic, strong) UILabel *dayLabel;
+@property (nonatomic, strong) UILabel *weekLabel;
+@property (nonatomic, strong) UILabel *monthLabel;
+@property (nonatomic, strong) UILabel *yearLabel;
+@property (nonatomic, assign) WMDeviceEchartHeadSelectLabel selectLabel;
+@end
+
 @implementation WMDeviceEchartHeadView
 #pragma mark - Life cycle
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -36,6 +46,31 @@
         self.selectLabel = WMDeviceEchartHeadSelectDay;
     }
     return self;
+}
+
+#pragma mark - Target action
+- (void)daySelect {
+    self.selectLabel = WMDeviceEchartHeadSelectDay;
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:@(self.from), @"from", @(WMDeviceEchartHeadSelectDay), @"select", nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:WMDeviceEchartHeadViewSelectNotification object:nil userInfo:dic];
+}
+
+- (void)weekSelect {
+    self.selectLabel = WMDeviceEchartHeadSelectWeek;
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:@(self.from), @"from", @(WMDeviceEchartHeadSelectWeek), @"select", nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:WMDeviceEchartHeadViewSelectNotification object:nil userInfo:dic];
+}
+
+- (void)monthSelect {
+    self.selectLabel = WMDeviceEchartHeadSelectMonth;
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:@(self.from), @"from", @(WMDeviceEchartHeadSelectMonth), @"select", nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:WMDeviceEchartHeadViewSelectNotification object:nil userInfo:dic];
+}
+
+- (void)yearSelect {
+    self.selectLabel = WMDeviceEchartHeadSelectYear;
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:@(self.from), @"from", @(WMDeviceEchartHeadSelectYear), @"select", nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:WMDeviceEchartHeadViewSelectNotification object:nil userInfo:dic];
 }
 
 #pragma mark - Getters & setters
@@ -52,6 +87,9 @@
     if (!_dayLabel) {
         _dayLabel = [self labelWithX:Day_X];
         _dayLabel.text = @"日";
+        _dayLabel.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(daySelect)];
+        [_dayLabel addGestureRecognizer:tapRecognizer];
     }
     return _dayLabel;
 }
@@ -60,6 +98,9 @@
     if (!_weekLabel) {
         _weekLabel = [self labelWithX:Week_X];
         _weekLabel.text = @"周";
+        _weekLabel.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(weekSelect)];
+        [_weekLabel addGestureRecognizer:tapRecognizer];
     }
     return _weekLabel;
 }
@@ -68,6 +109,9 @@
     if (!_monthLabel) {
         _monthLabel =  [self labelWithX:Month_X];
         _monthLabel.text = @"月";
+        _monthLabel.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(monthSelect)];
+        [_monthLabel addGestureRecognizer:tapRecognizer];
     }
     return _monthLabel;
 }
@@ -76,6 +120,9 @@
     if (!_yearLabel) {
         _yearLabel = [self labelWithX:Year_X];
         _yearLabel.text = @"年";
+        _yearLabel.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(yearSelect)];
+        [_yearLabel addGestureRecognizer:tapRecognizer];
     }
     return _yearLabel;
 }
@@ -127,7 +174,7 @@
     _selectLabel = selectLabel;
 }
 
-#pragma mark - Inner methods
+#pragma mark - Private methods
 - (UILabel *)labelWithX:(CGFloat)x {
     UILabel *label = [[UILabel alloc] initWithFrame:WM_CGRectMake(x, Label_Y, Label_Width, Label_Height)];
     label.layer.borderColor = (__bridge CGColorRef _Nullable)([WMUIUtility color:@"0xf6fafd"]);

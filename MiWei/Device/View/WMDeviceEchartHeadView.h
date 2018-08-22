@@ -10,18 +10,17 @@
 
 typedef NS_ENUM(NSUInteger, WMDeviceEchartHeadSelectLabel) {
     WMDeviceEchartHeadSelectDay,
-    WMDeviceEchartHeadSelectWeek,
     WMDeviceEchartHeadSelectMonth,
-    WMDeviceEchartHeadSelectYear
+    WMDeviceEchartHeadSelectYear,
+    WMDeviceEchartHeadSelectWeek
+};
+
+typedef NS_ENUM(NSUInteger, WMDeviceEchartHeadViewFrom) {
+    WMDeviceEchartHeadViewFromPollutionChange,
+    WMDeviceEchartHeadViewFromPollutionSum
 };
 
 @interface WMDeviceEchartHeadView : UIView
-
 @property (nonatomic, strong) UILabel *titleLabel;
-@property (nonatomic, strong) UILabel *dayLabel;
-@property (nonatomic, strong) UILabel *weekLabel;
-@property (nonatomic, strong) UILabel *monthLabel;
-@property (nonatomic, strong) UILabel *yearLabel;
-@property (nonatomic, assign) WMDeviceEchartHeadSelectLabel selectLabel;
-
+@property (nonatomic, assign) WMDeviceEchartHeadViewFrom from;
 @end

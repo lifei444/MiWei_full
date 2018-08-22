@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "WKEchartsView.h"
 #import "WMDeviceEchartHeadView.h"
+#import "WMDevice.h"
 
 @interface WMDevicePollutionChangeView : UIView
 
 @property (nonatomic, strong) WMDeviceEchartHeadView *headView;
 @property (nonatomic, strong) WKEchartsView *chartView;
+@property (nonatomic, strong) WMDevice *device;
 
 @end

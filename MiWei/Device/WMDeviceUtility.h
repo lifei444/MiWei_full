@@ -10,7 +10,7 @@
 #import "WMDevice.h"
 #import <CoreLocation/CoreLocation.h>
 #import "WMHTTPUtility.h"
-
+#import "WMPollutionIndex.h"
 
 @interface WMDeviceUtility : NSObject
 
@@ -36,4 +36,28 @@
                                andRentTime:(NSNumber *)minuteNumber;
 
 + (NSString *)timeStringFromSecond:(NSNumber *)time;
+
+//获取日视图 x 坐标
++ (NSArray <WMPollutionIndex *> *)getDayAxisFromArray:(NSArray *)array;
+
+//获取日视图数据
++ (NSArray <WMPollutionIndex *> *)getDayDataFromArray:(NSArray *)array;
+
+//获取周视图 x 坐标
++ (NSArray <WMPollutionIndex *> *)getWeekAxisFromArray:(NSArray *)array;
+
+//获取周视图数据
++ (NSArray <WMPollutionIndex *> *)getWeekDataFromArray:(NSArray *)array;
+
+//获取月视图 x 坐标
++ (NSArray <WMPollutionIndex *> *)getMonthAxisFromArray:(NSArray *)array;
+
+//获取月视图数据
++ (NSArray <WMPollutionIndex *> *)getMonthDataFromArray:(NSArray *)array;
+
+//获取年 x 坐标
++ (NSArray <WMPollutionIndex *> *)getYearAxisFromArray:(NSArray *)array;
+
+//获取年视图数据
++ (NSArray <WMPollutionIndex *> *)getYearDataFromArray:(NSArray *)array;
 @end

@@ -8,48 +8,102 @@
 
 #import "WMDevicePollutionChangeView.h"
 #import "WMUIUtility.h"
+#import "WMHTTPUtility.h"
+#import "WMCommonDefine.h"
+#import "WMDeviceUtility.h"
+#import "WMPollutionIndex.h"
+
+#define Table_Width     345
+#define Table_Height    280
+
+#define Header_Height   36
+
+#define Chart_Height    (Table_Height - Header_Height)
+
+@interface WMDevicePollutionChangeView ()
+@property (nonatomic, strong) NSArray <WMPollutionIndex *> *dataArray;
+@property (nonatomic, assign) WMDeviceEchartHeadSelectLabel selectLabelType;
+@end
 
 @implementation WMDevicePollutionChangeView
-
+#pragma mark - Life cycle
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
         [self addSubview:self.headView];
         [self addSubview:self.chartView];
+        self.selectLabelType = WMDeviceEchartHeadSelectDay;
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(onLabelChange:)
+                                                     name:WMDeviceEchartHeadViewSelectNotification
+                                                   object:nil];
     }
     return self;
 }
 
-- (WMDeviceEchartHeadView *)headView {
-    if (!_headView) {
-        _headView = [[WMDeviceEchartHeadView alloc] initWithFrame:WM_CGRectMake(0, 0, self.bounds.size.width, 36)];
-        _headView.titleLabel.text = @"污染指数变化";
+#pragma mark - Target action
+- (void)onLabelChange:(NSNotification *)notification {
+    NSDictionary *dic = notification.userInfo;
+    if ([dic[@"from"] longValue] == WMDeviceEchartHeadViewFromPollutionChange) {
+        self.selectLabelType = [dic[@"select"] longValue];
+        [self loadData];
     }
-    return _headView;
 }
 
-- (WKEchartsView *)chartView {
-    if (!_chartView) {
-        _chartView = [[WKEchartsView alloc] initWithFrame:WM_CGRectMake(0, 36, self.bounds.size.width, self.bounds.size.height - 36)];
-        [_chartView setOption:[self getOption]];
-        [_chartView loadEcharts];
-        _chartView.userInteractionEnabled = NO;
-    }
-    return _chartView;
+#pragma mark - Private method
+- (void)loadData {
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:self.device.deviceId forKey:@"deviceID"];
+    [dic setObject:@(self.selectLabelType) forKey:@"type"];
+    [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodGet
+                               URLString:@"/mobile/device/queryPM25HistoryData"
+                              parameters:dic
+                                response:^(WMHTTPResult *result) {
+                                    if (result.success) {
+                                        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+                                        NSArray *contentArray = result.content;
+                                        for (NSDictionary *contentDic in contentArray) {
+                                            WMPollutionIndex *pIndex = [WMPollutionIndex indexWithDic:contentDic];
+                                            [tempArray addObject:pIndex];
+                                        }
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            self.dataArray = tempArray;
+                                            [self.chartView setOption:[self getOption]];
+                                            [self.chartView loadEcharts];
+                                        });
+                                    } else {
+                                        NSLog(@"/mobile/device/queryPM25HistoryData result is %@", result);
+                                    }
+                                }];
 }
 
 - (PYOption *)getOption {
+    NSArray *xAxisArray;
+    NSArray *dataArray;
+    if (self.selectLabelType == WMDeviceEchartHeadSelectDay) {
+        xAxisArray = [WMDeviceUtility getDayAxisFromArray:self.dataArray];
+        dataArray = [WMDeviceUtility getDayDataFromArray:self.dataArray];
+    } else if (self.selectLabelType == WMDeviceEchartHeadSelectWeek) {
+        xAxisArray = [WMDeviceUtility getWeekAxisFromArray:self.dataArray];
+        dataArray = [WMDeviceUtility getWeekDataFromArray:self.dataArray];
+    } else if (self.selectLabelType == WMDeviceEchartHeadSelectMonth) {
+        xAxisArray = [WMDeviceUtility getMonthAxisFromArray:self.dataArray];
+        dataArray = [WMDeviceUtility getMonthDataFromArray:self.dataArray];
+    } else if (self.selectLabelType == WMDeviceEchartHeadSelectYear) {
+        xAxisArray = [WMDeviceUtility getYearAxisFromArray:self.dataArray];
+        dataArray = [WMDeviceUtility getYearDataFromArray:self.dataArray];
+    }
     return [PYOption initPYOptionWithBlock:^(PYOption *option) {
         option.gridEqual([PYGrid initPYGridWithBlock:^(PYGrid *grid) {
-            grid.widthEqual(@(self.bounds.size.width))
-            .heightEqual(@(200))
+            grid.widthEqual(@([WMUIUtility WMCGFloatForX:Table_Width]))
+            .heightEqual(@([WMUIUtility WMCGFloatForY:Chart_Height - 20]))
             .xEqual(@(0))
-            .yEqual(@(30))
+            .yEqual(@([WMUIUtility WMCGFloatForY:-10]))
             .borderWidthEqual(@(0));
         }])
         .addXAxis([PYAxis initPYAxisWithBlock:^(PYAxis *axis) {
-            axis.typeEqual(PYAxisTypeCategory).addDataArr(@[@"SUN", @"MON", @"TUES", @"WED", @"THURS", @"FRI", @"SAT"])
+            axis.typeEqual(PYAxisTypeCategory).addDataArr(xAxisArray)
             .axisTickEqual([PYAxisTick initPYAxisTickWithBlock:^(PYAxisTick *axisTick) {
                 axisTick.showEqual(NO);
             }])
@@ -70,7 +124,10 @@
                 splitLine.showEqual(NO);
             }])
             .axisLabelEqual([PYAxisLabel initPYAxisLabelWithBlock:^(PYAxisLabel *axisLabel) {
-                axisLabel.marginEqual(@(-20));
+                axisLabel.marginEqual(@([WMUIUtility WMCGFloatForY:-10]))
+                .textStyleEqual([PYTextStyle initPYTextStyleWithBlock:^(PYTextStyle *textStyle) {
+                    textStyle.colorEqual(@"#0e837b");
+                }]);
             }]);
         }])
         .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
@@ -80,12 +137,35 @@
                 itemStyle.normalEqual([PYItemStyleProp initPYItemStylePropWithBlock:^(PYItemStyleProp *normal) {
                     normal.areaStyleEqual([PYAreaStyle initPYAreaStyleWithBlock:^(PYAreaStyle *areaStyle) {
                         areaStyle.typeEqual(PYAreaStyleTypeDefault);
-                    }]);
+                    }]).colorEqual(@"#c694fb");
                 }]);
             }])
-            .dataEqual(@[@(4),@(2.2),@(3.7),@(3.2),@(1.9),@(1.7),@(2)]);
+            .dataEqual(dataArray);
         }]);
     }];
+}
+
+#pragma mark - Getters & setters
+- (WMDeviceEchartHeadView *)headView {
+    if (!_headView) {
+        _headView = [[WMDeviceEchartHeadView alloc] initWithFrame:WM_CGRectMake(0, 0, Table_Width, Header_Height)];
+        _headView.titleLabel.text = @"污染指数变化";
+        _headView.from = WMDeviceEchartHeadViewFromPollutionChange;
+    }
+    return _headView;
+}
+
+- (WKEchartsView *)chartView {
+    if (!_chartView) {
+        _chartView = [[WKEchartsView alloc] initWithFrame:WM_CGRectMake(0, Header_Height, Table_Width, Chart_Height)];
+        _chartView.userInteractionEnabled = NO;
+    }
+    return _chartView;
+}
+
+- (void)setDevice:(WMDevice *)device {
+    _device = device;
+    [self loadData];
 }
 
 @end
