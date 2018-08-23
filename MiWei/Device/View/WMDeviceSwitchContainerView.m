@@ -13,6 +13,7 @@
 #import "WMDeviceVentilationSettingViewController.h"
 #import "WMDeviceAirSpeedSettingViewController.h"
 #import "WMDeviceTimeSettingViewController.h"
+#import "WMDeviceSettingViewController.h"
 
 #define Radius                  60
 
@@ -140,7 +141,8 @@
     if (detail.permission == WMDevicePermissionTypeOwner) {
         self.settingView.isOn = YES;
     } else {
-        self.settingView.isOn = NO;
+        //debug
+        self.settingView.isOn = YES;
     }
     self.timingView.isOn = YES;
 }
@@ -224,7 +226,9 @@
             break;
         }
         case WMDeviceSwitchViewTagSetting: {
-            
+            WMDeviceSettingViewController *vc = [[WMDeviceSettingViewController alloc] init];
+            vc.detail = self.deviceDetail;
+            [self.vc.navigationController pushViewController:vc animated:YES];
             break;
         }
             

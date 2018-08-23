@@ -1,29 +1,27 @@
 //
-//  WMMeNameViewController.m
-//  WeiMi
+//  WMDeviceNameViewController.m
+//  MiWei
 //
-//  Created by Sin on 2018/4/11.
+//  Created by LiFei on 2018/8/23.
 //  Copyright © 2018年 Sin. All rights reserved.
 //
 
-#import "WMMeNameViewController.h"
-#import "WMCommonDefine.h"
-#import "WMUIUtility.h"
+#import "WMDeviceNameViewController.h"
 #import "WMHTTPUtility.h"
+#import "WMUIUtility.h"
+#import "WMCommonDefine.h"
 
-@interface WMMeNameViewController ()
+@interface WMDeviceNameViewController ()
 @property(nonatomic,strong) UILabel *nameLabel;
 @property(nonatomic,strong) UITextField *nameField;
 @property(nonatomic,strong) UIButton *confirmButton;
 @end
 
-@implementation WMMeNameViewController
-
-#pragma mark - Life cycle
+@implementation WMDeviceNameViewController
+#pragma mark - Life cycle;
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.title = @"修改昵称";
+    self.navigationItem.title = @"修改设备名称";
     self.view.backgroundColor = [UIColor colorWithRed:241/255.0 green:241/255.0 blue:241/255.0 alpha:1];
     [self.view addSubview:self.nameField];
     [self.view addSubview:self.nameLabel];
@@ -33,28 +31,30 @@
 #pragma mark - Target action
 - (void)save {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-    [dic setObject:self.nameField.text forKey:@"nickName"];
+    [dic setObject:self.nameField.text forKey:@"deviceName"];
+    [dic setObject:self.detail.deviceId forKey:@"deviceID"];
     [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodPost
-                               URLString:@"/mobile/user/editUserInfo"
+                               URLString:@"/mobile/device/modifyDevice"
                               parameters:dic
                                 response:^(WMHTTPResult *result) {
-                                    if (result.success) {
-                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                            [WMHTTPUtility currentProfile].nickname = self.nameField.text;
+                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                        if (result.success) {
+                                            self.detail.name = self.nameField.text;
                                             [self.navigationController popViewControllerAnimated:YES];
-                                        });
-                                    } else {
-                                        NSLog(@"WMMeNameViewController save failed");
-                                    }
+                                        } else {
+                                            NSLog(@"WMDeviceNameViewController save failed");
+                                            [WMUIUtility showAlertWithMessage:@"设置失败" viewController:self];
+                                        }
+                                    });
                                 }];
 }
 
 #pragma mark - Getters & setters
 - (UILabel *)nameLabel {
     if(!_nameLabel) {
-        _nameLabel = [[UILabel alloc] initWithFrame:WM_CGRectMake(0, Navi_Height + 10, 64, 50)];
+        _nameLabel = [[UILabel alloc] initWithFrame:WM_CGRectMake(0, Navi_Height + 10, 100, 50)];
         _nameLabel.backgroundColor = [UIColor whiteColor];
-        _nameLabel.text = @"昵称";
+        _nameLabel.text = @"设备名称";
         _nameLabel.font = [UIFont systemFontOfSize:16];
         _nameLabel.textColor = [WMUIUtility color:@"0x424345"];
         _nameLabel.textAlignment = NSTextAlignmentCenter;
@@ -64,10 +64,10 @@
 
 - (UITextField *)nameField {
     if(!_nameField) {
-        _nameField = [[UITextField alloc] initWithFrame:WM_CGRectMake(64, Navi_Height + 10, Screen_Width - 64, 50)];
+        _nameField = [[UITextField alloc] initWithFrame:WM_CGRectMake(100, Navi_Height + 10, Screen_Width - 100, 50)];
         _nameField.backgroundColor = [UIColor whiteColor];
         _nameField.clearButtonMode = UITextFieldViewModeWhileEditing;
-        _nameField.text = [WMHTTPUtility currentProfile].nickname;
+        _nameField.text = self.detail.name;
         _nameField.font = [UIFont systemFontOfSize:16];
         _nameField.textColor = [WMUIUtility color:@"0x737474"];
     }
