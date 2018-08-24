@@ -164,6 +164,8 @@
 		9C608D70210E06CD001F1E11 /* WMDevicePollutionSumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C608D6F210E06CD001F1E11 /* WMDevicePollutionSumView.m */; };
 		9C6CAC5C212E8D62009EBE98 /* WMDeviceNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C6CAC5B212E8D62009EBE98 /* WMDeviceNameViewController.m */; };
 		9C6CAC5F212E93B8009EBE98 /* WMDeviceAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C6CAC5E212E93B8009EBE98 /* WMDeviceAddressViewController.m */; };
+		9C6CAC61212FC28A009EBE98 /* region.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C6CAC60212FC28A009EBE98 /* region.json */; };
+		9C6CAC64212FE1E9009EBE98 /* WMRegion.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C6CAC63212FE1E9009EBE98 /* WMRegion.m */; };
 		9C8C82E9211C5C8200D9F9F1 /* WMMessageFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8C82DD211C5C8200D9F9F1 /* WMMessageFactory.m */; };
 		9C8C82EA211C5C8200D9F9F1 /* WMStrainerStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8C82DE211C5C8200D9F9F1 /* WMStrainerStatus.m */; };
 		9C8C82EB211C5C8200D9F9F1 /* WMMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8C82E0211C5C8200D9F9F1 /* WMMessage.m */; };
@@ -522,6 +524,9 @@
 		9C6CAC5B212E8D62009EBE98 /* WMDeviceNameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceNameViewController.m; sourceTree = "<group>"; };
 		9C6CAC5D212E93B8009EBE98 /* WMDeviceAddressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceAddressViewController.h; sourceTree = "<group>"; };
 		9C6CAC5E212E93B8009EBE98 /* WMDeviceAddressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceAddressViewController.m; sourceTree = "<group>"; };
+		9C6CAC60212FC28A009EBE98 /* region.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = region.json; path = MiWei/region.json; sourceTree = "<group>"; };
+		9C6CAC62212FE1E9009EBE98 /* WMRegion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMRegion.h; sourceTree = "<group>"; };
+		9C6CAC63212FE1E9009EBE98 /* WMRegion.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMRegion.m; sourceTree = "<group>"; };
 		9C8C82DD211C5C8200D9F9F1 /* WMMessageFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMessageFactory.m; sourceTree = "<group>"; };
 		9C8C82DE211C5C8200D9F9F1 /* WMStrainerStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMStrainerStatus.m; sourceTree = "<group>"; };
 		9C8C82DF211C5C8200D9F9F1 /* WMAirQualityNotiMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMAirQualityNotiMessage.h; sourceTree = "<group>"; };
@@ -1074,6 +1079,8 @@
 				9C4D765A212AC9B50089F728 /* WMDevicePayResponse.m */,
 				9C4D7667212D5C410089F728 /* WMPollutionIndex.h */,
 				9C4D7668212D5C410089F728 /* WMPollutionIndex.m */,
+				9C6CAC62212FE1E9009EBE98 /* WMRegion.h */,
+				9C6CAC63212FE1E9009EBE98 /* WMRegion.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1134,6 +1141,7 @@
 		27B38230207CFB77006036A0 = {
 			isa = PBXGroup;
 			children = (
+				9C6CAC60212FC28A009EBE98 /* region.json */,
 				27B3823B207CFB77006036A0 /* MiWei */,
 				27B3823A207CFB77006036A0 /* Products */,
 				2708B8F92084F8B500A760E7 /* Frameworks */,
@@ -1367,6 +1375,7 @@
 			files = (
 				2708B8F72084F86600A760E7 /* theme in Resources */,
 				27B38249207CFB77006036A0 /* LaunchScreen.storyboard in Resources */,
+				9C6CAC61212FC28A009EBE98 /* region.json in Resources */,
 				2708B8F62084F86600A760E7 /* js in Resources */,
 				271A9CC920819E0F0028D20D /* citydict.plist in Resources */,
 				9C5EDCF621146AEA0085ADEE /* icon.png in Resources */,
@@ -1387,12 +1396,14 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MiWei/Pods-MiWei-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/ActionSheetPicker-3.0/ActionSheetPicker_3_0.framework",
 				"${BUILT_PRODUCTS_DIR}/MQTTClient/MQTTClient.framework",
 				"${BUILT_PRODUCTS_DIR}/XMNetworking/XMNetworking.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ActionSheetPicker_3_0.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MQTTClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XMNetworking.framework",
 			);
@@ -1467,6 +1478,7 @@
 				2708B8F02084F85500A760E7 /* PYZoomEchartsView.m in Sources */,
 				27A7D1F9207D04FD006C6AF6 /* WMLoginViewController.m in Sources */,
 				9C484672210737D6005F2883 /* WMDeviceDataView.m in Sources */,
+				9C6CAC64212FE1E9009EBE98 /* WMRegion.m in Sources */,
 				9C206F662114782600672206 /* WMProfile.m in Sources */,
 				27A7D22E207D0CCF006C6AF6 /* WMMeCell.m in Sources */,
 				2708B8C12084F85500A760E7 /* PYPieSeries.m in Sources */,

@@ -100,13 +100,7 @@
         WMDeviceAddressViewController *vc = [[WMDeviceAddressViewController alloc] init];
         vc.detail = self.detail;
         [self.navigationController pushViewController:vc animated:YES];
-    } else if ([cell.textLabel.text isEqualToString:@"MAC/IMEI"]) {
-        
-    } else if ([cell.textLabel.text isEqualToString:@"固件版本"]) {
-        
     } else if ([cell.textLabel.text isEqualToString:@"固件升级"]) {
-        
-    } else if ([cell.textLabel.text isEqualToString:@"设备类型及型号"]) {
         
     } else if ([cell.textLabel.text isEqualToString:@"配置网络"]) {
         
@@ -179,12 +173,15 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     } else if ([cell.textLabel.text isEqualToString:@"MAC/IMEI"]) {
         cell.detailTextLabel.text = self.detail.deviceId;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     } else if ([cell.textLabel.text isEqualToString:@"固件版本"]) {
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.detail.verFW];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     } else if ([cell.textLabel.text isEqualToString:@"固件升级"]) {
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.detail.newestVerFw];
     } else if ([cell.textLabel.text isEqualToString:@"设备类型及型号"]) {
         cell.detailTextLabel.text = self.detail.modelName;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     } else if ([cell.textLabel.text isEqualToString:@"配置网络"]) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     } else if ([cell.textLabel.text isEqualToString:@"关联设备"]) {

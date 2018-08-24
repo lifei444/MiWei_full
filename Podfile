@@ -7,6 +7,6 @@ use_frameworks!
   pod 'XMNetworking'
   pod 'MQTTClient'
   pod 'UMCPush'
-
+  pod 'ActionSheetPicker-3.0'
 
 end
