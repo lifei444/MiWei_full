@@ -11,6 +11,8 @@
 #import "WMCommonDefine.h"
 #import "WMDeviceNameViewController.h"
 #import "WMDeviceAddressViewController.h"
+#import "WMHTTPUtility.h"
+#import "MBProgressHUD.h"
 
 #define Cell_Height         50
 #define Footer_Gap          18
@@ -24,6 +26,7 @@
 @property (nonatomic, strong) NSArray *controlOfflineArray;
 @property (nonatomic, strong) NSArray *ownerOnlineArray;
 @property (nonatomic, strong) NSArray *ownerOfflineArray;
+@property (nonatomic, strong) MBProgressHUD *hud;
 @end
 
 @implementation WMDeviceSettingViewController
@@ -101,7 +104,24 @@
         vc.detail = self.detail;
         [self.navigationController pushViewController:vc animated:YES];
     } else if ([cell.textLabel.text isEqualToString:@"固件升级"]) {
-        
+        if (self.detail.newestVerFw > self.detail.verFW) {
+            self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:self.detail.deviceId, @"deviceID", nil];
+            [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodPost
+                                       URLString:@"/mobile/device/requestOTA"
+                                      parameters:dic
+                                        response:^(WMHTTPResult *result) {
+                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                [self.hud hideAnimated:YES];
+                                                if (result.success) {
+                                                    [WMUIUtility showAlertWithMessage:@"操作成功" viewController:self];
+                                                } else {
+                                                    NSLog(@"/mobile/device/requestOTA error, result is %@", result);
+                                                    [WMUIUtility showAlertWithMessage:@"操作失败" viewController:self];
+                                                }
+                                            });
+                                        }];
+        }
     } else if ([cell.textLabel.text isEqualToString:@"配置网络"]) {
         
     } else if ([cell.textLabel.text isEqualToString:@"关联设备"]) {
@@ -123,6 +143,9 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    //debug
+//    self.detail.online = YES;
+
     if (self.detail.permission == WMDevicePermissionTypeView) {
         NSArray *arr = self.viewArray[section];
         return arr.count;
@@ -177,6 +200,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     } else if ([cell.textLabel.text isEqualToString:@"固件升级"]) {
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.detail.newestVerFw];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     } else if ([cell.textLabel.text isEqualToString:@"设备类型及型号"]) {
         cell.detailTextLabel.text = self.detail.modelName;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
