@@ -123,8 +123,6 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //debug
-    self.detail.online = YES;
     if (self.detail.permission == WMDevicePermissionTypeView) {
         NSArray *arr = self.viewArray[section];
         return arr.count;

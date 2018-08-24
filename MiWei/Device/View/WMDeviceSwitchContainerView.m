@@ -141,8 +141,7 @@
     if (detail.permission == WMDevicePermissionTypeOwner) {
         self.settingView.isOn = YES;
     } else {
-        //debug
-        self.settingView.isOn = YES;
+        self.settingView.isOn = NO;
     }
     self.timingView.isOn = YES;
 }
