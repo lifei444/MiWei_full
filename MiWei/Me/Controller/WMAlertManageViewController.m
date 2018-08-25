@@ -16,7 +16,7 @@
 
 @interface WMAlertManageViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSArray *modelArray;
+@property (nonatomic, strong) NSArray <WMAlarmSetting *>*modelArray;
 @property (nonatomic, strong) MBProgressHUD *hud;
 @end
 
@@ -85,6 +85,7 @@
     UISwitch *sw = [[UISwitch alloc] init];
     sw.onTintColor = [WMUIUtility color:@"0x2b928a"];
     sw.tag = indexPath.section;
+    [sw setOn:self.modelArray[indexPath.section].enable];
     [sw addTarget:self action:@selector(onClickSwitch:) forControlEvents:UIControlEventValueChanged];
     cell.accessoryView = sw;
     return cell;
@@ -112,10 +113,11 @@
                                     dispatch_async(dispatch_get_main_queue(), ^{
                                         [self.hud hideAnimated:YES];
                                         if (result.success) {
-                                            [WMUIUtility showAlertWithMessage:@"设置成功" viewController:self];
+//                                            [WMUIUtility showAlertWithMessage:@"设置成功" viewController:self];
                                         } else {
                                             NSLog(@"/mobile/user/setAlarmSettings error, result is %@", result);
                                             [WMUIUtility showAlertWithMessage:@"设置失败" viewController:self];
+                                            [switchButton setOn:!switchButton.isOn];
                                         }
                                     });
                                 }];
