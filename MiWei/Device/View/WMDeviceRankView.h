@@ -11,6 +11,6 @@
 @interface WMDeviceRankView : UIView
 
 @property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, strong) UITextView *textView;
+@property (nonatomic, strong) UILabel *textView;
 
 @end
