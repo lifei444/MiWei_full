@@ -142,7 +142,7 @@
                                                              if (result.success) {
                                                                  dispatch_async(dispatch_get_main_queue(), ^{
                                                                      [self.hud hideAnimated:YES];
-                                                                     [[NSNotificationCenter defaultCenter] postNotificationName:@"WMPortraitUpdate" object:nil];
+                                                                     [[NSNotificationCenter defaultCenter] postNotificationName:@"WMProfileUpdate" object:nil];
                                                                      [self.tableView reloadData];
                                                                  });
                                                              } else {

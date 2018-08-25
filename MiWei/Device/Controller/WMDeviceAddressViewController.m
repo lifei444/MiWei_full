@@ -11,6 +11,7 @@
 #import "WMUIUtility.h"
 #import "WMCommonDefine.h"
 #import "WMRegion.h"
+#import "MBProgressHUD.h"
 #import <ActionSheetPicker_3_0/ActionSheetCustomPicker.h>
 
 @interface WMDeviceAddressViewController () <ActionSheetCustomPickerDelegate>
@@ -24,10 +25,11 @@
 @property (nonatomic, assign) NSInteger index1; // 省下标
 @property (nonatomic, assign) NSInteger index2; // 市下标
 @property (nonatomic, assign) NSInteger index3; // 区下标
+@property (nonatomic, strong) MBProgressHUD *hud;
 @end
 
 @implementation WMDeviceAddressViewController
-
+#pragma mark - Life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"修改地址";
@@ -53,11 +55,13 @@
     [dic setObject:region.addrCode forKey:@"addrCode"];
     [dic setObject:self.detailField.text forKey:@"addrDetail"];
     [dic setObject:self.detail.deviceId forKey:@"deviceID"];
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodPost
                                URLString:@"/mobile/device/modifyDevice"
                               parameters:dic
                                 response:^(WMHTTPResult *result) {
                                     dispatch_async(dispatch_get_main_queue(), ^{
+                                        [self.hud hideAnimated:YES];
                                         if (result.success) {
                                             self.detail.addrDetail = self.detailField.text;
                                             self.detail.addrLev1 = region.lev1;
@@ -76,10 +80,6 @@
 - (void)actionSheetPickerDidSucceed:(AbstractActionSheetPicker *)actionSheetPicker origin:(id)origin {
     WMRegion *region = self.region.districts[self.index1].districts[self.index2].districts[self.index3];
     self.addressValueLabel.text = [NSString stringWithFormat:@"%@%@%@", region.lev1, region.lev2, region.lev3];
-}
-
-- (void)actionSheetPickerDidCancel:(AbstractActionSheetPicker *)actionSheetPicker origin:(id)origin {
-    NSLog(@"adsf");
 }
 
 #pragma mark - UIPickerViewDataSource

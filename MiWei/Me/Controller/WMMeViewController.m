@@ -55,8 +55,8 @@
     [self.view addSubview:self.tableView];
     self.titles = @[@"修改密码", @"订单中心", @"报警管理", @"意见反馈"];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(portraitDidUpdate:)
-                                                 name:@"WMPortraitUpdate"
+                                             selector:@selector(profileDidUpdate:)
+                                                 name:@"WMProfileUpdate"
                                                object:nil];
 }
 
@@ -166,8 +166,8 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)portraitDidUpdate:(NSNotification *)notification {
-    [self.headerView updatePortrait];
+- (void)profileDidUpdate:(NSNotification *)notification {
+    [self.headerView reloadView];
 }
 
 #pragma mark - Private methods

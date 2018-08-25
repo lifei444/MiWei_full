@@ -14,5 +14,5 @@
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *addressLabel;
 
-- (void)updatePortrait;
+- (void)reloadView;
 @end
