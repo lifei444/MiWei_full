@@ -26,7 +26,7 @@
 #define Detail_X                    30
 #define Detail_Y                    (Version_Y + Version_Height + GapBetweenVersionAndDetail)
 #define Detail_Width                (Screen_Width - Detail_X * 2)
-#define Detail_Height               100
+#define Detail_Height               60
 
 @interface WMAboutViewController ()
 @property (nonatomic, strong) UIImageView *logoView;
@@ -42,25 +42,30 @@
     [self.view addSubview:self.logoView];
     [self.view addSubview:self.versionLabel];
     [self.view addSubview:self.detailLabel];
-    [self loadData];
+//    [self loadData];
 }
 
-#pragma mark - Private method
-- (void)loadData {
-    [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodGet
-                               URLString:@"/mobile/about/queryAppInfo"
-                              parameters:[NSDictionary dictionaryWithObjectsAndKeys:@(2), @"appID", nil]
-                                response:^(WMHTTPResult *result) {
-                                    if (result.success) {
-                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                            self.versionLabel.text = result.content[@"version"];
-                                            self.detailLabel.text = result.content[@"descr"];
-                                      });
-                                    } else {
-                                        NSLog(@"/mobile/about/queryAppInfo error, result is %@", result);
-                                    }
-                                }];
-}
+//#pragma mark - Private method
+//- (void)loadData {
+//    [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodGet
+//                               URLString:@"/mobile/about/queryAppInfo"
+//                              parameters:[NSDictionary dictionaryWithObjectsAndKeys:@(2), @"appID", nil]
+//                                response:^(WMHTTPResult *result) {
+//                                    if (result.success) {
+//                                        dispatch_async(dispatch_get_main_queue(), ^{
+//                                            NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+//                                            // app名称
+//                                            NSString *appName = [infoDictionary objectForKey:@"CFBundleDisplayName"];
+//                                            // app版本
+//                                            NSString *appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+//                                            self.versionLabel.text = [NSString stringWithFormat:@"%@ %@", appName, appVersion];
+//                                            self.detailLabel.text = @"修改“关于米微”描述";
+//                                      });
+//                                    } else {
+//                                        NSLog(@"/mobile/about/queryAppInfo error, result is %@", result);
+//                                    }
+//                                }];
+//}
 
 #pragma mark - Getters & setters
 - (UIImageView *)logoView {
@@ -77,6 +82,12 @@
         _versionLabel.font = [UIFont boldSystemFontOfSize:[WMUIUtility WMCGFloatForY:16]];
         _versionLabel.textColor = [WMUIUtility color:@"0x444444"];
         _versionLabel.textAlignment = NSTextAlignmentCenter;
+        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+        // app名称
+        NSString *appName = [infoDictionary objectForKey:@"CFBundleDisplayName"];
+        // app版本
+        NSString *appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+        _versionLabel.text = [NSString stringWithFormat:@"%@ %@", appName, appVersion];
     }
     return _versionLabel;
 }
@@ -86,7 +97,13 @@
         _detailLabel = [[UILabel alloc] initWithFrame:WM_CGRectMake(Detail_X, Detail_Y, Detail_Width, Detail_Height)];
         _detailLabel.font = [UIFont systemFontOfSize:[WMUIUtility WMCGFloatForY:15]];
         _detailLabel.textColor = [WMUIUtility color:@"0x444444"];
-        _detailLabel.textAlignment = NSTextAlignmentCenter;
+        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+        // app名称
+        NSString *appName = [infoDictionary objectForKey:@"CFBundleDisplayName"];
+        // app版本
+        NSString *appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+        _detailLabel.text = [NSString stringWithFormat:@"%@ %@加入了多项新功能，包含分享设备，关联设备等，本版本更新还包括稳定提升和错误修复。", appName, appVersion];
+//        _detailLabel.textAlignment = NSTextAlignmentCenter;
         _detailLabel.numberOfLines = 0;
     }
     return _detailLabel;
