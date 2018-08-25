@@ -253,10 +253,12 @@
         cell.detailTextLabel.text = self.detail.deviceId;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     } else if ([cell.textLabel.text isEqualToString:@"固件版本"]) {
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.detail.verFW];
+        int ver = [self.detail.verFW intValue];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", ver];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     } else if ([cell.textLabel.text isEqualToString:@"固件升级"]) {
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.detail.newestVerFw];
+        int ver = [self.detail.newestVerFw intValue];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", ver];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     } else if ([cell.textLabel.text isEqualToString:@"设备类型及型号"]) {
