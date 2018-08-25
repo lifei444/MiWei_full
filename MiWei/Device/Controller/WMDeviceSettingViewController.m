@@ -14,6 +14,7 @@
 #import "WMHTTPUtility.h"
 #import "MBProgressHUD.h"
 #import "WMDeviceConfigViewController.h"
+#import "WMDeviceBindViewController.h"
 #import <FogV3/FogV3.h>
 
 #define Cell_Height         50
@@ -166,11 +167,26 @@
         vc.ssid = ssid;
         [self.navigationController pushViewController:vc animated:YES];
     } else if ([cell.textLabel.text isEqualToString:@"关联设备"]) {
-        
+        WMDeviceBindViewController *vc = [[WMDeviceBindViewController alloc] init];
+        vc.deviceId = self.detail.deviceId;
+        [self.navigationController pushViewController:vc animated:YES];
     } else if ([cell.textLabel.text isEqualToString:@"分享设备"]) {
         
     } else if ([cell.textLabel.text isEqualToString:@"删除设备"]) {
-        
+        self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodPost
+                                   URLString:@"/mobile/device/removeDevice"
+                                  parameters:[NSDictionary dictionaryWithObjectsAndKeys:self.detail.deviceId, @"deviceID", nil]
+                                    response:^(WMHTTPResult *result) {
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            [self.hud hideAnimated:YES];
+                                            if (result.success) {
+                                                [self.navigationController popToRootViewControllerAnimated:YES];
+                                            } else {
+                                                [WMUIUtility showAlertWithMessage:@"删除失败" viewController:self];
+                                            }
+                                        });
+                                    }];
     }
 }
 
@@ -182,6 +198,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     //debug
 //    self.detail.online = YES;
+//    self.detail.permission = WMDevicePermissionTypeOwner;
 
     if (self.detail.permission == WMDevicePermissionTypeView) {
         NSArray *arr = self.viewArray[section];
@@ -238,6 +255,7 @@
     } else if ([cell.textLabel.text isEqualToString:@"固件升级"]) {
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.detail.newestVerFw];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     } else if ([cell.textLabel.text isEqualToString:@"设备类型及型号"]) {
         cell.detailTextLabel.text = self.detail.modelName;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -293,7 +311,6 @@
         _tableView.dataSource = self;
     }
     return _tableView;
-    
 }
 
 - (NSArray *)viewArray {
