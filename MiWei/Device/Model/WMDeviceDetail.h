@@ -55,7 +55,7 @@
 //婴儿锁开关
 @property (nonatomic, assign) BOOL babyLock;
 //风机定时模式
-@property (nonatomic, strong) NSNumber *fanTiming;
+@property (nonatomic, assign) BOOL fanTiming;
 //设备是否在线
 @property (nonatomic, assign) BOOL online;
 //开关状态

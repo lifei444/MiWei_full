@@ -144,6 +144,11 @@
         self.settingView.isOn = NO;
     }
     self.timingView.isOn = YES;
+    if (detail.fanTiming) {
+        self.timingView.name.text = @"开";
+    } else {
+        self.timingView.name.text = @"关";
+    }
 }
 
 #pragma mark - WMDeviceSwitchViewDelegate
@@ -280,7 +285,7 @@
 - (WMDeviceSwitchView *)timingView {
     if (!_timingView) {
         _timingView = [[WMDeviceSwitchView alloc] initWithFrame:WM_CGRectMake(Timing_X, Timing_Y, Radius, Radius)];
-        _timingView.name.text = @"定时";
+        _timingView.name.text = @"关";
         _timingView.viewTag = WMDeviceSwitchViewTagTiming;
         _timingView.delegate = self;
     }

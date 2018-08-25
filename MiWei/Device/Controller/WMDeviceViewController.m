@@ -68,11 +68,11 @@ static NSString *headerIdentifier = @"headerIdentifier";
     self.collectionView.frame = WM_CGRectMake(CollectionX, CollectionY, CollectionWidth, CollectionHeight);
     self.collectionView.backgroundColor = [WMUIUtility color:@"0xf6f6f6"];
     [self.collectionView registerClass:[WMDeviceCell class] forCellWithReuseIdentifier:deviceCellIdentifier];
-    [self loadDeviceList];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self loadDeviceList];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

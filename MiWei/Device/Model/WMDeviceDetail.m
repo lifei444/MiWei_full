@@ -44,7 +44,7 @@
     detail.airSpeed = [deviceStatus[@"airSpeed"] longValue];
     detail.auxiliaryHeat = [deviceStatus[@"auxiliaryHeat"] boolValue];
     detail.babyLock = [deviceStatus[@"babyLock"] boolValue];
-    detail.fanTiming = deviceStatus[@"fanTiming"];
+    detail.fanTiming = [deviceStatus[@"fanTiming"] boolValue];
     detail.online = [deviceStatus[@"online"] boolValue];
     detail.powerOn = [deviceStatus[@"powerOn"] boolValue];
     detail.screenSwitch = [deviceStatus[@"screenSwitch"] boolValue];
