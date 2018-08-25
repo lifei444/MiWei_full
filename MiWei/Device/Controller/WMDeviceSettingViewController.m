@@ -16,6 +16,7 @@
 #import "WMDeviceConfigViewController.h"
 #import "WMDeviceBindViewController.h"
 #import <FogV3/FogV3.h>
+#import <WXApi.h>
 
 #define Cell_Height         50
 #define Footer_Gap          18
@@ -171,22 +172,24 @@
         vc.deviceId = self.detail.deviceId;
         [self.navigationController pushViewController:vc animated:YES];
     } else if ([cell.textLabel.text isEqualToString:@"分享设备"]) {
-        
+        NSString *str = [NSString stringWithFormat:@"来自《%@》的米微净化器（检测仪）《%@》分享，请点击如下链接查看设备https://mweb.mivei.com/addDevice/%@", [WMHTTPUtility currentProfile].name, self.detail.name, self.detail.deviceId];
+        WXTextObject *textObject = [WXTextObject object];
+        textObject.contentText = str;
+        WXMediaMessage *message = [WXMediaMessage message];
+        message.mediaObject = textObject;
+        message.description = @"米微新风";
+        SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
+        req.bText = NO;
+        req.message = message;
+        req.scene = WXSceneSession;
+        [WXApi sendReq:req];
     } else if ([cell.textLabel.text isEqualToString:@"删除设备"]) {
-        self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodPost
-                                   URLString:@"/mobile/device/removeDevice"
-                                  parameters:[NSDictionary dictionaryWithObjectsAndKeys:self.detail.deviceId, @"deviceID", nil]
-                                    response:^(WMHTTPResult *result) {
-                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                            [self.hud hideAnimated:YES];
-                                            if (result.success) {
-                                                [self.navigationController popToRootViewControllerAnimated:YES];
-                                            } else {
-                                                [WMUIUtility showAlertWithMessage:@"删除失败" viewController:self];
-                                            }
-                                        });
-                                    }];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
+                                                            message:@"确认删除设备？"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"取消"
+                                                  otherButtonTitles:@"确认", nil];
+        [alertView show];
     }
 }
 
@@ -266,7 +269,8 @@
     } else if ([cell.textLabel.text isEqualToString:@"分享设备"]) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     } else if ([cell.textLabel.text isEqualToString:@"删除设备"]) {
-        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     } else if ([cell.textLabel.text isEqualToString:@"婴儿锁"]) {
         UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
         [switchView setOn:self.detail.babyLock];
@@ -281,6 +285,26 @@
         cell.accessoryView = switchView;
     }
     return cell;
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodPost
+                                   URLString:@"/mobile/device/removeDevice"
+                                  parameters:[NSDictionary dictionaryWithObjectsAndKeys:self.detail.deviceId, @"deviceID", nil]
+                                    response:^(WMHTTPResult *result) {
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            [self.hud hideAnimated:YES];
+                                            if (result.success) {
+                                                [self.navigationController popToRootViewControllerAnimated:YES];
+                                            } else {
+                                                [WMUIUtility showAlertWithMessage:@"删除失败" viewController:self];
+                                            }
+                                        });
+                                    }];
+    }
 }
 
 #pragma mark - Private method
