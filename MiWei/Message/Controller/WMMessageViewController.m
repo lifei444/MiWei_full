@@ -15,6 +15,7 @@
 #import "WMStrainerAlarmMessageCell.h"
 #import "WMDevShareNotiMessageCell.h"
 #import "WMAirQualityNotiMessageCell.h"
+#import "UITableView+EmptyData.h"
 
 #define Section_Gap 22
 NSString *const strainerAlarmIdentifier = @"strainerAlarm";
@@ -77,6 +78,7 @@ NSString *const airQualityNotiIdentifier = @"airQualityNoti";
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    [tableView tableViewDisplayWitMsg:@"暂无数据" ifNecessaryForRowCount:self.modelArray.count];
     return self.modelArray.count;
 }
 

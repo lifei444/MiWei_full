@@ -12,6 +12,7 @@
 #import "WMOrderListCell.h"
 #import "WMHTTPUtility.h"
 #import "WMPayment.h"
+#import "UITableView+EmptyData.h"
 
 @interface WMOrderListViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView *tableView;
@@ -65,6 +66,7 @@
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    [tableView tableViewDisplayWitMsg:@"暂无数据" ifNecessaryForRowCount:self.modelArray.count];
     return self.modelArray.count;
 }
 

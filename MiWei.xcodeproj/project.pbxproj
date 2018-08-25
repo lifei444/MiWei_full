@@ -164,6 +164,7 @@
 		9C6CAC64212FE1E9009EBE98 /* WMRegion.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C6CAC63212FE1E9009EBE98 /* WMRegion.m */; };
 		9C6CAC6721311D84009EBE98 /* WMDeviceBindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C6CAC6621311D84009EBE98 /* WMDeviceBindViewController.m */; };
 		9C6CAC6A213121D1009EBE98 /* WMMatchDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C6CAC69213121D1009EBE98 /* WMMatchDeviceInfo.m */; };
+		9C6CAC6D21315BA3009EBE98 /* UITableView+EmptyData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C6CAC6C21315BA3009EBE98 /* UITableView+EmptyData.m */; };
 		9C8C82E9211C5C8200D9F9F1 /* WMMessageFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8C82DD211C5C8200D9F9F1 /* WMMessageFactory.m */; };
 		9C8C82EA211C5C8200D9F9F1 /* WMStrainerStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8C82DE211C5C8200D9F9F1 /* WMStrainerStatus.m */; };
 		9C8C82EB211C5C8200D9F9F1 /* WMMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8C82E0211C5C8200D9F9F1 /* WMMessage.m */; };
@@ -522,6 +523,8 @@
 		9C6CAC6621311D84009EBE98 /* WMDeviceBindViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceBindViewController.m; sourceTree = "<group>"; };
 		9C6CAC68213121D0009EBE98 /* WMMatchDeviceInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMMatchDeviceInfo.h; sourceTree = "<group>"; };
 		9C6CAC69213121D1009EBE98 /* WMMatchDeviceInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMMatchDeviceInfo.m; sourceTree = "<group>"; };
+		9C6CAC6B21315BA3009EBE98 /* UITableView+EmptyData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableView+EmptyData.h"; sourceTree = "<group>"; };
+		9C6CAC6C21315BA3009EBE98 /* UITableView+EmptyData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableView+EmptyData.m"; sourceTree = "<group>"; };
 		9C8C82DD211C5C8200D9F9F1 /* WMMessageFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMessageFactory.m; sourceTree = "<group>"; };
 		9C8C82DE211C5C8200D9F9F1 /* WMStrainerStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMStrainerStatus.m; sourceTree = "<group>"; };
 		9C8C82DF211C5C8200D9F9F1 /* WMAirQualityNotiMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMAirQualityNotiMessage.h; sourceTree = "<group>"; };
@@ -872,6 +875,8 @@
 				9CF0871F20D67BAE0089BB97 /* WMViewController.m */,
 				9C4D76252126D5930089F728 /* WMSearchBar.h */,
 				9C4D76262126D5930089F728 /* WMSearchBar.m */,
+				9C6CAC6B21315BA3009EBE98 /* UITableView+EmptyData.h */,
+				9C6CAC6C21315BA3009EBE98 /* UITableView+EmptyData.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1439,6 +1444,7 @@
 				2708B8E52084F85500A760E7 /* PYTimeline.m in Sources */,
 				2708B8C32084F85500A760E7 /* PYVennSeries.m in Sources */,
 				9CDDA69621042BD30079E328 /* WMSellDeviceDetailViewController.m in Sources */,
+				9C6CAC6D21315BA3009EBE98 /* UITableView+EmptyData.m in Sources */,
 				2702A2EE207E370900FE7577 /* WMPersonViewController.m in Sources */,
 				2708B8CF2084F85500A760E7 /* PYColor.m in Sources */,
 				2708B8DC2084F85500A760E7 /* PYAxisPointer.m in Sources */,

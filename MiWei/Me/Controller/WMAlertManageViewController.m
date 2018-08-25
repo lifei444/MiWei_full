@@ -12,6 +12,7 @@
 #import "WMHTTPUtility.h"
 #import "WMAlarmSetting.h"
 #import "MBProgressHUD.h"
+#import "UITableView+EmptyData.h"
 
 @interface WMAlertManageViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -62,6 +63,7 @@
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    [tableView tableViewDisplayWitMsg:@"暂无数据" ifNecessaryForRowCount:self.modelArray.count];
     return self.modelArray.count;
 }
 
