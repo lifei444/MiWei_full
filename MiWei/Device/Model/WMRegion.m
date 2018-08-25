@@ -28,20 +28,4 @@
     return region;
 }
 
-- (NSArray<NSString *> *)getDistricts {
-    NSMutableArray *result = [[NSMutableArray alloc] init];
-    for (WMRegion *region in self.districts) {
-        NSString *description;
-        if ([region.depth intValue] == 2) {
-            description = region.lev1;
-        } else if ([region.depth intValue] == 3) {
-            description = region.lev2;
-        } else if ([region.depth intValue] == 4) {
-            description = region.lev3;
-        }
-        [result addObject:description];
-    }
-    return result;
-}
-
 @end

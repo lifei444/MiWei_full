@@ -18,5 +18,4 @@
 @property (nonatomic, copy)   NSString *lev3;
 
 + (instancetype)regionWithDic:(NSDictionary *)dic;
-- (NSArray <NSString *> *)getDistricts;
 @end

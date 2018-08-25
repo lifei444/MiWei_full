@@ -10,4 +10,17 @@
 
 @implementation WMProfile
 
++ (instancetype)profileWithDic:(NSDictionary *)dic {
+    WMProfile *profile = [[WMProfile alloc] init];
+    profile.profileId = dic[@"id"];
+    profile.phone = dic[@"phone"];
+    profile.name = dic[@"name"];
+    profile.nickname = dic[@"nickName"];
+    profile.portrait = dic[@"portraitID"];
+    profile.addrDetail = dic[@"addrDetail"];
+    WMRegion *region = [WMRegion regionWithDic:dic[@"district"]];
+    profile.region = region;
+    return profile;
+}
+
 @end

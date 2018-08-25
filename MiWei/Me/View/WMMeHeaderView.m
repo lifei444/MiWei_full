@@ -97,7 +97,8 @@
         _addressLabel.textAlignment = NSTextAlignmentCenter;
         _addressLabel.textColor = [WMUIUtility color:@"0xffffff"];
         _addressLabel.font = [UIFont systemFontOfSize:15];
-        _addressLabel.text = [WMHTTPUtility currentProfile].addrDetail;
+        WMProfile *profile = [WMHTTPUtility currentProfile];
+        _addressLabel.text = [NSString stringWithFormat:@"%@%@%@%@", profile.region.lev1, profile.region.lev2, profile.region.lev3, profile.addrDetail];
     }
     return _addressLabel;
 }

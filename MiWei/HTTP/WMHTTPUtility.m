@@ -236,15 +236,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
                                NSDictionary *contentDic = result.content;
                                NSString *token = contentDic[@"token"];
                                [self setToken:token];
-                               WMProfile *profile = [[WMProfile alloc] init];
                                NSDictionary *userInfo = contentDic[@"userInfo"];
-                               profile.profileId = userInfo[@"id"];
-                               profile.phone = userInfo[@"phone"];
-                               profile.name = userInfo[@"name"];
-                               profile.nickname = userInfo[@"nickName"];
-                               profile.portrait = userInfo[@"portraitID"];
-                               profile.addrDetail = userInfo[@"addrDetail"];
-                               myProfile = profile;
+                               myProfile = [WMProfile profileWithDic:userInfo];
                                if (completeBlock) {
                                    completeBlock(YES);
                                }
@@ -273,15 +266,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
                                NSDictionary *contentDic = result.content;
                                NSString *token = contentDic[@"token"];
                                [self setToken:token];
-                               WMProfile *profile = [[WMProfile alloc] init];
                                NSDictionary *userInfo = contentDic[@"userInfo"];
-                               profile.profileId = userInfo[@"id"];
-                               profile.phone = userInfo[@"phone"];
-                               profile.name = userInfo[@"name"];
-                               profile.nickname = userInfo[@"nickName"];
-                               profile.portrait = userInfo[@"portraitID"];
-                               profile.addrDetail = userInfo[@"addrDetail"];
-                               myProfile = profile;
+                               myProfile = [WMProfile profileWithDic:userInfo];
                                if (completeBlock) {
                                    completeBlock(WMAuthResultSucess, nil);
                                }
