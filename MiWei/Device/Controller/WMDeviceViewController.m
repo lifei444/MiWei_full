@@ -8,7 +8,6 @@
 
 #import "WMDeviceViewController.h"
 #import "WMDeviceCell.h"
-#import "WMPayRecordViewController.h"
 #import "WMScanViewController.h"
 #import "WMSellDeviceDetailViewController.h"
 #import "WMRentDeviceDetailViewController.h"

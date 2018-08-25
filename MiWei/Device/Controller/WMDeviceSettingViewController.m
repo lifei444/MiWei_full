@@ -13,6 +13,8 @@
 #import "WMDeviceAddressViewController.h"
 #import "WMHTTPUtility.h"
 #import "MBProgressHUD.h"
+#import "WMDeviceConfigViewController.h"
+#import <FogV3/FogV3.h>
 
 #define Cell_Height         50
 #define Footer_Gap          18
@@ -44,7 +46,25 @@
 
 #pragma mark - Target action
 - (void)onBabyLock:(id)sender {
-    
+    UISwitch *switchView = sender;
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:self.detail.deviceId forKey:@"deviceID"];
+    [dic setObject:@(switchView.isOn) forKey:@"babyLock"];
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodPost
+                               URLString:@"/mobile/device/control"
+                              parameters:dic
+                                response:^(WMHTTPResult *result) {
+                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                        [self.hud hideAnimated:YES];
+                                        if (result.success) {
+                                            [WMUIUtility showAlertWithMessage:@"设置成功" viewController:self];
+                                        } else {
+                                            [WMUIUtility showAlertWithMessage:@"设置失败" viewController:self];
+                                            [switchView setOn:!(switchView.isOn)];
+                                        }
+                                    });
+                                }];
 }
 
 - (void)onScreenSwitch:(id)sender {
@@ -123,16 +143,15 @@
                                         }];
         }
     } else if ([cell.textLabel.text isEqualToString:@"配置网络"]) {
-        
+        NSString *ssid = [[FogEasyLinkManager sharedInstance] getSSID];
+        WMDeviceConfigViewController *vc = [[WMDeviceConfigViewController alloc] init];
+        vc.ssid = ssid;
+        [self.navigationController pushViewController:vc animated:YES];
     } else if ([cell.textLabel.text isEqualToString:@"关联设备"]) {
         
     } else if ([cell.textLabel.text isEqualToString:@"分享设备"]) {
         
     } else if ([cell.textLabel.text isEqualToString:@"删除设备"]) {
-        
-    } else if ([cell.textLabel.text isEqualToString:@"婴儿锁"]) {
-        
-    } else if ([cell.textLabel.text isEqualToString:@"灯光面板"]) {
         
     }
 }

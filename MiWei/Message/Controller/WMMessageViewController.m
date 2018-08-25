@@ -7,7 +7,6 @@
 //
 
 #import "WMMessageViewController.h"
-#import "WMCityViewController.h"
 #import "WMUIUtility.h"
 #import "WMHTTPUtility.h"
 #import "WMCommonDefine.h"

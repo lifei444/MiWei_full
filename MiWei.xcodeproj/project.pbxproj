@@ -71,10 +71,6 @@
 		2708B8F72084F86600A760E7 /* theme in Resources */ = {isa = PBXBuildFile; fileRef = 2708B8F42084F86600A760E7 /* theme */; };
 		2708B8F82084F86600A760E7 /* echarts.html in Resources */ = {isa = PBXBuildFile; fileRef = 2708B8F52084F86600A760E7 /* echarts.html */; };
 		2708B8FB2084F8B500A760E7 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2708B8FA2084F8B500A760E7 /* WebKit.framework */; };
-		271A9CC720819D190028D20D /* WMCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 271A9CC620819D190028D20D /* WMCityViewController.m */; };
-		271A9CC920819E0F0028D20D /* citydict.plist in Resources */ = {isa = PBXBuildFile; fileRef = 271A9CC820819E0F0028D20D /* citydict.plist */; };
-		271A9CD02081A6510028D20D /* WMPayRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 271A9CCF2081A6510028D20D /* WMPayRecordViewController.m */; };
-		271A9CD32081A71A0028D20D /* WMPayRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 271A9CD22081A71A0028D20D /* WMPayRecordCell.m */; };
 		271A9CD62081AA5E0028D20D /* WMDeviceConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 271A9CD52081AA5E0028D20D /* WMDeviceConfigViewController.m */; };
 		271A9CDB2081AC520028D20D /* WMScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 271A9CDA2081AC520028D20D /* WMScanViewController.m */; };
 		271A9CE02081AE520028D20D /* WMScanView.m in Sources */ = {isa = PBXBuildFile; fileRef = 271A9CDF2081AE520028D20D /* WMScanView.m */; };
@@ -340,13 +336,6 @@
 		2708B8F42084F86600A760E7 /* theme */ = {isa = PBXFileReference; lastKnownFileType = folder; name = theme; path = Resources/theme; sourceTree = "<group>"; };
 		2708B8F52084F86600A760E7 /* echarts.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = echarts.html; path = Resources/echarts.html; sourceTree = "<group>"; };
 		2708B8FA2084F8B500A760E7 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		271A9CC520819D190028D20D /* WMCityViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMCityViewController.h; sourceTree = "<group>"; };
-		271A9CC620819D190028D20D /* WMCityViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMCityViewController.m; sourceTree = "<group>"; };
-		271A9CC820819E0F0028D20D /* citydict.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = citydict.plist; sourceTree = "<group>"; };
-		271A9CCE2081A6510028D20D /* WMPayRecordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMPayRecordViewController.h; sourceTree = "<group>"; };
-		271A9CCF2081A6510028D20D /* WMPayRecordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMPayRecordViewController.m; sourceTree = "<group>"; };
-		271A9CD12081A71A0028D20D /* WMPayRecordCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMPayRecordCell.h; sourceTree = "<group>"; };
-		271A9CD22081A71A0028D20D /* WMPayRecordCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMPayRecordCell.m; sourceTree = "<group>"; };
 		271A9CD42081AA5E0028D20D /* WMDeviceConfigViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceConfigViewController.h; sourceTree = "<group>"; };
 		271A9CD52081AA5E0028D20D /* WMDeviceConfigViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceConfigViewController.m; sourceTree = "<group>"; };
 		271A9CD92081AC520028D20D /* WMScanViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMScanViewController.h; sourceTree = "<group>"; };
@@ -773,51 +762,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		271A9CC420819D0A0028D20D /* City */ = {
-			isa = PBXGroup;
-			children = (
-				271A9CC520819D190028D20D /* WMCityViewController.h */,
-				271A9CC620819D190028D20D /* WMCityViewController.m */,
-				271A9CC820819E0F0028D20D /* citydict.plist */,
-			);
-			path = City;
-			sourceTree = "<group>";
-		};
-		271A9CCA2081A61C0028D20D /* Pay */ = {
-			isa = PBXGroup;
-			children = (
-				271A9CCB2081A61C0028D20D /* Controller */,
-				271A9CCC2081A61C0028D20D /* Model */,
-				271A9CCD2081A61C0028D20D /* View */,
-			);
-			path = Pay;
-			sourceTree = "<group>";
-		};
-		271A9CCB2081A61C0028D20D /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				271A9CCE2081A6510028D20D /* WMPayRecordViewController.h */,
-				271A9CCF2081A6510028D20D /* WMPayRecordViewController.m */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		271A9CCC2081A61C0028D20D /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		271A9CCD2081A61C0028D20D /* View */ = {
-			isa = PBXGroup;
-			children = (
-				271A9CD12081A71A0028D20D /* WMPayRecordCell.h */,
-				271A9CD22081A71A0028D20D /* WMPayRecordCell.m */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		271A9CD72081AC470028D20D /* Scan */ = {
 			isa = PBXGroup;
 			children = (
@@ -1172,8 +1116,6 @@
 				9C5EDCB92110767F0085ADEE /* MBProgressHUD */,
 				274A5534208E2F50004FC461 /* Message */,
 				271A9CD72081AC470028D20D /* Scan */,
-				271A9CCA2081A61C0028D20D /* Pay */,
-				271A9CC420819D0A0028D20D /* City */,
 				27A7D232207D0E1E006C6AF6 /* Utility */,
 				27A7D21F207D0B85006C6AF6 /* Device */,
 				27A7D20D207D09D9006C6AF6 /* Me */,
@@ -1377,7 +1319,6 @@
 				27B38249207CFB77006036A0 /* LaunchScreen.storyboard in Resources */,
 				9C6CAC61212FC28A009EBE98 /* region.json in Resources */,
 				2708B8F62084F86600A760E7 /* js in Resources */,
-				271A9CC920819E0F0028D20D /* citydict.plist in Resources */,
 				9C5EDCF621146AEA0085ADEE /* icon.png in Resources */,
 				2708B8F82084F86600A760E7 /* echarts.html in Resources */,
 				27B38246207CFB77006036A0 /* Assets.xcassets in Resources */,
@@ -1582,7 +1523,6 @@
 				9C4D763F212991300089F728 /* WMDeviceStoreView.m in Sources */,
 				9C4D7664212C13400089F728 /* WMAboutViewController.m in Sources */,
 				9C5EDCEF211076EC0085ADEE /* UIImageView+WebCache.m in Sources */,
-				271A9CD32081A71A0028D20D /* WMPayRecordCell.m in Sources */,
 				9C4D7630212817F30089F728 /* WMDeviceTimerCell.m in Sources */,
 				9C8C82F4211C5E2000D9F9F1 /* WMMessageCellFooterView.m in Sources */,
 				2702A2F6207E3C8900FE7577 /* WMMeNameViewController.m in Sources */,
@@ -1596,11 +1536,9 @@
 				9C206F732117020200672206 /* WMMessageViewController.m in Sources */,
 				9C4D76272126D5930089F728 /* WMSearchBar.m in Sources */,
 				9C4D764E2129C7520089F728 /* WMDeviceRentPrice.m in Sources */,
-				271A9CC720819D190028D20D /* WMCityViewController.m in Sources */,
 				2708B8DE2084F85500A760E7 /* PYLineStyle.m in Sources */,
 				9C5EDCE4211076EC0085ADEE /* SDWebImageManager.m in Sources */,
 				2729691C208A2DCB00391D63 /* WMDeviceAddViewController.m in Sources */,
-				271A9CD02081A6510028D20D /* WMPayRecordViewController.m in Sources */,
 				2702A300207E5A3400FE7577 /* WMForgetPassViewController.m in Sources */,
 				9C4D763921292D740089F728 /* WMDeviceTimerEditViewController.m in Sources */,
 				271A9CD62081AA5E0028D20D /* WMDeviceConfigViewController.m in Sources */,
