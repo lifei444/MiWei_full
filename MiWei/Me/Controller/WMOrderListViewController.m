@@ -66,7 +66,7 @@
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    [tableView tableViewDisplayWitMsg:@"暂无数据" ifNecessaryForRowCount:self.modelArray.count];
+    [tableView tableViewDisplayWitMsg:@"暂无订单" ifNecessaryForRowCount:self.modelArray.count];
     return self.modelArray.count;
 }
 

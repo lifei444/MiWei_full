@@ -78,7 +78,7 @@ NSString *const airQualityNotiIdentifier = @"airQualityNoti";
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    [tableView tableViewDisplayWitMsg:@"暂无数据" ifNecessaryForRowCount:self.modelArray.count];
+    [tableView tableViewDisplayWitMsg:@"设备运行良好，暂无消息" ifNecessaryForRowCount:self.modelArray.count];
     return self.modelArray.count;
 }
 
