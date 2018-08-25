@@ -190,22 +190,22 @@
         [self.switchContainerView setModel:detail];
         
         //dataView
-        NSString *str = self.dataView.PMLabel.text;
+        NSString *str = @"PM2.5：";
         str = [str stringByAppendingFormat:@"%d", [detail.pm25 intValue]];
         self.dataView.PMLabel.text = str;
-        str = self.dataView.co2Label.text;
+        str = @"CO2：";
         str = [str stringByAppendingFormat:@"%0.2f", [detail.co2 floatValue]];
         self.dataView.co2Label.text = str;
-        str = self.dataView.ch2oLabel.text;
+        str = @"甲醛：";
         str = [str stringByAppendingFormat:@"%0.2f", [detail.ch2o floatValue]];
         self.dataView.ch2oLabel.text = str;
-        str = self.dataView.tvocLabel.text;
+        str = @"TVOC：";
         str = [str stringByAppendingFormat:@"%0.2f", [detail.tvoc floatValue]];
         self.dataView.tvocLabel.text = str;
-        str = self.dataView.tempLabel.text;
+        str = @"温度：";
         str = [str stringByAppendingFormat:@"%0.2f", [detail.temp floatValue]];
         self.dataView.tempLabel.text = str;
-        str = self.dataView.humidityLabel.text;
+        str = @"湿度：";
         str = [str stringByAppendingFormat:@"%0.2f", [detail.humidity floatValue]];
         self.dataView.humidityLabel.text = str;
         

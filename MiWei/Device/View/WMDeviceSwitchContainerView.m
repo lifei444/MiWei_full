@@ -73,7 +73,6 @@
         [self addSubview:self.airSpeedLabel];
         [self addSubview:self.timingLabel];
         [self addSubview:self.settingLabel];
-
    }
     return self;
 }

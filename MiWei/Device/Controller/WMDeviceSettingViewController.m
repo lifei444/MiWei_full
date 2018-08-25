@@ -68,7 +68,25 @@
 }
 
 - (void)onScreenSwitch:(id)sender {
-    
+    UISwitch *switchView = sender;
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:self.detail.deviceId forKey:@"deviceID"];
+    [dic setObject:@(switchView.isOn) forKey:@"screenSwitch"];
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodPost
+                               URLString:@"/mobile/device/control"
+                              parameters:dic
+                                response:^(WMHTTPResult *result) {
+                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                        [self.hud hideAnimated:YES];
+                                        if (result.success) {
+                                            [WMUIUtility showAlertWithMessage:@"设置成功" viewController:self];
+                                        } else {
+                                            [WMUIUtility showAlertWithMessage:@"设置失败" viewController:self];
+                                            [switchView setOn:!(switchView.isOn)];
+                                        }
+                                    });
+                                }];
 }
 
 - (void)reset {
