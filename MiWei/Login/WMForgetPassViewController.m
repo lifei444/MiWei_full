@@ -30,7 +30,7 @@
 #define RegisterX       37
 #define RegisterW       300
 
-@interface WMForgetPassViewController ()
+@interface WMForgetPassViewController () <UITextFieldDelegate>
 @property (nonatomic,strong) WMUnderLineView *phoneView;
 @property (nonatomic,strong) WMUnderLineView *verifyView;
 @property (nonatomic,strong) WMUnderLineView *passView;
@@ -51,6 +51,9 @@
     [self.view addSubview:self.passView];
     [self.view addSubview:self.confirmView];
     [self.view addSubview:self.modifyButton];
+    self.view.userInteractionEnabled = YES;
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fingerTapped:)];
+    [self.view addGestureRecognizer:singleTap];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -95,6 +98,16 @@
     }
 }
 
+- (void)fingerTapped:(UITapGestureRecognizer *)gestureRecognizer {
+    [self.view endEditing:YES];
+}
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
 #pragma mark - Private methods
 - (void)countDown {
     if (self.count > 0) {
@@ -130,6 +143,7 @@
         _phoneView = [[WMUnderLineView alloc] initWithFrame:WM_CGRectMake(ViewX, PhoneY, ViewWidth, ViewHeight) withType:WMUnderLineViewTypeWithRightButton];
         _phoneView.imageView.image = [UIImage imageNamed:@"register_phone"];
         _phoneView.textField.placeholder = @"输入手机号";
+        _phoneView.textField.delegate = self;
         [_phoneView.rightButton setTitle:@"获取验证码" forState:UIControlStateNormal];
         [_phoneView.rightButton setTitleColor:[WMUIUtility color:@"0x999999"] forState:UIControlStateNormal];
         _phoneView.rightButton.titleLabel.font = [UIFont systemFontOfSize:[WMUIUtility WMCGFloatForY:14]];
@@ -143,6 +157,7 @@
         _verifyView = [[WMUnderLineView alloc] initWithFrame:WM_CGRectMake(ViewX, VerifyY, ViewWidth, ViewHeight)];
         _verifyView.imageView.image = [UIImage imageNamed:@"register_verify"];
         _verifyView.textField.placeholder = @"输入验证码";
+        _verifyView.textField.delegate = self;
     }
     return _verifyView;
 }
@@ -153,6 +168,7 @@
         _passView.imageView.image = [UIImage imageNamed:@"register_password"];
         _passView.textField.placeholder = @"输入密码";
         _passView.textField.secureTextEntry = YES;
+        _passView.textField.delegate = self;
     }
     return _passView;
 }
@@ -163,6 +179,7 @@
         _confirmView.imageView.image = [UIImage imageNamed:@"register_password"];
         _confirmView.textField.placeholder = @"确认密码";
         _confirmView.textField.secureTextEntry = YES;
+        _confirmView.textField.delegate = self;
     }
     return _confirmView;
 }
