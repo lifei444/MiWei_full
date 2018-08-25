@@ -77,7 +77,7 @@
 @property (nonatomic, copy)   NSString *pm25AirText;
 //PM2.5排名文案
 @property (nonatomic, copy)   NSString *pm25RankText;
-
+//设备类型
 @property (nonatomic, copy)   NSString *prodName;
 
 @property (nonatomic, strong) WMDeviceRentInfo *rentInfo;

@@ -263,7 +263,10 @@
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", ver];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    } else if ([cell.textLabel.text isEqualToString:@"设备类型及型号"]) {
+    } else if ([cell.textLabel.text isEqualToString:@"设备类型"]) {
+        cell.detailTextLabel.text = self.detail.prodName;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    } else if ([cell.textLabel.text isEqualToString:@"设备型号"]) {
         cell.detailTextLabel.text = self.detail.modelName;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     } else if ([cell.textLabel.text isEqualToString:@"配置网络"]) {
@@ -343,35 +346,35 @@
 
 - (NSArray *)viewArray {
     if (!_viewArray) {
-        _viewArray = [NSArray arrayWithObjects:@[@"MAC/IMEI", @"固件版本", @"设备类型及型号"], @[@"分享设备", @"删除设备"], nil];
+        _viewArray = [NSArray arrayWithObjects:@[@"MAC/IMEI", @"固件版本", @"设备类型", @"设备型号"], @[@"分享设备", @"删除设备"], nil];
     }
     return _viewArray;
 }
 
 - (NSArray *)controlOnlineArray {
     if (!_controlOnlineArray) {
-        _controlOnlineArray = [NSArray arrayWithObjects:@[@"MAC/IMEI", @"固件版本", @"设备类型及型号"], @[@"配置网络", @"关联设备", @"分享设备", @"删除设备"], @[@"婴儿锁", @"灯光面板"], nil];
+        _controlOnlineArray = [NSArray arrayWithObjects:@[@"MAC/IMEI", @"固件版本", @"设备类型", @"设备型号"], @[@"配置网络", @"关联设备", @"分享设备", @"删除设备"], @[@"婴儿锁", @"灯光面板"], nil];
     }
     return _controlOnlineArray;
 }
 
 - (NSArray *)controlOfflineArray {
     if (!_controlOfflineArray) {
-        _controlOfflineArray = [NSArray arrayWithObjects:@[@"MAC/IMEI", @"固件版本", @"设备类型及型号"], @[@"配置网络", @"关联设备", @"分享设备", @"删除设备"], nil];
+        _controlOfflineArray = [NSArray arrayWithObjects:@[@"MAC/IMEI", @"固件版本", @"设备类型", @"设备型号"], @[@"配置网络", @"关联设备", @"分享设备", @"删除设备"], nil];
     }
     return _controlOfflineArray;
 }
 
 - (NSArray *)ownerOnlineArray {
     if (!_ownerOnlineArray) {
-        _ownerOnlineArray = [NSArray arrayWithObjects:@[@"设备名称", @"地理位置"], @[@"MAC/IMEI", @"固件版本", @"固件升级", @"设备类型及型号"], @[@"配置网络", @"关联设备", @"分享设备", @"删除设备"], @[@"婴儿锁", @"灯光面板"], nil];
+        _ownerOnlineArray = [NSArray arrayWithObjects:@[@"设备名称", @"地理位置"], @[@"MAC/IMEI", @"固件版本", @"固件升级", @"设备类型", @"设备型号"], @[@"配置网络", @"关联设备", @"分享设备", @"删除设备"], @[@"婴儿锁", @"灯光面板"], nil];
     }
     return _ownerOnlineArray;
 }
 
 - (NSArray *)ownerOfflineArray {
     if (!_ownerOfflineArray) {
-        _ownerOfflineArray = [NSArray arrayWithObjects:@[@"设备名称", @"地理位置"], @[@"MAC/IMEI", @"固件版本", @"设备类型及型号"], @[@"配置网络", @"关联设备", @"分享设备", @"删除设备"], nil];
+        _ownerOfflineArray = [NSArray arrayWithObjects:@[@"设备名称", @"地理位置"], @[@"MAC/IMEI", @"固件版本", @"设备类型", @"设备型号"], @[@"配置网络", @"关联设备", @"分享设备", @"删除设备"], nil];
     }
     return _ownerOfflineArray;
 }
