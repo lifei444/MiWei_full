@@ -161,6 +161,8 @@
                                                 }
                                             });
                                         }];
+        } else {
+            [WMUIUtility showAlertWithMessage:@"已是最新版本" viewController:self];
         }
     } else if ([cell.textLabel.text isEqualToString:@"配置网络"]) {
         NSString *ssid = [[FogEasyLinkManager sharedInstance] getSSID];
