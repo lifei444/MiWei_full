@@ -44,7 +44,7 @@
      sd_setImageWithURL:[WMHTTPUtility urlWithPortraitId:[WMHTTPUtility currentProfile].portrait]
      placeholderImage:[UIImage imageNamed:@"me_portrait"]];
     WMProfile *profile = [WMHTTPUtility currentProfile];
-    self.addressLabel.text = [NSString stringWithFormat:@"%@%@%@%@", profile.region.lev1, profile.region.lev2, profile.region.lev3, profile.addrDetail];
+    self.addressLabel.text = [NSString stringWithFormat:@"%@%@%@%@", profile.region.lev1?:@"", profile.region.lev2?:@"", profile.region.lev3?:@"", profile.addrDetail?:@""];
 }
 
 #pragma mark - Getters and setters
@@ -100,7 +100,7 @@
         _addressLabel.textColor = [WMUIUtility color:@"0xffffff"];
         _addressLabel.font = [UIFont systemFontOfSize:15];
         WMProfile *profile = [WMHTTPUtility currentProfile];
-        _addressLabel.text = [NSString stringWithFormat:@"%@%@%@%@", profile.region.lev1, profile.region.lev2, profile.region.lev3, profile.addrDetail];
+        _addressLabel.text = [NSString stringWithFormat:@"%@%@%@%@", profile.region.lev1?:@"", profile.region.lev2?:@"", profile.region.lev3?:@"", profile.addrDetail?:@""];
     }
     return _addressLabel;
 }

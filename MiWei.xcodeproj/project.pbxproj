@@ -165,6 +165,9 @@
 		9C6CAC6721311D84009EBE98 /* WMDeviceBindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C6CAC6621311D84009EBE98 /* WMDeviceBindViewController.m */; };
 		9C6CAC6A213121D1009EBE98 /* WMMatchDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C6CAC69213121D1009EBE98 /* WMMatchDeviceInfo.m */; };
 		9C6CAC6D21315BA3009EBE98 /* UITableView+EmptyData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C6CAC6C21315BA3009EBE98 /* UITableView+EmptyData.m */; };
+		9C6CAC702132BDF5009EBE98 /* WMStrainerResetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C6CAC6F2132BDF5009EBE98 /* WMStrainerResetViewController.m */; };
+		9C6CAC732132D046009EBE98 /* WMDeviceStrainerStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C6CAC722132D046009EBE98 /* WMDeviceStrainerStatus.m */; };
+		9C6CAC762132DA8B009EBE98 /* WMDeviceStrainerStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C6CAC752132DA8B009EBE98 /* WMDeviceStrainerStatusCell.m */; };
 		9C8C82E9211C5C8200D9F9F1 /* WMMessageFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8C82DD211C5C8200D9F9F1 /* WMMessageFactory.m */; };
 		9C8C82EA211C5C8200D9F9F1 /* WMStrainerStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8C82DE211C5C8200D9F9F1 /* WMStrainerStatus.m */; };
 		9C8C82EB211C5C8200D9F9F1 /* WMMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8C82E0211C5C8200D9F9F1 /* WMMessage.m */; };
@@ -525,6 +528,12 @@
 		9C6CAC69213121D1009EBE98 /* WMMatchDeviceInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMMatchDeviceInfo.m; sourceTree = "<group>"; };
 		9C6CAC6B21315BA3009EBE98 /* UITableView+EmptyData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableView+EmptyData.h"; sourceTree = "<group>"; };
 		9C6CAC6C21315BA3009EBE98 /* UITableView+EmptyData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableView+EmptyData.m"; sourceTree = "<group>"; };
+		9C6CAC6E2132BDF5009EBE98 /* WMStrainerResetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMStrainerResetViewController.h; sourceTree = "<group>"; };
+		9C6CAC6F2132BDF5009EBE98 /* WMStrainerResetViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMStrainerResetViewController.m; sourceTree = "<group>"; };
+		9C6CAC712132D046009EBE98 /* WMDeviceStrainerStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceStrainerStatus.h; sourceTree = "<group>"; };
+		9C6CAC722132D046009EBE98 /* WMDeviceStrainerStatus.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceStrainerStatus.m; sourceTree = "<group>"; };
+		9C6CAC742132DA8B009EBE98 /* WMDeviceStrainerStatusCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceStrainerStatusCell.h; sourceTree = "<group>"; };
+		9C6CAC752132DA8B009EBE98 /* WMDeviceStrainerStatusCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceStrainerStatusCell.m; sourceTree = "<group>"; };
 		9C8C82DD211C5C8200D9F9F1 /* WMMessageFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMessageFactory.m; sourceTree = "<group>"; };
 		9C8C82DE211C5C8200D9F9F1 /* WMStrainerStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMStrainerStatus.m; sourceTree = "<group>"; };
 		9C8C82DF211C5C8200D9F9F1 /* WMAirQualityNotiMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMAirQualityNotiMessage.h; sourceTree = "<group>"; };
@@ -1006,6 +1015,8 @@
 				9C6CAC5E212E93B8009EBE98 /* WMDeviceAddressViewController.m */,
 				9C6CAC6521311D84009EBE98 /* WMDeviceBindViewController.h */,
 				9C6CAC6621311D84009EBE98 /* WMDeviceBindViewController.m */,
+				9C6CAC6E2132BDF5009EBE98 /* WMStrainerResetViewController.h */,
+				9C6CAC6F2132BDF5009EBE98 /* WMStrainerResetViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1040,6 +1051,8 @@
 				9C6CAC63212FE1E9009EBE98 /* WMRegion.m */,
 				9C6CAC68213121D0009EBE98 /* WMMatchDeviceInfo.h */,
 				9C6CAC69213121D1009EBE98 /* WMMatchDeviceInfo.m */,
+				9C6CAC712132D046009EBE98 /* WMDeviceStrainerStatus.h */,
+				9C6CAC722132D046009EBE98 /* WMDeviceStrainerStatus.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1079,6 +1092,8 @@
 				9C4D76472129BA1F0089F728 /* WMDevicePayBGView.m */,
 				9C4D7656212AA29F0089F728 /* WMDeviceRentPriceCell.h */,
 				9C4D7657212AA29F0089F728 /* WMDeviceRentPriceCell.m */,
+				9C6CAC742132DA8B009EBE98 /* WMDeviceStrainerStatusCell.h */,
+				9C6CAC752132DA8B009EBE98 /* WMDeviceStrainerStatusCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1441,6 +1456,7 @@
 				2708B8C12084F85500A760E7 /* PYPieSeries.m in Sources */,
 				9C8C82ED211C5C8200D9F9F1 /* WMDevShareNotiMessage.m in Sources */,
 				2708B8C22084F85500A760E7 /* PYSeries.m in Sources */,
+				9C6CAC702132BDF5009EBE98 /* WMStrainerResetViewController.m in Sources */,
 				2708B8E52084F85500A760E7 /* PYTimeline.m in Sources */,
 				2708B8C32084F85500A760E7 /* PYVennSeries.m in Sources */,
 				9CDDA69621042BD30079E328 /* WMSellDeviceDetailViewController.m in Sources */,
@@ -1557,12 +1573,14 @@
 				2708B8DE2084F85500A760E7 /* PYLineStyle.m in Sources */,
 				9C5EDCE4211076EC0085ADEE /* SDWebImageManager.m in Sources */,
 				2729691C208A2DCB00391D63 /* WMDeviceAddViewController.m in Sources */,
+				9C6CAC732132D046009EBE98 /* WMDeviceStrainerStatus.m in Sources */,
 				2702A300207E5A3400FE7577 /* WMForgetPassViewController.m in Sources */,
 				9C4D763921292D740089F728 /* WMDeviceTimerEditViewController.m in Sources */,
 				271A9CD62081AA5E0028D20D /* WMDeviceConfigViewController.m in Sources */,
 				9C5EDCEA211076EC0085ADEE /* SDWebImageCompat.m in Sources */,
 				271A9CE02081AE520028D20D /* WMScanView.m in Sources */,
 				2708B8EF2084F85500A760E7 /* WKEchartsView.m in Sources */,
+				9C6CAC762132DA8B009EBE98 /* WMDeviceStrainerStatusCell.m in Sources */,
 				9C8C82EC211C5C8200D9F9F1 /* WMAirQualityNotiMessage.m in Sources */,
 				9C5EDCF1211076EC0085ADEE /* UIButton+WebCache.m in Sources */,
 			);

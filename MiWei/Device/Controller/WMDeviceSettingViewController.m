@@ -15,6 +15,7 @@
 #import "MBProgressHUD.h"
 #import "WMDeviceConfigViewController.h"
 #import "WMDeviceBindViewController.h"
+#import "WMStrainerResetViewController.h"
 #import <FogV3/FogV3.h>
 #import <WXApi.h>
 
@@ -23,7 +24,7 @@
 #define Footer_Height       44
 #define Footer_Gap2         10
 
-@interface WMDeviceSettingViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface WMDeviceSettingViewController () <UITableViewDelegate, UITableViewDataSource, WMStrainerResetViewControllerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *viewArray;
 @property (nonatomic, strong) NSArray *controlOnlineArray;
@@ -31,6 +32,7 @@
 @property (nonatomic, strong) NSArray *ownerOnlineArray;
 @property (nonatomic, strong) NSArray *ownerOfflineArray;
 @property (nonatomic, strong) MBProgressHUD *hud;
+@property (nonatomic, strong) UIView *shadowView;
 @end
 
 @implementation WMDeviceSettingViewController
@@ -38,6 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.tableView];
+    [self.view addSubview:self.shadowView];
     self.navigationItem.title = @"设置";
 }
 
@@ -92,7 +95,17 @@
 }
 
 - (void)reset {
-    
+    WMStrainerResetViewController *vc = [[WMStrainerResetViewController alloc] init];
+    vc.deviceId = self.detail.deviceId;
+    vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    vc.delegate = self;
+    self.shadowView.alpha = 0.5;
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+#pragma mark - WMStrainerResetViewControllerDelegate
+- (void)onDismiss {
+    self.shadowView.alpha = 0;
 }
 
 #pragma mark - UITableViewDelegate
@@ -101,6 +114,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    //debug
+//    return [WMUIUtility WMCGFloatForY:(Footer_Gap + Footer_Height + Footer_Gap2)];
+    
     if (section == 3) {
         return [WMUIUtility WMCGFloatForY:(Footer_Gap + Footer_Height + Footer_Gap2)];
     } else {
@@ -109,6 +125,16 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    //debug
+//    UIView *footer = [[UIView alloc] initWithFrame:WM_CGRectMake(0, 0, Screen_Width, Footer_Gap + Footer_Height)];
+//    UIButton *button = [[UIButton alloc] initWithFrame:WM_CGRectMake(10, Footer_Gap, Screen_Width - 20, Footer_Height)];
+//    button.backgroundColor = [WMUIUtility color:@"0x2b938b"];
+//    [button setTitle:@"滤网复位" forState:UIControlStateNormal];
+//    [button addTarget:self action:@selector(reset) forControlEvents:UIControlEventTouchUpInside];
+//    button.layer.cornerRadius = 5;
+//    [footer addSubview:button];
+//    return footer;
+    
     if (section == 3) {
         UIView *footer = [[UIView alloc] initWithFrame:WM_CGRectMake(0, 0, Screen_Width, Footer_Gap + Footer_Height)];
         UIButton *button = [[UIButton alloc] initWithFrame:WM_CGRectMake(10, Footer_Gap, Screen_Width - 20, Footer_Height)];
@@ -342,6 +368,15 @@
         _tableView.dataSource = self;
     }
     return _tableView;
+}
+
+- (UIView *)shadowView {
+    if (!_shadowView) {
+        _shadowView = [[UIView alloc] initWithFrame:self.view.bounds];
+        _shadowView.backgroundColor = [UIColor blackColor];
+        _shadowView.alpha = 0;
+    }
+    return _shadowView;
 }
 
 - (NSArray *)viewArray {

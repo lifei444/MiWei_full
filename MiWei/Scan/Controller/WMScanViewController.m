@@ -133,8 +133,6 @@
 - (void)scanQRCode:(WMQRCode *)code didScanOutResult:(NSArray<NSString *> *)results {
     NSLog(@"%s %@", __func__, results);
     NSString *deviceId = results[0];
-    //debug
-//    deviceId = @"865066030730852";
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:deviceId forKey:@"deviceID"];
     [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodGet
