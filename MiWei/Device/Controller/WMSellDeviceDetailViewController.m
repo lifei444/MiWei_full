@@ -74,7 +74,6 @@
 
 @property (nonatomic, strong) WMDeviceDetail *deviceDetail;
 @property (nonatomic, strong) NSDateFormatter *formatter;
-
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) WMDeviceAddressView *addressView;
 @property (nonatomic, strong) UILabel *nameLabel;
@@ -85,6 +84,8 @@
 @property (nonatomic, strong) WMDeviceRankView *rankView;
 @property (nonatomic, strong) WMDevicePollutionChangeView *pollutionChangeView;
 @property (nonatomic, strong) WMDevicePollutionSumView *pollutionSumView;
+@property (nonatomic, strong) NSTimer *timer;
+
 @end
 
 @implementation WMSellDeviceDetailViewController
@@ -109,6 +110,26 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self loadDeviceDetail];
+    self.timer = [NSTimer timerWithTimeInterval:10
+                                         target:self
+                                       selector:@selector(onTimer)
+                                       userInfo:nil
+                                        repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (self.timer) {
+        [self.timer invalidate];
+        self.timer = nil;
+    }
+}
+
+#pragma mark - Target action
+- (void)onTimer {
+    NSLog(@"WMSellDeviceDetailViewController onTimer");
     [self loadDeviceDetail];
 }
 
