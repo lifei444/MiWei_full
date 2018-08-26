@@ -25,6 +25,8 @@
 //设置
 @property (nonatomic, strong) WMDeviceSwitchView *settingView;
 @property (nonatomic, weak)   UIViewController *vc;
+//设备类型
+@property (nonatomic, strong) NSNumber *prodId;
 
 - (void)setModel:(WMDeviceDetail *)detail;
 

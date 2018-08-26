@@ -80,74 +80,88 @@
 #pragma mark - Public method
 - (void)setModel:(WMDeviceDetail *)detail {
     self.deviceDetail = detail;
-    if (detail.online) {
-        if (detail.powerOn) {
-            self.powerOnView.name.text = @"开";
-            self.powerOnView.status = 1;
-        } else {
-            self.powerOnView.name.text = @"关";
-            self.powerOnView.status = 0;
-        }
-        self.powerOnView.isOn = YES;
-        if (detail.ventilationMode == WMVentilationModeLow) {
-            self.ventilationView.name.text = @"低效";
-        } else if (detail.ventilationMode == WMVentilationModeOff) {
-            self.ventilationView.name.text = @"关闭";
-        } else if (detail.ventilationMode == WMVentilationModeHigh) {
-            self.ventilationView.name.text = @"高效";
-        }
-        self.ventilationView.status = detail.ventilationMode;
-        self.ventilationView.isOn = YES;
-        if (detail.auxiliaryHeat) {
-            self.auxiliaryHeatView.name.text = @"开";
-            self.auxiliaryHeatView.status = 1;
-        } else {
-            self.auxiliaryHeatView.name.text = @"关";
-            self.auxiliaryHeatView.status = 0;
-        }
-        self.auxiliaryHeatView.isOn = YES;
-        switch (detail.airSpeed) {
-            case WMAirSpeedAuto:
-                self.airSpeedView.name.text = @"自动";
-                break;
-            case WMAirSpeedSilent:
-                self.airSpeedView.name.text = @"静音";
-                break;
-            case WMAirSpeedComfort:
-                self.airSpeedView.name.text = @"舒适";
-                break;
-            case WMAirSpeedStandard:
-                self.airSpeedView.name.text = @"标准";
-                break;
-            case WMAirSpeedStrong:
-                self.airSpeedView.name.text = @"强力";
-                break;
-            case WMAirSpeedHurricane:
-                self.airSpeedView.name.text = @"飓风";
-                break;
-                
-            default:
-                break;
-        }
-        self.airSpeedView.status = detail.airSpeed;
-        self.airSpeedView.isOn = YES;
+    if (detail.powerOn) {
+        self.powerOnView.name.text = @"开";
+        self.powerOnView.status = 1;
     } else {
-        self.powerOnView.isOn = NO;
+        self.powerOnView.name.text = @"关";
+        self.powerOnView.status = 0;
+    }
+    if (detail.ventilationMode == WMVentilationModeLow) {
+        self.ventilationView.name.text = @"低效";
+    } else if (detail.ventilationMode == WMVentilationModeOff) {
+        self.ventilationView.name.text = @"关闭";
+    } else if (detail.ventilationMode == WMVentilationModeHigh) {
+        self.ventilationView.name.text = @"高效";
+    }
+    self.ventilationView.status = detail.ventilationMode;
+    if (detail.auxiliaryHeat) {
+        self.auxiliaryHeatView.name.text = @"开";
+        self.auxiliaryHeatView.status = 1;
+    } else {
+        self.auxiliaryHeatView.name.text = @"关";
+        self.auxiliaryHeatView.status = 0;
+    }
+    switch (detail.airSpeed) {
+        case WMAirSpeedAuto:
+            self.airSpeedView.name.text = @"自动";
+            break;
+        case WMAirSpeedSilent:
+            self.airSpeedView.name.text = @"静音";
+            break;
+        case WMAirSpeedComfort:
+            self.airSpeedView.name.text = @"舒适";
+            break;
+        case WMAirSpeedStandard:
+            self.airSpeedView.name.text = @"标准";
+            break;
+        case WMAirSpeedStrong:
+            self.airSpeedView.name.text = @"强力";
+            break;
+        case WMAirSpeedHurricane:
+            self.airSpeedView.name.text = @"飓风";
+            break;
+            
+        default:
+            break;
+    }
+    self.airSpeedView.status = detail.airSpeed;
+    if (detail.fanTiming) {
+        self.timingView.name.text = @"开";
+        self.timingView.status = 1;
+    } else {
+        self.timingView.name.text = @"关";
+        self.timingView.status = 0;
+    }
+    //0: 净化器； 1: 检测仪
+    if ([self.prodId intValue] == 0) {
+        if ((detail.permission == WMDevicePermissionTypeViewAndControl || detail.permission == WMDevicePermissionTypeOwner)
+            && detail.online) {
+            self.powerOnView.isOn = YES;
+            self.ventilationView.isOn = YES;
+            self.auxiliaryHeatView.isOn = YES;
+            self.airSpeedView.isOn = YES;
+            self.timingView.isOn = YES;
+        } else {
+            self.powerOnView.isOn = NO;
+            self.ventilationView.isOn = NO;
+            self.auxiliaryHeatView.isOn = NO;
+            self.airSpeedView.isOn = NO;
+            self.timingView.isOn = NO;
+        }
+        self.settingView.isOn = YES;
+    } else if ([self.prodId intValue] == 1) {
+        if ((detail.permission == WMDevicePermissionTypeViewAndControl || detail.permission == WMDevicePermissionTypeOwner)
+            && detail.online) {
+            self.powerOnView.isOn = YES;
+        } else {
+            self.powerOnView.isOn = NO;
+        }
         self.ventilationView.isOn = NO;
         self.auxiliaryHeatView.isOn = NO;
         self.airSpeedView.isOn = NO;
-    }
-    if (detail.permission == WMDevicePermissionTypeOwner) {
+        self.timingView.isOn = NO;
         self.settingView.isOn = YES;
-    } else {
-        //debug
-        self.settingView.isOn = NO;
-    }
-    self.timingView.isOn = YES;
-    if (detail.fanTiming) {
-        self.timingView.name.text = @"开";
-    } else {
-        self.timingView.name.text = @"关";
     }
 }
 

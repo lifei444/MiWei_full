@@ -308,6 +308,7 @@
     if (!_switchContainerView) {
         _switchContainerView = [[WMDeviceSwitchContainerView alloc] initWithFrame:WM_CGRectMake(Switch_X, Switch_Y, Switch_Width, Switch_Height)];
         _switchContainerView.vc = self;
+        _switchContainerView.prodId = self.device.prod.prodId;
     }
     return _switchContainerView;
 }
