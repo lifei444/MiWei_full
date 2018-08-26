@@ -14,24 +14,26 @@
 #define Circle_Width            242
 #define Circle_Height           201
 
-#define InnerLabel_X            110
-#define InnerLabel_Y            94//70  //94
+#define InnerLabel_X            120
+#define InnerLabel_Y            74//70  //94
 #define InnerLabel_Height       16
 
-#define InnerPMValue_Y          61//40  //61
+#define InnerPMValue_X          170
+#define InnerPMValue_Y          41//40  //61
 #define InnerPMValue_Height     46
 
-#define Seperator_Y             118
-#define Seperator_Width         150
+#define Seperator_Y             98
+#define Seperator_Width         120
 #define Seperator_Height        2
 #define Seperator_X             ((Screen_Width - Seperator_Width) / 2)
 
 
-#define OutLabel_X              238
-#define OutLabel_Y              138//115  //138
+#define OutLabel_X              InnerLabel_X//238
+#define OutLabel_Y              118//115  //138
 #define OutLabel_Height         16
 
-#define OutPMValue_Y            130//110  //130
+#define OutPMValue_X            InnerPMValue_X
+#define OutPMValue_Y            110//110  //130
 #define OutPMValue_Height       46
 
 #define PMLabel_Y               180  //218
@@ -73,10 +75,9 @@
 
 - (UILabel *)innerPMValueLabel {
     if (!_innerPMValueLabel) {
-        _innerPMValueLabel = [[UILabel alloc] initWithFrame:WM_CGRectMake(0, InnerPMValue_Y, Screen_Width, InnerPMValue_Height)];
+        _innerPMValueLabel = [[UILabel alloc] initWithFrame:WM_CGRectMake(InnerPMValue_X, InnerPMValue_Y, Screen_Width, InnerPMValue_Height)];
         _innerPMValueLabel.font = [UIFont systemFontOfSize:60];
         _innerPMValueLabel.textColor = [WMUIUtility color:@"0xffffff"];
-        _innerPMValueLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _innerPMValueLabel;
 }
@@ -101,10 +102,9 @@
 
 - (UILabel *)outPMVauleLabel {
     if (!_outPMVauleLabel) {
-        _outPMVauleLabel = [[UILabel alloc] initWithFrame:WM_CGRectMake(0, OutPMValue_Y, Screen_Width, OutPMValue_Height)];
+        _outPMVauleLabel = [[UILabel alloc] initWithFrame:WM_CGRectMake(OutPMValue_X, OutPMValue_Y, Screen_Width, OutPMValue_Height)];
         _outPMVauleLabel.font = [UIFont systemFontOfSize:60];
         _outPMVauleLabel.textColor = [WMUIUtility color:@"0xffffff"];
-        _outPMVauleLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _outPMVauleLabel;
 }
