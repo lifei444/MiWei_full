@@ -201,14 +201,9 @@
         [self.navigationController pushViewController:vc animated:YES];
     } else if ([cell.textLabel.text isEqualToString:@"分享设备"]) {
         NSString *str = [NSString stringWithFormat:@"来自《%@》的米微净化器（检测仪）《%@》分享，请点击如下链接查看设备https://mweb.mivei.com/addDevice/%@", [WMHTTPUtility currentProfile].name, self.detail.name, self.detail.deviceId];
-        WXTextObject *textObject = [WXTextObject object];
-        textObject.contentText = str;
-        WXMediaMessage *message = [WXMediaMessage message];
-        message.mediaObject = textObject;
-        message.description = @"米微新风";
         SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
-        req.bText = NO;
-        req.message = message;
+        req.text = str;
+        req.bText = YES;
         req.scene = WXSceneSession;
         [WXApi sendReq:req];
     } else if ([cell.textLabel.text isEqualToString:@"删除设备"]) {
@@ -301,6 +296,7 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     } else if ([cell.textLabel.text isEqualToString:@"分享设备"]) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     } else if ([cell.textLabel.text isEqualToString:@"删除设备"]) {
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
