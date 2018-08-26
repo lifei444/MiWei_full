@@ -11,4 +11,5 @@
 
 @interface WMDeviceSettingViewController : WMViewController
 @property (nonatomic, strong) WMDeviceDetail *detail;
+@property (nonatomic, strong) NSNumber *prodId;
 @end

@@ -117,7 +117,7 @@
     //debug
 //    return [WMUIUtility WMCGFloatForY:(Footer_Gap + Footer_Height + Footer_Gap2)];
     
-    if (section == 3) {
+    if (section == 3 && [self.prodId intValue] == 0) {
         return [WMUIUtility WMCGFloatForY:(Footer_Gap + Footer_Height + Footer_Gap2)];
     } else {
         return [WMUIUtility WMCGFloatForY:5];
@@ -135,7 +135,7 @@
 //    [footer addSubview:button];
 //    return footer;
     
-    if (section == 3) {
+    if (section == 3 && [self.prodId intValue] == 0) {
         UIView *footer = [[UIView alloc] initWithFrame:WM_CGRectMake(0, 0, Screen_Width, Footer_Gap + Footer_Height)];
         UIButton *button = [[UIButton alloc] initWithFrame:WM_CGRectMake(10, Footer_Gap, Screen_Width - 20, Footer_Height)];
         button.backgroundColor = [WMUIUtility color:@"0x2b938b"];

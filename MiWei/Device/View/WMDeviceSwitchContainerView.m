@@ -246,6 +246,7 @@
         case WMDeviceSwitchViewTagSetting: {
             WMDeviceSettingViewController *vc = [[WMDeviceSettingViewController alloc] init];
             vc.detail = self.deviceDetail;
+            vc.prodId = self.prodId;
             [self.vc.navigationController pushViewController:vc animated:YES];
             break;
         }
