@@ -35,16 +35,23 @@
 
 #define Upload_View_Y               (Upload_Label_Y + Upload_label_Height)
 #define Upload_View_Height          100
+#define Upload_View_Height2         200
 
-#define Upload_Image_View_X         15
-#define Upload_Image_View_Y         19
 #define Upload_Image_View_Width     60
 #define Upload_Image_View_Height    60
+#define Upload_Image_View_X1        17
+#define Upload_Image_View_X2        111
+#define Upload_Image_View_X3        205
+#define Upload_Image_View_X4        299
+#define Upload_Image_View_Y1        19
+#define Upload_Image_View_Y2        119
 
 #define GapBetweenUploadAndSubmit   50
 
 #define Submit_X                    Title_X
 #define Submit_Y                    (Upload_View_Y + Upload_View_Height + GapBetweenUploadAndSubmit)
+#define Submit_Y2                   (Upload_View_Y + Upload_View_Height2 + GapBetweenUploadAndSubmit)
+
 #define Submit_Width                (Screen_Width - Submit_X * 2)
 #define Submit_Height               44
 
@@ -56,11 +63,12 @@
 @property (nonatomic, strong) UILabel *placeholderLabel;
 @property (nonatomic, strong) UILabel *uploadLabel;
 @property (nonatomic, strong) UIView *uploadView;
-@property (nonatomic, strong) UIImageView *uploadImageView;
 @property (nonatomic, strong) UIButton *submitButton;
 @property (nonatomic, strong) UIImagePickerController *picker;
 @property (nonatomic, strong) MBProgressHUD *hud;
-@property (nonatomic, copy)   NSString *imageFileId;
+@property (nonatomic, strong) NSMutableArray <NSString *> *imageFileIds;
+@property (nonatomic, strong) NSMutableArray <UIImageView *> *uploadImageViews;
+@property (nonatomic, strong) UIImageView *uploadImageView;
 @end
 
 @implementation WMFeedBackViewController
@@ -111,8 +119,8 @@
     }
     [dic setObject:self.question.questionId forKey:@"categoryID"];
     [dic setObject:self.textView.text forKey:@"descr"];
-    if (self.imageFileId.length > 0) {
-        [dic setObject:@[self.imageFileId] forKey:@"images"];
+    if (self.imageFileIds.count > 0) {
+        [dic setObject:self.imageFileIds forKey:@"images"];
     }
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [WMHTTPUtility jsonRequestWithHTTPMethod:WMHTTPRequestMethodPost
@@ -156,8 +164,58 @@
                              if (result.success) {
                                  NSDictionary *content = result.content;
                                  NSString *fileId = content[@"fileID"];
-                                 self.imageFileId = fileId;
-                                 [self.uploadImageView sd_setImageWithURL:[WMHTTPUtility urlWithPortraitId:fileId]];
+                                 [self.imageFileIds addObject:fileId];
+                                 NSUInteger count = self.uploadImageViews.count;
+                                 UIImageView *modifyView = self.uploadImageViews[count - 1];
+                                 modifyView.userInteractionEnabled = NO;
+                                 [modifyView sd_setImageWithURL:[WMHTTPUtility urlWithPortraitId:fileId]];
+                                 if (self.imageFileIds.count <= 7) {
+                                     UIImageView *imageView = [[UIImageView alloc] init];
+                                     CGRect rectAdd = CGRectZero;
+                                     switch (self.imageFileIds.count) {
+                                         case 1:
+                                             rectAdd = WM_CGRectMake(Upload_Image_View_X2, Upload_Image_View_Y1, Upload_Image_View_Width, Upload_Image_View_Height);
+                                             break;
+                                             
+                                         case 2:
+                                             rectAdd = WM_CGRectMake(Upload_Image_View_X3, Upload_Image_View_Y1, Upload_Image_View_Width, Upload_Image_View_Height);
+                                             break;
+                                             
+                                         case 3:
+                                             rectAdd = WM_CGRectMake(Upload_Image_View_X4, Upload_Image_View_Y1, Upload_Image_View_Width, Upload_Image_View_Height);
+                                             break;
+                                             
+                                         case 4:
+                                             rectAdd = WM_CGRectMake(Upload_Image_View_X1, Upload_Image_View_Y2, Upload_Image_View_Width, Upload_Image_View_Height);
+                                             break;
+                                             
+                                         case 5:
+                                             rectAdd = WM_CGRectMake(Upload_Image_View_X2, Upload_Image_View_Y2, Upload_Image_View_Width, Upload_Image_View_Height);
+                                             break;
+                                             
+                                         case 6:
+                                             rectAdd = WM_CGRectMake(Upload_Image_View_X3, Upload_Image_View_Y2, Upload_Image_View_Width, Upload_Image_View_Height);
+                                             break;
+                                             
+                                         case 7:
+                                             rectAdd = WM_CGRectMake(Upload_Image_View_X4, Upload_Image_View_Y2, Upload_Image_View_Width, Upload_Image_View_Height);
+                                             break;
+                                             
+                                         default:
+                                             break;
+                                     }
+                                     if (self.imageFileIds.count >= 4) {
+                                         self.uploadView.frame = WM_CGRectMake(0, Upload_View_Y, Screen_Width, Upload_View_Height2);
+                                         self.submitButton.frame = WM_CGRectMake(Submit_X, Submit_Y2, Submit_Width, Submit_Height);
+                                     }
+                                     imageView.frame = rectAdd;
+                                     imageView.image = [UIImage imageNamed:@"feedback_add"];
+                                     imageView.userInteractionEnabled = YES;
+                                     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addImage)];
+                                     [imageView addGestureRecognizer:singleTap];
+                                     [self.uploadImageViews addObject:imageView];
+                                     [self.uploadView addSubview:imageView];
+                                 }
                              } else {
                                  NSLog(@"imagePickerController, upload error");
                              }
@@ -275,13 +333,21 @@
         _uploadView = [[UIView alloc] initWithFrame:WM_CGRectMake(0, Upload_View_Y, Screen_Width, Upload_View_Height)];
         _uploadView.backgroundColor = [WMUIUtility color:@"0xffffff"];
         [_uploadView addSubview:self.uploadImageView];
+        [self.uploadImageViews addObject:self.uploadImageView];
     }
     return _uploadView;
 }
 
+- (NSMutableArray<UIImageView *> *)uploadImageViews {
+    if (!_uploadImageViews) {
+        _uploadImageViews = [[NSMutableArray alloc] init];
+    }
+    return _uploadImageViews;
+}
+
 - (UIImageView *)uploadImageView {
     if (!_uploadImageView) {
-        _uploadImageView = [[UIImageView alloc] initWithFrame:WM_CGRectMake(Upload_Image_View_X, Upload_Image_View_Y, Upload_Image_View_Width, Upload_Image_View_Height)];
+        _uploadImageView = [[UIImageView alloc] initWithFrame:WM_CGRectMake(Upload_Image_View_X1, Upload_Image_View_Y1, Upload_Image_View_Width, Upload_Image_View_Height)];
         _uploadImageView.image = [UIImage imageNamed:@"feedback_add"];
         _uploadImageView.userInteractionEnabled = YES;
         UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addImage)];
@@ -309,6 +375,13 @@
         _picker.allowsEditing = NO;
     }
     return _picker;
+}
+
+- (NSMutableArray<NSString *> *)imageFileIds {
+    if (!_imageFileIds) {
+        _imageFileIds = [[NSMutableArray alloc] init];
+    }
+    return _imageFileIds;
 }
 
 @end
