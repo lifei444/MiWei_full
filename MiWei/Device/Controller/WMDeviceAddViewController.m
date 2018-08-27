@@ -48,11 +48,14 @@
 #pragma mark - Target action
 - (void)addEvent:(UIButton *)button {
     NSString *ssid = [[FogEasyLinkManager sharedInstance] getSSID];
-    
+    NSLog(@"WMDeviceAddViewController addEvent ssid is %@", ssid);
     if ([self.device isRentDevice]) {
+        NSLog(@"WMDeviceAddViewController addEvent 1");
         if (!self.device.online) {
+            NSLog(@"WMDeviceAddViewController addEvent 2");
             [WMUIUtility showAlertWithMessage:@"设备不在线，无法添加" viewController:self];
         } else {
+            NSLog(@"WMDeviceAddViewController addEvent 3");
             self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             [WMDeviceUtility addDevice:self.device
                               location:self.coord
@@ -67,7 +70,9 @@
                               }];
         }
     } else { //销售设备
+        NSLog(@"WMDeviceAddViewController addEvent 4");
         if (self.device.online) {
+            NSLog(@"WMDeviceAddViewController addEvent 5");
             self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             [WMDeviceUtility addDevice:self.device
                               location:self.coord
@@ -87,9 +92,12 @@
                                   }
                               }];
         } else {
+            NSLog(@"WMDeviceAddViewController addEvent 6");
             if (self.device.deviceOwnerExist) {
+                NSLog(@"WMDeviceAddViewController addEvent 7");
                 [WMUIUtility showAlertWithMessage:@"设备不在线，无法添加" viewController:self];
             } else {
+                NSLog(@"WMDeviceAddViewController addEvent 8");
                 WMDeviceConfigViewController *vc = [[WMDeviceConfigViewController alloc] init];
                 vc.ssid = ssid;
                 vc.device = self.device;
