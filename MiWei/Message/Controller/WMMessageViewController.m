@@ -16,6 +16,8 @@
 #import "WMDevShareNotiMessageCell.h"
 #import "WMAirQualityNotiMessageCell.h"
 #import "UITableView+EmptyData.h"
+#import "MJRefreshNormalHeader.h"
+#import "MJRefreshAutoNormalFooter.h"
 
 #define Section_Gap 22
 NSString *const strainerAlarmIdentifier = @"strainerAlarm";
@@ -48,13 +50,23 @@ NSString *const airQualityNotiIdentifier = @"airQualityNoti";
     [self.tableView registerClass:[WMDevShareNotiMessageCell class] forCellReuseIdentifier:devShareNotiIdentifier];
     [self.tableView registerClass:[WMAirQualityNotiMessageCell class] forCellReuseIdentifier:airQualityNotiIdentifier];
     [self loadMessages];
+    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self loadMessages];
+    }];
+    header.lastUpdatedTimeLabel.hidden = YES;
+    self.tableView.mj_header = header;
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        [self loadMoreMessages];
+    }];
+    [footer setTitle:@"" forState:MJRefreshStateIdle];
+    self.tableView.mj_footer = footer;
 }
 
 #pragma mark - Private method
 - (void)loadMessages {
     [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodGet
                                URLString:@"/mobile/message/list"
-                              parameters:nil
+                              parameters:[NSDictionary dictionaryWithObjectsAndKeys:@(-30), @"limit", nil]
                                 response:^(WMHTTPResult *result) {
                                     if (result.success) {
                                         NSMutableArray *tempArray = [[NSMutableArray alloc] init];
@@ -67,8 +79,45 @@ NSString *const airQualityNotiIdentifier = @"airQualityNoti";
                                             }
                                         }
                                         dispatch_async(dispatch_get_main_queue(), ^{
+                                            [self.tableView.mj_header endRefreshing];
                                             self.modelArray = tempArray;
                                             [self.tableView reloadData];
+                                        });
+                                    } else {
+                                        NSLog(@"loadMessages error %@", result);
+                                    }
+                                }];
+}
+
+- (void)loadMoreMessages {
+    NSLog(@"loadMoreMessages");
+    WMMessage *message = self.modelArray[self.modelArray.count - 1];
+    NSNumber *timestamp = @([message.time longLongValue] - 1);
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:timestamp forKey:@"time"];
+    [dic setObject:@(-30) forKey:@"limit"];
+    [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodGet
+                               URLString:@"/mobile/message/list"
+                              parameters:dic
+                                response:^(WMHTTPResult *result) {
+                                    if (result.success) {
+                                        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+                                        [tempArray addObjectsFromArray:self.modelArray];
+                                        NSDictionary *content = result.content;
+                                        NSArray *messages = content[@"messages"];
+                                        NSInteger i = self.modelArray.count;
+                                        NSMutableIndexSet *indexSet = [[NSMutableIndexSet alloc] init];
+                                        for (NSDictionary *dic in messages) {
+                                            WMMessage *message = [WMMessageFactory getMessageFromJson:dic];
+                                            if (message) {
+                                                [tempArray addObject:message];
+                                                [indexSet addIndex:i++];
+                                            }
+                                        }
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            self.modelArray = tempArray;
+                                            [self.tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
+                                            [self.tableView.mj_footer endRefreshing];
                                         });
                                     } else {
                                         NSLog(@"loadMessages error %@", result);
