@@ -20,6 +20,9 @@
 #import "WMDeviceSearchViewController.h"
 #import "WMSearchBar.h"
 #import "WMNavigationViewController.h"
+#import "UIScrollView+MJRefresh.h"
+#import "MJRefreshNormalHeader.h"
+#import "MJRefreshAutoNormalFooter.h"
 
 static NSString *deviceCellIdentifier = @"WMDeviceCell";
 static NSString *headerIdentifier = @"headerIdentifier";
@@ -68,6 +71,16 @@ static NSString *headerIdentifier = @"headerIdentifier";
     self.collectionView.frame = WM_CGRectMake(CollectionX, CollectionY, CollectionWidth, CollectionHeight);
     self.collectionView.backgroundColor = [WMUIUtility color:@"0xf6f6f6"];
     [self.collectionView registerClass:[WMDeviceCell class] forCellWithReuseIdentifier:deviceCellIdentifier];
+    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self loadDeviceList];
+    }];
+    header.lastUpdatedTimeLabel.hidden = YES;
+    self.collectionView.mj_header = header;
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        [self loadMoreDevices];
+    }];
+    [footer setTitle:@"" forState:MJRefreshStateIdle];
+    self.collectionView.mj_footer = footer;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -150,12 +163,33 @@ static NSString *headerIdentifier = @"headerIdentifier";
 - (void)loadDeviceList {
     [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodGet
                                URLString:@"mobile/device/list"
-                              parameters:nil
+                              parameters:[NSDictionary dictionaryWithObjectsAndKeys:@(30), @"limit", nil]
                                 response:^(WMHTTPResult *result) {
                                     if (result.success) {
                                         NSArray *tempArray = [WMDeviceUtility deviceListFromJson:result.content];
                                         dispatch_async(dispatch_get_main_queue(), ^{
                                             self.modelArray = tempArray;
+                                            [self.collectionView.mj_header endRefreshing];
+                                            [self.collectionView reloadData];
+                                        });
+                                    } else {
+                                        NSLog(@"loadDeviceList error, result is %@", result);
+                                    }
+                                }];
+}
+
+- (void)loadMoreDevices {
+    [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodGet
+                               URLString:@"mobile/device/list"
+                              parameters:[NSDictionary dictionaryWithObjectsAndKeys:@(30), @"limit", @(self.modelArray.count), @"offset", nil]
+                                response:^(WMHTTPResult *result) {
+                                    if (result.success) {
+                                        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+                                        [tempArray addObjectsFromArray:self.modelArray];
+                                        [tempArray addObjectsFromArray:[WMDeviceUtility deviceListFromJson:result.content]];
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            self.modelArray = tempArray;
+                                            [self.collectionView.mj_footer endRefreshing];
                                             [self.collectionView reloadData];
                                         });
                                     } else {

@@ -1368,6 +1368,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-MiWei/Pods-MiWei-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/ActionSheetPicker-3.0/ActionSheetPicker_3_0.framework",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/MQTTClient/MQTTClient.framework",
 				"${BUILT_PRODUCTS_DIR}/XMNetworking/XMNetworking.framework",
 			);
@@ -1375,6 +1376,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ActionSheetPicker_3_0.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MQTTClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XMNetworking.framework",
 			);
@@ -1733,7 +1735,7 @@
 				INFOPLIST_FILE = MiWei/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) Frameworks @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.rongcloud.im;
+				PRODUCT_BUNDLE_IDENTIFIER = com.miwei.air;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1756,7 +1758,7 @@
 				INFOPLIST_FILE = MiWei/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) Frameworks @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.rongcloud.im;
+				PRODUCT_BUNDLE_IDENTIFIER = com.miwei.air;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

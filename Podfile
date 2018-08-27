@@ -8,5 +8,6 @@ use_frameworks!
   pod 'MQTTClient'
   pod 'UMCPush'
   pod 'ActionSheetPicker-3.0'
+  pod 'MJRefresh'
 
 end
