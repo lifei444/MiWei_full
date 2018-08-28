@@ -46,6 +46,7 @@
 @property (nonatomic, strong) UIButton *completeButton;
 @property (nonatomic, strong) MBProgressHUD *hud;
 @property (nonatomic, strong) NSArray <WMDeviceStrainerStatus *> *modelArray;
+@property (nonatomic, strong) UILabel *noDataLabel;
 @end
 
 @implementation WMStrainerResetViewController
@@ -112,6 +113,7 @@
 - (void)refreshView {
     [self.containerView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     if (self.modelArray.count > 0) {
+        self.noDataLabel.hidden = YES;
         int cellHeight = Container_Height / self.modelArray.count;
         //gap 有上下两个
         int gap = (cellHeight - Container_Cell_Height) / 2;
@@ -130,6 +132,8 @@
             cellY += cellHeight;
             [self.containerView addSubview:cell];
         }
+    } else {
+        self.noDataLabel.hidden = NO;
     }
 }
 
@@ -142,6 +146,7 @@
         [_bgView addSubview:self.containerView];
         [_bgView addSubview:self.seperator];
         [_bgView addSubview:self.completeButton];
+        [_bgView addSubview:self.noDataLabel];
     }
     return _bgView;
 }
@@ -180,5 +185,15 @@
         [_completeButton addTarget:self action:@selector(onComplete) forControlEvents:UIControlEventTouchUpInside];
     }
     return _completeButton;
+}
+
+- (UILabel *)noDataLabel {
+    if (!_noDataLabel) {
+        _noDataLabel = [[UILabel alloc] initWithFrame:WM_CGRectMake(0, 0, BG_Width, BG_Height)];
+        _noDataLabel.text = @"暂无滤网";
+        _noDataLabel.textAlignment = NSTextAlignmentCenter;
+        _noDataLabel.textColor = [WMUIUtility color:@"0x444444"];
+    }
+    return _noDataLabel;
 }
 @end
