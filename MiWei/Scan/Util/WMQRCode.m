@@ -51,6 +51,10 @@
     [[WMQRCodeScanner sharedWMQRCodeScanner] scanQRCideWithCamera:scanView rectOfInterest:frame];
 }
 
+- (void)stopScanAndRemoveViews {
+    [[WMQRCodeScanner sharedWMQRCodeScanner] stopScanAndRemoveViews];
+}
+
 - (void)scanQRCodeWithAlbum:(UIViewController *)currentVC {
     [[WMQRCodeScanner sharedWMQRCodeScanner] scanQRCodeWithAlbum:currentVC];
 }

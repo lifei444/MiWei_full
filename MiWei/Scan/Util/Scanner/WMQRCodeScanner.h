@@ -52,6 +52,11 @@
 - (void)scanQRCideWithCamera:(UIView *)scanView rectOfInterest:(CGRect)rect;
 
 /**
+ 停止扫描并移除view
+ */
+- (void)stopScanAndRemoveViews;
+
+/**
  从相册的图片中扫描二维码
 
  @param currentVC 当前页面，需要从当前页面跳转到相册

@@ -87,5 +87,10 @@
  */
 - (void)scanQRCodeFromImage:(UIImage *)image;
 
+/**
+ 停止扫描并移除view
+ */
+- (void)stopScanAndRemoveViews;
+
 @end
 

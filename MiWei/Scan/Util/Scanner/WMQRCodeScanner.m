@@ -71,6 +71,14 @@
     [_session startRunning];
 }
 
+- (void)stopScanAndRemoveViews {
+    //1、如果扫描完成，停止会话
+    [self.session stopRunning];
+    
+    //2、删除预览图层
+    [self.previewLayer removeFromSuperlayer];
+}
+
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection {
   // 会频繁的扫描，调用代理方法
   

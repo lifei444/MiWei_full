@@ -57,6 +57,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [[WMQRCode sharedWMQRCode] stopScanAndRemoveViews];
     [[WMQRCode sharedWMQRCode] setScannerDelegate:nil];
     [_scanningView stopTimer];
     self.navigationController.navigationBar.barTintColor =
