@@ -8,8 +8,6 @@
 
 #import "WMDeviceStrainerStatusCell.h"
 #import "WMUIUtility.h"
-#import "WMHTTPUtility.h"
-#import "MBProgressHUD.h"
 
 #define Cell_Height     30
 
@@ -27,10 +25,6 @@
 #define Button_X        250
 #define Button_Width    50
 
-@interface WMDeviceStrainerStatusCell ()
-@property (nonatomic, strong) MBProgressHUD *hud;
-@end
-
 @implementation WMDeviceStrainerStatusCell
 #pragma mark - Life cycle
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -46,24 +40,9 @@
 
 #pragma mark - Target action
 - (void)reset {
-    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:self.deviceId, @"deviceID", self.strainerIndex, @"resetStrainerIndex", nil];
-    self.hud = [MBProgressHUD showHUDAddedTo:self.vc.view animated:YES];
-    [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodPost
-                               URLString:@"/mobile/device/control"
-                              parameters:dic
-                                response:^(WMHTTPResult *result) {
-                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                        [self.hud hideAnimated:YES];
-                                        if (result.success) {
-                                            //debug
-                                            [self.vc performSelector:@selector(loadData)];
-                                        } else {
-                                            //debug
-//                                            [self.vc performSelector:@selector(loadData)];
-                                            [WMUIUtility showAlertWithMessage:@"复位失败" viewController:self.vc];
-                                        }
-                                    });
-                                }];
+    if ([self.delegate respondsToSelector:@selector(onReset:)]) {
+        [self.delegate onReset:self.tag];
+    }
 }
 
 #pragma mark - Getters & setters

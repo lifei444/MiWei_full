@@ -38,7 +38,7 @@
 #define CompleteButton_Y                (Seperator_Y + Seperator_Height)
 #define CompleteButton_Height           40
 
-@interface WMStrainerResetViewController ()
+@interface WMStrainerResetViewController () <WMDeviceStrainerStatusCellDelegate>
 @property (nonatomic, strong) UIView *bgView;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIView *containerView;
@@ -65,6 +65,26 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - WMDeviceStrainerStatusCellDelegate
+- (void)onReset:(NSInteger)tag {
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:self.deviceId, @"deviceID", self.modelArray[tag].strainerIndex, @"resetStrainerIndex", nil];
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodPost
+                               URLString:@"/mobile/device/control"
+                              parameters:dic
+                                response:^(WMHTTPResult *result) {
+                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                        [self.hud hideAnimated:YES];
+                                        if (result.success) {
+                                            self.modelArray[tag].remainingRatio = 100;
+                                            [self refreshView];
+                                        } else {
+                                            [WMUIUtility showAlertWithMessage:@"复位失败" viewController:self];
+                                        }
+                                    });
+                                }];
+}
+
 #pragma mark - Private method
 - (void)loadData {
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -89,7 +109,7 @@
                                 }];
 }
 
-- (void) refreshView {
+- (void)refreshView {
     [self.containerView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     if (self.modelArray.count > 0) {
         int cellHeight = Container_Height / self.modelArray.count;
@@ -98,10 +118,9 @@
         int cellY = gap;
         for (int i = 0; i < self.modelArray.count; i++) {
             WMDeviceStrainerStatusCell *cell = [[WMDeviceStrainerStatusCell alloc] initWithFrame:WM_CGRectMake(0, cellY, BG_Width, Container_Cell_Height)];
-            cell.deviceId = self.deviceId;
-            cell.strainerIndex = self.modelArray[i].strainerIndex;
-            cell.vc = self;
+            cell.tag = i;
             cell.nameLabel.text = self.modelArray[i].strainerName;
+            cell.delegate = self;
             if (self.modelArray[i].remainingRatio < 0) {
                 self.modelArray[i].remainingRatio = 0;
             }
