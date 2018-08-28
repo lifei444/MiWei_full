@@ -11,4 +11,6 @@
 
 @interface WMDeviceTimerCell : WMBaseTableCell
 @property (nonatomic, weak) UIViewController *vc;
+//总开关
+@property (nonatomic, assign) BOOL totalOff;
 @end

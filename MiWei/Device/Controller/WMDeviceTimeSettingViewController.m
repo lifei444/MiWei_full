@@ -73,6 +73,7 @@ NSString *const timerCellIdentifier = @"timerCell";
                                             [self.hud hideAnimated:YES];
                                             if (result.success) {
                                                 self.deviceDetail.fanTiming = switchView.isOn;
+                                                [self.tableView reloadData];
                                             } else {
                                                 [WMUIUtility showAlertWithMessage:@"设置失败" viewController:self];
                                             }
@@ -105,6 +106,7 @@ NSString *const timerCellIdentifier = @"timerCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WMDeviceTimerCell *cell = [tableView dequeueReusableCellWithIdentifier:timerCellIdentifier];
     cell.vc = self;
+    cell.totalOff = !self.setting.enable;
     [cell setDataModel:self.setting.timers[indexPath.row]];
     return cell;
 }

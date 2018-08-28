@@ -57,6 +57,11 @@
     self.timer = timer;
     
     self.switchView.on = timer.enable;
+    if (self.totalOff) {
+        self.switchView.hidden = YES;
+    } else {
+        self.switchView.hidden = NO;
+    }
     [self refreshLabelColor:timer.enable];
     [self refreshTimeLabel:timer];
     [self refreshRepeatLabel:timer];
@@ -74,7 +79,9 @@
         self.switchView.hidden = YES;
     } else {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.switchView.hidden = NO;
+        if (!self.totalOff) {
+            self.switchView.hidden = NO;
+        }
     }
 }
 
@@ -95,9 +102,9 @@
                                         dispatch_async(dispatch_get_main_queue(), ^{
                                             [self.hud hideAnimated:YES];
                                             if (result.success) {
-                                                [WMUIUtility showAlertWithMessage:@"设置成功" viewController:self.vc];
                                             } else {
                                                 [WMUIUtility showAlertWithMessage:@"设置失败" viewController:self.vc];
+                                                [self.switchView setOn:!self.switchView.isOn];
                                             }
                                         });
                                     }];
@@ -106,14 +113,14 @@
 
 #pragma mark - Private method
 - (void)refreshLabelColor:(BOOL)enable {
-    if (enable) {
-        self.timeLabel.textColor = [WMUIUtility color:@"0x444444"];
-        self.repeatLabel.textColor = [WMUIUtility color:@"0x666666"];
-        self.detailLabel.textColor = [WMUIUtility color:@"0x666666"];
-    } else {
+    if (self.totalOff || !enable) {
         self.timeLabel.textColor = [WMUIUtility color:@"0xcacaca"];
         self.repeatLabel.textColor = [WMUIUtility color:@"0xcacaca"];
         self.detailLabel.textColor = [WMUIUtility color:@"0xcacaca"];
+    } else {
+        self.timeLabel.textColor = [WMUIUtility color:@"0x444444"];
+        self.repeatLabel.textColor = [WMUIUtility color:@"0x666666"];
+        self.detailLabel.textColor = [WMUIUtility color:@"0x666666"];
     }
 }
 
