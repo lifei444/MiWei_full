@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "WMDeviceDefine.h"
 #import "WMViewController.h"
+#import "WMDeviceDetail.h"
 
 typedef NS_ENUM(NSUInteger, WMDeviceAirSpeedSettingMode) {
     //选择结果已经处理完，直接返回
@@ -23,7 +24,7 @@ typedef NS_ENUM(NSUInteger, WMDeviceAirSpeedSettingMode) {
 
 @interface WMDeviceAirSpeedSettingViewController : WMViewController
 @property (nonatomic, assign) WMAirSpeed speed;
-@property (nonatomic, copy)   NSString *deviceId;
+@property (nonatomic, strong) WMDeviceDetail *deviceDetail;
 @property (nonatomic, assign) WMDeviceAirSpeedSettingMode mode;
 @property (nonatomic, weak)   id<WMDeviceAirSpeedSettingDelegate> delegage;
 @end

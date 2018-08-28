@@ -175,14 +175,12 @@
     } else if (indexPath.row == 1) {
         WMDeviceAirSpeedSettingViewController *vc = [[WMDeviceAirSpeedSettingViewController alloc] init];
         vc.speed = self.timer.airSpeed;
-        vc.deviceId = self.deviceId;
         vc.mode = WMDeviceAirSpeedSettingModeDelegate;
         vc.delegage = self;
         [self.navigationController pushViewController:vc animated:YES];
     } else if (indexPath.row == 3) {
         WMDeviceVentilationSettingViewController *vc = [[WMDeviceVentilationSettingViewController alloc] init];
         vc.mode = self.timer.ventilationMode;
-        vc.deviceId = self.deviceId;
         vc.vcMode = WMDeviceVentilationSettingModeDelegate;
         vc.delegate = self;
         [self.navigationController pushViewController:vc animated:YES];

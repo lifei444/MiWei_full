@@ -199,7 +199,7 @@
         case WMDeviceSwitchViewTagVentilation: {
             WMDeviceVentilationSettingViewController *vc = [[WMDeviceVentilationSettingViewController alloc] init];
             vc.mode = self.deviceDetail.ventilationMode;
-            vc.deviceId = self.deviceDetail.deviceId;
+            vc.deviceDetail = self.deviceDetail;
             vc.vcMode = WMDeviceVentilationSettingModeDirectReturn;
             [self.vc.navigationController pushViewController:vc animated:YES];
             break;
@@ -232,7 +232,7 @@
         case WMDeviceSwitchViewTagAirSpeed: {
             WMDeviceAirSpeedSettingViewController *vc = [[WMDeviceAirSpeedSettingViewController alloc] init];
             vc.speed = self.deviceDetail.airSpeed;
-            vc.deviceId = self.deviceDetail.deviceId;
+            vc.deviceDetail = self.deviceDetail;
             vc.mode = WMDeviceAirSpeedSettingModeDirectReturn;
             [self.vc.navigationController pushViewController:vc animated:YES];
             break;

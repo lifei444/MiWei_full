@@ -61,13 +61,14 @@
         [self.navigationController popViewControllerAnimated:YES];
     } else {
         if (self.mode == WMDeviceAirSpeedSettingModeDirectReturn) {
-            [dic setObject:self.deviceId forKey:@"deviceID"];
+            [dic setObject:self.deviceDetail.deviceId forKey:@"deviceID"];
             [dic setObject:@(selectIndex.row) forKey:@"airSpeed"];
             self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             [WMDeviceUtility setDevice:dic response:^(WMHTTPResult *result) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.hud hideAnimated:YES];
                     if (result.success) {
+                        self.deviceDetail.airSpeed = selectIndex.row;
                         [self.navigationController popViewControllerAnimated:YES];
                     } else {
                         NSLog(@"设置失败, result is %@", result);

@@ -87,11 +87,12 @@
     [self.scrollView addSubview:self.switchContainerView];
     [self.scrollView addSubview:self.dataView];
     self.scrollView.contentSize = WM_CGSizeMake(Screen_Width, Scroll_Height);
+    [self loadDeviceDetail];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self loadDeviceDetail];
+    [self refreshData:self.deviceDetail];
     self.timer = [NSTimer timerWithTimeInterval:10
                                          target:self
                                        selector:@selector(onTimer)
