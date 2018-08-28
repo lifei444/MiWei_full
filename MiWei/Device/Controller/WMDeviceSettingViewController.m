@@ -270,7 +270,7 @@
         cell.detailTextLabel.text = self.detail.name;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     } else if ([cell.textLabel.text isEqualToString:@"地理位置"]) {
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@%@%@%@", self.detail.addrLev1, self.detail.addrLev2, self.detail.addrLev3, self.detail.addrDetail];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@%@%@%@", self.detail.addrLev1?:@"", self.detail.addrLev2?:@"", self.detail.addrLev3?:@"", self.detail.addrDetail?:@""];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     } else if ([cell.textLabel.text isEqualToString:@"MAC/IMEI"]) {
         cell.detailTextLabel.text = self.detail.deviceId;

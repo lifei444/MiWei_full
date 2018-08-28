@@ -79,7 +79,7 @@
 #pragma mark - ActionSheetCustomPickerDelegate
 - (void)actionSheetPickerDidSucceed:(AbstractActionSheetPicker *)actionSheetPicker origin:(id)origin {
     WMRegion *region = self.region.districts[self.index1].districts[self.index2].districts[self.index3];
-    self.addressValueLabel.text = [NSString stringWithFormat:@"%@%@%@", region.lev1, region.lev2, region.lev3];
+    self.addressValueLabel.text = [NSString stringWithFormat:@"%@%@%@", region.lev1?:@"", region.lev2?:@"", region.lev3?:@""];
 }
 
 #pragma mark - UIPickerViewDataSource
@@ -157,7 +157,7 @@
     if(!_addressValueLabel) {
         _addressValueLabel = [[UILabel alloc] initWithFrame:WM_CGRectMake(100, Navi_Height + 10, Screen_Width - 100, 50)];
         _addressValueLabel.backgroundColor = [UIColor whiteColor];
-        _addressValueLabel.text = [NSString stringWithFormat:@"%@%@%@", self.detail.addrLev1, self.detail.addrLev2, self.detail.addrLev3];
+        _addressValueLabel.text = [NSString stringWithFormat:@"%@%@%@", self.detail.addrLev1?:@"", self.detail.addrLev2?:@"", self.detail.addrLev3?:@""];
         _addressValueLabel.font = [UIFont systemFontOfSize:16];
         _addressValueLabel.textColor = [WMUIUtility color:@"0x737474"];
         _addressValueLabel.userInteractionEnabled = YES;

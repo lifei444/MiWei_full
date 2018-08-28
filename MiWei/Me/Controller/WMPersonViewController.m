@@ -62,7 +62,7 @@
         } else {
             cell.textLabel.text = @"地址";
             WMProfile *profile = [WMHTTPUtility currentProfile];
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@%@%@%@", profile.region.lev1, profile.region.lev2, profile.region.lev3, profile.addrDetail];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@%@%@%@", profile.region.lev1?:@"", profile.region.lev2?:@"", profile.region.lev3?:@"", profile.addrDetail?:@""];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
