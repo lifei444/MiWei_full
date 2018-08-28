@@ -18,6 +18,9 @@
 
 #define Header_Height   36
 
+#define Chart_X         30
+#define Chart_Y         10
+#define Chart_Width     305
 #define Chart_Height    (Table_Height - Header_Height)
 
 @interface WMDevicePollutionChangeView ()
@@ -96,19 +99,20 @@
     }
     return [PYOption initPYOptionWithBlock:^(PYOption *option) {
         option.gridEqual([PYGrid initPYGridWithBlock:^(PYGrid *grid) {
-            grid.widthEqual(@([WMUIUtility WMCGFloatForX:Table_Width]))
-            .heightEqual(@([WMUIUtility WMCGFloatForY:Chart_Height - 20]))
-            .xEqual(@(0))
-            .yEqual(@([WMUIUtility WMCGFloatForY:-10]))
+            grid.widthEqual(@([WMUIUtility WMCGFloatForX:Chart_Width]))
+            .heightEqual(@([WMUIUtility WMCGFloatForY:Chart_Height - 40]))
+            .xEqual(@([WMUIUtility WMCGFloatForY:Chart_X]))
+            .yEqual(@([WMUIUtility WMCGFloatForY:Chart_Y]))
             .borderWidthEqual(@(0));
         }])
         .addXAxis([PYAxis initPYAxisWithBlock:^(PYAxis *axis) {
-            axis.typeEqual(PYAxisTypeCategory).addDataArr(xAxisArray)
+            axis.typeEqual(PYAxisTypeCategory).addDataArr(xAxisArray).splitNumberEqual(@(dataArray.count))
             .axisTickEqual([PYAxisTick initPYAxisTickWithBlock:^(PYAxisTick *axisTick) {
-                axisTick.showEqual(NO);
+                axisTick.showEqual(NO).intervalEqual(0);
             }])
             .axisLabelEqual([PYAxisLabel initPYAxisLabelWithBlock:^(PYAxisLabel *axisLabel) {
-                axisLabel.textStyleEqual([PYTextStyle initPYTextStyleWithBlock:^(PYTextStyle *textStyle) {
+                axisLabel.marginEqual(@([WMUIUtility WMCGFloatForY:5]))
+                .textStyleEqual([PYTextStyle initPYTextStyleWithBlock:^(PYTextStyle *textStyle) {
                     textStyle.colorEqual(@"#0e837b");
                 }]);
             }])
@@ -124,7 +128,7 @@
                 splitLine.showEqual(NO);
             }])
             .axisLabelEqual([PYAxisLabel initPYAxisLabelWithBlock:^(PYAxisLabel *axisLabel) {
-                axisLabel.marginEqual(@([WMUIUtility WMCGFloatForY:-10]))
+                axisLabel.marginEqual(@([WMUIUtility WMCGFloatForY:5]))
                 .textStyleEqual([PYTextStyle initPYTextStyleWithBlock:^(PYTextStyle *textStyle) {
                     textStyle.colorEqual(@"#0e837b");
                 }]);
@@ -137,7 +141,7 @@
                 itemStyle.normalEqual([PYItemStyleProp initPYItemStylePropWithBlock:^(PYItemStyleProp *normal) {
                     normal.areaStyleEqual([PYAreaStyle initPYAreaStyleWithBlock:^(PYAreaStyle *areaStyle) {
                         areaStyle.typeEqual(PYAreaStyleTypeDefault);
-                    }]).colorEqual(@"#c694fb");
+                    }]).borderWidthEqual(@(0));
                 }]);
             }])
             .dataEqual(dataArray);
