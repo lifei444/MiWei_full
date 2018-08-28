@@ -52,7 +52,7 @@ NSString *const timerCellIdentifier = @"timerCell";
 - (void)add {
     WMDeviceTimerEditViewController *vc = [[WMDeviceTimerEditViewController alloc] init];
     vc.mode = WMDeviceTimerEditVCModeAdd;
-    vc.deviceId = self.deviceId;
+    vc.deviceId = self.deviceDetail.deviceId;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -62,7 +62,7 @@ NSString *const timerCellIdentifier = @"timerCell";
     if (self.setting) {
         self.setting.enable = switchView.isOn;
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-        [dic setObject:self.deviceId forKey:@"deviceID"];
+        [dic setObject:self.deviceDetail.deviceId forKey:@"deviceID"];
         [dic setObject:@(switchView.isOn) forKey:@"enable"];
         self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodPost
@@ -72,7 +72,7 @@ NSString *const timerCellIdentifier = @"timerCell";
                                         dispatch_async(dispatch_get_main_queue(), ^{
                                             [self.hud hideAnimated:YES];
                                             if (result.success) {
-                                                [WMUIUtility showAlertWithMessage:@"设置成功" viewController:self];
+                                                self.deviceDetail.fanTiming = switchView.isOn;
                                             } else {
                                                 [WMUIUtility showAlertWithMessage:@"设置失败" viewController:self];
                                             }
@@ -131,7 +131,7 @@ NSString *const timerCellIdentifier = @"timerCell";
         WMDeviceTimerEditViewController *vc = [[WMDeviceTimerEditViewController alloc] init];
         vc.timer = self.setting.timers[indexPath.row];
         vc.mode = WMDeviceTimerEditVCModeEdit;
-        vc.deviceId = self.deviceId;
+        vc.deviceId = self.deviceDetail.deviceId;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
@@ -178,7 +178,7 @@ NSString *const timerCellIdentifier = @"timerCell";
 }
 
 - (void)loadData {
-    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:self.deviceId, @"deviceID", nil];
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:self.deviceDetail.deviceId, @"deviceID", nil];
     [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodGet
                                URLString:@"/mobile/timing/list"
                               parameters:dic

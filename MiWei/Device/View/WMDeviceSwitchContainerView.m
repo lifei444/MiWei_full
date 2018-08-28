@@ -239,7 +239,7 @@
         }
         case WMDeviceSwitchViewTagTiming: {
             WMDeviceTimeSettingViewController *vc = [[WMDeviceTimeSettingViewController alloc] init];
-            vc.deviceId = self.deviceDetail.deviceId;
+            vc.deviceDetail = self.deviceDetail;
             [self.vc.navigationController pushViewController:vc animated:YES];
             break;
         }
