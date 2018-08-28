@@ -42,7 +42,7 @@
         _textView = [[UILabel alloc] initWithFrame:WM_CGRectMake(Text_X, 0, Text_Width, 70)];
         _textView.font = [UIFont systemFontOfSize:15];
         _textView.textColor = [WMUIUtility color:@"0x444444"];
-        _textView.textAlignment = NSTextAlignmentCenter;
+//        _textView.textAlignment = NSTextAlignmentCenter;
         _textView.numberOfLines = 0;
     }
     return _textView;
