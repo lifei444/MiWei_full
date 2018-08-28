@@ -51,7 +51,12 @@ static float autoSizeScaleY;
 
 + (void)registerAutoSizeScale {
     autoSizeScaleX = [UIScreen mainScreen].bounds.size.width / 375;
-    autoSizeScaleY = [UIScreen mainScreen].bounds.size.height / 667;
+    //iPhone X
+    if ([UIScreen mainScreen].bounds.size.height == 812) {
+        autoSizeScaleY = autoSizeScaleX;
+    } else {
+        autoSizeScaleY = [UIScreen mainScreen].bounds.size.height / 667;
+    }
 }
 
 + (CGRect)WMCGRectMakeWithX:(CGFloat)x

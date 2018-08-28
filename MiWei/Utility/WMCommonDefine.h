@@ -17,7 +17,8 @@ FOUNDATION_EXPORT NSString *const WMDeviceEchartHeadViewSelectNotification;
 //#define Screen_Bounds [UIScreen mainScreen].bounds
 //#define Screen_Size [UIScreen mainScreen].bounds.size
 
-#define Screen_Height 667//[UIScreen mainScreen].bounds.size.height
+#define IsiPhoneX ([UIScreen mainScreen].bounds.size.height == 812 && [UIScreen mainScreen].bounds.size.width == 375)
+#define Screen_Height (IsiPhoneX ? 812 : 667)//[UIScreen mainScreen].bounds.size.height
 #define Screen_Width 375//[UIScreen mainScreen].bounds.size.width
 
 #define Navi_Height 20 + 44//[UIApplication sharedApplication].statusBarFrame.size.height + 44

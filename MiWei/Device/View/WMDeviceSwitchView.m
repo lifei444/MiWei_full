@@ -37,7 +37,7 @@
     } else {
         [[WMUIUtility color:@"0xaeaeae"] set];
     }
-    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:WM_CGRectMake(1, 1, 58, 58) cornerRadius:200];
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:WM_CGRectMake(1, 1, 58, 58) cornerRadius:[WMUIUtility WMCGFloatForY:200]];
     [path stroke];
 }
 
