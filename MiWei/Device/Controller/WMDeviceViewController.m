@@ -22,7 +22,7 @@
 #import "WMNavigationViewController.h"
 #import "UIScrollView+MJRefresh.h"
 #import "MJRefreshNormalHeader.h"
-#import "MJRefreshAutoNormalFooter.h"
+#import "MJRefreshBackNormalFooter.h"
 
 static NSString *deviceCellIdentifier = @"WMDeviceCell";
 static NSString *headerIdentifier = @"headerIdentifier";
@@ -76,7 +76,7 @@ static NSString *headerIdentifier = @"headerIdentifier";
     }];
     header.lastUpdatedTimeLabel.hidden = YES;
     self.collectionView.mj_header = header;
-    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+    MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         [self loadMoreDevices];
     }];
     [footer setTitle:@"" forState:MJRefreshStateIdle];

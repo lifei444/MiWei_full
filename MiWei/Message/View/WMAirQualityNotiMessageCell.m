@@ -43,14 +43,56 @@
 - (void)setDataModel:(id)model {
     WMAirQualityNotiMessage *message = model;
     self.titleLabel.text = @"空气污染提醒";
-    self.pm25ValueLabel.text = [message.pm25 stringValue];
+    int v = 0;
+    
+    switch (message.paramFlag) {
+        case WMAirQualityNotiFlagCh2o:
+            self.pm25NameLabel.text = @"甲醛";
+            v = [message.ch2o intValue];
+            self.pm25ValueLabel.text = [NSString stringWithFormat:@"%d", v];
+            break;
+            
+        case WMAirQualityNotiFlagPm25:
+            self.pm25NameLabel.text = @"PM2.5";
+            v = [message.pm25 intValue];
+            self.pm25ValueLabel.text = [NSString stringWithFormat:@"%d", v];
+            break;
+            
+        case WMAirQualityNotiFlagHumidity:
+            self.pm25NameLabel.text = @"湿度";
+            v = [message.humidity intValue];
+            self.pm25ValueLabel.text = [NSString stringWithFormat:@"%d", v];
+            break;
+            
+        case WMAirQualityNotiFlagTvoc:
+            self.pm25NameLabel.text = @"TVOC";
+            v = [message.tvoc intValue];
+            self.pm25ValueLabel.text = [NSString stringWithFormat:@"%d", v];
+            break;
+            
+        case WMAirQualityNotiFlagTemp:
+            self.pm25NameLabel.text = @"温度";
+            v = [message.temp intValue];
+            self.pm25ValueLabel.text = [NSString stringWithFormat:@"%d", v];
+            break;
+            
+        case WMAirQualityNotiFlagCo2:
+            self.pm25NameLabel.text = @"CO2";
+            v = [message.co2 intValue];
+            self.pm25ValueLabel.text = [NSString stringWithFormat:@"%d", v];
+            break;
+            
+        default:
+            break;
+    }
+    
     self.descriptionLabel.text = message.message;
     self.footerView.label.text = [self timeStringWithTimestamp:message.time];
     switch (message.aqLevel) {
         case WMAqLevelGreen:
             self.bgView.image = [UIImage imageNamed:@"message_bg_green"];
-            self.pm25ValueLabel.textColor = [WMUIUtility color:@"0x1d8489"];
-            self.pm25NameLabel.textColor = [WMUIUtility color:@"0x1d8489"];
+            self.pm25ValueLabel.textColor = [WMUIUtility color:@"0x1dbc43"];
+            self.pm25NameLabel.textColor = [WMUIUtility color:@"0x1dbc43"];
             break;
             
         case WMAqLevelBlue:

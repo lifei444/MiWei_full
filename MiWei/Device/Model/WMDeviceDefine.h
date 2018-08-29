@@ -84,4 +84,13 @@ typedef NS_ENUM(NSUInteger, WMOrderStatus) {
     //退款失败
     WMOrderStatusMoneyReturnFailed = 10
 };
+
+typedef NS_OPTIONS(NSUInteger, WMAirQualityNotiFlag) {
+    WMAirQualityNotiFlagCh2o = 1,
+    WMAirQualityNotiFlagPm25 = 1 << 1,
+    WMAirQualityNotiFlagHumidity = 1 << 2,
+    WMAirQualityNotiFlagTvoc = 1 << 3,
+    WMAirQualityNotiFlagTemp = 1 << 4,
+    WMAirQualityNotiFlagCo2 = 1 << 5
+};
 #endif /* WMDeviceDefine_h */

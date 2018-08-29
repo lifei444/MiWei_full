@@ -17,7 +17,7 @@
 #import "WMAirQualityNotiMessageCell.h"
 #import "UITableView+EmptyData.h"
 #import "MJRefreshNormalHeader.h"
-#import "MJRefreshAutoNormalFooter.h"
+#import "MJRefreshBackNormalFooter.h"
 
 #define Section_Gap 22
 NSString *const strainerAlarmIdentifier = @"strainerAlarm";
@@ -55,7 +55,7 @@ NSString *const airQualityNotiIdentifier = @"airQualityNoti";
     }];
     header.lastUpdatedTimeLabel.hidden = YES;
     self.tableView.mj_header = header;
-    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+    MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         [self loadMoreMessages];
     }];
     [footer setTitle:@"" forState:MJRefreshStateIdle];
@@ -116,7 +116,7 @@ NSString *const airQualityNotiIdentifier = @"airQualityNoti";
                                         }
                                         dispatch_async(dispatch_get_main_queue(), ^{
                                             self.modelArray = tempArray;
-                                            [self.tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
+                                            [self.tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationBottom];
                                             [self.tableView.mj_footer endRefreshing];
                                         });
                                     } else {

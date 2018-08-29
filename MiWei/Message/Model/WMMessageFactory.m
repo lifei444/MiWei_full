@@ -70,7 +70,7 @@
             airQualityNotiMessage.deviceName = airQualityNotiDic[@"deviceName"];
             airQualityNotiMessage.humidity = airQualityNotiDic[@"humidity"];
             airQualityNotiMessage.message = airQualityNotiDic[@"message"];
-            airQualityNotiMessage.paramFlag = airQualityNotiDic[@"paramFlag"];
+            airQualityNotiMessage.paramFlag = [airQualityNotiDic[@"paramFlag"] longValue];
             airQualityNotiMessage.pm25 = airQualityNotiDic[@"pm25"];
             airQualityNotiMessage.temp = airQualityNotiDic[@"temp"];
             airQualityNotiMessage.tvoc = airQualityNotiDic[@"tvoc"];

@@ -24,7 +24,7 @@
 //空气告警文案
 @property (nonatomic, copy)   NSString *message;
 //告警参数标识
-@property (nonatomic, strong) NSNumber *paramFlag;
+@property (nonatomic, assign) WMAirQualityNotiFlag paramFlag;
 //室内PM2.5告警数值
 @property (nonatomic, strong) NSNumber *pm25;
 //室内温度告警数值
