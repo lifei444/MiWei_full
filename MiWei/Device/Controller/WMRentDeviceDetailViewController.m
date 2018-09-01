@@ -159,18 +159,17 @@
         self.pmView.outPMVauleLabel.text = [NSString stringWithFormat:@"%d", [detail.outdoorPM25 intValue]];
         
         //addressView
-        if (detail.addrDetail.length == 0) {
-            detail.addrDetail = @"回龙观东大街521号ttfasdfasdfasdf";
-        }
-        self.addressView.label.text = [NSString stringWithFormat:@"%@%@%@", detail.addrLev1?:@"", detail.addrLev2?:@"", detail.addrLev3?:@""];
+        self.addressView.label.text = [NSString stringWithFormat:@"%@%@%@%@", detail.addrLev1?:@"", detail.addrLev2?:@"", detail.addrLev3?:@"", detail.addrDetail?:@""];
 
         CGRect addressViewFrame = self.addressView.frame;
         CGRect labelFrame = self.addressView.label.frame;
         
         UIFont *font = self.addressView.label.font;
         CGSize labelSize = [self.addressView.label.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font, NSFontAttributeName, nil]];
-        if (labelSize.width < labelFrame.size.width) {
+        if (labelSize.width < [WMUIUtility WMCGFloatForX:200]) {
             labelFrame.size.width = labelSize.width;
+        } else {
+            labelFrame.size.width = [WMUIUtility WMCGFloatForX:200];
         }
         addressViewFrame.size.width = self.addressView.imageView.frame.size.width + 10 + labelFrame.size.width;
         self.addressView.label.frame = labelFrame;
