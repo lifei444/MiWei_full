@@ -226,7 +226,6 @@
         
         //remaining time
         int remainingSecond = [detail.rentInfo.remainingTime intValue];
-        remainingSecond = 100;
         if (!self.hasShowAlert) {
             self.hasShowAlert = YES;
             if (remainingSecond > 0 && remainingSecond < 600) {
