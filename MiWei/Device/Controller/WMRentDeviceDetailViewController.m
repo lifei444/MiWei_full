@@ -68,6 +68,8 @@
 @property (nonatomic, strong) WMDeviceSwitchContainerView *switchContainerView;
 @property (nonatomic, strong) WMDeviceDataView *dataView;
 @property (nonatomic, strong) NSTimer *timer;
+//是否已经弹窗提醒续费
+@property (nonatomic, assign) BOOL hasShowAlert;
 
 @end
 
@@ -221,6 +223,16 @@
         str = @"湿度：";
         str = [str stringByAppendingFormat:@"%0.2f", [detail.humidity floatValue]];
         self.dataView.humidityLabel.text = str;
+        
+        //remaining time
+        int remainingSecond = [detail.rentInfo.remainingTime intValue];
+        remainingSecond = 100;
+        if (!self.hasShowAlert) {
+            self.hasShowAlert = YES;
+            if (remainingSecond > 0 && remainingSecond < 600) {
+                [WMUIUtility showAlertWithMessage:@"租赁时长即将到期，到时请点击续费继续使用。" viewController:self];
+            }
+        }
     });
 }
 
