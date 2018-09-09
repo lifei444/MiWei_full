@@ -12,6 +12,7 @@
 FOUNDATION_EXPORT NSString *const WMWechatAuthNotification;
 FOUNDATION_EXPORT NSString *const WMWechatPayNotification;
 FOUNDATION_EXPORT NSString *const WMDeviceEchartHeadViewSelectNotification;
+FOUNDATION_EXPORT NSString *const WMDeviceListCountDownNotification;
 
 //都以iPhone 6 为准
 //#define Screen_Bounds [UIScreen mainScreen].bounds

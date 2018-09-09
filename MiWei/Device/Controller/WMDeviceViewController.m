@@ -26,6 +26,7 @@
 
 static NSString *deviceCellIdentifier = @"WMDeviceCell";
 static NSString *headerIdentifier = @"headerIdentifier";
+NSString *const WMDeviceListCountDownNotification = @"WMDeviceListCountDownNotification";
 
 #define SearchBarX                  8
 #define SearchBarY                  (Navi_Height + 7)
@@ -47,6 +48,7 @@ static NSString *headerIdentifier = @"headerIdentifier";
 @interface WMDeviceViewController ()<WMSearchBarDelegate>
 @property (nonatomic, strong) NSArray <WMDevice *> *modelArray;
 @property (nonatomic, strong) WMSearchBar *searchBar;
+@property (nonatomic, strong) NSTimer *countDownTimer;
 @end
 
 @implementation WMDeviceViewController
@@ -86,10 +88,12 @@ static NSString *headerIdentifier = @"headerIdentifier";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self loadDeviceList];
+    [self startCountDown];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [self stopCountDown];
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout
@@ -152,7 +156,11 @@ static NSString *headerIdentifier = @"headerIdentifier";
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-#pragma mark - private
+- (void)onCountDownTimer {
+    [[NSNotificationCenter defaultCenter] postNotificationName:WMDeviceListCountDownNotification object:nil];
+}
+
+#pragma mark - Private
 - (void)setRightNavBar {
     UIButton *btn = [[UIButton alloc] initWithFrame:WM_CGRectMake(0, 0, 32, 32)];
     [btn setImage:[UIImage imageNamed:@"device_scan"] forState:UIControlStateNormal];
@@ -196,6 +204,23 @@ static NSString *headerIdentifier = @"headerIdentifier";
                                         NSLog(@"loadDeviceList error, result is %@", result);
                                     }
                                 }];
+}
+
+- (void)startCountDown {
+    [self stopCountDown];
+    self.countDownTimer = [NSTimer timerWithTimeInterval:1
+                                                  target:self
+                                                selector:@selector(onCountDownTimer)
+                                                userInfo:nil
+                                                 repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:self.countDownTimer forMode:NSRunLoopCommonModes];
+}
+
+- (void)stopCountDown {
+    if (self.countDownTimer) {
+        [self.countDownTimer invalidate];
+        self.countDownTimer = nil;
+    }
 }
 
 #pragma mark - Getters & setters

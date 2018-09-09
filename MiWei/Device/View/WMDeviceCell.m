@@ -85,8 +85,13 @@
         [self.contentView addSubview:self.authorityLabel];
         [self.contentView addSubview:self.applyAuthorityLable];
         self.contentView.backgroundColor = [UIColor whiteColor];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onCountDown) name:WMDeviceListCountDownNotification object:nil];
     }
     return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)setDataModel:(WMDevice *)model {
@@ -154,6 +159,26 @@
                                 }];
     } else {
         [WMUIUtility showAlertWithMessage:@"申请失败" viewController:self.vc];
+    }
+}
+
+- (void)onCountDown {
+    if ([self.device isRentDevice]) {
+        long longRemaining = [self.device.rentInfo.remainingTime longValue];
+        if (longRemaining > 0) {
+            longRemaining --;
+            self.device.rentInfo.remainingTime = @(longRemaining);
+        }
+        
+        if (longRemaining == 0) {
+            self.timeLabel.hidden = YES;
+            self.resultLabel.hidden = NO;
+            self.resultLabel.text = @"已结束";
+        } else {
+            self.resultLabel.hidden = YES;
+            self.timeLabel.hidden = NO;
+            self.timeLabel.text = [self.device formatRemainingTime];
+        }
     }
 }
 

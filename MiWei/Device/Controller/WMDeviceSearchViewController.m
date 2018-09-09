@@ -39,6 +39,7 @@ static NSString *deviceCellIdentifier = @"WMDeviceCell";
 @interface WMDeviceSearchViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WMSearchBarDelegate>
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) WMSearchBar *searchBar;
+@property (nonatomic, strong) NSTimer *countDownTimer;
 @end
 
 @implementation WMDeviceSearchViewController
@@ -56,11 +57,13 @@ static NSString *deviceCellIdentifier = @"WMDeviceCell";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
+    [self startCountDown];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     self.navigationController.navigationBar.hidden = NO;
+    [self stopCountDown];
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout
@@ -122,7 +125,29 @@ static NSString *deviceCellIdentifier = @"WMDeviceCell";
                                         NSLog(@"onSearch error, result is %@", result);
                                     }
                                 }];
+}
 
+#pragma mark - Target action
+- (void)onCountDownTimer {
+    [[NSNotificationCenter defaultCenter] postNotificationName:WMDeviceListCountDownNotification object:nil];
+}
+
+#pragma mark - Private
+- (void)startCountDown {
+    [self stopCountDown];
+    self.countDownTimer = [NSTimer timerWithTimeInterval:1
+                                                  target:self
+                                                selector:@selector(onCountDownTimer)
+                                                userInfo:nil
+                                                 repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:self.countDownTimer forMode:NSRunLoopCommonModes];
+}
+
+- (void)stopCountDown {
+    if (self.countDownTimer) {
+        [self.countDownTimer invalidate];
+        self.countDownTimer = nil;
+    }
 }
 
 #pragma mark - Getters & setters

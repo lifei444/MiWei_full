@@ -67,7 +67,10 @@
 @property (nonatomic, strong) WMDeviceRankView *rankView;
 @property (nonatomic, strong) WMDeviceSwitchContainerView *switchContainerView;
 @property (nonatomic, strong) WMDeviceDataView *dataView;
-@property (nonatomic, strong) NSTimer *timer;
+//10s 刷新 timer
+@property (nonatomic, strong) NSTimer *refreshTimer;
+//倒计时 timer
+@property (nonatomic, strong) NSTimer *countDownTimer;
 //是否已经弹窗提醒续费
 @property (nonatomic, assign) BOOL hasShowAlert;
 
@@ -95,20 +98,21 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self refreshData:self.deviceDetail];
-    self.timer = [NSTimer timerWithTimeInterval:10
+    self.refreshTimer = [NSTimer timerWithTimeInterval:10
                                          target:self
-                                       selector:@selector(onTimer)
+                                       selector:@selector(onRefreshTimer)
                                        userInfo:nil
                                         repeats:YES];
-    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+    [[NSRunLoop currentRunLoop] addTimer:self.refreshTimer forMode:NSRunLoopCommonModes];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    if (self.timer) {
-        [self.timer invalidate];
-        self.timer = nil;
+    if (self.refreshTimer) {
+        [self.refreshTimer invalidate];
+        self.refreshTimer = nil;
     }
+    [self stopCountDown];
 }
 
 #pragma mark - Target action
@@ -118,9 +122,19 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)onTimer {
-    NSLog(@"WMRentDeviceDetailViewController onTimer");
+- (void)onRefreshTimer {
+    NSLog(@"WMRentDeviceDetailViewController onRefreshTimer");
     [self loadDeviceDetail];
+}
+
+- (void)onCountDownTimer {
+    NSLog(@"WMRentDeviceDetailViewController onCountDownTimer");
+    int remainingSecond = [self.deviceDetail.rentInfo.remainingTime intValue];
+    if (remainingSecond > 0) {
+        remainingSecond --;
+        self.deviceDetail.rentInfo.remainingTime = @(remainingSecond);
+        self.storeView.remainingTimeLabel.text = [WMDeviceUtility timeStringFromSecond:self.deviceDetail.rentInfo.remainingTime];
+    }
 }
 
 #pragma mark - Private
@@ -225,14 +239,34 @@
         self.dataView.humidityLabel.text = str;
         
         //remaining time
-        int remainingSecond = [detail.rentInfo.remainingTime intValue];
+        int remainingSecond = [self.deviceDetail.rentInfo.remainingTime intValue];
         if (!self.hasShowAlert) {
             self.hasShowAlert = YES;
             if (remainingSecond > 0 && remainingSecond < 600) {
                 [WMUIUtility showAlertWithMessage:@"租赁时长即将到期，到时请点击续费继续使用。" viewController:self];
             }
         }
+        if (remainingSecond > 0) {
+            [self startCountDown];
+        }
     });
+}
+
+- (void)startCountDown {
+    [self stopCountDown];
+    self.countDownTimer = [NSTimer timerWithTimeInterval:1
+                                                  target:self
+                                                selector:@selector(onCountDownTimer)
+                                                userInfo:nil
+                                                 repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:self.countDownTimer forMode:NSRunLoopCommonModes];
+}
+
+- (void)stopCountDown {
+    if (self.countDownTimer) {
+        [self.countDownTimer invalidate];
+        self.countDownTimer = nil;
+    }
 }
 
 #pragma mark - Getters & setters
