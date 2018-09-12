@@ -107,6 +107,7 @@
 		9C484672210737D6005F2883 /* WMDeviceDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C484671210737D6005F2883 /* WMDeviceDataView.m */; };
 		9C48467521074680005F2883 /* WMDeviceRankView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C48467421074680005F2883 /* WMDeviceRankView.m */; };
 		9C48467921097E31005F2883 /* WMDevicePollutionChangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C48467821097E31005F2883 /* WMDevicePollutionChangeView.m */; };
+		9C49B5422149851E00C5008C /* WMStoreWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C49B5412149851E00C5008C /* WMStoreWebViewController.m */; };
 		9C4D76272126D5930089F728 /* WMSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D76262126D5930089F728 /* WMSearchBar.m */; };
 		9C4D762A212811B40089F728 /* WMDeviceTimeSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D7629212811B40089F728 /* WMDeviceTimeSetting.m */; };
 		9C4D762D212812790089F728 /* WMDeviceTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D762C212812790089F728 /* WMDeviceTimer.m */; };
@@ -412,6 +413,8 @@
 		9C48467421074680005F2883 /* WMDeviceRankView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDeviceRankView.m; sourceTree = "<group>"; };
 		9C48467721097E31005F2883 /* WMDevicePollutionChangeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDevicePollutionChangeView.h; sourceTree = "<group>"; };
 		9C48467821097E31005F2883 /* WMDevicePollutionChangeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMDevicePollutionChangeView.m; sourceTree = "<group>"; };
+		9C49B5402149851E00C5008C /* WMStoreWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMStoreWebViewController.h; sourceTree = "<group>"; };
+		9C49B5412149851E00C5008C /* WMStoreWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMStoreWebViewController.m; sourceTree = "<group>"; };
 		9C4D76252126D5930089F728 /* WMSearchBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMSearchBar.h; sourceTree = "<group>"; };
 		9C4D76262126D5930089F728 /* WMSearchBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMSearchBar.m; sourceTree = "<group>"; };
 		9C4D7628212811B40089F728 /* WMDeviceTimeSetting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMDeviceTimeSetting.h; sourceTree = "<group>"; };
@@ -1017,6 +1020,8 @@
 				9C6CAC6621311D84009EBE98 /* WMDeviceBindViewController.m */,
 				9C6CAC6E2132BDF5009EBE98 /* WMStrainerResetViewController.h */,
 				9C6CAC6F2132BDF5009EBE98 /* WMStrainerResetViewController.m */,
+				9C49B5402149851E00C5008C /* WMStoreWebViewController.h */,
+				9C49B5412149851E00C5008C /* WMStoreWebViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1429,6 +1434,7 @@
 				2708B8C72084F85500A760E7 /* PYWordCloudSeries.m in Sources */,
 				9C5EDCEB211076EC0085ADEE /* SDWebImagePrefetcher.m in Sources */,
 				2760C697207F8A20003CC126 /* WMUnderLineView.m in Sources */,
+				9C49B5422149851E00C5008C /* WMStoreWebViewController.m in Sources */,
 				9C5EDCE6211076EC0085ADEE /* UIImageView+HighlightedWebCache.m in Sources */,
 				27B3824C207CFB77006036A0 /* main.m in Sources */,
 				2708B8CD2084F85500A760E7 /* PYMarkLine.m in Sources */,

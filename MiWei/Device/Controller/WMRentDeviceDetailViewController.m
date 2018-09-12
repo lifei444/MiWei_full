@@ -19,6 +19,7 @@
 #import "WMHTTPUtility.h"
 #import "WMDeviceUtility.h"
 #import "WMDevicePayViewController.h"
+#import "WMStoreWebViewController.h"
 
 #define PM_Y                            25
 #define PM_Height                       201
@@ -119,6 +120,11 @@
 - (void)tapPay {
     WMDevicePayViewController *vc = [[WMDevicePayViewController alloc] init];
     vc.deviceId = self.device.deviceId;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)tapStore {
+    WMStoreWebViewController *vc = [[WMStoreWebViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -308,8 +314,10 @@
 - (WMDeviceStoreView *)storeView {
     if (!_storeView) {
         _storeView = [[WMDeviceStoreView alloc] initWithFrame:WM_CGRectMake(0, Store_Y, Screen_Width, Store_Height)];
-        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapPay)];
-        [_storeView.payItem addGestureRecognizer:tapRecognizer];
+        UITapGestureRecognizer *tapPayRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapPay)];
+        [_storeView.payItem addGestureRecognizer:tapPayRecognizer];
+        UITapGestureRecognizer *tapStoreRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapStore)];
+        [_storeView.storeItem addGestureRecognizer:tapStoreRecognizer];
     }
     return _storeView;
 }
