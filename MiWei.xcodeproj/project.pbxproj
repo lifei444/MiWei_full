@@ -1741,7 +1741,7 @@
 				INFOPLIST_FILE = MiWei/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) Frameworks @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.miwei.air;
+				PRODUCT_BUNDLE_IDENTIFIER = ios.mivei.iot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1764,7 +1764,7 @@
 				INFOPLIST_FILE = MiWei/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) Frameworks @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.miwei.air;
+				PRODUCT_BUNDLE_IDENTIFIER = ios.mivei.iot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
