@@ -52,6 +52,7 @@ static NSString *deviceCellIdentifier = @"WMDeviceCell";
     
     [self.view addSubview:self.collectionView];
     [self.view addSubview:self.searchBar];
+    [self.searchBar becomeFirstResponder];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

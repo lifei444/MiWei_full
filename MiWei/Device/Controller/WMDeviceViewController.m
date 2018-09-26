@@ -144,6 +144,7 @@ NSString *const WMDeviceListCountDownNotification = @"WMDeviceListCountDownNotif
 
 #pragma mark - UITextFieldDelegate
 - (void)onClick {
+    [self.searchBar resignFirstResponder];
     WMDeviceSearchViewController *vc = [[WMDeviceSearchViewController alloc] init];
     vc.modelArray = self.modelArray;
     WMNavigationViewController *nav = [[WMNavigationViewController alloc] initWithRootViewController:vc];

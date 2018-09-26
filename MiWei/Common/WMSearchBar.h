@@ -19,4 +19,6 @@
 @property (nonatomic, weak)   id<WMSearchBarDelegate> delegate;
 
 - (void)showCancel;
+- (void)becomeFirstResponder;
+- (void)resignFirstResponder;
 @end

@@ -33,6 +33,14 @@
     _button.hidden = NO;
 }
 
+- (void)becomeFirstResponder {
+    [self.textField becomeFirstResponder];
+}
+
+- (void)resignFirstResponder {
+    [self.textField resignFirstResponder];
+}
+
 #pragma mark - Target action
 - (void)onCancel {
     if ([self.delegate respondsToSelector:@selector(onCancel)]) {
@@ -51,6 +59,11 @@
     if ([self.delegate respondsToSelector:@selector(onClick)]) {
         [self.delegate onClick];
     }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
 }
 
 #pragma mark - Getters & setters

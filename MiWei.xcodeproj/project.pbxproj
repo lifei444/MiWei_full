@@ -98,7 +98,6 @@
 		27B3824C207CFB77006036A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B3824B207CFB77006036A0 /* main.m */; };
 		9C206F662114782600672206 /* WMProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C206F642114782600672206 /* WMProfile.m */; };
 		9C206F6C2116E0E300672206 /* FogV3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C206F672116AED800672206 /* FogV3.framework */; };
-		9C206F6D2116E0E300672206 /* FogV3.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9C206F672116AED800672206 /* FogV3.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9C206F702116EBEC00672206 /* WMDeviceConfigCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C206F6F2116EBEC00672206 /* WMDeviceConfigCell.m */; };
 		9C206F732117020200672206 /* WMMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C206F722117020200672206 /* WMMessageViewController.m */; };
 		9C206F8D2118060700672206 /* WMStrainerAlarmMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C206F8C2118060700672206 /* WMStrainerAlarmMessageCell.m */; };
@@ -182,7 +181,6 @@
 		9C8C8309211F0B4100D9F9F1 /* WMModifyPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8C8308211F0B4100D9F9F1 /* WMModifyPasswordViewController.m */; };
 		9C9F113C20A85B95001D02FC /* WMUIUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9F113B20A85B95001D02FC /* WMUIUtility.m */; };
 		9CB8062420FAF6C3001A5C5E /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C4FBE4720EA142800D36D8D /* AFNetworking.framework */; };
-		9CB8062820FAFA04001A5C5E /* AFNetworking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9C4FBE4720EA142800D36D8D /* AFNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9CB8062D20FB8F58001A5C5E /* WMOrderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB8062C20FB8F58001A5C5E /* WMOrderListViewController.m */; };
 		9CB8063C20FC9E47001A5C5E /* WMDeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB8063B20FC9E47001A5C5E /* WMDeviceModel.m */; };
 		9CB8063F20FC9F81001A5C5E /* WMDeviceProdInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB8063E20FC9F81001A5C5E /* WMDeviceProdInfo.m */; };
@@ -207,8 +205,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9C206F6D2116E0E300672206 /* FogV3.framework in Embed Frameworks */,
-				9CB8062820FAFA04001A5C5E /* AFNetworking.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
