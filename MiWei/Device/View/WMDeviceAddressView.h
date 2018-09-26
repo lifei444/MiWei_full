@@ -13,4 +13,5 @@
 @property(nonatomic, strong) UIImageView *imageView;
 @property(nonatomic, strong) UILabel *label;
 
+- (void)adjustLabelSize:(NSString *)shortString;
 @end

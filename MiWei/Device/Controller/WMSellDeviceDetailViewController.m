@@ -168,20 +168,8 @@
         
         //addressView
         self.addressView.label.text = [NSString stringWithFormat:@"%@%@%@%@", detail.addrLev1?:@"", detail.addrLev2?:@"", detail.addrLev3?:@"", detail.addrDetail?:@""];
-        CGRect addressViewFrame = self.addressView.frame;
-        CGRect labelFrame = self.addressView.label.frame;
-        
-        UIFont *font = self.addressView.label.font;
-        CGSize labelSize = [self.addressView.label.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font, NSFontAttributeName, nil]];
-        if (labelSize.width < [WMUIUtility WMCGFloatForX:200]) {
-            labelFrame.size.width = labelSize.width;
-        } else {
-            labelFrame.size.width = [WMUIUtility WMCGFloatForX:200];
-        }
-        addressViewFrame.size.width = self.addressView.imageView.frame.size.width + 10 + labelFrame.size.width;
-        self.addressView.label.frame = labelFrame;
-        self.addressView.frame = addressViewFrame;
-        
+        NSString *shortString = [NSString stringWithFormat:@"%@%@%@", detail.addrLev1?:@"", detail.addrLev2?:@"", detail.addrLev3?:@""];
+        [self.addressView adjustLabelSize:shortString];
         CGPoint viewCenter = self.view.center;
         CGPoint addressViewCenter = self.addressView.center;
         addressViewCenter.x = viewCenter.x;
@@ -190,7 +178,7 @@
         //nameLabel
         NSString *dateString = @"";
         if (detail.lastUpdateTime) {
-            NSDate *date = [NSDate dateWithTimeIntervalSince1970:[detail.lastUpdateTime longLongValue] / 1000];
+            NSDate *date = [NSDate dateWithTimeIntervalSince1970:[detail.lastUpdateTime longLongValue]];
             dateString = [self.formatter stringFromDate:date];
         }
         self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", detail.name, dateString];
@@ -249,7 +237,7 @@
     if (!_formatter) {
         _formatter = [[NSDateFormatter alloc] init];
         [_formatter setDateStyle:NSDateFormatterShortStyle];
-        [_formatter setDateFormat:@"yyyy-MM-dd"];
+        [_formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     }
     return _formatter;
 }
