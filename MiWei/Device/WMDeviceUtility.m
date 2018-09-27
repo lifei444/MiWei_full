@@ -20,12 +20,12 @@ static NSDateFormatter *dateFormatter;
     return dateFormatter;
 }
 
-+ (void)addDevice:(WMDevice *)device
++ (void)addDevice:(NSString *)deviceId
          location:(CLLocationCoordinate2D)coord
              ssid:(NSString *)ssid
          complete:(void (^)(BOOL))completeBlock {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-    [dic setObject:device.deviceId forKey:@"deviceID"];
+    [dic setObject:deviceId forKey:@"deviceID"];
     [dic setObject:@(coord.latitude) forKey:@"latitude"];
     [dic setObject:@(coord.longitude) forKey:@"longitude"];
     [dic setObject:ssid forKey:@"wifiSSID"];

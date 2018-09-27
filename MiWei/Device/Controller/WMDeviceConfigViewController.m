@@ -39,7 +39,9 @@
 @property (nonatomic, strong) WMDeviceConfigCell *pswCell;
 @property (nonatomic, strong) UIButton *confirmButton;
 @property (nonatomic, strong) MBProgressHUD *hud;
-@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, strong) NSTimer *searchTimer;
+@property (nonatomic, strong) NSTimer *addTimer;
+@property (nonatomic, assign) BOOL isAdding;
 
 @end
 
@@ -65,9 +67,9 @@
     [[FogEasyLinkManager sharedInstance] startEasyLinkWithPassword:self.pswCell.textField.text];
     [FogDeviceManager sharedInstance].delegate = self;
     [[FogDeviceManager sharedInstance] startSearchDevices];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:90
+    self.searchTimer = [NSTimer scheduledTimerWithTimeInterval:90
                                                   target:self
-                                                selector:@selector(onTimeExpire)
+                                                selector:@selector(onSearchTimeExpire)
                                                 userInfo:nil
                                                  repeats:NO];
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -77,10 +79,10 @@
     [self.view endEditing:YES];
 }
 
-- (void)onTimeExpire {
-    if([self.timer isValid]) {
-        [self.timer invalidate];
-        self.timer = nil;
+- (void)onSearchTimeExpire {
+    if ([self.searchTimer isValid]) {
+        [self.searchTimer invalidate];
+        self.searchTimer = nil;
     }
     [[FogDeviceManager sharedInstance] stopSearchDevices];
     [[FogEasyLinkManager sharedInstance] stopEasyLink];
@@ -88,37 +90,58 @@
     [WMUIUtility showAlertWithMessage:@"配网失败" viewController:self];
 }
 
+- (void)onAddTimeExpire {
+    if ([self.addTimer isValid]) {
+        [self.addTimer invalidate];
+        self.addTimer = nil;
+    }
+    self.isAdding = NO;
+}
+
 #pragma mark - FogDeviceDelegate
 - (void)didSearchDeviceReturnArray:(NSArray *)array {
-    [[FogDeviceManager sharedInstance] stopSearchDevices];
-    [[FogEasyLinkManager sharedInstance] stopEasyLink];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[FogDeviceManager sharedInstance] stopSearchDevices];
+        [[FogEasyLinkManager sharedInstance] stopEasyLink];
+        if([self.searchTimer isValid]) {
+            [self.searchTimer invalidate];
+            self.searchTimer = nil;
+        }
     
-    if (array.count > 0) {
-        if (self.device) {
-            [WMDeviceUtility addDevice:self.device
-                              location:self.coord
-                                  ssid:self.ssid
-                              complete:^(BOOL result) {
-                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                      [self.hud hideAnimated:YES];
-                                      if (result) {
-                                          [self popToDeviceListView];
-                                      } else {
-                                          [WMUIUtility showAlertWithMessage:@"添加失败" viewController:self];
-                                      }
-                                  });
-                              }];
+        if (array.count > 0) {
+            if (self.deviceId) {
+                self.addTimer = [NSTimer scheduledTimerWithTimeInterval:60
+                                                                 target:self
+                                                               selector:@selector(onAddTimeExpire)
+                                                               userInfo:nil
+                                                                repeats:NO];
+                self.isAdding = YES;
+                [self checkAndAddDevice:^(BOOL success) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if ([self.addTimer isValid]) {
+                            [self.addTimer invalidate];
+                            self.addTimer = nil;
+                        }
+                        [self.hud hideAnimated:YES];
+                        if (success) {
+                            [self popToDeviceListView];
+                        } else {
+                            [WMUIUtility showAlertWithMessage:@"添加失败" viewController:self];
+                        }
+                    });
+                }];
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.hud hideAnimated:YES];
+                    [self popToDeviceListView];
+                });
+            }
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.hud hideAnimated:YES];
-                [self popToDeviceListView];
             });
         }
-    } else {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.hud hideAnimated:YES];
-        });
-    }
+    });
 }
 
 #pragma mark - UITextFieldDelegate
@@ -135,6 +158,45 @@
             [self.navigationController popToViewController:vc animated:YES];
             break;
         }
+    }
+}
+
+- (void)checkAndAddDevice:(void (^)(BOOL))completeBlock {
+    if (self.isAdding) {
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+        NSString *deviceId = self.deviceId ?: @"";
+        [dic setObject:deviceId forKey:@"deviceID"];
+        [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodGet
+                                   URLString:@"/mobile/device/queryBasicInfo"
+                                  parameters:dic
+                                    response:^(WMHTTPResult *result) {
+                                        if (result.success) {
+                                            WMDevice *device = [WMDevice deviceFromHTTPData:result.content];
+                                            if (device.online) {
+                                                [WMDeviceUtility addDevice:self.deviceId
+                                                                  location:self.coord
+                                                                      ssid:self.ssid
+                                                                  complete:^(BOOL success) {
+                                                                      if (success) {
+                                                                          completeBlock(YES);
+                                                                      } else {
+                                                                          NSLog(@"checkAndAddDevice addDevice error");
+                                                                          completeBlock(NO);
+                                                                      }
+                                                                  }];
+                                            } else {
+                                                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                                    [self checkAndAddDevice:completeBlock];
+                                                });
+                                            }
+                                        } else {
+                                            NSLog(@"%s queryBasicInfo error %@", __func__, result);
+                                            completeBlock(NO);
+                                        }
+                                    }];
+    } else {
+        NSLog(@"%s add timer expired", __func__);
+        completeBlock(NO);
     }
 }
                            

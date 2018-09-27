@@ -23,6 +23,7 @@
 @property (nonatomic, strong) WMDeviceProdInfo *prod;
 @property (nonatomic, strong) WMDeviceRentInfo *rentInfo;
 
++ (instancetype)deviceFromHTTPData:(NSDictionary *)content;
 - (BOOL)isRentDevice;
 - (NSString*)formatRemainingTime;
 

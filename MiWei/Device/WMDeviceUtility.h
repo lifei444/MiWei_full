@@ -14,7 +14,7 @@
 
 @interface WMDeviceUtility : NSObject
 
-+ (void)addDevice:(WMDevice *)device
++ (void)addDevice:(NSString *)deviceId
          location:(CLLocationCoordinate2D)coord
              ssid:(NSString *)ssid
          complete:(void (^)(BOOL result))completeBlock;

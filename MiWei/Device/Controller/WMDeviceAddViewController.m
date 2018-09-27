@@ -54,7 +54,7 @@
             [WMUIUtility showAlertWithMessage:@"设备不在线，无法添加" viewController:self];
         } else {
             self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            [WMDeviceUtility addDevice:self.device
+            [WMDeviceUtility addDevice:self.device.deviceId
                               location:self.coord
                                   ssid:ssid
                               complete:^(BOOL result) {
@@ -69,7 +69,7 @@
     } else { //销售设备
         if (self.device.online) {
             self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            [WMDeviceUtility addDevice:self.device
+            [WMDeviceUtility addDevice:self.device.deviceId
                               location:self.coord
                                   ssid:ssid
                               complete:^(BOOL result) {
@@ -92,7 +92,7 @@
             } else {
                 WMDeviceConfigViewController *vc = [[WMDeviceConfigViewController alloc] init];
                 vc.ssid = ssid;
-                vc.device = self.device;
+                vc.deviceId = self.device.deviceId;
                 vc.coord = self.coord;
                 [self.navigationController pushViewController:vc animated:YES];
             }

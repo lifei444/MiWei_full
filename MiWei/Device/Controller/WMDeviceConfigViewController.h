@@ -14,7 +14,7 @@
 @interface WMDeviceConfigViewController : WMViewController
 
 @property (nonatomic, copy) NSString *ssid;
-@property (nonatomic, strong) WMDevice *device;
+@property (nonatomic, strong) NSString *deviceId;
 @property (nonatomic, assign) CLLocationCoordinate2D coord;
 
 @end

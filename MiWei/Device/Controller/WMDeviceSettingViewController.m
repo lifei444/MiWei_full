@@ -235,6 +235,7 @@
             NSString *ssid = [[FogEasyLinkManager sharedInstance] getSSID];
             WMDeviceConfigViewController *vc = [[WMDeviceConfigViewController alloc] init];
             vc.ssid = ssid;
+            vc.deviceId = self.detail.deviceId;
             [self.navigationController pushViewController:vc animated:YES];
         } else {
             [WMUIUtility showAlertWithMessage:@"没有权限" viewController:self];
