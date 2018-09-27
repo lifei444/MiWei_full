@@ -9,5 +9,6 @@ use_frameworks!
   pod 'UMCPush'
   pod 'ActionSheetPicker-3.0'
   pod 'MJRefresh'
+  pod 'Bugly'
 
 end

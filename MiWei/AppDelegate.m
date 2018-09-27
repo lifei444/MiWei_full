@@ -12,6 +12,7 @@
 #import "WMNavigationViewController.h"
 #import "WMUIUtility.h"
 #import <WXApi.h>
+#import <Bugly/Bugly.h>
 //#import <UMPush/UMessage.h>
 
 NSString *const WMWechatAuthNotification = @"WMWechatAuthNotification";
@@ -25,6 +26,7 @@ NSString *const WMWechatPayNotification = @"WMWechatPayNotification";
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [WMUIUtility registerAutoSizeScale];
     [WXApi registerApp:@"wx5048e61f6e905119"];
+    [self startRecordWithAppId:@"4596fe651b"];
     
     BOOL isLogined = NO;
     if(isLogined) {
@@ -46,6 +48,13 @@ NSString *const WMWechatPayNotification = @"WMWechatPayNotification";
 //        }
 //    }];
     return YES;
+}
+
+- (void)startRecordWithAppId:(NSString *__nullable)appId {
+    BuglyConfig * config = [[BuglyConfig alloc] init];
+    config.blockMonitorEnable = YES;
+    config.blockMonitorTimeout = 2;
+    [Bugly startWithAppId:appId config:config];
 }
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
