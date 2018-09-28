@@ -47,13 +47,13 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>使用相机</string>
+	<string>扫描二维码需要使用相机</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>使用定位</string>
+	<string>获取设备位置需要使用定位</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>访问相册</string>
+	<string>修改用户头像需要访问相册</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>访问相册</string>
+	<string>修改用户头像需要访问相册</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
