@@ -23,8 +23,11 @@
         WMDevice *device = [[WMDevice alloc] init];
         device.deviceId = deviceDic[@"deviceID"];
         device.name = deviceDic[@"deviceName"];
-        [temp addObject:device];
-    }
+        //去除已绑定设备
+        if (![device.deviceId isEqualToString:info.matchDeviceID]) {
+            [temp addObject:device];
+        }
+    } 
     info.matchDevices = temp;
     return info;
 }

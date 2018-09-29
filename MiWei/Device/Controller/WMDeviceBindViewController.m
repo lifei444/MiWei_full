@@ -155,12 +155,7 @@
             return 1;
         }
     } else if (section == 1) {
-        //已经有绑定成功的设备，则显示数量减 1
-        if (self.matchInfo.matchDeviceID.length > 0) {
-            return self.matchInfo.matchDevices.count - 1;
-        } else {
-            return self.matchInfo.matchDevices.count;
-        }
+        return self.matchInfo.matchDevices.count;
     } else if (section == 2) {
         return 1;
     }
@@ -189,17 +184,7 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
     } else if (indexPath.section == 1) {
-        //去除已绑定设备
-        NSMutableArray <WMDevice *>*arr = [self.matchInfo.matchDevices mutableCopy];
-        if (self.matchInfo.matchDeviceID.length > 0) {
-            for (WMDevice *device in arr) {
-                if ([self.matchInfo.matchDeviceID isEqualToString:device.deviceId]) {
-                    [arr removeObject:device];
-                    break;
-                }
-            }
-        }
-        cell.textLabel.text = arr[indexPath.row].name;
+        cell.textLabel.text = self.matchInfo.matchDevices[indexPath.row].name;
         cell.detailTextLabel.text = @"点击选取";
     } else if (indexPath.section == 2) {
         cell.textLabel.text = @"联动控制";
