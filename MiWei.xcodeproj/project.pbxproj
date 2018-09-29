@@ -1308,7 +1308,7 @@
 				TargetAttributes = {
 					27B38238207CFB77006036A0 = {
 						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1727,8 +1727,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CODE_SIGN_ENTITLEMENTS = MiWei/MiWei.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9CVMN4UZK4;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 6CDAPG9R9X;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1741,6 +1741,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) Frameworks @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ios.mivei.iot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = skyeriphone;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1752,8 +1753,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CODE_SIGN_ENTITLEMENTS = MiWei/MiWei.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9CVMN4UZK4;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 6CDAPG9R9X;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1766,6 +1767,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) Frameworks @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ios.mivei.iot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = skyeriphone;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
