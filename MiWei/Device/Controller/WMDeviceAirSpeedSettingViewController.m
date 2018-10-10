@@ -56,32 +56,13 @@
 #pragma mark - Target action
 - (void)onConfirm {
     NSIndexPath *selectIndex = [self.tableView indexPathForSelectedRow];
-    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     if (selectIndex.row == self.speed) {
         [self.navigationController popViewControllerAnimated:YES];
     } else {
-        if (self.mode == WMDeviceAirSpeedSettingModeDirectReturn) {
-            [dic setObject:self.deviceDetail.deviceId forKey:@"deviceID"];
-            [dic setObject:@(selectIndex.row) forKey:@"airSpeed"];
-            self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            [WMDeviceUtility setDevice:dic response:^(WMHTTPResult *result) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.hud hideAnimated:YES];
-                    if (result.success) {
-                        self.deviceDetail.airSpeed = selectIndex.row;
-                        [self.navigationController popViewControllerAnimated:YES];
-                    } else {
-                        NSLog(@"设置失败, result is %@", result);
-                        [WMUIUtility showAlertWithMessage:@"设置失败" viewController:self];
-                    }
-                });
-            }];
-        } else if (self.mode == WMDeviceAirSpeedSettingModeDelegate) {
-            if ([self.delegage respondsToSelector:@selector(onAirSpeedConfirm:)]) {
-                [self.delegage onAirSpeedConfirm:selectIndex.row];
-            }
-            [self.navigationController popViewControllerAnimated:YES];
+        if ([self.delegage respondsToSelector:@selector(onAirSpeedConfirm:)]) {
+            [self.delegage onAirSpeedConfirm:selectIndex.row];
         }
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 

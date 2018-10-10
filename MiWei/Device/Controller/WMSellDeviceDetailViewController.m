@@ -106,7 +106,7 @@
     [self.scrollView addSubview:self.pollutionChangeView];
     [self.scrollView addSubview:self.pollutionSumView];
     self.scrollView.contentSize = WM_CGSizeMake(Screen_Width, Scroll_Height);
-    [self loadDeviceDetail];
+    [self loadDeviceDetailWithSwitchContainer:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -126,16 +126,17 @@
         [self.timer invalidate];
         self.timer = nil;
     }
+    [self.switchContainerView stopTimerIfNeeded];
 }
 
 #pragma mark - Target action
 - (void)onTimer {
     NSLog(@"WMSellDeviceDetailViewController onTimer");
-    [self loadDeviceDetail];
+    [self loadDeviceDetailWithSwitchContainer:NO];
 }
 
 #pragma mark - Private
-- (void)loadDeviceDetail {
+- (void)loadDeviceDetailWithSwitchContainer:(BOOL)with {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:self.device.deviceId forKey:@"deviceID"];
     [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodGet
@@ -145,7 +146,12 @@
                                     if (result.success) {
                                         NSDictionary *content = result.content;
                                         WMDeviceDetail *detail = [WMDeviceDetail deviceDetailFromHTTPData:content];
-                                        [self refreshData:detail];
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            [self refreshData:detail];
+                                            if (with) {
+                                                [self.switchContainerView setModel:detail];
+                                            }
+                                        });
                                     } else {
                                         NSLog(@"loadDeviceDetail error");
                                     }
@@ -154,76 +160,71 @@
 
 - (void)refreshData:(WMDeviceDetail *)detail {
     self.deviceDetail = detail;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        //background color
-        if ([detail.aqLevel longValue] == WMAqLevelGreen) {
-            self.scrollView.backgroundColor = [WMUIUtility color:@"0x1d8489"];
-        } else if ([detail.aqLevel longValue] == WMAqLevelBlue) {
-            self.scrollView.backgroundColor = [WMUIUtility color:@"0x5b81d0"];
-        } else if ([detail.aqLevel longValue] == WMAqLevelYellow) {
-            self.scrollView.backgroundColor = [WMUIUtility color:@"0xf4d53f"];
-        } else if ([detail.aqLevel longValue] == WMAqLevelRed) {
-            self.scrollView.backgroundColor = [WMUIUtility color:@"0xda3232"];
-        }
-        
-        //addressView
-        self.addressView.label.text = [NSString stringWithFormat:@"%@%@%@%@", detail.addrLev1?:@"", detail.addrLev2?:@"", detail.addrLev3?:@"", detail.addrDetail?:@""];
-        NSString *shortString = [NSString stringWithFormat:@"%@%@%@", detail.addrLev1?:@"", detail.addrLev2?:@"", detail.addrLev3?:@""];
-        [self.addressView adjustLabelSize:shortString];
-        CGPoint viewCenter = self.view.center;
-        CGPoint addressViewCenter = self.addressView.center;
-        addressViewCenter.x = viewCenter.x;
-        self.addressView.center = addressViewCenter;
-        
-        //nameLabel
-        NSString *dateString = @"";
-        if (detail.lastUpdateTime) {
-            NSDate *date = [NSDate dateWithTimeIntervalSince1970:[detail.lastUpdateTime longLongValue]];
-            dateString = [self.formatter stringFromDate:date];
-        }
-        self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", detail.name, dateString];
-        
-        //pmView
+    //background color
+    if ([detail.aqLevel longValue] == WMAqLevelGreen) {
+        self.scrollView.backgroundColor = [WMUIUtility color:@"0x1d8489"];
+    } else if ([detail.aqLevel longValue] == WMAqLevelBlue) {
+        self.scrollView.backgroundColor = [WMUIUtility color:@"0x5b81d0"];
+    } else if ([detail.aqLevel longValue] == WMAqLevelYellow) {
+        self.scrollView.backgroundColor = [WMUIUtility color:@"0xf4d53f"];
+    } else if ([detail.aqLevel longValue] == WMAqLevelRed) {
+        self.scrollView.backgroundColor = [WMUIUtility color:@"0xda3232"];
+    }
+    
+    //addressView
+    self.addressView.label.text = [NSString stringWithFormat:@"%@%@%@%@", detail.addrLev1?:@"", detail.addrLev2?:@"", detail.addrLev3?:@"", detail.addrDetail?:@""];
+    NSString *shortString = [NSString stringWithFormat:@"%@%@%@", detail.addrLev1?:@"", detail.addrLev2?:@"", detail.addrLev3?:@""];
+    [self.addressView adjustLabelSize:shortString];
+    CGPoint viewCenter = self.view.center;
+    CGPoint addressViewCenter = self.addressView.center;
+    addressViewCenter.x = viewCenter.x;
+    self.addressView.center = addressViewCenter;
+    
+    //nameLabel
+    NSString *dateString = @"";
+    if (detail.lastUpdateTime) {
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:[detail.lastUpdateTime longLongValue]];
+        dateString = [self.formatter stringFromDate:date];
+    }
+    self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", detail.name, dateString];
+    
+    //pmView
 //        detail.pm25 = [NSNumber numberWithInt:100];
-        self.pmView.innerPMValueLabel.text = [NSString stringWithFormat:@"%d", [detail.pm25 intValue]];
-        self.pmView.outPMVauleLabel.text = [NSString stringWithFormat:@"%d", [detail.outdoorPM25 intValue]];
-        
-        //airLabel
-        if (detail.pm25AirText.length == 0) {
-            detail.pm25AirText = @"哇！幸福哭了！室内空气堪比马尔代夫！";
-        }
-        self.airLabel.text = detail.pm25AirText;
-        
-        //switchContainerView
-        [self.switchContainerView setModel:detail];
-        
-        //dataView
-        NSString *str = @"PM2.5：";
-        str = [str stringByAppendingFormat:@"%d", [detail.pm25 intValue]];
-        self.dataView.PMLabel.text = str;
-        str = @"CO2：";
-        str = [str stringByAppendingFormat:@"%0.2f", [detail.co2 floatValue]];
-        self.dataView.co2Label.text = str;
-        str = @"甲醛：";
-        str = [str stringByAppendingFormat:@"%0.2f", [detail.ch2o floatValue]];
-        self.dataView.ch2oLabel.text = str;
-        str = @"TVOC：";
-        str = [str stringByAppendingFormat:@"%0.2f", [detail.tvoc floatValue]];
-        self.dataView.tvocLabel.text = str;
-        str = @"温度：";
-        str = [str stringByAppendingFormat:@"%0.2f", [detail.temp floatValue]];
-        self.dataView.tempLabel.text = str;
-        str = @"湿度：";
-        str = [str stringByAppendingFormat:@"%0.2f", [detail.humidity floatValue]];
-        self.dataView.humidityLabel.text = str;
-        
-        //rankView
-        str = detail.pm25RankText;
-        if (str.length == 0) {
-            str = @"太幸福了，您的室内空气优于全国80%的空气，比其他人少吸了80%雾霾。";
-        }
-        self.rankView.textView.text = str;
-    });
+    self.pmView.innerPMValueLabel.text = [NSString stringWithFormat:@"%d", [detail.pm25 intValue]];
+    self.pmView.outPMVauleLabel.text = [NSString stringWithFormat:@"%d", [detail.outdoorPM25 intValue]];
+    
+    //airLabel
+    if (detail.pm25AirText.length == 0) {
+        detail.pm25AirText = @"哇！幸福哭了！室内空气堪比马尔代夫！";
+    }
+    self.airLabel.text = detail.pm25AirText;
+    
+    //dataView
+    NSString *str = @"PM2.5：";
+    str = [str stringByAppendingFormat:@"%d", [detail.pm25 intValue]];
+    self.dataView.PMLabel.text = str;
+    str = @"CO2：";
+    str = [str stringByAppendingFormat:@"%0.2f", [detail.co2 floatValue]];
+    self.dataView.co2Label.text = str;
+    str = @"甲醛：";
+    str = [str stringByAppendingFormat:@"%0.2f", [detail.ch2o floatValue]];
+    self.dataView.ch2oLabel.text = str;
+    str = @"TVOC：";
+    str = [str stringByAppendingFormat:@"%0.2f", [detail.tvoc floatValue]];
+    self.dataView.tvocLabel.text = str;
+    str = @"温度：";
+    str = [str stringByAppendingFormat:@"%0.2f", [detail.temp floatValue]];
+    self.dataView.tempLabel.text = str;
+    str = @"湿度：";
+    str = [str stringByAppendingFormat:@"%0.2f", [detail.humidity floatValue]];
+    self.dataView.humidityLabel.text = str;
+    
+    //rankView
+    str = detail.pm25RankText;
+    if (str.length == 0) {
+        str = @"太幸福了，您的室内空气优于全国80%的空气，比其他人少吸了80%雾霾。";
+    }
+    self.rankView.textView.text = str;
 }
 
 - (void)layoutViewWithoutSwitchView:(UIView *)view {

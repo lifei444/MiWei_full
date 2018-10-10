@@ -44,7 +44,25 @@
 
 #define Label_Y2                (AirSpeed_Y + Radius + GapBetweenCircleLabel)
 
-@interface WMDeviceSwitchContainerView () <WMDeviceSwitchViewDelegate>
+#define Refresh_Max_Count       10
+#define Refresh_Interval        2 //单位：秒
+
+typedef NS_ENUM(NSUInteger, DeviceSetType) {
+    DeviceSetTypePowerOn = 1,
+    DeviceSetTypeVentilation = 2,
+    DeviceSetTypeAuxiliary = 3,
+    DeviceSetTypeAirSpeed = 4
+};
+
+@interface DeviceSetOperation : NSObject
+@property (nonatomic, assign) DeviceSetType deviceSetType;
+@property (nonatomic, strong) id deviceSetValue;
+@end
+
+@implementation DeviceSetOperation
+@end
+
+@interface WMDeviceSwitchContainerView () <WMDeviceSwitchViewDelegate, WMDeviceVentilationSettingDelegate, WMDeviceAirSpeedSettingDelegate>
 @property (nonatomic, strong) UILabel *powerOnLabel;
 @property (nonatomic, strong) UILabel *ventilationLabel;
 @property (nonatomic, strong) UILabel *auxiliaryHeatLabel;
@@ -53,6 +71,11 @@
 @property (nonatomic, strong) UILabel *settingLabel;
 @property (nonatomic, strong) WMDeviceDetail *deviceDetail;
 @property (nonatomic, strong) MBProgressHUD *hud;
+
+@property (nonatomic, strong) NSTimer *refreshTimer;
+@property (nonatomic, strong) DeviceSetOperation *deviceSetOperation;
+@property (nonatomic, assign) BOOL isSetting;
+@property (nonatomic, assign) int refreshCount;
 @end
 
 @implementation WMDeviceSwitchContainerView
@@ -87,14 +110,7 @@
         self.powerOnView.name.text = @"关";
         self.powerOnView.status = 0;
     }
-    if (detail.ventilationMode == WMVentilationModeLow) {
-        self.ventilationView.name.text = @"低效";
-    } else if (detail.ventilationMode == WMVentilationModeOff) {
-        self.ventilationView.name.text = @"关闭";
-    } else if (detail.ventilationMode == WMVentilationModeHigh) {
-        self.ventilationView.name.text = @"高效";
-    }
-    self.ventilationView.status = detail.ventilationMode;
+    [self refreshVentilationMode:detail.ventilationMode];
     if (detail.auxiliaryHeat) {
         self.auxiliaryHeatView.name.text = @"开";
         self.auxiliaryHeatView.status = 1;
@@ -102,30 +118,7 @@
         self.auxiliaryHeatView.name.text = @"关";
         self.auxiliaryHeatView.status = 0;
     }
-    switch (detail.airSpeed) {
-        case WMAirSpeedAuto:
-            self.airSpeedView.name.text = @"自动";
-            break;
-        case WMAirSpeedSilent:
-            self.airSpeedView.name.text = @"静音";
-            break;
-        case WMAirSpeedComfort:
-            self.airSpeedView.name.text = @"舒适";
-            break;
-        case WMAirSpeedStandard:
-            self.airSpeedView.name.text = @"标准";
-            break;
-        case WMAirSpeedStrong:
-            self.airSpeedView.name.text = @"强力";
-            break;
-        case WMAirSpeedHurricane:
-            self.airSpeedView.name.text = @"飓风";
-            break;
-            
-        default:
-            break;
-    }
-    self.airSpeedView.status = detail.airSpeed;
+    [self refreshAirSpeed:detail.airSpeed];
     if (detail.fanTiming) {
         self.timingView.name.text = @"开";
         self.timingView.status = 1;
@@ -165,6 +158,18 @@
     }
 }
 
+- (void)stopTimerIfNeeded {
+    if (self.refreshTimer) {
+        [self.refreshTimer invalidate];
+        self.refreshTimer = nil;
+    }
+}
+
+#pragma mark - Target action
+- (void)onRefreshTimerExpired {
+    [self loadDeviceDetail];
+}
+
 #pragma mark - WMDeviceSwitchViewDelegate
 - (void)viewDidTap:(WMDeviceSwitchViewTag)tag {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
@@ -173,67 +178,55 @@
     switch (tag) {
         case WMDeviceSwitchViewTagPowerOn: {
             BOOL powerOn = (self.powerOnView.status == 1);
-            [dic setObject:@(!powerOn) forKey:@"powerOn"];
-            self.hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
-            [WMDeviceUtility setDevice:dic
-                              response:^(WMHTTPResult *result) {
-                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                      [self.hud hideAnimated:YES];
-                                      if (result.success) {
-                                          [WMUIUtility showAlertWithMessage:@"设置成功" viewController:self.vc];
-                                          if (self.powerOnView.status == 1) {
-                                              self.powerOnView.status = 0;
-                                              self.powerOnView.name.text = @"关";
-                                          } else {
-                                              self.powerOnView.status = 1;
-                                              self.powerOnView.name.text = @"开";
-                                          }
-                                      } else {
-                                          NSLog(@"poweron set fail, result is %@", result);
-                                          [WMUIUtility showAlertWithMessage:@"设置失败" viewController:self.vc];
-                                      }
-                                  });
-                              }];
+            DeviceSetOperation *operation = [[DeviceSetOperation alloc] init];
+            operation.deviceSetType = DeviceSetTypePowerOn;
+            operation.deviceSetValue = @(!powerOn);
+            __weak typeof(self) ws = self;
+            [self setDeviceWithOperation:operation response:^(BOOL success) {
+                if (success) {
+                    if (ws.powerOnView.status == 1) {
+                        ws.powerOnView.status = 0;
+                        ws.powerOnView.name.text = @"关";
+                    } else {
+                        ws.powerOnView.status = 1;
+                        ws.powerOnView.name.text = @"开";
+                    }
+                }
+            }];
             break;
         }
         case WMDeviceSwitchViewTagVentilation: {
             WMDeviceVentilationSettingViewController *vc = [[WMDeviceVentilationSettingViewController alloc] init];
             vc.mode = self.deviceDetail.ventilationMode;
             vc.deviceDetail = self.deviceDetail;
-            vc.vcMode = WMDeviceVentilationSettingModeDirectReturn;
+            vc.delegate = self;
             [self.vc.navigationController pushViewController:vc animated:YES];
             break;
         }
         case WMDeviceSwitchViewTagAuxiliaryHeat: {
             BOOL auxiliaryHeat = (self.auxiliaryHeatView.status == 1);
-            [dic setObject:@(!auxiliaryHeat) forKey:@"auxiliaryHeat"];
-            self.hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
-            [WMDeviceUtility setDevice:dic
-                              response:^(WMHTTPResult *result) {
-                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                      [self.hud hideAnimated:YES];
-                                      if (result.success) {
-                                          [WMUIUtility showAlertWithMessage:@"设置成功" viewController:self.vc];
-                                          if (self.auxiliaryHeatView.status == 1) {
-                                              self.auxiliaryHeatView.status = 0;
-                                              self.auxiliaryHeatView.name.text = @"关";
-                                          } else {
-                                              self.auxiliaryHeatView.status = 1;
-                                              self.auxiliaryHeatView.name.text = @"开";
-                                          }
-                                      } else {
-                                          NSLog(@"poweron set fail, result is %@", result);
-                                          [WMUIUtility showAlertWithMessage:@"设置失败" viewController:self.vc];
-                                      }
-                                  });
-                              }];
+            DeviceSetOperation *operation = [[DeviceSetOperation alloc] init];
+            operation.deviceSetType = DeviceSetTypeAuxiliary;
+            operation.deviceSetValue = @(!auxiliaryHeat);
+            __weak typeof(self) ws = self;
+            [self setDeviceWithOperation:operation response:^(BOOL success) {
+                if (success) {
+                    if (ws.auxiliaryHeatView.status == 1) {
+                        ws.auxiliaryHeatView.status = 0;
+                        ws.auxiliaryHeatView.name.text = @"关";
+                    } else {
+                        ws.auxiliaryHeatView.status = 1;
+                        ws.auxiliaryHeatView.name.text = @"开";
+                    }
+                }
+            }];
             break;
         }
         case WMDeviceSwitchViewTagAirSpeed: {
             WMDeviceAirSpeedSettingViewController *vc = [[WMDeviceAirSpeedSettingViewController alloc] init];
             vc.speed = self.deviceDetail.airSpeed;
             vc.deviceDetail = self.deviceDetail;
-            vc.mode = WMDeviceAirSpeedSettingModeDirectReturn;
+            vc.delegage = self;
             [self.vc.navigationController pushViewController:vc animated:YES];
             break;
         }
@@ -254,6 +247,187 @@
         default:
             break;
     }
+}
+
+#pragma mark - WMDeviceVentilationSettingDelegate
+- (void)onVentilationConfirm:(WMVentilationMode)mode {
+    DeviceSetOperation *operation = [[DeviceSetOperation alloc] init];
+    operation.deviceSetType = DeviceSetTypeVentilation;
+    operation.deviceSetValue = @(mode);
+    __weak typeof(self) ws = self;
+    [self setDeviceWithOperation:operation response:^(BOOL success) {
+        if (success) {
+            [ws refreshVentilationMode:mode];
+        }
+    }];
+}
+
+#pragma mark - WMDeviceAirSpeedSettingDelegate
+- (void)onAirSpeedConfirm:(WMAirSpeed)speed {
+    DeviceSetOperation *operation = [[DeviceSetOperation alloc] init];
+    operation.deviceSetType = DeviceSetTypeAirSpeed;
+    operation.deviceSetValue = @(speed);
+    __weak typeof(self) ws = self;
+    [self setDeviceWithOperation:operation response:^(BOOL success) {
+        if (success) {
+            [ws refreshAirSpeed:speed];
+        }
+    }];
+}
+
+#pragma mark - Private method
+- (void)refreshVentilationMode:(WMVentilationMode)mode {
+    if (mode == WMVentilationModeLow) {
+        self.ventilationView.name.text = @"低效";
+    } else if (mode == WMVentilationModeOff) {
+        self.ventilationView.name.text = @"关闭";
+    } else if (mode == WMVentilationModeHigh) {
+        self.ventilationView.name.text = @"高效";
+    }
+    self.ventilationView.status = mode;
+}
+
+- (void)refreshAirSpeed:(WMAirSpeed)speed {
+    switch (speed) {
+        case WMAirSpeedAuto:
+            self.airSpeedView.name.text = @"自动";
+            break;
+        case WMAirSpeedSilent:
+            self.airSpeedView.name.text = @"静音";
+            break;
+        case WMAirSpeedComfort:
+            self.airSpeedView.name.text = @"舒适";
+            break;
+        case WMAirSpeedStandard:
+            self.airSpeedView.name.text = @"标准";
+            break;
+        case WMAirSpeedStrong:
+            self.airSpeedView.name.text = @"强力";
+            break;
+        case WMAirSpeedHurricane:
+            self.airSpeedView.name.text = @"飓风";
+            break;
+            
+        default:
+            break;
+    }
+    self.airSpeedView.status = speed;
+}
+
+- (void)setDeviceWithOperation:(DeviceSetOperation *)operation
+                      response:(void (^)(BOOL success))responseBlock {
+    self.deviceSetOperation = operation;
+    if (self.isSetting) {
+        [WMUIUtility showAlertWithMessage:@"控制忙，请稍候。" viewController:self.vc];
+        if (responseBlock) {
+            responseBlock(NO);
+        }
+    } else {
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+        [dic setObject:self.deviceDetail.deviceId forKey:@"deviceID"];
+        if (operation.deviceSetType == DeviceSetTypePowerOn) {
+            [dic setObject:operation.deviceSetValue forKey:@"powerOn"];
+        } else if (operation.deviceSetType == DeviceSetTypeVentilation) {
+            [dic setObject:operation.deviceSetValue forKey:@"ventilationMode"];
+        } else if (operation.deviceSetType == DeviceSetTypeAuxiliary) {
+            [dic setObject:operation.deviceSetValue forKey:@"auxiliaryHeat"];
+        } else if (operation.deviceSetType == DeviceSetTypeAirSpeed) {
+            [dic setObject:operation.deviceSetValue forKey:@"airSpeed"];
+        } else {
+            NSLog(@"setDeviceWithOperation type error");
+            [WMUIUtility showAlertWithMessage:@"设置失败" viewController:self.vc];
+            if (responseBlock) {
+                responseBlock(NO);
+            }
+            return;
+        }
+        self.isSetting = YES;
+        self.hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+        [WMDeviceUtility setDevice:dic
+                          response:^(WMHTTPResult *result) {
+                              dispatch_async(dispatch_get_main_queue(), ^{
+                                  [self.hud hideAnimated:YES];
+                                  if (result.success) {
+                                      self.refreshCount = 0;
+                                      [self startRefreshTimer];
+                                      if (responseBlock) {
+                                          responseBlock(YES);
+                                      }
+                                  } else {
+                                      NSLog(@"setDevice fail, result is %@", result);
+                                      self.isSetting = NO;
+                                      [WMUIUtility showAlertWithMessage:@"设置失败" viewController:self.vc];
+                                      if (responseBlock) {
+                                          responseBlock(NO);
+                                      }
+                                  }
+                              });
+                          }];
+    }
+}
+
+- (void)loadDeviceDetail {
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:self.deviceDetail.deviceId forKey:@"deviceID"];
+    [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodGet
+                               URLString:@"/mobile/device/queryDetails"
+                              parameters:dic
+                                response:^(WMHTTPResult *result) {
+                                    if (result.success) {
+                                        NSDictionary *content = result.content;
+                                        WMDeviceDetail *detail = [WMDeviceDetail deviceDetailFromHTTPData:content];
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            if ([self checkOperation:detail]) {
+                                                self.isSetting = NO;
+                                                [WMUIUtility showAlertWithMessage:@"控制成功" viewController:self.vc];
+                                            } else {
+                                                if (++self.refreshCount >= Refresh_Max_Count) {
+                                                    self.isSetting = NO;
+                                                    [WMUIUtility showAlertWithMessage:@"控制失败" viewController:self.vc];
+                                                } else {
+                                                    [self startRefreshTimer];
+                                                }
+                                            }
+                                        });
+                                    } else {
+                                        NSLog(@"loadDeviceDetail error");
+                                    }
+                                }];
+}
+
+- (BOOL)checkOperation:(WMDeviceDetail *)detail {
+    if (!self.isSetting) {
+        return NO;
+    }
+    if (self.deviceSetOperation.deviceSetType == DeviceSetTypePowerOn) {
+        if ([self.deviceSetOperation.deviceSetValue boolValue] == detail.powerOn) {
+            return YES;
+        }
+    } else if (self.deviceSetOperation.deviceSetType == DeviceSetTypeVentilation) {
+        if ([self.deviceSetOperation.deviceSetValue intValue] == detail.ventilationMode) {
+            return YES;
+        }
+    } else if (self.deviceSetOperation.deviceSetType == DeviceSetTypeAuxiliary) {
+        if ([self.deviceSetOperation.deviceSetValue boolValue] == detail.auxiliaryHeat) {
+            return YES;
+        }
+    } else if (self.deviceSetOperation.deviceSetType == DeviceSetTypeAirSpeed) {
+        if ([self.deviceSetOperation.deviceSetValue intValue] == detail.airSpeed) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (void)startRefreshTimer {
+    if ([self.refreshTimer isValid]) {
+        [self.refreshTimer invalidate];
+    }
+    self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:Refresh_Interval
+                                                         target:self
+                                                       selector:@selector(onRefreshTimerExpired)
+                                                       userInfo:nil
+                                                        repeats:NO];
 }
 
 #pragma mark - Getters & setters

@@ -57,32 +57,13 @@
 #pragma mark - Target action
 - (void)onConfirm {
     NSIndexPath *selectIndex = [self.tableView indexPathForSelectedRow];
-    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     if (selectIndex.row == self.mode) {
         [self.navigationController popViewControllerAnimated:YES];
     } else {
-        if (self.vcMode == WMDeviceVentilationSettingModeDirectReturn) {
-            [dic setObject:self.deviceDetail.deviceId forKey:@"deviceID"];
-            [dic setObject:@(selectIndex.row) forKey:@"ventilationMode"];
-            self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            [WMDeviceUtility setDevice:dic response:^(WMHTTPResult *result) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.hud hideAnimated:YES];
-                    if (result.success) {
-                        self.deviceDetail.ventilationMode = selectIndex.row;
-                        [self.navigationController popViewControllerAnimated:YES];
-                    } else {
-                        NSLog(@"设置失败, result is %@", result);
-                        [WMUIUtility showAlertWithMessage:@"设置失败" viewController:self];
-                    }
-                });
-            }];
-        } else if (self.vcMode == WMDeviceVentilationSettingModeDelegate) {
-            if ([self.delegate respondsToSelector:@selector(onVentilationConfirm:)]) {
-                [self.delegate onVentilationConfirm:selectIndex.row];
-            }
-            [self.navigationController popViewControllerAnimated:YES];
+        if ([self.delegate respondsToSelector:@selector(onVentilationConfirm:)]) {
+            [self.delegate onVentilationConfirm:selectIndex.row];
         }
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 

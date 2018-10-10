@@ -24,10 +24,13 @@
 @property (nonatomic, strong) WMDeviceSwitchView *timingView;
 //设置
 @property (nonatomic, strong) WMDeviceSwitchView *settingView;
-@property (nonatomic, weak)   UIViewController *vc;
 //设备类型
 @property (nonatomic, strong) NSNumber *prodId;
 
+@property (nonatomic, weak)   UIViewController *vc;
+
 - (void)setModel:(WMDeviceDetail *)detail;
+
+- (void)stopTimerIfNeeded;
 
 @end

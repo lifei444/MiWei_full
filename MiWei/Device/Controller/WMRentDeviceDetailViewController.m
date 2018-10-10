@@ -93,7 +93,7 @@
     [self.scrollView addSubview:self.switchContainerView];
     [self.scrollView addSubview:self.dataView];
     self.scrollView.contentSize = WM_CGSizeMake(Screen_Width, Scroll_Height);
-    [self loadDeviceDetail];
+    [self loadDeviceDetailWithSwitchContainer:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -114,6 +114,7 @@
         self.refreshTimer = nil;
     }
     [self stopCountDown];
+    [self.switchContainerView stopTimerIfNeeded];
 }
 
 #pragma mark - Target action
@@ -130,7 +131,7 @@
 
 - (void)onRefreshTimer {
     NSLog(@"WMRentDeviceDetailViewController onRefreshTimer");
-    [self loadDeviceDetail];
+    [self loadDeviceDetailWithSwitchContainer:NO];
 }
 
 - (void)onCountDownTimer {
@@ -144,7 +145,7 @@
 }
 
 #pragma mark - Private
-- (void)loadDeviceDetail {
+- (void)loadDeviceDetailWithSwitchContainer:(BOOL)with {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:self.device.deviceId forKey:@"deviceID"];
     [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodGet
@@ -154,7 +155,12 @@
                                     if (result.success) {
                                         NSDictionary *content = result.content;
                                         WMDeviceDetail *detail = [WMDeviceDetail deviceDetailFromHTTPData:content];
-                                        [self refreshData:detail];
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            [self refreshData:detail];
+                                            if (with) {
+                                                [self.switchContainerView setModel:detail];
+                                            }
+                                        });
                                     } else {
                                         NSLog(@"loadDeviceDetail error");
                                     }
@@ -163,99 +169,94 @@
 
 - (void)refreshData:(WMDeviceDetail *)detail {
     self.deviceDetail = detail;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        //background color
-        if ([detail.aqLevel longValue] == WMAqLevelGreen) {
-            self.scrollView.backgroundColor = [WMUIUtility color:@"0x1d8489"];
-        } else if ([detail.aqLevel longValue] == WMAqLevelBlue) {
-            self.scrollView.backgroundColor = [WMUIUtility color:@"0x5b81d0"];
-        } else if ([detail.aqLevel longValue] == WMAqLevelYellow) {
-            self.scrollView.backgroundColor = [WMUIUtility color:@"0xf4d53f"];
-        } else if ([detail.aqLevel longValue] == WMAqLevelRed) {
-            self.scrollView.backgroundColor = [WMUIUtility color:@"0xda3232"];
-        }
-        
-        //pmView
-        //        detail.pm25 = [NSNumber numberWithInt:100];
-        self.pmView.innerPMValueLabel.text = [NSString stringWithFormat:@"%d", [detail.pm25 intValue]];
-        self.pmView.outPMVauleLabel.text = [NSString stringWithFormat:@"%d", [detail.outdoorPM25 intValue]];
-        
-        //addressView
-        self.addressView.label.text = [NSString stringWithFormat:@"%@%@%@%@", detail.addrLev1?:@"", detail.addrLev2?:@"", detail.addrLev3?:@"", detail.addrDetail?:@""];
+    //background color
+    if ([detail.aqLevel longValue] == WMAqLevelGreen) {
+        self.scrollView.backgroundColor = [WMUIUtility color:@"0x1d8489"];
+    } else if ([detail.aqLevel longValue] == WMAqLevelBlue) {
+        self.scrollView.backgroundColor = [WMUIUtility color:@"0x5b81d0"];
+    } else if ([detail.aqLevel longValue] == WMAqLevelYellow) {
+        self.scrollView.backgroundColor = [WMUIUtility color:@"0xf4d53f"];
+    } else if ([detail.aqLevel longValue] == WMAqLevelRed) {
+        self.scrollView.backgroundColor = [WMUIUtility color:@"0xda3232"];
+    }
+    
+    //pmView
+    //        detail.pm25 = [NSNumber numberWithInt:100];
+    self.pmView.innerPMValueLabel.text = [NSString stringWithFormat:@"%d", [detail.pm25 intValue]];
+    self.pmView.outPMVauleLabel.text = [NSString stringWithFormat:@"%d", [detail.outdoorPM25 intValue]];
+    
+    //addressView
+    self.addressView.label.text = [NSString stringWithFormat:@"%@%@%@%@", detail.addrLev1?:@"", detail.addrLev2?:@"", detail.addrLev3?:@"", detail.addrDetail?:@""];
 
-        CGRect addressViewFrame = self.addressView.frame;
-        CGRect labelFrame = self.addressView.label.frame;
-        
-        UIFont *font = self.addressView.label.font;
-        CGSize labelSize = [self.addressView.label.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font, NSFontAttributeName, nil]];
-        if (labelSize.width < [WMUIUtility WMCGFloatForX:200]) {
-            labelFrame.size.width = labelSize.width;
-        } else {
-            labelFrame.size.width = [WMUIUtility WMCGFloatForX:200];
+    CGRect addressViewFrame = self.addressView.frame;
+    CGRect labelFrame = self.addressView.label.frame;
+    
+    UIFont *font = self.addressView.label.font;
+    CGSize labelSize = [self.addressView.label.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font, NSFontAttributeName, nil]];
+    if (labelSize.width < [WMUIUtility WMCGFloatForX:200]) {
+        labelFrame.size.width = labelSize.width;
+    } else {
+        labelFrame.size.width = [WMUIUtility WMCGFloatForX:200];
+    }
+    addressViewFrame.size.width = self.addressView.imageView.frame.size.width + 10 + labelFrame.size.width;
+    self.addressView.label.frame = labelFrame;
+    self.addressView.frame = addressViewFrame;
+    
+    CGPoint viewCenter = self.view.center;
+    CGPoint addressViewCenter = self.addressView.center;
+    addressViewCenter.x = viewCenter.x;
+    self.addressView.center = addressViewCenter;
+    
+    NSString *str;
+    //price
+    if (detail.rentInfo) {
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:[detail.rentInfo.startTime longLongValue] / 1000];
+        str = [self.formatter stringFromDate:date];
+        str = [NSString stringWithFormat:@"%@   %@", str, [WMDeviceUtility generatePriceStringFromPrice:detail.rentInfo.price andRentTime:detail.rentInfo.rentTime]];
+        self.priceLabel.text = str;
+    }
+    
+    //store
+    self.storeView.remainingTimeLabel.text = [WMDeviceUtility timeStringFromSecond:detail.rentInfo.remainingTime];
+    
+    //rankView
+    str = detail.pm25RankText;
+    if (str.length == 0) {
+        str = @"太幸福了，您的室内空气优于全国80%的空气，比其他人少吸了80%雾霾。";
+    }
+    self.rankView.textView.text = str;
+    
+    //dataView
+    str = @"PM2.5：";
+    str = [str stringByAppendingFormat:@"%d", [detail.pm25 intValue]];
+    self.dataView.PMLabel.text = str;
+    str = @"CO2：";
+    str = [str stringByAppendingFormat:@"%0.2f", [detail.co2 floatValue]];
+    self.dataView.co2Label.text = str;
+    str = @"甲醛：";
+    str = [str stringByAppendingFormat:@"%0.2f", [detail.ch2o floatValue]];
+    self.dataView.ch2oLabel.text = str;
+    str = @"TVOC：";
+    str = [str stringByAppendingFormat:@"%0.2f", [detail.tvoc floatValue]];
+    self.dataView.tvocLabel.text = str;
+    str = @"温度：";
+    str = [str stringByAppendingFormat:@"%0.2f", [detail.temp floatValue]];
+    self.dataView.tempLabel.text = str;
+    str = @"湿度：";
+    str = [str stringByAppendingFormat:@"%0.2f", [detail.humidity floatValue]];
+    self.dataView.humidityLabel.text = str;
+    
+    //remaining time
+    int remainingSecond = [self.deviceDetail.rentInfo.remainingTime intValue];
+    if (!self.hasShowAlert) {
+        self.hasShowAlert = YES;
+        if (remainingSecond > 0 && remainingSecond < 600) {
+            [WMUIUtility showAlertWithMessage:@"租赁时长即将到期，到时请点击续费继续使用。" viewController:self];
         }
-        addressViewFrame.size.width = self.addressView.imageView.frame.size.width + 10 + labelFrame.size.width;
-        self.addressView.label.frame = labelFrame;
-        self.addressView.frame = addressViewFrame;
-        
-        CGPoint viewCenter = self.view.center;
-        CGPoint addressViewCenter = self.addressView.center;
-        addressViewCenter.x = viewCenter.x;
-        self.addressView.center = addressViewCenter;
-        
-        NSString *str;
-        //price
-        if (detail.rentInfo) {
-            NSDate *date = [NSDate dateWithTimeIntervalSince1970:[detail.rentInfo.startTime longLongValue] / 1000];
-            str = [self.formatter stringFromDate:date];
-            str = [NSString stringWithFormat:@"%@   %@", str, [WMDeviceUtility generatePriceStringFromPrice:detail.rentInfo.price andRentTime:detail.rentInfo.rentTime]];
-            self.priceLabel.text = str;
-        }
-        
-        //store
-        self.storeView.remainingTimeLabel.text = [WMDeviceUtility timeStringFromSecond:detail.rentInfo.remainingTime];
-        
-        //rankView
-        str = detail.pm25RankText;
-        if (str.length == 0) {
-            str = @"太幸福了，您的室内空气优于全国80%的空气，比其他人少吸了80%雾霾。";
-        }
-        self.rankView.textView.text = str;
-        
-        //switchContainerView
-        [self.switchContainerView setModel:detail];
-        
-        //dataView
-        str = @"PM2.5：";
-        str = [str stringByAppendingFormat:@"%d", [detail.pm25 intValue]];
-        self.dataView.PMLabel.text = str;
-        str = @"CO2：";
-        str = [str stringByAppendingFormat:@"%0.2f", [detail.co2 floatValue]];
-        self.dataView.co2Label.text = str;
-        str = @"甲醛：";
-        str = [str stringByAppendingFormat:@"%0.2f", [detail.ch2o floatValue]];
-        self.dataView.ch2oLabel.text = str;
-        str = @"TVOC：";
-        str = [str stringByAppendingFormat:@"%0.2f", [detail.tvoc floatValue]];
-        self.dataView.tvocLabel.text = str;
-        str = @"温度：";
-        str = [str stringByAppendingFormat:@"%0.2f", [detail.temp floatValue]];
-        self.dataView.tempLabel.text = str;
-        str = @"湿度：";
-        str = [str stringByAppendingFormat:@"%0.2f", [detail.humidity floatValue]];
-        self.dataView.humidityLabel.text = str;
-        
-        //remaining time
-        int remainingSecond = [self.deviceDetail.rentInfo.remainingTime intValue];
-        if (!self.hasShowAlert) {
-            self.hasShowAlert = YES;
-            if (remainingSecond > 0 && remainingSecond < 600) {
-                [WMUIUtility showAlertWithMessage:@"租赁时长即将到期，到时请点击续费继续使用。" viewController:self];
-            }
-        }
-        if (remainingSecond > 0) {
-            [self startCountDown];
-        }
-    });
+    }
+    if (remainingSecond > 0) {
+        [self startCountDown];
+    }
 }
 
 - (void)startCountDown {
