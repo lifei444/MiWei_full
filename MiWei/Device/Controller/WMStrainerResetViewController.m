@@ -99,9 +99,8 @@
                                             NSMutableArray *arr = [[NSMutableArray alloc] init];
                                             for (NSDictionary *dic in result.content) {
                                                 WMDeviceStrainerStatus *status = [WMDeviceStrainerStatus statusWithDic:dic];
-                                                [arr addObject:status];
-                                                if (arr.count >= 5) {
-                                                    break;
+                                                if ([status.strainerIndex intValue] >= 0 && [status.strainerIndex intValue] <= 4) {
+                                                    [arr addObject:status];
                                                 }
                                             }
                                             self.modelArray = arr;
