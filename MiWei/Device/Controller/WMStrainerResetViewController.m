@@ -100,6 +100,9 @@
                                             for (NSDictionary *dic in result.content) {
                                                 WMDeviceStrainerStatus *status = [WMDeviceStrainerStatus statusWithDic:dic];
                                                 [arr addObject:status];
+                                                if (arr.count >= 5) {
+                                                    break;
+                                                }
                                             }
                                             self.modelArray = arr;
                                             [self refreshView];
