@@ -178,9 +178,11 @@ static NSString *pswKey = @"WMPswKey";
 
 #pragma mark - Private methods
 - (void)loginSuccess {
-    [UMessage addAlias:[[WMHTTPUtility currentProfile].profileId stringValue]
+    NSString *alias = [[WMHTTPUtility currentProfile].profileId stringValue];
+    [UMessage addAlias:alias
                   type:@"miiot_push"
               response:^(id  _Nullable responseObject, NSError * _Nullable error) {
+                  NSLog(@"loginSuccess addAlias");
               }];
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
     WMMainTabbarViewController *tabVC = [[WMMainTabbarViewController alloc] init];
