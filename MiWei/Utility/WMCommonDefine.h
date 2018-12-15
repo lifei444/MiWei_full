@@ -22,7 +22,7 @@ FOUNDATION_EXPORT NSString *const WMDeviceListCountDownNotification;
 #define Screen_Height (IsiPhoneX ? 812 : 667)//[UIScreen mainScreen].bounds.size.height
 #define Screen_Width 375//[UIScreen mainScreen].bounds.size.width
 
-#define Navi_Height 20 + 44//[UIApplication sharedApplication].statusBarFrame.size.height + 44
+#define Navi_Height (IsiPhoneX ? 88 : 64)//(  20 + 44 )//[UIApplication sharedApplication].statusBarFrame.size.height + 44
 #define Bottom_height (Navi_Height>64?34.0:0.0)
 
 #endif /* WMCommonDefine_h */
