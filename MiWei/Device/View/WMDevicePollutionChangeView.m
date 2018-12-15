@@ -140,8 +140,9 @@
             .itemStyleEqual([PYItemStyle initPYItemStyleWithBlock:^(PYItemStyle *itemStyle) {
                 itemStyle.normalEqual([PYItemStyleProp initPYItemStylePropWithBlock:^(PYItemStyleProp *normal) {
                     normal.areaStyleEqual([PYAreaStyle initPYAreaStyleWithBlock:^(PYAreaStyle *areaStyle) {
-                        areaStyle.typeEqual(PYAreaStyleTypeDefault);
-                    }]).borderWidthEqual(@(0));
+                        areaStyle.typeEqual(PYAreaStyleTypeDefault)
+                        .colorEqual(@"#54b0a9");
+                    }]).borderWidthEqual(@(0)).colorEqual((@"#54b0a9"));
                 }]);
             }])
             .dataEqual(dataArray);
