@@ -170,16 +170,21 @@
     }
     switch (timer.ventilationMode) {
         case WMVentilationModeLow:
-            detailString = [detailString stringByAppendingString:@"新风低效"];
+            detailString = [detailString stringByAppendingString:@"新风低效、"];
             break;
         case WMVentilationModeOff:
-            detailString = [detailString stringByAppendingString:@"新风关"];
+            detailString = [detailString stringByAppendingString:@"新风关、"];
             break;
         case WMVentilationModeHigh:
-            detailString = [detailString stringByAppendingString:@"新风高效"];
+            detailString = [detailString stringByAppendingString:@"新风高效、"];
             break;
         default:
             break;
+    }
+    if (timer.powerOn) {
+        detailString = [detailString stringByAppendingString:@"开机"];
+    } else {
+        detailString = [detailString stringByAppendingString:@"关机"];
     }
     self.detailLabel.text = detailString;
 }

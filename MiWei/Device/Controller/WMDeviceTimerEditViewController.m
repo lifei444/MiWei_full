@@ -41,7 +41,7 @@
     [dic setObject:@(self.timer.airSpeed) forKey:@"airSpeed"];
     [dic setObject:@(self.timer.auxiliaryHeat) forKey:@"auxiliaryHeat"];
     [dic setObject:@(YES) forKey:@"enable"];
-    [dic setObject:@(YES) forKey:@"powerOn"];
+    [dic setObject:@(self.timer.powerOn) forKey:@"powerOn"];
     [dic setObject:self.timer.repetition forKey:@"repetition"];
     NSInteger hour = [self.picker selectedRowInComponent:0];
     NSInteger minute = [self.picker selectedRowInComponent:1];
@@ -88,6 +88,11 @@
     self.timer.auxiliaryHeat = switchView.isOn;
 }
 
+- (void)onPowerOnSwitch:(id)sender {
+    UISwitch *switchView = sender;
+    self.timer.powerOn = switchView.isOn;
+}
+
 #pragma mark - UIPickerViewDataSource
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 2;
@@ -115,7 +120,7 @@
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return 5;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -150,7 +155,15 @@
             cell.detailTextLabel.text = [WMDeviceUtility descriptionOfVentilation:self.timer.ventilationMode];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             break;
-            
+        case 4: {
+            cell.textLabel.text = @"开关机";
+            UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
+            [switchView setOn:self.timer.powerOn];
+            switchView.onTintColor = [WMUIUtility color:@"0x2b928a"];
+            [switchView addTarget:self action:@selector(onPowerOnSwitch:) forControlEvents:UIControlEventValueChanged];
+            cell.accessoryView = switchView;
+            break;
+        }
         default:
             break;
     }
