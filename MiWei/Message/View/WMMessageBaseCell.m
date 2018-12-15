@@ -31,7 +31,7 @@
 }
 
 - (NSString *)timeStringWithTimestamp:(NSNumber *)timestamp {
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[timestamp longLongValue] / 1000];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[timestamp longLongValue]];
     return [self.formatter stringFromDate:date];
 }
 

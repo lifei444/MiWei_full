@@ -138,53 +138,49 @@
 - (void)refreshDetailLabel:(WMDeviceTimer *)timer {
     NSString *detailString = @"";
     if (timer.powerOn) {
-        switch (timer.airSpeed) {
-            case WMAirSpeedAuto:
-                detailString = [detailString stringByAppendingString:@"自动、"];
-                break;
-            case WMAirSpeedSilent:
-                detailString = [detailString stringByAppendingString:@"静音、"];
-                break;
-            case WMAirSpeedComfort:
-                detailString = [detailString stringByAppendingString:@"舒适、"];
-                break;
-            case WMAirSpeedStandard:
-                detailString = [detailString stringByAppendingString:@"标准、"];
-                break;
-            case WMAirSpeedStrong:
-                detailString = [detailString stringByAppendingString:@"强力、"];
-                break;
-            case WMAirSpeedHurricane:
-                detailString = [detailString stringByAppendingString:@"飓风、"];
-                break;
-            default:
-                break;
-        }
+        detailString = [detailString stringByAppendingString:@"开 "];
     } else {
-        detailString = [detailString stringByAppendingString:@"关机、"];
+        detailString = [detailString stringByAppendingString:@"关 "];
     }
     if (timer.auxiliaryHeat) {
-        detailString = [detailString stringByAppendingString:@"辅热开、"];
+        detailString = [detailString stringByAppendingString:@"辅热开 "];
     } else {
-        detailString = [detailString stringByAppendingString:@"辅热关、"];
+        detailString = [detailString stringByAppendingString:@"辅热关 "];
     }
-    switch (timer.ventilationMode) {
-        case WMVentilationModeLow:
-            detailString = [detailString stringByAppendingString:@"新风低效、"];
+    switch (timer.airSpeed) {
+        case WMAirSpeedAuto:
+            detailString = [detailString stringByAppendingString:@"自动 "];
             break;
-        case WMVentilationModeOff:
-            detailString = [detailString stringByAppendingString:@"新风关、"];
+        case WMAirSpeedSilent:
+            detailString = [detailString stringByAppendingString:@"静音 "];
             break;
-        case WMVentilationModeHigh:
-            detailString = [detailString stringByAppendingString:@"新风高效、"];
+        case WMAirSpeedComfort:
+            detailString = [detailString stringByAppendingString:@"舒适 "];
+            break;
+        case WMAirSpeedStandard:
+            detailString = [detailString stringByAppendingString:@"标准 "];
+            break;
+        case WMAirSpeedStrong:
+            detailString = [detailString stringByAppendingString:@"强力 "];
+            break;
+        case WMAirSpeedHurricane:
+            detailString = [detailString stringByAppendingString:@"飓风 "];
             break;
         default:
             break;
     }
-    if (timer.powerOn) {
-        detailString = [detailString stringByAppendingString:@"开机"];
-    } else {
-        detailString = [detailString stringByAppendingString:@"关机"];
+    switch (timer.ventilationMode) {
+        case WMVentilationModeLow:
+            detailString = [detailString stringByAppendingString:@"新风低效 "];
+            break;
+        case WMVentilationModeOff:
+            detailString = [detailString stringByAppendingString:@"新风关 "];
+            break;
+        case WMVentilationModeHigh:
+            detailString = [detailString stringByAppendingString:@"新风高效 "];
+            break;
+        default:
+            break;
     }
     self.detailLabel.text = detailString;
 }
