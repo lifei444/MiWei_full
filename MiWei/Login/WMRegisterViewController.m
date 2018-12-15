@@ -146,7 +146,7 @@
         _phoneView.textField.delegate = self;
         [_phoneView.rightButton setTitle:@"获取验证码" forState:UIControlStateNormal];
         [_phoneView.rightButton setTitleColor:[WMUIUtility color:@"0x999999"] forState:UIControlStateNormal];
-        _phoneView.rightButton.titleLabel.font = [UIFont systemFontOfSize:[WMUIUtility WMCGFloatForY:14]];
+        _phoneView.rightButton.titleLabel.font = [UIFont systemFontOfSize:[WMUIUtility WMCGFloatForY:15]];
         [_phoneView.rightButton addTarget:self action:@selector(startTimer) forControlEvents:UIControlEventTouchUpInside];
     }
     return _phoneView;
@@ -190,7 +190,7 @@
         _registerButton.backgroundColor = [WMUIUtility color:@"0x23938b"];
         _registerButton.titleLabel.textColor = [WMUIUtility color:@"0xffffff"];
         [_registerButton.layer setCornerRadius:4];
-        _registerButton.titleLabel.font = [UIFont fontWithName:@"Heiti SC" size:[WMUIUtility WMCGFloatForY:15]];
+        _registerButton.titleLabel.font = [UIFont fontWithName:@"Heiti SC" size:[WMUIUtility WMCGFloatForY:16]];
         [_registerButton addTarget:self action:@selector(registerAction) forControlEvents:UIControlEventTouchUpInside];
         [_registerButton setTitle:@"注册" forState:UIControlStateNormal];
     }

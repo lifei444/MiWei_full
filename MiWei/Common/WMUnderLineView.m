@@ -42,7 +42,7 @@
     CGFloat textFieldH = 15;
     self.textField = [[UITextField alloc] initWithFrame:WM_CGRectMake(textFieldX, textFieldY, textFieldW, textFieldH)];
     self.textField.textColor = [WMUIUtility color:@"0x444444"];
-    self.textField.font = [UIFont fontWithName:@"Heiti SC" size:[WMUIUtility WMCGFloatForY:15]];
+    self.textField.font = [UIFont fontWithName:@"Heiti SC" size:[WMUIUtility WMCGFloatForY:16]];
     [self addSubview:self.textField];
     
     if (type == WMUnderLineViewTypeWithRightImage) {
