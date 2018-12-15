@@ -45,6 +45,7 @@
      placeholderImage:[UIImage imageNamed:@"me_portrait"]];
     WMProfile *profile = [WMHTTPUtility currentProfile];
     self.addressLabel.text = [NSString stringWithFormat:@"%@%@%@%@", profile.region.lev1?:@"", profile.region.lev2?:@"", profile.region.lev3?:@"", profile.addrDetail?:@""];
+    self.nameLabel.text = [WMHTTPUtility currentProfile].nickname;
 }
 
 #pragma mark - Getters and setters

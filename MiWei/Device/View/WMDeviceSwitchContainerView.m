@@ -254,7 +254,6 @@ typedef NS_ENUM(NSUInteger, DeviceSetType) {
     DeviceSetOperation *operation = [[DeviceSetOperation alloc] init];
     operation.deviceSetType = DeviceSetTypeVentilation;
     operation.deviceSetValue = @(mode);
-    self.deviceDetail.ventilationMode = mode;
     __weak typeof(self) ws = self;
     [self setDeviceWithOperation:operation response:^(BOOL success) {
         if (success) {
@@ -268,7 +267,6 @@ typedef NS_ENUM(NSUInteger, DeviceSetType) {
     DeviceSetOperation *operation = [[DeviceSetOperation alloc] init];
     operation.deviceSetType = DeviceSetTypeAirSpeed;
     operation.deviceSetValue = @(speed);
-    self.deviceDetail.airSpeed = speed;
     __weak typeof(self) ws = self;
     [self setDeviceWithOperation:operation response:^(BOOL success) {
         if (success) {
@@ -286,6 +284,7 @@ typedef NS_ENUM(NSUInteger, DeviceSetType) {
     } else if (mode == WMVentilationModeHigh) {
         self.ventilationView.name.text = @"高效";
     }
+    self.deviceDetail.ventilationMode = mode;
     self.ventilationView.status = mode;
 }
 
@@ -313,6 +312,7 @@ typedef NS_ENUM(NSUInteger, DeviceSetType) {
         default:
             break;
     }
+    self.deviceDetail.airSpeed = speed;
     self.airSpeedView.status = speed;
 }
 

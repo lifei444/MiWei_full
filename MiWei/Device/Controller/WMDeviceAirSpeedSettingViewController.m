@@ -59,10 +59,10 @@
     if (selectIndex.row == self.speed) {
         [self.navigationController popViewControllerAnimated:YES];
     } else {
+        [self.navigationController popViewControllerAnimated:YES];
         if ([self.delegage respondsToSelector:@selector(onAirSpeedConfirm:)]) {
             [self.delegage onAirSpeedConfirm:selectIndex.row];
         }
-        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 

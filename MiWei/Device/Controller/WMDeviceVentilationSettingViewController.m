@@ -60,10 +60,10 @@
     if (selectIndex.row == self.mode) {
         [self.navigationController popViewControllerAnimated:YES];
     } else {
+        [self.navigationController popViewControllerAnimated:YES];
         if ([self.delegate respondsToSelector:@selector(onVentilationConfirm:)]) {
             [self.delegate onVentilationConfirm:selectIndex.row];
         }
-        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 

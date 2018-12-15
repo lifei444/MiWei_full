@@ -41,6 +41,7 @@
                                     if (result.success) {
                                         dispatch_async(dispatch_get_main_queue(), ^{
                                             [WMHTTPUtility currentProfile].nickname = self.nameField.text;
+                                            [[NSNotificationCenter defaultCenter] postNotificationName:@"WMProfileUpdate" object:nil];
                                             [self.navigationController popViewControllerAnimated:YES];
                                         });
                                     } else {
