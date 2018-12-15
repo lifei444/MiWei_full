@@ -126,7 +126,7 @@
         [self.timer invalidate];
         self.timer = nil;
     }
-    [self.switchContainerView stopTimerIfNeeded];
+//    [self.switchContainerView stopTimerIfNeeded];
 }
 
 #pragma mark - Target action

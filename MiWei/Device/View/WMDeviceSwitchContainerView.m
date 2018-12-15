@@ -167,6 +167,7 @@ typedef NS_ENUM(NSUInteger, DeviceSetType) {
 
 #pragma mark - Target action
 - (void)onRefreshTimerExpired {
+    [self stopTimerIfNeeded];
     [self loadDeviceDetail];
 }
 

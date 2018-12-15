@@ -114,7 +114,7 @@
         self.refreshTimer = nil;
     }
     [self stopCountDown];
-    [self.switchContainerView stopTimerIfNeeded];
+//    [self.switchContainerView stopTimerIfNeeded];
 }
 
 #pragma mark - Target action
