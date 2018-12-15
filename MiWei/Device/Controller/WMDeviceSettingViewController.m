@@ -206,22 +206,13 @@
         } else {
             if (self.detail.permission == WMDevicePermissionTypeOwner) {
                 if (self.detail.newestVerFw > self.detail.verFW) {
-                    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:self.detail.deviceId, @"deviceID", nil];
-                    [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodPost
-                                               URLString:@"/mobile/device/requestOTA"
-                                              parameters:dic
-                                                response:^(WMHTTPResult *result) {
-                                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                                        [self.hud hideAnimated:YES];
-                                                        if (result.success) {
-                                                            [WMUIUtility showAlertWithMessage:@"操作成功" viewController:self];
-                                                        } else {
-                                                            NSLog(@"/mobile/device/requestOTA error, result is %@", result);
-                                                            [WMUIUtility showAlertWithMessage:@"操作失败" viewController:self];
-                                                        }
-                                                    });
-                                                }];
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
+                                                                        message:@"是否升级？"
+                                                                       delegate:self
+                                                              cancelButtonTitle:@"取消"
+                                                              otherButtonTitles:@"确认", nil];
+                    alertView.tag = 1001;
+                    [alertView show];
                 } else {
                     [WMUIUtility showAlertWithMessage:@"已是最新版本" viewController:self];
                 }
@@ -262,6 +253,7 @@
                                                            delegate:self
                                                   cancelButtonTitle:@"取消"
                                                   otherButtonTitles:@"确认", nil];
+        alertView.tag = 1002;
         [alertView show];
     }
 }
@@ -372,21 +364,42 @@
 
 #pragma mark - UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 1) {
-        self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodPost
-                                   URLString:@"/mobile/device/removeDevice"
-                                  parameters:[NSDictionary dictionaryWithObjectsAndKeys:self.detail.deviceId, @"deviceID", nil]
-                                    response:^(WMHTTPResult *result) {
-                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                            [self.hud hideAnimated:YES];
-                                            if (result.success) {
-                                                [self.navigationController popToRootViewControllerAnimated:YES];
-                                            } else {
-                                                [WMUIUtility showAlertWithMessage:@"删除失败" viewController:self];
-                                            }
-                                        });
-                                    }];
+    if (alertView.tag == 1001) {
+        if (buttonIndex == 1) {
+            self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:self.detail.deviceId, @"deviceID", nil];
+            [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodPost
+                                       URLString:@"/mobile/device/requestOTA"
+                                      parameters:dic
+                                        response:^(WMHTTPResult *result) {
+                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                [self.hud hideAnimated:YES];
+                                                if (result.success) {
+                                                    [WMUIUtility showAlertWithMessage:@"操作成功" viewController:self];
+                                                } else {
+                                                    NSLog(@"/mobile/device/requestOTA error, result is %@", result);
+                                                    [WMUIUtility showAlertWithMessage:@"操作失败" viewController:self];
+                                                }
+                                            });
+                                        }];
+        }
+    } else if (alertView.tag == 1002) {
+        if (buttonIndex == 1) {
+            self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodPost
+                                       URLString:@"/mobile/device/removeDevice"
+                                      parameters:[NSDictionary dictionaryWithObjectsAndKeys:self.detail.deviceId, @"deviceID", nil]
+                                        response:^(WMHTTPResult *result) {
+                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                [self.hud hideAnimated:YES];
+                                                if (result.success) {
+                                                    [self.navigationController popToRootViewControllerAnimated:YES];
+                                                } else {
+                                                    [WMUIUtility showAlertWithMessage:@"删除失败" viewController:self];
+                                                }
+                                            });
+                                        }];
+        }
     }
 }
 
