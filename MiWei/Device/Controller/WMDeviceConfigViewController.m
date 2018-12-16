@@ -80,10 +80,8 @@
 }
 
 - (void)onSearchTimeExpire {
-    if ([self.searchTimer isValid]) {
-        [self.searchTimer invalidate];
-        self.searchTimer = nil;
-    }
+    NSLog(@"lifei, onSearchTimeExpire");
+    [self stopSearchTimer];
     [[FogDeviceManager sharedInstance] stopSearchDevices];
     [[FogEasyLinkManager sharedInstance] stopEasyLink];
     [self.hud hideAnimated:YES];
@@ -91,24 +89,22 @@
 }
 
 - (void)onAddTimeExpire {
-    if ([self.addTimer isValid]) {
-        [self.addTimer invalidate];
-        self.addTimer = nil;
-    }
-    self.isAdding = NO;
+    NSLog(@"lifei, onAddTimeExpire");
+    [self stopAddTimer];
+    [self.hud hideAnimated:YES];
+    [WMUIUtility showAlertWithMessage:@"配网失败" viewController:self];
 }
 
 #pragma mark - FogDeviceDelegate
 - (void)didSearchDeviceReturnArray:(NSArray *)array {
     dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"lifei, didSearchDeviceReturnArray, count is %d", array.count);
         [[FogDeviceManager sharedInstance] stopSearchDevices];
         [[FogEasyLinkManager sharedInstance] stopEasyLink];
-        if([self.searchTimer isValid]) {
-            [self.searchTimer invalidate];
-            self.searchTimer = nil;
-        }
+        [self stopSearchTimer];
     
         if (array.count > 0) {
+            NSLog(@"lifei, deviceId is %@", self.deviceId);
             if (self.deviceId) {
                 self.addTimer = [NSTimer scheduledTimerWithTimeInterval:60
                                                                  target:self
@@ -117,11 +113,9 @@
                                                                 repeats:NO];
                 self.isAdding = YES;
                 [self checkAndAddDevice:^(BOOL success) {
+                    NSLog(@"lifei, didSearchDeviceReturnArray checkAndAddDevice success %d", success);
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        if ([self.addTimer isValid]) {
-                            [self.addTimer invalidate];
-                            self.addTimer = nil;
-                        }
+                        [self stopAddTimer];
                         [self.hud hideAnimated:YES];
                         if (success) {
                             [self popToDeviceListView];
@@ -151,6 +145,21 @@
 }
 
 #pragma mark - Private method
+- (void)stopSearchTimer {
+    if([self.searchTimer isValid]) {
+        [self.searchTimer invalidate];
+        self.searchTimer = nil;
+    }
+}
+
+- (void)stopAddTimer {
+    if ([self.addTimer isValid]) {
+        [self.addTimer invalidate];
+        self.addTimer = nil;
+    }
+    self.isAdding = NO;
+}
+
 - (void)popToDeviceListView {
     for (UIViewController *controller in self.navigationController.viewControllers) {
         if ([controller isKindOfClass:[WMDeviceViewController class]]) {
@@ -163,6 +172,7 @@
 
 - (void)checkAndAddDevice:(void (^)(BOOL))completeBlock {
     if (self.isAdding) {
+        NSLog(@"lifei, checkAndAddDevice isAdding");
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
         NSString *deviceId = self.deviceId ?: @"";
         [dic setObject:deviceId forKey:@"deviceID"];
@@ -171,12 +181,15 @@
                                   parameters:dic
                                     response:^(WMHTTPResult *result) {
                                         if (result.success) {
+                                            NSLog(@"lifei, checkAndAddDevice isAdding success");
                                             WMDevice *device = [WMDevice deviceFromHTTPData:result.content];
                                             if (device.online) {
+                                                NSLog(@"lifei, checkAndAddDevice isAdding success online");
                                                 [WMDeviceUtility addDevice:self.deviceId
                                                                   location:self.coord
                                                                       ssid:self.ssid
                                                                   complete:^(BOOL success) {
+                                                                      NSLog(@"lifei, checkAndAddDevice isAdding success online success %d", success);
                                                                       if (success) {
                                                                           completeBlock(YES);
                                                                       } else {
@@ -185,6 +198,7 @@
                                                                       }
                                                                   }];
                                             } else {
+                                                NSLog(@"lifei, checkAndAddDevice isAdding success not online");
                                                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                                                     [self checkAndAddDevice:completeBlock];
                                                 });
