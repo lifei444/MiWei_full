@@ -222,7 +222,7 @@
     //rankView
     str = detail.pm25RankText;
     if (str.length == 0) {
-        str = @"太幸福了，您的室内空气优于全国80%的空气，比其他人少吸了80%雾霾。";
+        str = @"暂无数据";
     }
     self.rankView.textView.text = str;
     
