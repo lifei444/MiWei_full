@@ -75,18 +75,18 @@
 //                                                 repeats:NO];
     
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
     [self.airlink start:self.ssid
                     key:self.pswCell.textField.text
                 timeout:90
             andCallback:^(MiWeiMXCHIPAirlinkEvent event) {
                 NSLog(@"config callback %ld", (long)event);
-                if (event == MiWeiMXCHIPAirlinkEventFound) {
-                    [self didSearchDevice];
-                } else if (event == MiWeiMXCHIPAirlinkEventStop) {
-                    [self onSearchTimeExpire];
-                }
+//                if (event == MiWeiMXCHIPAirlinkEventFound) {
+//                    [self didSearchDevice];
+//                } else if (event == MiWeiMXCHIPAirlinkEventStop) {
+//                    [self onSearchTimeExpire];
+//                }
             }];
+    [self didSearchDevice];
 }
 
 - (void)fingerTapped:(UITapGestureRecognizer *)gestureRecognizer {
@@ -117,7 +117,7 @@
 //        if (array.count > 0) {
             NSLog(@"lifei, deviceId is %@", self.deviceId);
             if (self.deviceId) {
-                self.addTimer = [NSTimer scheduledTimerWithTimeInterval:60
+                self.addTimer = [NSTimer scheduledTimerWithTimeInterval:90
                                                                  target:self
                                                                selector:@selector(onAddTimeExpire)
                                                                userInfo:nil
@@ -132,9 +132,11 @@
                         [self.hud hideAnimated:YES];
                         if (success) {
                             [self popToDeviceListView];
-                        } else {
-                            [WMUIUtility showAlertWithMessage:@"添加失败" viewController:self];
                         }
+                        //不需要提示
+//                        else {
+//                            [WMUIUtility showAlertWithMessage:@"添加失败" viewController:self];
+//                        }
                     });
                 }];
             } else {

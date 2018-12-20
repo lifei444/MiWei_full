@@ -96,6 +96,7 @@
                                                 NSString *ssid = [[FogEasyLinkManager sharedInstance] getSSID];
                                                 WMDeviceConfigViewController *vc = [[WMDeviceConfigViewController alloc] init];
                                                 vc.ssid = ssid;
+                                                vc.deviceId = self.SNTextField.text;
                                                 [self.navigationController pushViewController:vc animated:YES];
                                             } else if (result.success) {
                                                 WMDevice *device = [WMDevice deviceFromHTTPData:result.content];
