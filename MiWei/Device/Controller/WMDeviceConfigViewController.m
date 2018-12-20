@@ -99,10 +99,10 @@
 - (void)didSearchDeviceReturnArray:(NSArray *)array {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSLog(@"lifei, didSearchDeviceReturnArray, count is %d", array.count);
-        [[FogDeviceManager sharedInstance] stopSearchDevices];
-        [[FogEasyLinkManager sharedInstance] stopEasyLink];
-        [self stopSearchTimer];
-    
+//        [[FogDeviceManager sharedInstance] stopSearchDevices];
+//        [[FogEasyLinkManager sharedInstance] stopEasyLink];
+//        [self stopSearchTimer];
+//
         if (array.count > 0) {
             NSLog(@"lifei, deviceId is %@", self.deviceId);
             if (self.deviceId) {
@@ -115,6 +115,8 @@
                 [self checkAndAddDevice:^(BOOL success) {
                     NSLog(@"lifei, didSearchDeviceReturnArray checkAndAddDevice success %d", success);
                     dispatch_async(dispatch_get_main_queue(), ^{
+                        [[FogDeviceManager sharedInstance] stopSearchDevices];
+                        [[FogEasyLinkManager sharedInstance] stopEasyLink];
                         [self stopAddTimer];
                         [self.hud hideAnimated:YES];
                         if (success) {
