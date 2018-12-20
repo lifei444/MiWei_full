@@ -99,10 +99,7 @@
 - (void)didSearchDeviceReturnArray:(NSArray *)array {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSLog(@"lifei, didSearchDeviceReturnArray, count is %d", array.count);
-//        [[FogDeviceManager sharedInstance] stopSearchDevices];
-//        [[FogEasyLinkManager sharedInstance] stopEasyLink];
-//        [self stopSearchTimer];
-//
+        [self stopSearchTimer];
         if (array.count > 0) {
             NSLog(@"lifei, deviceId is %@", self.deviceId);
             if (self.deviceId) {
@@ -227,6 +224,8 @@
 
 - (WMDeviceConfigCell *)wifiCell {
     if (!_wifiCell) {
+        NSString *ssid = [[FogEasyLinkManager sharedInstance] getSSID];
+        self.ssid = ssid;
         _wifiCell = [[WMDeviceConfigCell alloc] initWithFrame:WM_CGRectMake(0, Wifi_Cell_Y, Screen_Width, Cell_Height)];
         _wifiCell.titleLabel.text = @"wifi";
         _wifiCell.textField.text = self.ssid;
