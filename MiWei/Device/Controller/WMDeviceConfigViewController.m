@@ -14,6 +14,7 @@
 #import "MBProgressHUD.h"
 #import "WMDeviceUtility.h"
 #import "WMDeviceViewController.h"
+#import "MiWeiAirLink.h"
 
 #define Image_Y             (63 + Navi_Height)
 #define Image_Width         90
@@ -64,15 +65,23 @@
 #pragma mark - Target action
 - (void)addEvent:(UIButton *)button {
     NSLog(@"%s",__func__);
-    [[FogEasyLinkManager sharedInstance] startEasyLinkWithPassword:self.pswCell.textField.text];
-    [FogDeviceManager sharedInstance].delegate = self;
-    [[FogDeviceManager sharedInstance] startSearchDevices];
-    self.searchTimer = [NSTimer scheduledTimerWithTimeInterval:90
-                                                  target:self
-                                                selector:@selector(onSearchTimeExpire)
-                                                userInfo:nil
-                                                 repeats:NO];
+//    [[FogEasyLinkManager sharedInstance] startEasyLinkWithPassword:self.pswCell.textField.text];
+//    [FogDeviceManager sharedInstance].delegate = self;
+//    [[FogDeviceManager sharedInstance] startSearchDevices];
+//    self.searchTimer = [NSTimer scheduledTimerWithTimeInterval:90
+//                                                  target:self
+//                                                selector:@selector(onSearchTimeExpire)
+//                                                userInfo:nil
+//                                                 repeats:NO];
+    
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    [self.airlink start:self.pswCell.textField.text
+                    key:self.ssid
+                timeout:90
+            andCallback:^(MiWeiMXCHIPAirlinkEvent event) {
+                [WMUIUtility showAlertWithMessage:@"配网失败" viewController:self];
+            }];
 }
 
 - (void)fingerTapped:(UITapGestureRecognizer *)gestureRecognizer {
@@ -144,6 +153,17 @@
 }
 
 #pragma mark - Private method
+-(void)viewDidAppear:(BOOL)animated {
+    _airlink = [[MiWeiAirLink alloc] init];
+    [super viewDidAppear:animated];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [_airlink stop];
+    _airlink = nil;
+    [super viewWillDisappear:animated];
+}
+
 - (void)stopSearchTimer {
     if([self.searchTimer isValid]) {
         [self.searchTimer invalidate];

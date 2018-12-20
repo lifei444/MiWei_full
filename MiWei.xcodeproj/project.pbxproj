@@ -96,6 +96,7 @@
 		27B38246207CFB77006036A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27B38245207CFB77006036A0 /* Assets.xcassets */; };
 		27B38249207CFB77006036A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27B38247207CFB77006036A0 /* LaunchScreen.storyboard */; };
 		27B3824C207CFB77006036A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B3824B207CFB77006036A0 /* main.m */; };
+		601704FB21CBA31B00686B0E /* MiWeiAirLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 601704FA21CBA31B00686B0E /* MiWeiAirLink.m */; };
 		9C206F662114782600672206 /* WMProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C206F642114782600672206 /* WMProfile.m */; };
 		9C206F6C2116E0E300672206 /* FogV3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C206F672116AED800672206 /* FogV3.framework */; };
 		9C206F702116EBEC00672206 /* WMDeviceConfigCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C206F6F2116EBEC00672206 /* WMDeviceConfigCell.m */; };
@@ -389,6 +390,8 @@
 		27B38248207CFB77006036A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		27B3824A207CFB77006036A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		27B3824B207CFB77006036A0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		601704F921CBA31B00686B0E /* MiWeiAirLink.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MiWeiAirLink.h; sourceTree = "<group>"; };
+		601704FA21CBA31B00686B0E /* MiWeiAirLink.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MiWeiAirLink.m; sourceTree = "<group>"; };
 		73BAF809085A0165EFBE4095 /* Pods-MiWei.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiWei.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MiWei/Pods-MiWei.debug.xcconfig"; sourceTree = "<group>"; };
 		7F31000D3EC7E635B8F285CC /* Pods_MiWei.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MiWei.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C206F642114782600672206 /* WMProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMProfile.m; sourceTree = "<group>"; };
@@ -1018,6 +1021,8 @@
 				9C6CAC6F2132BDF5009EBE98 /* WMStrainerResetViewController.m */,
 				9C49B5402149851E00C5008C /* WMStoreWebViewController.h */,
 				9C49B5412149851E00C5008C /* WMStoreWebViewController.m */,
+				601704F921CBA31B00686B0E /* MiWeiAirLink.h */,
+				601704FA21CBA31B00686B0E /* MiWeiAirLink.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1561,6 +1566,7 @@
 				2708B8D32084F85500A760E7 /* PYGrid.m in Sources */,
 				271A9CEF2081B31A0028D20D /* WMQRCode.m in Sources */,
 				9C4D7642212993070089F728 /* WMDeviceStoreItem.m in Sources */,
+				601704FB21CBA31B00686B0E /* MiWeiAirLink.m in Sources */,
 				9C4D763F212991300089F728 /* WMDeviceStoreView.m in Sources */,
 				9C4D7664212C13400089F728 /* WMAboutViewController.m in Sources */,
 				9C5EDCEF211076EC0085ADEE /* UIImageView+WebCache.m in Sources */,

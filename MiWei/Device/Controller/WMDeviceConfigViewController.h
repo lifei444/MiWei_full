@@ -10,11 +10,13 @@
 #import "WMViewController.h"
 #import "WMDevice.h"
 #import <CoreLocation/CoreLocation.h>
+#import "MiWeiAirLink.h"
 
 @interface WMDeviceConfigViewController : WMViewController
 
 @property (nonatomic, copy) NSString *ssid;
 @property (nonatomic, strong) NSString *deviceId;
 @property (nonatomic, assign) CLLocationCoordinate2D coord;
+@property (nonatomic, strong) MiWeiAirLink *airlink;
 
 @end
