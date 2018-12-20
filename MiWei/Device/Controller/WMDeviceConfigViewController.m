@@ -33,14 +33,14 @@
 #define Button_Y            (Psw_Cell_Y + Cell_Height + Button_Gap)
 #define Button_Width        (Screen_Width - Button_X * 2)
 
-@interface WMDeviceConfigViewController () <UITextFieldDelegate, FogDeviceDelegate>
+@interface WMDeviceConfigViewController () <UITextFieldDelegate>
 
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) WMDeviceConfigCell *wifiCell;
 @property (nonatomic, strong) WMDeviceConfigCell *pswCell;
 @property (nonatomic, strong) UIButton *confirmButton;
 @property (nonatomic, strong) MBProgressHUD *hud;
-@property (nonatomic, strong) NSTimer *searchTimer;
+//@property (nonatomic, strong) NSTimer *searchTimer;
 @property (nonatomic, strong) NSTimer *addTimer;
 @property (nonatomic, assign) BOOL isAdding;
 
@@ -76,11 +76,16 @@
     
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    [self.airlink start:self.pswCell.textField.text
-                    key:self.ssid
+    [self.airlink start:self.ssid
+                    key:self.pswCell.textField.text
                 timeout:90
             andCallback:^(MiWeiMXCHIPAirlinkEvent event) {
-                [WMUIUtility showAlertWithMessage:@"配网失败" viewController:self];
+                NSLog(@"config callback %ld", (long)event);
+                if (event == MiWeiMXCHIPAirlinkEventFound) {
+                    [self didSearchDevice];
+                } else if (event == MiWeiMXCHIPAirlinkEventStop) {
+                    [self onSearchTimeExpire];
+                }
             }];
 }
 
@@ -90,7 +95,7 @@
 
 - (void)onSearchTimeExpire {
     NSLog(@"lifei, onSearchTimeExpire");
-    [self stopSearchTimer];
+//    [self stopSearchTimer];
     [[FogDeviceManager sharedInstance] stopSearchDevices];
     [[FogEasyLinkManager sharedInstance] stopEasyLink];
     [self.hud hideAnimated:YES];
@@ -105,11 +110,11 @@
 }
 
 #pragma mark - FogDeviceDelegate
-- (void)didSearchDeviceReturnArray:(NSArray *)array {
+- (void)didSearchDevice {
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSLog(@"lifei, didSearchDeviceReturnArray, count is %d", array.count);
-        [self stopSearchTimer];
-        if (array.count > 0) {
+//        NSLog(@"lifei, didSearchDeviceReturnArray, count is %d", array.count);
+//        [self stopSearchTimer];
+//        if (array.count > 0) {
             NSLog(@"lifei, deviceId is %@", self.deviceId);
             if (self.deviceId) {
                 self.addTimer = [NSTimer scheduledTimerWithTimeInterval:60
@@ -138,11 +143,12 @@
                     [self popToDeviceListView];
                 });
             }
-        } else {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.hud hideAnimated:YES];
-            });
-        }
+//        }
+//        else {
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [self.hud hideAnimated:YES];
+//            });
+//        }
     });
 }
 
@@ -163,13 +169,13 @@
     _airlink = nil;
     [super viewWillDisappear:animated];
 }
-
-- (void)stopSearchTimer {
-    if([self.searchTimer isValid]) {
-        [self.searchTimer invalidate];
-        self.searchTimer = nil;
-    }
-}
+//
+//- (void)stopSearchTimer {
+//    if([self.searchTimer isValid]) {
+//        [self.searchTimer invalidate];
+//        self.searchTimer = nil;
+//    }
+//}
 
 - (void)stopAddTimer {
     if ([self.addTimer isValid]) {
