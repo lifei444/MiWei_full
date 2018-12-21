@@ -95,9 +95,6 @@
 
 - (void)onSearchTimeExpire {
     NSLog(@"lifei, onSearchTimeExpire");
-//    [self stopSearchTimer];
-    [[FogDeviceManager sharedInstance] stopSearchDevices];
-    [[FogEasyLinkManager sharedInstance] stopEasyLink];
     [self.hud hideAnimated:YES];
     [WMUIUtility showAlertWithMessage:@"配网失败" viewController:self];
 }
@@ -111,13 +108,13 @@
 
 #pragma mark - FogDeviceDelegate
 - (void)didSearchDevice {
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(30 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //        NSLog(@"lifei, didSearchDeviceReturnArray, count is %d", array.count);
 //        [self stopSearchTimer];
 //        if (array.count > 0) {
             NSLog(@"lifei, deviceId is %@", self.deviceId);
             if (self.deviceId) {
-                self.addTimer = [NSTimer scheduledTimerWithTimeInterval:90
+                self.addTimer = [NSTimer scheduledTimerWithTimeInterval:60
                                                                  target:self
                                                                selector:@selector(onAddTimeExpire)
                                                                userInfo:nil
@@ -126,8 +123,6 @@
                 [self checkAndAddDevice:^(BOOL success) {
                     NSLog(@"lifei, didSearchDeviceReturnArray checkAndAddDevice success %d", success);
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [[FogDeviceManager sharedInstance] stopSearchDevices];
-                        [[FogEasyLinkManager sharedInstance] stopEasyLink];
                         [self stopAddTimer];
                         [self.hud hideAnimated:YES];
                         if (success) {
