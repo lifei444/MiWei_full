@@ -37,7 +37,7 @@ NSString *const WMDeviceListCountDownNotification = @"WMDeviceListCountDownNotif
 #define CollectionX                 SearchBarX
 #define CollectionY                 (SearchBarY + SearchBarHeight + GapYBetweenSearchAndContent)
 #define CollectionWidth             SearchBarWidth
-#define CollectionHeight            500//TODO
+#define CollectionHeight            (IsiPhoneX ? 580 : 500)//500//TODO
 
 #define EdgeGap                     8
 #define CellWidth                   176

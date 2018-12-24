@@ -18,7 +18,7 @@
 #import "WMSearchBar.h"
 
 #define SearchBarX                  8
-#define SearchBarY                  20//(Navi_Height + 7)
+#define SearchBarY                  (IsiPhoneX ? 44 : 20)//20//(Navi_Height + 7)
 #define SearchBarWidth              359
 #define SearchBarHeight             40
 
@@ -26,7 +26,7 @@
 #define CollectionX                 SearchBarX
 #define CollectionY                 (SearchBarY + SearchBarHeight + GapYBetweenSearchAndContent)
 #define CollectionWidth             SearchBarWidth
-#define CollectionHeight            590//TODO
+#define CollectionHeight            (IsiPhoneX ? 670 : 590)//590//TODO
 
 #define EdgeGap                     8
 #define CellWidth                   176
