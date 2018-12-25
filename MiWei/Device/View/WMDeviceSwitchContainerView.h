@@ -31,6 +31,8 @@
 
 - (void)setModel:(WMDeviceDetail *)detail;
 
+- (void)refreshTimingView:(WMDeviceDetail *)detail;
+
 - (void)stopTimerIfNeeded;
 
 @end

@@ -112,7 +112,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self refreshData:self.deviceDetail];
-    self.timer = [NSTimer timerWithTimeInterval:10
+    self.timer = [NSTimer timerWithTimeInterval:2
                                          target:self
                                        selector:@selector(onTimer)
                                        userInfo:nil
@@ -148,6 +148,7 @@
                                         WMDeviceDetail *detail = [WMDeviceDetail deviceDetailFromHTTPData:content];
                                         dispatch_async(dispatch_get_main_queue(), ^{
                                             [self refreshData:detail];
+                                            [self.switchContainerView refreshTimingView:detail];
                                             if (with) {
                                                 [self.switchContainerView setModel:detail];
                                             }

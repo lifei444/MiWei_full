@@ -68,7 +68,7 @@
 @property (nonatomic, strong) WMDeviceRankView *rankView;
 @property (nonatomic, strong) WMDeviceSwitchContainerView *switchContainerView;
 @property (nonatomic, strong) WMDeviceDataView *dataView;
-//10s 刷新 timer
+// 刷新 timer
 @property (nonatomic, strong) NSTimer *refreshTimer;
 //倒计时 timer
 @property (nonatomic, strong) NSTimer *countDownTimer;
@@ -99,7 +99,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self refreshData:self.deviceDetail];
-    self.refreshTimer = [NSTimer timerWithTimeInterval:10
+    self.refreshTimer = [NSTimer timerWithTimeInterval:2
                                          target:self
                                        selector:@selector(onRefreshTimer)
                                        userInfo:nil
@@ -157,6 +157,7 @@
                                         WMDeviceDetail *detail = [WMDeviceDetail deviceDetailFromHTTPData:content];
                                         dispatch_async(dispatch_get_main_queue(), ^{
                                             [self refreshData:detail];
+                                            [self.switchContainerView refreshTimingView:detail];
                                             if (with) {
                                                 [self.switchContainerView setModel:detail];
                                             }

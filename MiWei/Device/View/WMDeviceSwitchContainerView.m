@@ -158,6 +158,17 @@ typedef NS_ENUM(NSUInteger, DeviceSetType) {
     }
 }
 
+- (void)refreshTimingView:(WMDeviceDetail *)detail {
+    self.deviceDetail.fanTiming = detail.fanTiming;
+    if (detail.fanTiming) {
+        self.timingView.name.text = @"开";
+        self.timingView.status = 1;
+    } else {
+        self.timingView.name.text = @"关";
+        self.timingView.status = 0;
+    }
+}
+
 - (void)stopTimerIfNeeded {
     if (self.refreshTimer) {
         [self.refreshTimer invalidate];
