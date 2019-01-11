@@ -241,7 +241,7 @@
             [WMUIUtility showAlertWithMessage:@"没有权限" viewController:self];
         }
     } else if ([cell.textLabel.text isEqualToString:@"分享设备"]) {
-        NSString *str = [NSString stringWithFormat:@"来自《%@》的米微净化器（检测仪）《%@》分享，请点击如下链接查看设备https://mweb.mivei.com/addDevice/%@", [WMHTTPUtility currentProfile].name, self.detail.name, self.detail.deviceId];
+        NSString *str = [NSString stringWithFormat:@"来自《%@》的米微净化器（检测仪）《%@》分享，请点击如下链接查看设备https://mweb.mivei.com/addDevice?deviceID=%@", [WMHTTPUtility currentProfile].name, self.detail.name, self.detail.deviceId];
         SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
         req.text = str;
         req.bText = YES;
