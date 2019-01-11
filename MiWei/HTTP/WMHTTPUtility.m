@@ -217,7 +217,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
 + (void)loginWithPhone:(NSString *)phone
                    psw:(NSString *)psw
             wxBindCode:(NSNumber *)wxBindCode
-              complete:(void (^)(BOOL))completeBlock {
+              complete:(void (^)(BOOL result))completeBlock {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     //4 for iOS APP
     [dic setObject:@(4) forKey:@"loginType"];
@@ -294,6 +294,46 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
 
 + (WMProfile *)currentProfile {
     return myProfile;
+}
+
++ (NSString *)descriptionWithErrorCode:(NSInteger)errorCode {
+    NSString *result = @"";
+    switch (errorCode) {
+        case 0x0201:
+            result = @"用户名或密码错误";
+            break;
+        case 0x0202:
+            result = @"用户名已经存在";
+            break;
+        case 0x0203:
+            result = @"用户已经退出";
+            break;
+        case 0x0204:
+            result = @"短信验证码发送失败";
+            break;
+        case 0x0205:
+            result = @"验证码错误";
+            break;
+        case 0x0206:
+            result = @"角色已存在";
+            break;
+        case 0x0207:
+            result = @"验证码请求太频繁，请稍候重试";
+            break;
+        case 0x0208:
+            result = @"手机号不存在";
+            break;
+        case 0x0209:
+            result = @"用户不存在";
+            break;
+        case 0x020c:
+            result = @"手机号已存在";
+            break;
+            
+        default:
+            break;
+    }
+    return result;
 }
 
 @end

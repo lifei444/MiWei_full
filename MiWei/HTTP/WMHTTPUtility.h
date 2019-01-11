@@ -43,10 +43,12 @@ typedef NS_ENUM(NSUInteger, WMAuthResult) {
 + (void)loginWithPhone:(NSString *)phone
                    psw:(NSString *)psw
             wxBindCode:(NSNumber *)wxBindCode
-              complete:(void (^)(BOOL))completeBlock;
+              complete:(void (^)(BOOL result))completeBlock;
 
 + (void)loginWithWXOAuthCode:(NSString *)wxOAuthCode
                     complete:(void (^)(WMAuthResult result, NSNumber *wxBindCode))completeBlock;
 
 + (WMProfile *)currentProfile;
+
++ (NSString *)descriptionWithErrorCode:(NSInteger)errorCode;
 @end

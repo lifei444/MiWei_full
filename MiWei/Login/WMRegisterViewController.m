@@ -81,7 +81,11 @@
                                                 [self.navigationController popViewControllerAnimated:YES];
                                             } else {
                                                 NSLog(@"registerAction error");
-                                                [WMUIUtility showAlertWithMessage:@"注册失败" viewController:self];
+                                                NSString *message = [WMHTTPUtility descriptionWithErrorCode:result.errorCode];
+                                                if (message.length == 0) {
+                                                    message = @"注册失败";
+                                                }
+                                                [WMUIUtility showAlertWithMessage:message viewController:self];
                                             }
                                         });
                                     }];
