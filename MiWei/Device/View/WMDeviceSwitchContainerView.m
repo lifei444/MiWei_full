@@ -135,6 +135,11 @@ typedef NS_ENUM(NSUInteger, DeviceSetType) {
             self.auxiliaryHeatView.isOn = YES;
             self.airSpeedView.isOn = YES;
             self.timingView.isOn = YES;
+            if (!detail.powerOn) {
+                self.ventilationView.isOn = NO;
+                self.auxiliaryHeatView.isOn = NO;
+                self.airSpeedView.isOn = NO;
+            }
         } else {
             self.powerOnView.isOn = NO;
             self.ventilationView.isOn = NO;
