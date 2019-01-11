@@ -15,6 +15,7 @@
 #import "WMDeviceUtility.h"
 #import "WMDeviceViewController.h"
 #import "MiWeiAirLink.h"
+#import <MapKit/MapKit.h>
 
 #define Image_Y             (63 + Navi_Height)
 #define Image_Width         90
@@ -33,7 +34,7 @@
 #define Button_Y            (Psw_Cell_Y + Cell_Height + Button_Gap)
 #define Button_Width        (Screen_Width - Button_X * 2)
 
-@interface WMDeviceConfigViewController () <UITextFieldDelegate>
+@interface WMDeviceConfigViewController () <UITextFieldDelegate, MKMapViewDelegate>
 
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) WMDeviceConfigCell *wifiCell;
@@ -43,7 +44,8 @@
 //@property (nonatomic, strong) NSTimer *searchTimer;
 @property (nonatomic, strong) NSTimer *addTimer;
 @property (nonatomic, assign) BOOL isAdding;
-
+@property (nonatomic, strong) MKMapView *mapView;
+@property (nonatomic, strong) CLLocationManager *locationManager;
 @end
 
 @implementation WMDeviceConfigViewController
@@ -57,6 +59,8 @@
     [self.view addSubview:self.wifiCell];
     [self.view addSubview:self.pswCell];
     [self.view addSubview:self.confirmButton];
+    [self.view addSubview:self.mapView];
+    [self requestLocationAuth];
     self.view.userInteractionEnabled = YES;
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fingerTapped:)];
     [self.view addGestureRecognizer:singleTap];
@@ -149,6 +153,12 @@
     });
 }
 
+#pragma mark - MKMapViewDelegate
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
+    self.coord = [userLocation coordinate];
+    [self.mapView setShowsUserLocation:NO];
+}
+
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
@@ -173,6 +183,22 @@
 //        self.searchTimer = nil;
 //    }
 //}
+
+- (void)requestLocationAuth {
+    //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    //判断当前设备定位服务是否打开
+    if (![CLLocationManager locationServicesEnabled]) {
+        NSLog(@"设备尚未打开定位服务");
+    }
+    
+    //判断当前设备版本大于iOS8以后的话执行里面的方法
+    if ([UIDevice currentDevice].systemVersion.floatValue >=8.0) {
+        //当用户使用的时候授权
+        self.locationManager = [[CLLocationManager alloc] init];
+        [self.locationManager requestWhenInUseAuthorization];
+    }
+    //    });
+}
 
 - (void)stopAddTimer {
     if ([self.addTimer isValid]) {
@@ -276,5 +302,15 @@
         _confirmButton.layer.cornerRadius = 5;
     }
     return _confirmButton;
+}
+
+- (MKMapView *)mapView {
+    if (!_mapView) {
+        _mapView = [[MKMapView alloc] initWithFrame:CGRectZero];
+        [_mapView setShowsUserLocation:YES];
+        _mapView.delegate = self;
+        _mapView.hidden = YES;
+    }
+    return _mapView;
 }
 @end
