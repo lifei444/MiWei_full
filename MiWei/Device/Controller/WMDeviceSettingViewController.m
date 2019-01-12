@@ -205,7 +205,7 @@
             [WMUIUtility showAlertWithMessage:@"设备不在线" viewController:self];
         } else {
             if (self.detail.permission == WMDevicePermissionTypeOwner) {
-                if (self.detail.newestVerFw > self.detail.verFW) {
+                if ([self.detail.newestVerFw intValue] > [self.detail.verFW intValue]) {
                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
                                                                         message:@"是否升级？"
                                                                        delegate:self
