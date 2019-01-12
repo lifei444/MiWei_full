@@ -102,6 +102,18 @@ typedef NS_ENUM(NSUInteger, DeviceSetType) {
 
 #pragma mark - Public method
 - (void)setModel:(WMDeviceDetail *)detail {
+    //正在设置的属性保持被设置的状态
+    if (self.isSetting) {
+        if (self.deviceSetOperation.deviceSetType == DeviceSetTypePowerOn) {
+            detail.powerOn = [self.deviceSetOperation.deviceSetValue boolValue];
+        } else if (self.deviceSetOperation.deviceSetType == DeviceSetTypeVentilation) {
+            detail.ventilationMode = [self.deviceSetOperation.deviceSetValue intValue];
+        } else if (self.deviceSetOperation.deviceSetType == DeviceSetTypeAuxiliary) {
+            detail.auxiliaryHeat = [self.deviceSetOperation.deviceSetValue boolValue];
+        } else if (self.deviceSetOperation.deviceSetType == DeviceSetTypeAirSpeed) {
+            detail.airSpeed = [self.deviceSetOperation.deviceSetValue intValue];
+        }
+    }
     self.deviceDetail = detail;
     if (detail.powerOn) {
         self.powerOnView.name.text = @"开";

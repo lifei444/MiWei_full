@@ -106,7 +106,7 @@
     [self.scrollView addSubview:self.pollutionChangeView];
     [self.scrollView addSubview:self.pollutionSumView];
     self.scrollView.contentSize = WM_CGSizeMake(Screen_Width, Scroll_Height);
-    [self loadDeviceDetailWithSwitchContainer:YES];
+    [self loadDeviceDetailWithSwitchContainer];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -132,11 +132,11 @@
 #pragma mark - Target action
 - (void)onTimer {
     NSLog(@"WMSellDeviceDetailViewController onTimer");
-    [self loadDeviceDetailWithSwitchContainer:NO];
+    [self loadDeviceDetailWithSwitchContainer];
 }
 
 #pragma mark - Private
-- (void)loadDeviceDetailWithSwitchContainer:(BOOL)with {
+- (void)loadDeviceDetailWithSwitchContainer {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:self.device.deviceId forKey:@"deviceID"];
     [WMHTTPUtility requestWithHTTPMethod:WMHTTPRequestMethodGet
@@ -149,9 +149,7 @@
                                         dispatch_async(dispatch_get_main_queue(), ^{
                                             [self refreshData:detail];
                                             [self.switchContainerView refreshTimingView:detail];
-                                            if (with) {
-                                                [self.switchContainerView setModel:detail];
-                                            }
+                                            [self.switchContainerView setModel:detail];
                                         });
                                     } else {
                                         NSLog(@"loadDeviceDetail error");
