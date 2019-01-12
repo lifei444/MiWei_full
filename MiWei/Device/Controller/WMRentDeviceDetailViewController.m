@@ -248,8 +248,8 @@
     //remaining time
     int remainingSecond = [self.deviceDetail.rentInfo.remainingTime intValue];
     if (!self.hasShowAlert) {
-        self.hasShowAlert = YES;
         if (remainingSecond > 0 && remainingSecond < 600) {
+            self.hasShowAlert = YES;
             [WMUIUtility showAlertWithMessage:@"租赁时长即将到期，到时请点击续费继续使用。" viewController:self];
         }
     }
