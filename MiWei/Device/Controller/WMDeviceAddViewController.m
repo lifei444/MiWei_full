@@ -18,6 +18,7 @@
 #import "MBProgressHUD.h"
 #import "WMHTTPUtility.h"
 #import "WMDeviceViewController.h"
+#import "WMDevicePayViewController.h"
 
 #define Header_Height   227
 #define Footer_Height   44
@@ -60,7 +61,9 @@
                               complete:^(BOOL result) {
                                   [self.hud hideAnimated:YES];
                                   if (result) {
-                                      //TODO 支付
+                                      WMDevicePayViewController *vc = [[WMDevicePayViewController alloc] init];
+                                      vc.deviceId = self.device.deviceId;
+                                      [self.navigationController pushViewController:vc animated:YES];
                                   } else {
                                       [WMUIUtility showAlertWithMessage:@"添加失败" viewController:self];
                                   }
