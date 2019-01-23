@@ -52,7 +52,7 @@
     WMPayment *payment = model;
     self.nameLabel.text = payment.deviceName;
     
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[payment.payTime longLongValue] / 1000];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[payment.payTime longLongValue]];
     self.payTimeLabel.text = [self.formatterYMD stringFromDate:date];
     self.priceLabel.text = [WMDeviceUtility generatePriceStringFromPrice:payment.price andRentTime:payment.rentTime];
     

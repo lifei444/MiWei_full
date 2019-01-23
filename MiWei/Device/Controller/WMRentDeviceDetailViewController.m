@@ -209,7 +209,7 @@
     NSString *str;
     //price
     if (detail.rentInfo) {
-        NSDate *date = [NSDate dateWithTimeIntervalSince1970:[detail.rentInfo.startTime longLongValue] / 1000];
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:[detail.rentInfo.startTime longLongValue]];
         str = [self.formatter stringFromDate:date];
         str = [NSString stringWithFormat:@"%@   %@", str, [WMDeviceUtility generatePriceStringFromPrice:detail.rentInfo.price andRentTime:detail.rentInfo.rentTime]];
         self.priceLabel.text = str;

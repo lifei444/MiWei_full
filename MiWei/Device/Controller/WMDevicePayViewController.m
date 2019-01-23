@@ -107,7 +107,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     long long lastRentStartTime = [self.rentInfoForPay.rentStartTime longLongValue];
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:lastRentStartTime/1000];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:lastRentStartTime];
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSUInteger unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
     NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:date];
