@@ -130,7 +130,13 @@
                                         dispatch_async(dispatch_get_main_queue(), ^{
                                             [self.hud hideAnimated:YES];
                                             if (result.success) {
-                                                [self.navigationController popViewControllerAnimated:YES];
+                                                UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
+                                                                                                               message:@"反馈成功"
+                                                                                                        preferredStyle:UIAlertControllerStyleAlert];
+                                                [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                                                    [self.navigationController popViewControllerAnimated:YES];
+                                                }]];
+                                                [self presentViewController:alert animated:true completion:nil];
                                             } else {
                                                 NSLog(@"/mobile/user/submitIssue error result is %@", result);
                                                 [WMUIUtility showAlertWithMessage:@"提交失败" viewController:self];
