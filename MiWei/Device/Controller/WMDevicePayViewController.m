@@ -76,6 +76,15 @@
                                         [WXApi sendReq:request];
                                     } else {
                                         NSLog(@"/mobile/wetchat/requestPay error, result is %@", result);
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            if (result.errorCode == 0x301) {
+                                                [WMUIUtility showAlertWithMessage:@"设备不在线" viewController:self];
+                                            } else {
+                                                if (result.message.length > 0) {
+                                                    [WMUIUtility showAlertWithMessage:result.message viewController:self];
+                                                }
+                                            }
+                                        });
                                     }
                                 }];
 }
